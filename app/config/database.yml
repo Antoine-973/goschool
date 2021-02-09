@@ -1,0 +1,5 @@
+driver: mysql
+host: localhost
+dbname: doctolab
+username: root
+password: ''
