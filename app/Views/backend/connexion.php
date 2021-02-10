@@ -11,29 +11,29 @@
 	<body>
 		<div class="container">
 			<div class="row">
-				<div class="col-6">
-                <a href="/admin"><img src="images/logo.svg" alt="go school logo"></a>
+				<div class="col-6 left">
+						<img src="images/goschool.svg"/>
 						<p>Bienvenue à l’école de la réussite</p>
 				</div>
-				<div class="col-6">
+				<div class="col-6 right">
 					<div class="row">
 							<div class="col-12">
-								<div class="col-12">
+								<div class="formContainer--form white">
 									<label>Adresse e-mail :</label><br>
-									<input type="email" class="form">
-								</div>
-								<div class="col-12">
+									<input type="email" class="form"><br>
+
 									<label>Mot de passe :</label><br>
-									<input type="password" class="form" placeholder="*******">
+									<input type="password" class="form" placeholder="*******"><br>
+
+									<a href="">Mot de passe oublié</a><br>
+									<button type="submit" class="button button--connexion">Se connecter</button>
 								</div>
-								<div class="col-12">
-									<a href="">Mot de passe oublié</a>
-								</div>
-								<button type="submit" class="button button--connexion">Se connecter</button>
 							</div>
 							<div class="col-12">
-								<p>Vous n'avez pas encore de compte ?</p>
-								<button type="submit" class="button button--contact">Nous contacter</button>
+								<div class="formContainer--contact white">
+									<p>Vous n'avez pas encore de compte ?</p>
+									<button type="submit" class="button button--contact">Nous contacter</button>
+								</div>
 							</div>
 					</div>
 				</div>

@@ -32,4 +32,11 @@
             background-color: lighten(#00A2AC, 10%);
         }
     }
+    &--contact{
+        color: #00A2AC;
+        border-color: #00A2AC;
+        &:hover{
+            background-color: lighten(#00A2AC, 10%);
+        }
+    }
 }
