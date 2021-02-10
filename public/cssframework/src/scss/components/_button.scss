@@ -26,4 +26,10 @@
             background-color: lighten($grey, 10%);
         }
     }
+    &--connexion{
+        background-color: #00A2AC;
+        &:hover{
+            background-color: lighten(#00A2AC, 10%);
+        }
+    }
 }
