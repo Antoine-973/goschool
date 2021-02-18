@@ -1,5 +1,5 @@
 driver: mysql
 host: localhost
-dbname: doctolab
-username: root
-password: ''
+dbname: goschool
+username: admin
+password: 'kenny2009'
