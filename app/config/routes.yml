@@ -8,3 +8,6 @@
 /admin:
   controller: AdminController
   method: index
+/connexion:
+  controller: AdminConnexionController
+  method: index
