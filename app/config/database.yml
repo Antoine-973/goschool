@@ -1,5 +1,0 @@
-driver: mysql
-host: localhost
-dbname: goschool
-username: admin
-password: 'kenny2009'
