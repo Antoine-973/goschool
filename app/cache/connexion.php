@@ -18,7 +18,7 @@
                             <h1>Bienvenue à l'école de la reussite</h1>
                         </div>
 
-                        <div class=logo">
+                        <div class="logo">
                             <img class="logo" src="images/logo.svg">
                         </div>
                     </div>

@@ -10,7 +10,6 @@ body.admin-login{
             position: relative;
             .container-leading{
                 text-align: center;
-                width: 50%;
                 position: absolute;
                 top: 50%;
                 left: 50%;
@@ -25,6 +24,10 @@ body.admin-login{
                     height: 310px;
                     width: 400px;
                 }
+
+                .copyright {
+                    bottom: 0;
+                }
             }
 
         }
@@ -36,7 +39,7 @@ body.admin-login{
 
             .container-form {
                 border-radius: 8px;
-                background: white;
+                background: $white;
                 padding: 20px;
                 width: 50%;
                 position: absolute;

@@ -131,7 +131,7 @@ p {
   background: none;
   background-color: #AAA;
   color: #FFF;
-  padding: 1em 2em;
+  padding: 1em 6em;
   display: inline-block;
   transition: all 0.3s;
   text-decoration: none;
@@ -148,14 +148,6 @@ p {
   background-color: #c4c4c4;
 }
 
-.button--success {
-  background-color: #00A2AC;
-}
-
-.button--success:hover {
-  background-color: #c4c4c4;
-}
-
 .button--alert {
   background-color: #ce0a0a;
 }
@@ -169,15 +161,6 @@ p {
 }
 
 .button--connexion:hover {
-  background-color: #00d2df;
-}
-
-.button--contact {
-  color: #00A2AC;
-  border-color: #00A2AC;
-}
-
-.button--contact:hover {
   background-color: #00d2df;
 }
 
@@ -247,7 +230,6 @@ body.admin-login .col-6.connexion-leading {
 
 body.admin-login .col-6.connexion-leading .container-leading {
   text-align: center;
-  width: 50%;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -265,6 +247,10 @@ body.admin-login .col-6.connexion-leading .container-leading .logo {
   width: 400px;
 }
 
+body.admin-login .col-6.connexion-leading .container-leading .copyright {
+  bottom: 0;
+}
+
 body.admin-login .col-6.connexion-form {
   height: 100vh;
   background-color: #363740;
@@ -273,7 +259,7 @@ body.admin-login .col-6.connexion-form {
 
 body.admin-login .col-6.connexion-form .container-form {
   border-radius: 8px;
-  background: white;
+  background: #FFF;
   padding: 20px;
   width: 50%;
   position: absolute;

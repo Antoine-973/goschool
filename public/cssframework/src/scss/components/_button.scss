@@ -3,7 +3,7 @@
     background: none;
     background-color: $grey;
     color: $white;
-    padding: 1em 2em;
+    padding: 1em 6em;
     display: inline-block;
     transition: all 0.3s;
     text-decoration: none;
@@ -14,12 +14,6 @@
     &:hover {
         background-color: lighten($grey, 10%);
     }
-    &--success{
-        background-color: $green;
-        &:hover{
-            background-color: lighten($grey, 10%);
-        }
-    }
     &--alert{
         background-color: $red;
         &:hover{
@@ -27,16 +21,9 @@
         }
     }
     &--connexion{
-        background-color: #00A2AC;
+        background-color: $green;
         &:hover{
-            background-color: lighten(#00A2AC, 10%);
-        }
-    }
-    &--contact{
-        color: #00A2AC;
-        border-color: #00A2AC;
-        &:hover{
-            background-color: lighten(#00A2AC, 10%);
+            background-color: lighten($green, 10%);
         }
     }
 }
