@@ -216,7 +216,7 @@ nav.left ul li#logo:hover {
 }
 
 body.admin-login {
-  background-image: linear-gradient(to top, rgba(54, 55, 64, 0.3), rgba(54, 55, 64, 0.2)), url("/images/heroconnexion.jpg");
+  background-image: linear-gradient(to top, rgba(54, 55, 64, 0.7), rgba(54, 55, 64, 0.3)), url("/images/heroconnexion.jpg");
   background-position: left;
   background-repeat: no-repeat;
   /* Do not repeat the image */
@@ -226,6 +226,7 @@ body.admin-login {
 body.admin-login .col-6.connexion-leading {
   height: 100vh;
   position: relative;
+  text-align: center;
 }
 
 body.admin-login .col-6.connexion-leading .container-leading {
@@ -247,8 +248,11 @@ body.admin-login .col-6.connexion-leading .container-leading .logo {
 }
 
 body.admin-login .col-6.connexion-leading small {
+  color: #AAA;
   position: absolute;
-  bottom: 0;
+  bottom: 1%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 body.admin-login .col-6.connexion-form {

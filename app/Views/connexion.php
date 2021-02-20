@@ -21,6 +21,7 @@
                             <img class="logo" src="images/logo.svg">
                         </div>
                     </div>
+                    <p><small>copyright © 2021, goschool.com, tous droits réservés</small></p>
                 </div>
 
 
@@ -34,7 +35,7 @@
 
                             <div class="form-input">
                                 <p><label>Mot de passe :</label></p>
-                                <p><input type="password" class="form" placeholder="">
+                                <p><input type="password" class="form" placeholder=""></p>
                             </div>
 
                             <div class="form-input">
