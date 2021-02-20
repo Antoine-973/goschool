@@ -1,51 +1,79 @@
-.formContainer {
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    height: 100%;
-    &--form {
-        margin-top: 185px;
-        margin-left: 127px;
-        margin-right: 127px;
-        padding-bottom: 33px;
-        padding-top: 57px;
-        border-radius: 10px;
-    }
-    &--contact {
-        margin-top: 30px;
-        padding-top: 25px;
-        padding-bottom: 25px;
-        margin-left: 127px;
-        margin-right: 127px;
-        border-radius: 10px;
-    }
-}
-
-.white {
-    background-color : $white;
-}
-
-#gauche{
-    left: 0;
-    top: 0;
-    height: 850px;
-    background-image: url("/images/heroconnexion.jpg");
-    background-position: center; /* Center the image */
+body.admin-login{
+    background-image: linear-gradient(to top,rgba(54,55,64,0.3),rgba(54,55,64,0.2)), url("/images/heroconnexion.jpg");
+    background-position: left;
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover;
+
+    .col-6{
+        &.connexion-leading{
+            height: 100vh;
+            position: relative;
+            .container-leading{
+                text-align: center;
+                width: 50%;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                .connexion-title{
+                    text-align: center;
+                    color: $white;
+
+                    h1{
+                        font-size: 30px;
+                        font-weight: bold;
+                    }
+                }
+
+                .logo{
+                    align-content: center;
+                    height: 310px;
+                    width: 400px;
+                }
+            }
+
+        }
+
+        &.connexion-form{
+            height: 100vh;
+            background-color: $brown;
+            position: relative;
+
+            .container-form {
+                border-radius: 8px;
+                background: white;
+                padding: 20px;
+                width: 50%;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+
+                form{
+                    padding: 30px;
+                    text-align: center;
+                }
+
+                .form-input {
+                    a{
+                        text-decoration: none;
+                        color: $green;
+                        &:hover{
+                            text-decoration: underline;
+                        }
+                    }
+                    input{
+                        background: #FFFFFF;
+                        border: 1px solid #00A2AC;
+                        box-sizing: border-box;
+                        border-radius: 10px;
+                        width: 65%;
+                        padding: 10px;
+                    }
+                }
+            }
+        }
+    }
 }
 
-#droite{
-    right: 0;
-    top: 0;
-    background-color: #363740;
-}
-body{
-    overflow: hidden;
-}
 
-.logo{
-    align-content: center;
-    height: 310;
-    width: 400;
-}

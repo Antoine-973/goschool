@@ -8,19 +8,42 @@
         <link rel="stylesheet" href="cssframework/dist/main.css" />
         <title>GOSCHOOL - Connexion</title>
 	</head>
-	<body>
-    <div class="container">
-        <div class="row">
-            <div id="gauche" class="col-6">
-                <h1>Bienvenue à l'école de la reussite</h1>
-                <img class="logo" src="images/logo.svg">
+	<body class="admin-login">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 connexion-leading">
+                    <div class="container-leading">
+                        <div class="connexion-title">
+                            <h1>Bienvenue à l'école de la reussite</h1>
+                        </div>
 
+                        <div class=logo">
+                            <img class="logo" src="images/logo.svg">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-6 connexion-form">
+                    <div class="container-form">
+                        <form action="/se-connecter" method="post">
+                           <div class="form-input">
+                               <p><label>Adresse e-mail :</label></p>
+                               <p><input type="email" class="form"></p>
+                           </div>
+
+                            <div class="form-input">
+                                <p><label>Mot de passe :</label></p>
+                                <p><input type="password" class="form" placeholder="">
+                            </div>
+
+                            <div class="form-input">
+                                <p><a href="">Mot de passe oublié</a></p>
+                                <p><button type="submit" class="button button--connexion">Se connecter</button></p>
+                            </div>
+                        </form>
+                    </div>
             </div>
-
-
-
-            <div id="droite" class="col-6">col-6</div>
         </div>
-    </div>
 	</body>
 </html>
