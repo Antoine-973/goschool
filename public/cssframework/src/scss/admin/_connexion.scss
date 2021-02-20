@@ -22,12 +22,11 @@ body.admin-login{
                 .logo{
                     align-content: center;
                     height: 310px;
-                    width: 400px;
                 }
-
-                .copyright {
-                    bottom: 0;
-                }
+            }
+            small{
+                position: absolute;
+                bottom: 0;
             }
 
         }

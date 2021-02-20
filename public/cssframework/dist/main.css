@@ -244,10 +244,10 @@ body.admin-login .col-6.connexion-leading .container-leading .connexion-title {
 body.admin-login .col-6.connexion-leading .container-leading .logo {
   align-content: center;
   height: 310px;
-  width: 400px;
 }
 
-body.admin-login .col-6.connexion-leading .container-leading .copyright {
+body.admin-login .col-6.connexion-leading small {
+  position: absolute;
   bottom: 0;
 }
 
