@@ -11,8 +11,8 @@
 	</head>
 	<body class="admin-login">
         <div class="container">
-            <div class="row">
-                <div class="col-6 connexion-leading">
+            <div class="container__row">
+                <div class="container__col-6 container__col-lg-6 connexion-leading">
                     <div class="container-leading">
                         <div class="connexion-title">
                             <h1>Bienvenue à l'école de la reussite</h1>
@@ -26,7 +26,7 @@
                 </div>
 
 
-                <div class="col-6 connexion-form">
+                <div class="container__col-6 connexion-form">
                     <div class="container-form">
                         <form action="/se-connecter" method="post">
                            <div class="form-input">
@@ -41,7 +41,7 @@
 
                             <div class="form-input">
                                 <p><a href="">Mot de passe oublié</a></p>
-                                <p><button type="submit" class="button button--connexion">Se connecter</button></p>
+                                <p><input type="submit" value="Se connecter" placeholder=""></p>
                             </div>
                         </form>
                     </div>

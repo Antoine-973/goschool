@@ -1,3 +1,4 @@
+@import '../base/media-queries';
 .button {
     border: none;
     background: none;
@@ -5,12 +6,12 @@
     color: $white;
     padding: 1em 6em;
     display: inline-block;
-    transition: all 0.3s;
     text-decoration: none;
     border-radius: 10px;
-    @media screen and (max-width: 760px) {
+    @include tablet{
         font-size: rem(12);
     }
+    ;
     &:hover {
         background-color: lighten($grey, 10%);
     }
@@ -18,12 +19,6 @@
         background-color: $red;
         &:hover{
             background-color: lighten($grey, 10%);
-        }
-    }
-    &--connexion{
-        background-color: $green;
-        &:hover{
-            background-color: lighten($green, 10%);
         }
     }
 }

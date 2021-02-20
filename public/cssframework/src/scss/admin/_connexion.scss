@@ -1,14 +1,17 @@
 body.admin-login{
-    background-image: linear-gradient(to top,rgba(54,55,64,0.7),rgba(54,55,64,0.3)), url("/images/heroconnexion.jpg");
+    background-image: linear-gradient(to top,rgba(54,55,64,0.9),rgba(54,55,64,0.5)), url("/images/heroconnexion.jpg");
     background-position: left;
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover;
 
-    .col-6{
+    .container__col-6{
+        width: 50%;
         &.connexion-leading{
+
             height: 100vh;
             position: relative;
             text-align: center;
+
             .container-leading{
                 text-align: center;
                 position: absolute;
@@ -21,8 +24,7 @@ body.admin-login{
                 }
 
                 .logo{
-                    align-content: center;
-                    height: 310px;
+                    width: 100%;
                 }
             }
             small{
@@ -56,6 +58,7 @@ body.admin-login{
                 }
 
                 .form-input {
+
                     a{
                         text-decoration: none;
                         color: $green;
@@ -63,14 +66,25 @@ body.admin-login{
                             text-decoration: underline;
                         }
                     }
+
                     input{
                         background: #FFFFFF;
                         border: 1px solid #00A2AC;
                         box-sizing: border-box;
                         border-radius: 10px;
-                        width: 65%;
+                        width: 100%;
                         padding: 10px;
                     }
+
+                    input[type=submit]{
+                        background-color: $green;
+                        color: $white;
+                        border: none;
+
+                        &:hover{
+                        background-color: lighten($green, 10%);
+                        }
+                     }
                 }
             }
         }

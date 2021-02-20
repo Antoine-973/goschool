@@ -1,5 +1,5 @@
 driver: mysql
 host: localhost
-dbname: goschool
-username: root
-password: ''
+dbname: goSchool
+username: antoine
+password: '@565N5gcdKV'
