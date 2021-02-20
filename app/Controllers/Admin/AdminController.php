@@ -12,4 +12,9 @@ class AdminController extends Controller{
         $this->render('dashboard.php');
         
     }
+
+    public function connexion(){
+        $this->render('connexion.php');
+
+    }
 }

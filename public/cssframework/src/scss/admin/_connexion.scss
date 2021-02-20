@@ -24,3 +24,28 @@
 .white {
     background-color : $white;
 }
+
+#gauche{
+    left: 0;
+    top: 0;
+    height: 850px;
+    background-image: url("/images/heroconnexion.jpg");
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+}
+
+#droite{
+    right: 0;
+    top: 0;
+    background-color: #363740;
+}
+body{
+    overflow: hidden;
+}
+
+.logo{
+    align-content: center;
+    height: 310;
+    width: 400;
+}
