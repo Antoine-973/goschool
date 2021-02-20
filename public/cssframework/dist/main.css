@@ -1,6 +1,6 @@
 @import url(https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;
 
-0,700;1,400;1,700&display=swap);@import url(https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&display=swap);@import url(https://fonts.googleapis.com/css2?family=Mulish:wght@200&display=swap);* {
+0,700;1,400;1,700&display=swap);@import url(https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,400;1,700&display=swap);@import url(https://fonts.googleapis.com/css2?family=Mulish:wght@200&display=swap);* {
   box-sizing: border-box;
 }
 
@@ -19,11 +19,12 @@ body {
 
 h1,
 h2 {
-  font-family: "Lato", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 h1 {
-  font-size: 1.5rem;
+  font-size: 1.875rem;
+  font-weight: bold;
 }
 
 h2 {
@@ -256,11 +257,6 @@ body.admin-login .col-6.connexion-leading .container-leading {
 body.admin-login .col-6.connexion-leading .container-leading .connexion-title {
   text-align: center;
   color: #FFF;
-}
-
-body.admin-login .col-6.connexion-leading .container-leading .connexion-title h1 {
-  font-size: 30px;
-  font-weight: bold;
 }
 
 body.admin-login .col-6.connexion-leading .container-leading .logo {
