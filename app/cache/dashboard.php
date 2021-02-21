@@ -1,3 +1,4 @@
+<?php class_exists('Core\Template\TemplateEngine') or exit; ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
