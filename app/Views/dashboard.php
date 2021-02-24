@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class="container">
-    <nav class="left">
+    <aside class="left">
         <ul>
             <li id="logo"><a href="/admin"><img src="images/logo.svg" alt="go school logo"></a></li>
             <li><a href="/admin"><i class="fas fa-tachometer-alt"></i>Dashboard</a></li>
@@ -24,8 +24,8 @@
             <li><a href=""><i class="fas fa-cog"></i>Paramètre</a></li>
     
         </ul>
-    </nav>
-    <nav class="top">
+    </aside>
+    <header class="top">
         <ul>
             <li><a href="/admin"><i class="fas fa-home"></i>myGES</a></li>
             <li><a href="/admin/articles"><i class="fas fa-newspaper"></i>Créer</a></li>
@@ -33,7 +33,21 @@
             <!-- <li><a href="/admin"><i class="fas fa-align-justify"></i></a></li> -->
             <li><a href="/admin"><i class="fas fa-bell"></i>Notifications</a></li>
         </ul>
-    </nav>
+    </header>
+
+    <main class="container">
+        <div class="container__row">
+            <h1>Tableau de bord</h1>
+            <div class="container__col-10 ">
+            <h1>Tableau de bord</h1>
+            </div>
+            <div class="container__col-2 ">
+            <h1>Tableau de bord</h1>
+            </div>
+        </div>
+    </main>
 </div>
+
+
 </body>
 </html>

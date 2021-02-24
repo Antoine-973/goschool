@@ -328,7 +328,7 @@ p {
   background-color: #c4c4c4;
 }
 
-nav.left {
+aside.left {
   position: absolute;
   left: 0;
   top: 0;
@@ -339,24 +339,24 @@ nav.left {
   font-family: "Mulish", sans-serif;
 }
 
-nav.left ul {
+aside.left ul {
   padding: 0;
   margin: 0;
 }
 
-nav.left ul li {
+aside.left ul li {
   list-style-type: none;
   padding-left: 12px;
   padding-bottom: 12px;
 }
 
-nav.left ul li:hover {
+aside.left ul li:hover {
   border-left: 5px solid #fff;
   background-color: #00A2AC;
   color: white;
 }
 
-nav.left ul li a {
+aside.left ul li a {
   display: block;
   width: 100%;
   padding: 8px 0 8px 0;
@@ -366,20 +366,20 @@ nav.left ul li a {
   transition: 0.3s ease;
 }
 
-nav.left ul li a i {
+aside.left ul li a i {
   padding: 0 8px 0 8px;
 }
 
-nav.left ul li a:hover {
+aside.left ul li a:hover {
   color: white;
 }
 
-nav.left ul li#logo:hover {
+aside.left ul li#logo:hover {
   background-color: inherit;
   border: none;
 }
 
-nav.top {
+header.top {
   position: absolute;
   right: 0;
   top: 0;
@@ -390,7 +390,7 @@ nav.top {
   border-bottom-left-radius: 45px;
 }
 
-nav.top ul {
+header.top ul {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -398,12 +398,12 @@ nav.top ul {
   padding-right: 40px;
 }
 
-nav.top ul li {
+header.top ul li {
   display: inline-block;
   color: #00A2AC;
 }
 
-nav.top ul li a {
+header.top ul li a {
   width: 100%;
   text-decoration: none;
   color: #00A2AC;
@@ -411,7 +411,7 @@ nav.top ul li a {
   padding: 8px 0 8px 0;
 }
 
-nav.top ul li a i {
+header.top ul li a i {
   padding: 0 8px 0 8px;
 }
 

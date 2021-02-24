@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200&display=swap');
+
+header.top {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 40%;
+    background-color: $brown;
+    color: $green;
+    font-family: $font1;
+    border-bottom-left-radius: 45px;
+    ul {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-right: 40px;
+        li {
+            display: inline-block;
+            color: $green;
+            a {
+                width: 100%;
+                text-decoration: none;
+                color: $green;
+                font-size: 18px;
+                padding:8px 0 8px 0;
+                i {
+                    padding: 0 8px 0 8px;
+                }
+            }
+        }
+    }
+}
