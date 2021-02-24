@@ -1,10 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200&display=swap');
 
 aside.left{
-    position: absolute;
     left: 0;
     top: 0;
-    width: 255px;
+    width: 15%;
     height: 100vh;
     background-color: $brown;
     color: $green;
@@ -29,7 +28,7 @@ aside.left{
                 padding:8px 0 8px 0;
                 text-decoration: none;
                 color: $green;
-                font-size: 32px;
+                font-size: 3vh;
                 transition: 0.3s ease;
 
                 i {
@@ -40,10 +39,18 @@ aside.left{
                     color: white;
                 }
             }
+            #logo{
+                width: 100%;
 
+            }
+            #logo--a{
+                 text-align: center;
+            }
             &#logo:hover{
                 background-color: inherit;
                 border: none;
+                right: 50%;
+                left: 50%;
             }
         }
     }

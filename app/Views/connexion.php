@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
-		<title>Grille</title>
 		<meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +10,7 @@
 	<body class="admin-login">
         <div class="container">
             <div class="container__row">
-                <div class="container__col-6 container__col-lg-6 connexion-leading">
+                <div class="container__col-6 connexion-leading">
                     <div class="container-leading">
                         <div class="connexion-title">
                             <h1>Bienvenue à l'école de la reussite</h1>

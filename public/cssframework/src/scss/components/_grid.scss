@@ -29,6 +29,7 @@ $map-grid-props: (
         @for $i from 1 through $col-nb {
             &__col#{$modifier}-#{$i} {
                 flex-basis: (100 / ($col-nb / $i) ) * 1%;
+                //padding: 0 calc(#{$gutter-width}/2) ;
             }
         }
     }
@@ -45,6 +46,9 @@ $map-grid-props: (
         display: flex;
         flex-wrap: wrap;
         width: 100%;
+        /*.gutter{
+            margin: 0 calc(#{$gutter-width}/-2);
+        }*/
     }
     @each $modifier , $breakpoint in $map-grid-props {
         @include create-col-classes($modifier, $col-nb, $breakpoint);

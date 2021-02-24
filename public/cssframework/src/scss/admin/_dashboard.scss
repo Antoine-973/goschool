@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200&display=swap');
+body.admin-dashboard{
+    background-color: $light-grey;
+    .nav-left{
+      left: 0;
+      top: 0;
+      width: 15%;
+      height: 100vh;
+      background-color: $brown;
+      color: $green;
+      font-family: $font1;
+      ul {
+        padding: 0;
+        margin: 0;
+        li {
+          list-style-type: none;
+          padding-left: 12px;
+          padding-bottom:12px;
+
+          &:hover{
+            border-left: 5px solid #fff;
+            background-color: $green;
+            color: white;
+          }
+
+          a {
+            display: block;
+            width: 100%;
+            padding:8px 0 8px 0;
+            text-decoration: none;
+            color: $green;
+            font-size: 3vh;
+            transition: 0.3s ease;
+
+            i {
+              padding: 0 8px 0 8px;
+            }
+
+            &:hover{
+              color: white;
+            }
+          }
+          #logo{
+            width: 100%;
+
+          }
+          #logo--a{
+            text-align: center;
+          }
+          &#logo:hover{
+            background-color: inherit;
+            border: none;
+            right: 50%;
+            left: 50%;
+          }
+        }
+      }
+    }
+    .content{
+
+      .nav-top{
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 40%;
+        background-color: $brown;
+        color: $green;
+        font-family: $font1;
+        border-bottom-left-radius: 45px;
+
+        ul {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding-right: 40px;
+
+          li {
+            display: inline-block;
+            color: $green;
+
+            a {
+              width: 100%;
+              text-decoration: none;
+              color: $green;
+              font-size: 18px;
+              padding:8px 0 8px 0;
+
+              i {
+                padding: 0 8px 0 8px;
+              }
+            }
+          }
+        }
+      }
+
+      .content__dashboard{
+        .container__col-3 {
+          .module{
+            margin-left: 28px;
+            margin-right: 28px;
+            &-count{
+              .container__col-6{
+                background-color: white;
+                border: 1px solid #DFE0EB;
+                border-radius: 2px;
+              }
+            }
+            &-class{
+
+            }
+
+            &-traffic{
+
+            }
+
+            &-navigator{
+
+            }
+
+
+          }
+
+        }
+      }
+    }
+}
