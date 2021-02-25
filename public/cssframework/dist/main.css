@@ -18,16 +18,18 @@ h2 {
 
 h1 {
   font-size: 1.75rem;
-  color: #363740;
-}
-
-h3 {
-  color: #00A2AC;
-  font-size: 1.125rem;
 }
 
 h2 {
-  font-size: 1rem;
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
+a {
+  text-decoration: none;
 }
 
 p {
@@ -35,11 +37,11 @@ p {
 }
 
 .container {
-  max-width: 1980px;
+  max-width: 1920px;
   margin: 0 auto;
 }
 
-.container--fluid {
+.container__fluid {
   margin: 0;
   max-width: 100%;
 }
@@ -100,7 +102,7 @@ p {
   flex-basis: 100%;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1200px) {
   .container__col-sm-1 {
     flex-basis: 8.3333333333%;
   }
@@ -150,7 +152,7 @@ p {
   }
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 1400px) {
   .container__col-md-1 {
     flex-basis: 8.3333333333%;
   }
@@ -200,7 +202,7 @@ p {
   }
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1600px) {
   .container__col-lg-1 {
     flex-basis: 8.3333333333%;
   }
@@ -250,7 +252,7 @@ p {
   }
 }
 
-@media screen and (min-width: 1980px) {
+@media screen and (min-width: 1920px) {
   .container__col-xl-1 {
     flex-basis: 8.3333333333%;
   }
@@ -327,6 +329,39 @@ p {
 
 .button--alert:hover {
   background-color: #c4c4c4;
+}
+
+.form {
+  padding: 30px;
+  text-align: center;
+}
+
+.form-input a {
+  text-decoration: none;
+  color: #00A2AC;
+}
+
+.form-input a:hover {
+  text-decoration: underline;
+}
+
+.form-input input {
+  background: #FFFFFF;
+  border: 1px solid #00A2AC;
+  box-sizing: border-box;
+  border-radius: 10px;
+  width: 100%;
+  padding: 10px;
+}
+
+.form-input input[type=submit] {
+  background-color: #00A2AC;
+  color: #FFF;
+  border: none;
+}
+
+.form-input input[type=submit]:hover {
+  background-color: #00d2df;
 }
 
 aside.left {
@@ -473,6 +508,35 @@ body.admin-dashboard .nav-left ul .sidebar__li a:hover {
   color: white;
 }
 
+body.admin-dashboard .nav-left ul .user-li {
+  position: relative;
+}
+
+body.admin-dashboard .nav-left ul .user-li .dropdown-content {
+  display: none;
+  left: 100%;
+  z-index: 1;
+  background-color: #363740;
+  position: absolute;
+  color: #00A2AC;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+body.admin-dashboard .nav-left ul .user-li .dropdown-content a {
+  display: block;
+  color: #00A2AC;
+}
+
+body.admin-dashboard .nav-left ul .user-li:hover .dropdown-content {
+  display: block;
+}
+
+body.admin-dashboard .nav-left ul .dropdown-content a:hover {
+  background-color: #00A2AC;
+  color: white;
+}
+
 body.admin-dashboard .nav-left ul #logo-li {
   text-align: center;
 }
@@ -509,6 +573,7 @@ body.admin-dashboard .content .nav-top ul {
   justify-content: space-between;
   align-items: center;
   padding-right: 40px;
+  margin-bottom: 2%;
 }
 
 body.admin-dashboard .content .nav-top ul li {
@@ -524,8 +589,16 @@ body.admin-dashboard .content .nav-top ul li a {
   padding: 8px 0 8px 0;
 }
 
+body.admin-dashboard .content .nav-top ul li a:hover {
+  opacity: 60%;
+}
+
 body.admin-dashboard .content .nav-top ul li a i {
   padding: 0 8px 0 8px;
+}
+
+body.admin-dashboard .content h1 {
+  color: #00A2AC;
 }
 
 body.admin-dashboard .content .content__dashboard .container__col-4 .module__count .container__col-6 {
@@ -534,6 +607,15 @@ body.admin-dashboard .content .content__dashboard .container__col-4 .module__cou
   border: 1px solid #DFE0EB;
   border-radius: 10px;
   margin: 0.5%;
+}
+
+body.admin-dashboard .content .content__dashboard .container__col-4 .module__count .container__col-6 h4 {
+  color: #9FA2B4;
+}
+
+body.admin-dashboard .content .content__dashboard .container__col-4 .module__count .container__col-6 h3 {
+  font-weight: bold;
+  color: #444;
 }
 
 body.admin-dashboard .content .content__dashboard .container__col-4 .module__student .container__col-12 {
@@ -555,26 +637,26 @@ body.admin-dashboard .content .content__dashboard .container__col-4 .module__tra
 
 body.admin-dashboard .content .content__dashboard .container__col-4 .module__traffic svg {
   width: 100%;
-  border-radius: 10px;
-  border: 1px solid #DFE0EB;
 }
 
-body.admin-dashboard .content .content__dashboard .container__col-4 .module__raccourci .container__col-12 {
+body.admin-dashboard .content .content__dashboard .container__col-4 .module__navigator .container__col-12 {
   text-align: center;
 }
 
-body.admin-dashboard .content .content__dashboard .container__col-4 .module__raccourci .container__col-12 h3 {
+body.admin-dashboard .content .content__dashboard .container__col-4 .module__navigator .container__col-12 h3 {
+  color: #00A2AC;
   text-align: left;
 }
 
-body.admin-dashboard .content .content__dashboard .container__col-4 .module__raccourci .container__col-12 ul {
+body.admin-dashboard .content .content__dashboard .container__col-4 .module__navigator .container__col-12 ul {
   text-align: left;
   list-style: none;
 }
 
-body.admin-dashboard .content .content__dashboard .container__col-4 .module__raccourci .container__col-12 ul li {
-  text-decoration: none;
+body.admin-dashboard .content .content__dashboard .container__col-4 .module__navigator .container__col-12 ul li {
   color: #363740;
+  font-weight: bold;
+  margin-bottom: 1%;
 }
 
 body.admin-dashboard .content .content__dashboard .container__col-8 {
@@ -630,7 +712,7 @@ body.admin-dashboard .content .content__dashboard .container__col-8 .module__eve
 
 body.admin-dashboard .content .content__dashboard .container__col-8 .module__event .container__col-12 .container__col-6 .date-green {
   color: white;
-  background-color: #00A2AC;
+  background-color: #9DECD9;
   padding: 0.5%;
   border-radius: 5px;
   margin-left: 10%;
@@ -638,7 +720,7 @@ body.admin-dashboard .content .content__dashboard .container__col-8 .module__eve
 
 body.admin-dashboard .content .content__dashboard .container__col-8 .module__event .container__col-12 .container__col-6 .case-green {
   display: inline;
-  color: #00A2AC;
+  color: #9DECD9;
   font-weight: bold;
 }
 
@@ -654,6 +736,18 @@ body.admin-dashboard .content .content__dashboard .container__col-8 .module__eve
   display: inline;
   color: #ECD386;
   font-weight: bold;
+}
+
+body.admin-dashboard .content .content__dashboard .container__col-8 .module__event .container__col-12 h3 {
+  color: #00A2AC;
+}
+
+body.admin-dashboard .content .content__dashboard .container__col-8 .module__event .container__col-12 h3 a {
+  color: #00A2AC;
+}
+
+body.admin-dashboard .content .content__dashboard .container__col-8 .module__event .container__col-12 h3 a:hover {
+  text-decoration: underline;
 }
 
 body.admin-login {

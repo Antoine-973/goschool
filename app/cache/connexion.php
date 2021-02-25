@@ -9,7 +9,7 @@
         <title>GOSCHOOL - Connexion</title>
 	</head>
 	<body class="admin-login">
-        <div class="container">
+        <div class="container__fluid">
             <div class="container__row">
                 <div class="container__col-6 connexion-leading">
                     <div class="container-leading">

@@ -1,10 +1,10 @@
 $col-nb: 12;
 $container-width: 100%;
 $gutter-width:20px;
-$sm-width:768;
-$md-width:992;
-$lg-width:1200;
-$xl-width:1980;
+$sm-width:1200;
+$md-width:1400;
+$lg-width:1600;
+$xl-width:1920;
 
 $map-grid-props: (
         '':0,
@@ -38,7 +38,7 @@ $map-grid-props: (
 .container {
     max-width: $xl-width * 1px;
     margin: 0 auto;
-    &--fluid {
+    &__fluid {
         margin: 0;
         max-width: 100%;
     }

@@ -43,6 +43,34 @@ body.admin-dashboard {
             color: white;
           }
         }
+        }
+
+      .user-li{
+        position: relative;
+        .dropdown-content {
+          display: none;
+          left: 100%;
+          z-index: 1;
+          background-color: $brown;
+          position: absolute;
+          color: $green;
+          padding-left : 5px;
+          padding-right: 5px;
+        }
+
+        .dropdown-content a {
+          display: block;
+          color: $green;
+        }
+      }
+
+      .user-li:hover .dropdown-content{
+        display: block;
+      }
+
+      .dropdown-content a:hover{
+        background-color: $green;
+        color: white;
       }
 
       #logo-li {
@@ -80,10 +108,13 @@ body.admin-dashboard {
         justify-content: space-between;
         align-items: center;
         padding-right: 40px;
+        margin-bottom: 2%;
 
         li {
           display: inline-block;
           color: $green;
+
+
 
           a {
             width: 100%;
@@ -91,6 +122,9 @@ body.admin-dashboard {
             color: $green;
             font-size: 18px;
             padding: 8px 0 8px 0;
+            &:hover{
+              opacity: 60%;
+            }
 
             i {
               padding: 0 8px 0 8px;
@@ -98,6 +132,10 @@ body.admin-dashboard {
           }
         }
       }
+    }
+
+    h1{
+      color: $green;
     }
 
     .content__dashboard {
@@ -109,10 +147,13 @@ body.admin-dashboard {
             border: 1px solid #DFE0EB;
             border-radius: 10px;
             margin: 0.5%;
+            h4{
+              color: #9FA2B4;
+            }
 
-
-            .h3 {
-
+            h3 {
+              font-weight: bold;
+              color: $dark-grey;
             }
           }
         }
@@ -124,9 +165,7 @@ body.admin-dashboard {
             border-radius: 10px;
             border: 1px solid #DFE0EB;
             margin: 0.5%;
-            .h3 {
 
-            }
             .graph-legend{
               ul{
                 list-style: none;
@@ -143,24 +182,24 @@ body.admin-dashboard {
           }
           svg{
             width: 100%;
-            border-radius: 10px;
-            border: 1px solid #DFE0EB;
           }
         }
 
-        .module__raccourci {
+        .module__navigator {
           .container__col-12 {
             text-align: center;
 
             h3{
+              color: $green;
               text-align: left;
             }
             ul{
               text-align: left;
               list-style: none;
               li{
-                text-decoration: none;
                 color: $brown;
+                font-weight: bold;
+                margin-bottom: 1%;
               }
             }
           }
@@ -221,7 +260,7 @@ body.admin-dashboard {
 
               .date-green{
                 color: white;
-                background-color: $green;
+                background-color: $light-green;
                 padding: 0.5%;
                 border-radius: 5px;
                 margin-left: 10%;
@@ -229,7 +268,7 @@ body.admin-dashboard {
 
               .case-green{
                 display: inline;
-                color: $green;
+                color: $light-green;
                 font-weight: bold;
               }
 
@@ -247,6 +286,17 @@ body.admin-dashboard {
                 font-weight: bold;
               }
 
+
+
+            }
+            h3{
+              color: $green;
+               a{
+                 color: $green;
+               }
+              a:hover{
+                text-decoration: underline;
+              }
             }
           }
         }
