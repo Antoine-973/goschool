@@ -44,7 +44,7 @@ $map-grid-props: (
     }
     &__row {
         display: flex;
-        flex-wrap: wrap;
+        //flex-wrap: wrap;
         width: 100%;
         /*.gutter{
             margin: 0 calc(#{$gutter-width}/-2);

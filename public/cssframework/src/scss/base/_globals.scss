@@ -14,9 +14,13 @@ h1, h2{
 }
 
 h1 {
-    font-size: rem(30);
-    font-weight: bold;
+    font-size: rem(28);
+    color: $brown;
+}
+
+h3{
     color: $green;
+    font-size: rem(18);
 }
 
 h2 {
