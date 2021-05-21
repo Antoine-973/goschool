@@ -1,0 +1,14 @@
+<?php
+$app_test_dir =  dirname(__DIR__) . DIRECTORY_SEPARATOR . "App" . DIRECTORY_SEPARATOR . "Test";
+$cor_test_dir =  dirname(__DIR__) . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Test";
+
+if(empty($argv[1])){
+    echo "Invalid argmument, expected: app or core";exit;
+}elseif($argv[1] === "app"){
+    echo shell_exec("phpunit $app_test_dir");
+}elseif($argv[1] === "core"){
+    echo shell_exec("phpunit $cor_test_dir");
+}else{
+     echo "Invalid argmument, expected: app or core";exit;
+}
+    

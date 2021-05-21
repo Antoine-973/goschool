@@ -1,0 +1,15 @@
+<div class="content admin-article--list">
+    <h1>List of articles</h1>
+    <table>
+    <?php foreach($articles as $key => $value):?>
+    <tr>
+        <th><?php echo $key;?></th>
+    </tr>
+    <tr>
+        <td><?php echo $value; ?></td>
+    </tr>
+    <?php endforeach; ?>
+    <?php var_dump($articles); ?>
+    </table>
+</div>
+
