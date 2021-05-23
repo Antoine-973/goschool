@@ -1,0 +1,44 @@
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    outline: 0;
+    background: $light-white;
+    background-image: none;
+    border-radius: 10px;
+    border-color: $secondary;
+    flex: 1;
+    padding: 0 .5em;
+    color: $primary;
+    cursor: pointer;
+    &::-ms-expand {
+        display: none;
+    }
+}
+.select {
+    position: relative;
+    display: flex;
+    width: 20em;
+    height: 3em;
+    line-height: 3;
+    background: $light-white;
+    overflow: hidden;
+    border-radius: .25em;
+    &::after {
+        content: '\25BC';
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 0 1em;
+        background: $primary;
+        cursor: pointer;
+        pointer-events: none;
+        -webkit-transition: .25s all ease;
+        -o-transition: .25s all ease;
+        transition: .25s all ease;
+    }
+    &:hover::after {
+        color: $secondary;
+    }
+}

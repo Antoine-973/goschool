@@ -1,0 +1,59 @@
+.card {
+    width: 400px;
+    margin:0px auto;
+    
+    background-color: $light-white;
+    box-shadow: 0px 5px 20px $dark-gray;
+   
+    a {
+     color: $dark-gray;
+     text-decoration:none;
+    }
+    
+    &:hover {  
+      .card--image {
+        img {
+           width: $image-size+10%;
+           filter:grayscale(0);
+        }  
+      }
+    }
+
+    &--image {
+        height: 250px;
+        position:relative;
+        overflow:hidden;
+        img {
+          width: $image-size;
+          
+          position:absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          
+          filter: grayscale(1);
+          
+          transition-property: filter width;
+          transition-duration: .3s; 
+        }
+    }
+    &--body {
+        text-align: center;
+        padding: 15px 20px;
+        box-sizing: border-box;
+    }
+
+    &--title,&--subtitle {
+        font-family: $font1;
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: Bold;
+    }
+
+    &--text {
+        font-family: $font2;
+        text-align: center;
+        text-transform: uppercase;
+        color: $gray;
+    }
+}

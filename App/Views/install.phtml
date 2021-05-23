@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site</title>
+    <link rel="stylesheet" type="text/css" href="/librairies/dist/main.css">
+    <script src="/librairies/dist/main.js"></script>
+</head>
+<body class="installation">   
+<div class="container">
+        <h1>Assistant d'installation</h1>
+
+        <div class="container install">
+            <form action="/admin/register" method="post">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6">
+                            <h3>Information personnelle</h3>
+                            <div class="container">
+                            <div class="input-group"
+                                <label>Nom</label>
+                                <input type="text" name="firstname" />
+                            </div>
+                            <div class="input-group"
+                                <label>Prénom</label>
+                                <input type="text" name="lastname" />
+                            </div>
+                            <div class="input-group"
+                                <label>Email</label>
+                                <input type="email" name="email" />
+                            </div>
+                            <div class="input-group"
+                                <label>Mot de passe</label>
+                                <input type="password" name="password" />
+                            </div>
+                            <div class="input-group"
+                                <label>Confirmer mot de passe</label>
+                                <input type="password" name="confirmPassword" />
+                            </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="container">
+                            <h3>Information de la base des données</h3>
+                            <div class="input-group"
+                                <label>Nom de la base</label>
+                                <input type="text" name="db_name" />
+                            </div>
+                            <div class="input-group"
+                                <label>Utilisateur</label>
+                                <input type="text" name="db_user" />
+                            </div>
+                            <div class="input-group"
+                                <label>Mot de passe</label>
+                                <input type="password" name="db_password" />
+                            </div>
+                            <div class="input-group"
+                                <label>Host</label>
+                                <input type="text" name="db_host" />
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12"><button class="btn btn--info btn--lg">Installation</button></div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="container">
+                <?php if($errors = $helper->getFlashMessage('errors')):?>
+                    <ul>
+                    <?php foreach($errors as $error):?>
+                        <li><?= $error;?></li>
+                    <?php endforeach;?>
+                    </ul>
+                <?php endif;?>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

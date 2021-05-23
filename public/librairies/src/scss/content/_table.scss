@@ -1,0 +1,23 @@
+
+table {
+    width: 100%;
+    text-align: center;
+    border-spacing: 1em;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+thead {
+    background-color: $light-white;
+    border: 2px solid;
+    border-color: $dark-gray;
+}
+
+tr {
+    background-color: $light-white;
+    border-bottom: 2px solid;
+    border-color: $dark-gray;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 0;
+}

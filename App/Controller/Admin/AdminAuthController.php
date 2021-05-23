@@ -83,7 +83,11 @@ class AdminAuthController extends Controller{
     public function register()
     {
         if($this->request->isPost()){
+
             $data = $this->request->getBody();
+            
+            ['db_user' => $db_user, 'db_password' => $db_password, 'db_name' => $db_name, 'db_host' => $db_host] = $this->request->getBody();
+           
             $errors = $this->validator->validate($this->userModel, $data);
 
             if(empty($errors)){
@@ -92,18 +96,9 @@ class AdminAuthController extends Controller{
                     
                     $this->request->redirect('/admin/login')->with('success', 'Thanks for your registration.');
                 }
-                    
-                $this->userQuery->create($data);
-                $form = new UserLoginForm();
-                $userLogin = $form->getForm();
-                
-                $this->render("admin/user/login.phtml", ['userLogin'=>$userLogin]);
+                $this->request->redirect('/install')->with('errors', $errors);
             }else{
-                
-                $form = new UserRegisterForm();
-                $userRegister = $form->getForm();
-                
-                $this->render('admin/user/register.phtml', ['errors' => $errors, 'userRegister'=>$userRegister]);
+                $this->request->redirect('/install')->with('errors', $errors);
             }
         }
     }

@@ -35,5 +35,10 @@ class Controller{
         return new $modelClass();
     }
 
+    public function view($view)
+    {
+        require_once dirname(__DIR__) . DIRECTORY_SEPARATOR. "App" . DIRECTORY_SEPARATOR . "Views" . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $view);
+    }
+
 
 }

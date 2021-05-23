@@ -1,6 +1,9 @@
 <?php
 
 $route = new Core\Routing\Route();
+$route->get('/install', ['controller' => 'InstallationController', 'method' => 'index']);
+$route->post('/install', ['controller' => 'InstallationController', 'method' => 'handleInstallation']);
+
 
 /**
  * ===== Site Routes ====

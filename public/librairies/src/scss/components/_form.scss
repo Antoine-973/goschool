@@ -1,0 +1,34 @@
+.form{
+  padding: 30px;
+  text-align: center;
+}
+
+.input-group {
+
+  a{
+    text-decoration: none;
+    color: $green;
+    &:hover{
+      text-decoration: underline;
+    }
+  }
+
+  input{
+    background: #FFFFFF;
+    border: 1px solid #00A2AC;
+    box-sizing: border-box;
+    border-radius: 10px;
+    width: 100%;
+    padding: 10px;
+  }
+
+  input[type=submit]{
+    background-color: $green;
+    color: $white;
+    border: none;
+
+    &:hover{
+      background-color: lighten($green, 10%);
+    }
+  }
+}

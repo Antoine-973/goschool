@@ -6,11 +6,12 @@ class InstallationController extends Controller
 {
     public function index()
     {
-        $this->render("install.phtml");
+        $this->view("install.phtml");
     }
 
     public function handleInstallation()
     {
-        
+        $user_data = [];
+        $db_data = [];
     }
 }

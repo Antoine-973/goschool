@@ -1,0 +1,58 @@
+$col-nb: 12;
+$container-width: 100%;
+$gutter-width:30px;
+$sm-width:576;
+$md-width:768;
+$lg-width:992;
+$xl-width:1200;
+
+$map-grid-props: (
+        '-xs':0,
+        '-sm': $sm-width,
+        '-md': $md-width,
+        '-lg': $lg-width,
+        '-xl': $xl-width
+);
+
+@mixin create-mq($breakpoint) {
+    @if($breakpoint == 0) {
+        @content;
+    } @else {
+        @media screen and (min-width: $breakpoint *1px) {
+            @content;
+        }
+    }
+}
+
+@mixin create-col-classes($modifier, $col-nb, $breakpoint) {
+    @include create-mq($breakpoint) {
+        @for $i from 1 through $col-nb {
+            .col-#{$i} {
+                flex-basis: (100 / ($col-nb / $i) ) * 1%;
+                padding: 0 calc($gutter-width/2) ;
+            }
+        }
+    }
+}
+
+.container {
+    max-width: $xl-width * 1px;
+    margin: 0 auto;
+    &--fluid {
+        margin: 0;
+        max-width: 100%;
+    }
+}
+
+@each $modifier , $breakpoint in $map-grid-props {
+    @include create-col-classes($modifier, $col-nb, $breakpoint);
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    //margin: 0 calc(#{$gutter-width}/-2);
+}
+
+
