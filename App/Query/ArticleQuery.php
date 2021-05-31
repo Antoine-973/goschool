@@ -58,6 +58,7 @@ class ArticleQuery
     public function delete(int $id)
     {
         $query = $this->builder->delete()->from("articles")->where("id = $id");
+        return $query;
     }
 
 
