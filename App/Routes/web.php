@@ -44,4 +44,8 @@ $route->post('/admin/article/delete', ['controller' => 'AdminArticleController',
 
 $route->get('/admin/users', ['controller' => 'AdminUserController', 'method' => 'indexUserManager']);
 
+$route->get('/admin/users/add', ['controller' => 'AdminUserController', 'method' => 'indexAddUser']);
+
+$route->post('/admin/users/add', ['controller' => 'AdminUserController', 'method' => 'addUser']);
+
 return $route->getRoutes();
