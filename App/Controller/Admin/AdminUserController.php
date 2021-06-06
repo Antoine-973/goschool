@@ -35,12 +35,8 @@ class AdminUserController extends Controller {
 
     public function indexUserManager()
     {
-        $this->render("admin/user/userManager.phtml");
-    }
-
-    public function userMangaer()
-    {
-        
+        $users = $this->userQuery->getUsers();
+        $this->render("admin/user/userManager.phtml", ['users'=>$users]);
     }
 
     public function indexAddUser()
