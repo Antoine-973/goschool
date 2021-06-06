@@ -7,8 +7,11 @@ use Core\Http\Response;
 use App\Model\UserModel;
 use App\Form\UserAddForm;
 use App\Query\UserQuery;
+use Core\Component\Validator;
 
 class AdminUserController extends Controller {
+
+    private $validator;
 
     private $request;
 
@@ -27,11 +30,17 @@ class AdminUserController extends Controller {
         $this->userModel = new UserModel();
         $this->userAddForm = new UserAddForm();
         $this->userQuery = new UserQuery();
+        $this->validator = new Validator();
     }
 
     public function indexUserManager()
     {
         $this->render("admin/user/userManager.phtml");
+    }
+
+    public function userMangaer()
+    {
+        
     }
 
     public function indexAddUser()
@@ -44,6 +53,25 @@ class AdminUserController extends Controller {
 
     public function addUser()
     {
+        if($this->request->isPost()){
 
+            $data = $this->request->getBody();
+            $errors = $this->validator->validate($this->userModel, $data);
+
+            if(empty($errors)){
+                if($this->userQuery->create($data))
+                {
+                    $this->request->redirect('/admin/users')->with('success', 'L\'utilisateur a bien été crée');
+                }
+                else{
+                    $this->request->redirect('/admin/users')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                }
+            }else{
+                $form = new UserAddForm();
+                $userAddForm = $form->getForm();
+
+                $this->render("admin/user/addUser.phtml", ['errors' => $errors, 'userAdd'=>$userAddForm]);
+            }
+        }
     }
 }
