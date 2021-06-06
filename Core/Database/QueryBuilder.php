@@ -79,7 +79,19 @@ class QueryBuilder{
             while(($row = $stmt->fetch(DB::FETCH_ASSOC))) {
                 $result[] = $row;
             }
-            return $result;
+
+            $count = 0;
+            foreach($result as $subarray){
+                $count += count($subarray);
+            }
+
+            if ($count == 1)
+            {
+                return $result[0];
+            }
+            else{
+                return $result;
+            }
         }catch(\PDOException $e){
             echo $e->getMessage();
         }
