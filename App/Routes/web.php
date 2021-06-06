@@ -35,8 +35,13 @@ $route->get('/admin/lostpassword', ['controller' => 'AdminLostPassword', 'method
 $route->post('/admin/lostpassword', ['controller' => 'AdminLostPassword', 'method' => 'lostPassword']);
 
 $route->get('/admin/article', ['controller' => 'AdminArticleController', 'method' => 'indexArticle']);
+
 $route->post('/admin/article/add', ['controller' => 'AdminArticleController', 'method' => 'create']);
+
 $route->get('/admin/article/add', ['controller' => 'AdminArticleController', 'method' => 'add']);
+
 $route->post('/admin/article/delete', ['controller' => 'AdminArticleController', 'method' => 'create']);
+
+$route->get('/admin/users', ['controller' => 'AdminUserController', 'method' => 'indexUserManager']);
 
 return $route->getRoutes();
