@@ -1,0 +1,14 @@
+<?php if(isset($errors) && !empty($errors)): ?>
+    <ul>
+        <?php foreach($errors as $error): ?>
+            <li><?php echo $error;?></li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
+<?php if(($message = $helper->getFlashMessage('success'))):?>
+    <p><?php echo $message;?></p>
+<?php endif;?>
+<div>
+    <h1>Ajouter un utilisateur</h1>
+    <?= $userAdd; ?>
+</div>
