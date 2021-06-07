@@ -15,6 +15,16 @@ class UserQuery
     }
 
     /**
+     * @return string $query
+     */
+    public function getUsers()
+    {
+        $query = $this->builder->select("firstname, lastname, email, roles")->from("users");
+        
+        return $query->getResult();
+    }
+
+    /**
      * @param int $id
      * @return string $query
      */

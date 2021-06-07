@@ -74,7 +74,24 @@ class QueryBuilder{
 
             $stmt = $pdo->prepare($this->query);
             $stmt->execute();
-            return $stmt->fetch(DB::FETCH_ASSOC);
+            $result = array();
+
+            while(($row = $stmt->fetch(DB::FETCH_ASSOC))) {
+                $result[] = $row;
+            }
+
+            $count = 0;
+            foreach($result as $subarray){
+                $count += count($subarray);
+            }
+
+            if ($count == 1)
+            {
+                return $result[0];
+            }
+            else{
+                return $result;
+            }
         }catch(\PDOException $e){
             echo $e->getMessage();
         }
