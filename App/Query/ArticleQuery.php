@@ -67,7 +67,7 @@ class ArticleQuery
      */
     public function getArticles()
     {
-        $query = $this->builder->select('*')->from("articles");
+        $query = $this->builder->select('id, title, content')->from("articles");
         return $query->getResult();
     }
 

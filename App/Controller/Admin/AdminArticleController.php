@@ -34,6 +34,7 @@ class AdminArticleController extends Controller {
     public function indexArticle()
     {
         $articles = $this->articleQuery->getArticles();
+        print_r($articles);
         $this->render("admin/articles/list.phtml", ['articles'=>$articles]);
     }
 
@@ -71,11 +72,12 @@ class AdminArticleController extends Controller {
         $this->render("admin/articles/edit.phtml", ['editArticle'=>$editArticle]);
     }
 
-    public function delete()
+    public function delete($id)
     {
         if($this->request->isGet()) {
             if($this->articleQuery->deleteArticle($id)) {
-                $this->request->redirect('/admin/article');
+                //$this->request->redirect('/admin/article');
+                echo "yo";
             } else {
                 echo "article non supprimé";
             }

@@ -2,28 +2,36 @@
     <h1>List of articles</h1>
     <div class="container">
         <div class="container__col-12">
+        <?php $keys = array_keys($articles);?>
+        <a href="article/add" class="btn btn--infos btn--sm">Ajouter</a>
+        <a href="article/edit/<?php echo $articles['id'] ?>" class="btn btn--warning btn--sm">Modifier</a>
             <table>
-            <a href="article/add" class="btn btn--success btn--sm">Ajouter un article</a>
-                <thead>
+                    <thead>
                     <tr>
-                        <?php foreach($articles as $key => $value):?>
-                        <th id="<?php echo $key; ?>" name="<?php echo $key; ?>"><?php echo $key;?></th>
-                        <?php endforeach; ?>
-                        <th></th>
-                        <th></th>
+                        <?php for($i = 0; $i < 1; $i++) {
+                            foreach($articles[$keys[$i]] as $key => $value) { ?>
+                        <th><?php echo $key ?></th>
+                        <?php } ?>
+                        <?php }?>
+                        <th>Modifier</th>
+                        <th>Supprimer</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+
+                    <tbody>
                     <tr>
-                        <?php foreach($articles as $key => $value):?>
-                        <td><?php echo $value; ?></td>
-                        <?php endforeach; ?>
-                        <td><a href="article/edit" class="btn btn--warning btn--sm">Modifier</a></td>
-                        <td><a href="javascript:confirmDelete('article/delete')" class="btn btn--danger btn--sm">Supprimer</a></td>
+                        <?php for($i = 0; $i < count($articles); $i++) { ?>
+                            <tr>
+                            <?php foreach($articles[$keys[$i]] as $key => $value) { ?>
+                                <td><?php echo $value ?></td>
+                            <?php } ?>
+                            <td><a href="article/edit/<?php echo $articles[$i]['id'] ?>" class="btn btn--warning btn--sm">X</a></td>
+                            <td><a href="javascript:confirmDelete('article/delete/<?php echo $articles[$i]['id'] ?>')" class="btn btn--danger btn--sm">X</a></td>
+                            <tr>
+                            <?php } ?>
                     </tr>
-                </tbody>
-            </table>
-            <a href="article/edit/<?php echo $articles['id'] ?>" class="btn btn--warning btn--sm">Modifier</a>
+                    </tbody>
+                </table>
         </div>
     </div>
 </div>
