@@ -42,7 +42,8 @@ $route->get('/admin/article/add', ['controller' => 'AdminArticleController', 'me
 $route->get('/admin/article/delete/{id}', ['controller' => 'AdminArticleController', 'method' => 'delete']);
 $route->post('/admin/article/delete', ['controller' => 'AdminArticleController', 'method' => 'delete']);
 
-
+$route->get('/admin/article/edit', ['controller' => 'AdminArticleController', 'method' => 'edit']);
+$route->post('/admin/article/update', ['controller' => 'AdminArticleController', 'method' => 'update']);
 
 $route->post('/admin/users/add', ['controller' => 'AdminUserController', 'method' => 'addUser']);
 

@@ -72,6 +72,12 @@ class AdminArticleController extends Controller {
         $this->render("admin/articles/edit.phtml", ['editArticle'=>$editArticle]);
     }
 
+    public function update()
+    {
+        
+        $this->render("admin/articles/edit.phtml");
+    }
+
     public function delete($id)
     {
         if($this->request->isGet()) {
