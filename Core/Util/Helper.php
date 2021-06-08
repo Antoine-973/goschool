@@ -3,6 +3,12 @@ namespace Core\Util;
 use Core\Http\Session;
 class Helper
 {
+    public function __construct()
+    {
+
+    }
+
+    
     /**
      * @param string $path
      * @return string public folder path
