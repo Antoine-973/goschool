@@ -6,7 +6,16 @@
             <div class="container__col-12">
                 <?php $keys = array_keys($users);?>
 
-                <table>
+
+                <script type="text/javascript">
+
+                    $(document).ready( function () {
+                        $('#table_id').DataTable();
+                    } );
+
+                </script>
+
+                <table id="datatables" class="display">
                     <thead>
                     <tr>
                         <?php for($i = 0; $i < 1; $i++) {

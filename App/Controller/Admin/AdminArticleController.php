@@ -33,8 +33,8 @@ class AdminArticleController extends Controller {
 
     public function indexArticle()
     {
-
         $articles = $this->articleQuery->getArticles();
+        print_r($articles);
         $this->render("admin/articles/list.phtml", ['articles'=>$articles]);
     }
 
@@ -62,6 +62,33 @@ class AdminArticleController extends Controller {
                 $addArticle = $form->getForm();
                 $this->render("admin/articles/add.phtml", ['addArticle'=>$addArticle]);
             }
+        }
+    }
+
+    public function edit()
+    {
+        $form = new ArticleAddForm();
+        $editArticle = $form->getForm();
+        $this->render("admin/articles/edit.phtml", ['editArticle'=>$editArticle]);
+    }
+
+    public function update()
+    {
+        
+        $this->render("admin/articles/edit.phtml");
+    }
+
+    public function delete($id)
+    {
+        if($this->request->isGet()) {
+            if($this->articleQuery->deleteArticle($id)) {
+                //$this->request->redirect('/admin/article');
+                echo "yo";
+            } else {
+                echo "article non supprimé";
+            }
+        } else {
+            echo "no btn";
         }
     }
 }

@@ -32,9 +32,8 @@ module.exports = {
 };
 
 
-
 // Full API
-//mix.js("../src/js/main.js", "../dist/main.js");
+mix.js("../src/js/main.js", "../dist/main.js");
 // mix.react(src, output); <-- Identical to mix.js(), but registers React Babel compilation.
 // mix.preact(src, output); <-- Identical to mix.js(), but registers Preact compilation.
 // mix.coffee(src, output); <-- Identical to mix.js(), but registers CoffeeScript compilation.

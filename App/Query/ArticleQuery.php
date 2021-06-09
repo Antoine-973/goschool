@@ -55,10 +55,10 @@ class ArticleQuery
     /**
      * @param int $id
      */
-    public function delete(int $id)
+    public function deleteArticle(int $id)
     {
-        $query = $this->builder->delete()->from("articles")->where("id = $id");
-        return $query;
+        $query = $this->builder->delete()->from('articles')->where("id = $id")->save();
+        return $query->getQuery();
     }
 
 
@@ -67,7 +67,7 @@ class ArticleQuery
      */
     public function getArticles()
     {
-        $query = $this->builder->select('*')->from("articles");
+        $query = $this->builder->select('id, title, content')->from("articles");
         return $query->getResult();
     }
 
@@ -83,8 +83,9 @@ class ArticleQuery
     /**
      * @param array $data
      */
-    public function updateArticles(array $data, int $id)
+    public function updateArticle(array $data, int $id)
     {
-        $query = $this->builder->update('articles')->set("")->where("id = $id");
+        $query = $this->builder->update("articles")->set($data)->where("id = $id");
+        return $query;
     }
 }

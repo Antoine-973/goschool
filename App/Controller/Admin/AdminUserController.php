@@ -70,4 +70,36 @@ class AdminUserController extends Controller {
             }
         }
     }
+
+    public function indexDeleteUser()
+    {
+        $form = new UserAddForm();
+        $userAddForm = $form->getForm();
+
+        $this->render("admin/user/deleteUser.phtml", ['userAdd'=>$userAddForm]);
+    }
+
+    public function deleteUser()
+    {
+        if($this->request->isGet()){
+
+            $data = $this->request->getBody();
+            $errors = $this->validator->validate($this->userModel, $data);
+
+            if(empty($errors)){
+                if($this->userQuery->create($data))
+                {
+                    $this->request->redirect('/admin/users')->with('success', 'L\'utilisateur a bien été crée');
+                }
+                else{
+                    $this->request->redirect('/admin/users')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                }
+            }else{
+                $form = new UserAddForm();
+                $userAddForm = $form->getForm();
+
+                $this->render("admin/user/addUser.phtml", ['errors' => $errors, 'userAdd'=>$userAddForm]);
+            }
+        }
+    }
 }
