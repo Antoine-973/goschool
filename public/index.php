@@ -7,11 +7,8 @@ $routes = require_once "../App/Routes/web.php";
 
 use Core\Application;
 use Core\Database\DB;
-use Core\Util\DotEnv;
 use Core\Util\Email;
 
-
-(new DotEnv(dirname(__DIR__) . '/.env'))->load();
 
 $app = new Application($routes);
 $app->run();
