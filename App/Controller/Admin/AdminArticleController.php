@@ -36,8 +36,8 @@ class AdminArticleController extends Controller {
 
     public function indexArticle()
     {
-        $articles = $this->articleQuery->getArticles();
-        print_r($articles);
+        $articles = ($this->articleQuery->getArticles());
+        //$articles = json_decode(json_encode($articles), FALSE);
         $this->render("admin/articles/list.phtml", ['articles'=>$articles]);
     }
 

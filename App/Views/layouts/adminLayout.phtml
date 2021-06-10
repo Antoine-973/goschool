@@ -7,6 +7,9 @@
     <title>admin</title>
     <link rel="stylesheet" type="text/css" href="/librairies/dist/main.css">
     <script src="/librairies/dist/main.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 </head>
 <body>
 <nav class="admin-main--menu"></nav>
@@ -18,4 +21,30 @@
 
 <footer class="admin-main--footer"><h2>Footer</h2></footer>
 </body>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#articletableid').DataTable({
+            "searching": true,
+            "paging": true,
+            "pagingType": "full_numbers",
+            "lengthMenu":[
+                [10, 25, 50, -1],
+                [10, 25, 50 ,"All"]
+            ],
+            responsive: true,
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "Rechercher",
+            }
+        });
+    } );
+    </script>
+<script>
+function confirmDelete(delArticle){
+    if (confirm("Voulez vous vraiment supprimer ?")) {
+        document.location = delArticle;
+    }
+}
+</script>
 </html>
