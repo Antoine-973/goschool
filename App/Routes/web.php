@@ -49,8 +49,7 @@ $route->post('/admin/article/update', ['controller' => 'AdminArticleController',
 $route->get('/admin/users', ['controller' => 'AdminUserController', 'method' => 'indexUserManager']);
 $route->get('/admin/users/add', ['controller' => 'AdminUserController', 'method' => 'indexAddUser']);
 $route->post('/admin/users/add', ['controller' => 'AdminUserController', 'method' => 'addUser']);
-//$route->get('/admin/users/update/{$id}', ['controller' => 'AdminUserController', 'method' => 'indexAddUser']);
-//$route->post('/admin/users/delete/{$id}', ['controller' => 'AdminUserController', 'method' => 'addUser']);
-//$route->get('/admin/users/add/{$id}', ['controller' => 'AdminUserController', 'method' => 'indexAddUser']);
-
+$route->get('/admin/users/edit', ['controller' => 'AdminUserController', 'method' => 'indexEditUser']);
+$route->post('/admin/users/edit', ['controller' => 'AdminUserController', 'method' => 'editUser']);
+$route->get('/admin/users/delete', ['controller' => 'AdminUserController', 'method' => 'deleteUser']);
 return $route->getRoutes();
