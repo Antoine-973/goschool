@@ -19,19 +19,14 @@ $route->get('/users/register', ['controller' => 'UserController', 'method' => 'r
 $route->get('/admin', ['controller' => 'DashBoardController', 'method' => 'index']);
 
 $route->get('/admin/login', ['controller' => 'AdminAuthController', 'method' => 'indexLogin']);
-
+$route->post('/admin/login', ['controller' => 'AdminAuthController', 'method' => 'login']);
 $route->get('/admin/register', ['controller' => 'AdminAuthController', 'method' => 'indexRegister']);
-
 $route->post('/admin/register', ['controller' => 'AdminAuthController', 'method' => 'register']);
 
-$route->post('/admin/login', ['controller' => 'AdminAuthController', 'method' => 'login']);
-
 $route->get('/admin/resetpassword', ['controller' => 'AdminLostPassword', 'method' => 'indexResetPassword']);
-
 $route->post('/admin/resetpassword', ['controller' => 'AdminLostPassword', 'method' => 'resetPassword']);
 
 $route->get('/admin/lostpassword', ['controller' => 'AdminLostPassword', 'method' => 'indexLostPassword']);
-
 $route->post('/admin/lostpassword', ['controller' => 'AdminLostPassword', 'method' => 'lostPassword']);
 
 $route->get('/admin/article', ['controller' => 'AdminArticleController', 'method' => 'indexArticle']);
@@ -45,5 +40,7 @@ $route->get('/admin/article/edit', ['controller' => 'AdminArticleController', 'm
 $route->post('/admin/article/update', ['controller' => 'AdminArticleController', 'method' => 'update']);
 
 $route->post('/admin/users/add', ['controller' => 'AdminUserController', 'method' => 'addUser']);
+
+$route->get('/admin/param', ['controller' => 'AdminParamController', 'method' => 'index']);
 
 return $route->getRoutes();
