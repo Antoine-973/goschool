@@ -51,6 +51,7 @@ class AdminArticleController extends Controller {
     {
         if($this->request->isPost()) {
             $data = $this->request->getBody();
+            var_dump($data);
             if(!empty($data)){
                 $this->articleQuery->create($data);
                 $form = new ArticleAddForm();
@@ -74,16 +75,22 @@ class AdminArticleController extends Controller {
 
     public function update()
     {
-        
-        $this->render("admin/articles/edit.phtml");
+        $data = $this->request->getBody();
+        var_dump($data);
+
+        //if($this->request->isPost()) {
+        //    $data = $this->request->getBody();
+        //    var_dump($data);
+        //}
+        $this->redirect("admin/articles/edit.phtml");
     }
 
-    public function delete($id)
+    public function delete()
     {
+        $id = 8;
         if($this->request->isGet()) {
             if($this->articleQuery->deleteArticle($id)) {
-                //$this->request->redirect('/admin/article');
-                echo "yo";
+                echo "article supprimé";
             } else {
                 echo "article non supprimé";
             }
