@@ -16,7 +16,7 @@ class UserAddForm
             ->input('email', 'email', ['value' => 'Email', 'min' => 4, 'max' => 55, 'required' => 'required'])
             ->input('password', 'password', ['value' => 'Mot de passe', 'min' => 8, 'max' => 55, 'required' => 'required'])
             ->input('passwordConfirm', 'password', ['value' => 'Confirmation du mot de passe', 'min' => 8, 'max' => 55, 'required' => 'required'])
-            ->select('role','Role',['id' => 'role', 'name' => 'role', 'options' => ['admin','editor','publisher']])
+            ->select('roles','Role',['id' => 'roles', 'name' => 'roles', 'options' => ['admin','editeur','abonné','contributeur','auteur']])
             ->input('submit', 'submit', ['value' => 'Ajouter']);
         return $form->getForm();
     }
