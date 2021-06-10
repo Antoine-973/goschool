@@ -6,6 +6,7 @@ use Core\Http\Request;
 use Core\Http\Response;
 use App\Model\ArticleModel;
 use App\Form\ArticleAddForm;
+use App\Form\ArticleEditForm;
 use App\Query\ArticleQuery;
 
 class AdminArticleController extends Controller {
@@ -18,6 +19,8 @@ class AdminArticleController extends Controller {
 
     private $articleAddForm;
 
+    private $articleEditForm;
+
     private $articleQuery;
 
     public function __construct()
@@ -25,7 +28,7 @@ class AdminArticleController extends Controller {
         $this->request = new Request();
         $this->response = new Response();
         $this->articleModel = new ArticleModel();
-        $this->articleAddForm = new ArticleAddForm();
+        $this->articleEditForm = new ArticleEditForm();
         $this->articleQuery = new ArticleQuery();
         $this->articleModel = new ArticleModel();
 
@@ -68,29 +71,29 @@ class AdminArticleController extends Controller {
 
     public function edit()
     {
-        $form = new ArticleAddForm();
+        $form = new ArticleEditForm();
         $editArticle = $form->getForm();
         $this->render("admin/articles/edit.phtml", ['editArticle'=>$editArticle]);
     }
 
     public function update()
     {
-        $data = $this->request->getBody();
-        var_dump($data);
-
-        //if($this->request->isPost()) {
-        //    $data = $this->request->getBody();
-        //    var_dump($data);
-        //}
-        $this->redirect("admin/articles/edit.phtml");
+        $id = $_GET['id'];
+        if($this->request->isPost()) {
+            $data = $this->request->getBody();
+            echo $id;
+        } else {
+            echo "nop";
+        }
+        $this->render("/admin/article");
     }
 
     public function delete()
     {
-        $id = 8;
+        $id = $_GET['id'];
         if($this->request->isGet()) {
             if($this->articleQuery->deleteArticle($id)) {
-                echo "article supprimé";
+                echo "Article numero ".$id. " supprimé";
             } else {
                 echo "article non supprimé";
             }

@@ -4,7 +4,7 @@ use Core\Interfaces\FormInterface;
 use Core\Facade\Form;
 
 
-class ArticleAddForm
+class ArticleEditForm
 {
 
     public function getForm()
