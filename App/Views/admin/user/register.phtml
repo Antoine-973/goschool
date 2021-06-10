@@ -1,13 +1,18 @@
-<?php if(isset($errors) && !empty($errors)): ?>
-    <ul>
-    <?php foreach($errors as $error): ?>
-        <li><?php echo $error;?></li>
-    <?php endforeach; ?>
-    </ul>
-<?php endif; ?>
-<div class="user-register">
-    <?= $userRegister; ?>
-</div>
-<div>
-    <a href="/admin/login">Déjà inscrit(e) ? S’identifier</a>
+<div class="content admin-register">
+    <h1>Inscription</h1>
+    <div class="container">
+        <div class="container__col-12">
+            <?php if(isset($errors) && !empty($errors)): ?>
+                <ul>
+                <?php foreach($errors as $error): ?>
+                    <li><?php echo $error;?></li>
+                <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
+            <div class="user-register">
+                <?= $userRegister; ?>
+            </div>
+        </div>
+        <a href="/admin/login">Déjà inscrit(e) ? S’identifier</a>
+    </div>
 </div>
