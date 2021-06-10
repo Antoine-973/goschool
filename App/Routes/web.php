@@ -43,4 +43,6 @@ $route->post('/admin/users/add', ['controller' => 'AdminUserController', 'method
 
 $route->get('/admin/param', ['controller' => 'AdminParamController', 'method' => 'index']);
 
+$route->get('/admin/medias', ['controller' => 'AdminMediaController', 'method' => 'index']);
+
 return $route->getRoutes();
