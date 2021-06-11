@@ -37,10 +37,10 @@ class AdminUserController extends Controller {
         $this->validator = new Validator();
     }
 
-    public function indexUserManager()
+    public function indexListUser()
     {
         $users = $this->userQuery->getUsers();
-        $this->render("admin/user/userManager.phtml", ['users'=>$users]);
+        $this->render("admin/user/listUser.phtml", ['users'=>$users]);
     }
 
     public function indexAddUser()
