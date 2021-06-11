@@ -18,7 +18,7 @@ class UserEditForm
     {
         $id = $this->request->getBody();
 
-        $form = Form::create('/admin/users/edit')
+        $form = Form::create('/admin/user/edit')
             ->input('id', 'hidden', ['value' => $id['id']])
             ->input('firstname', 'text', ['value' => 'Prénom', 'min' => 3, 'max' => 55, 'required' => 'required'])
             ->input('lastname', 'text', ['value' => 'Nom', 'min' => 3, 'max' => 55, 'required' => 'required'])
