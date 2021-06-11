@@ -36,4 +36,16 @@ class AdminPageController extends Controller {
         $this->render("admin/page/pageManager.phtml", ['pages'=>$pages]);
     }
 
+    public function indexAddPage()
+    {
+        $pages = $this->pageQuery->getPages();
+        $this->render("admin/page/addPage.phtml");
+    }
+
+    public function indexEditPage()
+    {
+        $pages = $this->pageQuery->getPages();
+        $this->render("admin/page/editPage.phtml");
+    }
+
 }
