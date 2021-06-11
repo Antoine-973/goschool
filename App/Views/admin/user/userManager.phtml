@@ -5,6 +5,16 @@
         <div class="col-12">
             <?php $keys = array_keys($users);?>
 
+            <?php if(($message = $helper->getFlashMessage('created'))):?>
+                <p><?php echo $message;?></p>
+            <?php elseif(($message = $helper->getFlashMessage('edited'))):?>
+                <p> <?php echo $message;?></p>
+            <?php elseif(($message = $helper->getFlashMessage('deleted'))):?>
+                <p> <?php echo $message;?></p>
+            <?php elseif(($message = $helper->getFlashMessage('failed'))):?>
+                <p> <?php echo $message;?></p>
+            <?php endif;?>
+
             <table id="users_table" class="display dataTable">
                 <thead>
                 <tr>
@@ -18,7 +28,6 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tbody>
                 <?php if(!empty($users)) { ?>
                     <?php for($i = 0; $i < count($users); $i++) { ?>
                 <tr>
@@ -30,7 +39,6 @@
                     <?php } ?>
                 <?php } ?>
                 </tr>
-                </tbody>
                 </tbody>
 
                 <tfoot>
@@ -48,11 +56,7 @@
 
             <script>
                 $(document).ready( function () {
-                    $('#users_table').DataTable({
-                        "processing" : true,
-                        "serverSide" : true
-                        //"ajax": ""
-                    });
+                    $('#users_table').DataTable();
                 });
             </script>
 
