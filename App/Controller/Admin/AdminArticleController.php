@@ -91,9 +91,7 @@ class AdminArticleController extends Controller {
                     $this->request->redirect('/admin/articles')->with('success', 'Mise a jour');
                 }
             } else {
-                $form = new ArticleEditForm();
-                $editArticle = $form->getForm();
-                $this->render('/admin/articles/edit.phtml', ['editArticle'=>$editArticle, 'errors'=>$errors]);
+                $this->request->redirect('/admin/articles/edit?id=20')->with('errors', $errors);
             }
         }
     }

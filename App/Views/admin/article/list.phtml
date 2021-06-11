@@ -16,7 +16,6 @@
                     </thead>
 
                 <tbody>
-                <tbody>
                 <?php if(!empty($articles)) { ?>
                     <?php for($i = 0; $i < count($articles); $i++) { ?>
                         <tr>
@@ -29,7 +28,6 @@
                         <?php } ?>
                     <?php } ?>
                     <tr>
-                </tbody>
                 </tbody>
                 <tfoot>
                     <tr>
@@ -44,21 +42,7 @@
 
             <script>
                 $(document).ready(function() {
-                    $('#articletableid').DataTable({
-                        "serverSide" : true,
-                        "searching": true,
-                        "paging": true,
-                        "pagingType": "full_numbers",
-                        "lengthMenu":[
-                            [10, 25, 50, -1],
-                            [10, 25, 50 ,"All"]
-                        ],
-                        responsive: true,
-                        language: {
-                            search: "_INPUT_",
-                            searchPlaceholder: "Rechercher",
-                        }
-                    });
+                    $('#articletableid').DataTable();
                 } );
             </script>
         </div>

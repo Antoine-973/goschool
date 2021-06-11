@@ -2,13 +2,16 @@
     <h1>Modifier l'article</h1>
     <div class="container">
         <div class="container col-6">
-            <?php if(isset($errors) && !empty($errors)): ?>
+            <?php if(($message = $helper->getFlashMessage('success'))):?>
+            <p><?php echo $message;?></p>
+            <?php else:?>
+            <p> <?php $errors = $helper->getFlashMessage('errors');?></p>
             <ul>
                 <?php foreach($errors as $error): ?>
                     <li><?php echo $error;?></li>
                 <?php endforeach; ?>
             </ul>
-            <?php endif; ?>
+            <?php endif;?>
             <?= $editArticle; ?>
         </div>
     </div>
