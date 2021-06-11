@@ -54,7 +54,6 @@ class AdminArticleController extends Controller {
     {
         if($this->request->isPost()) {
             $data = $this->request->getBody();
-            var_dump($data);
             if(!empty($data)){
                 $this->articleQuery->create($data);
                 $form = new ArticleAddForm();
@@ -81,11 +80,19 @@ class AdminArticleController extends Controller {
         $id = $_GET['id'];
         if($this->request->isPost()) {
             $data = $this->request->getBody();
-            echo $id;
-        } else {
-            echo "nop";
+            if(!empty($data)) {
+                $this->articleQuery->updateArticle($id, $data);
+                echo "nice";
+                $form = new ArticleEditForm();
+                $editArticle = $form->getForm();
+                $this->render("admin/articles/edit.phtml", ['editArticle'=>$editArticle]);
+            } else {
+                echo "nop";
+                $form = new ArticleEditForm();
+                $editArticle = $form->getForm();
+                $this->render("admin/articles/edit.phtml", ['editArticle'=>$editArticle]);
+            }
         }
-        $this->render("/admin/article");
     }
 
     public function delete()

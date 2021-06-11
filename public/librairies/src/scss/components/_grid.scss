@@ -29,6 +29,7 @@ $map-grid-props: (
         @for $i from 1 through $col-nb {
             .col-#{$i} {
                 flex-basis: (100 / ($col-nb / $i) ) * 1%;
+                width: (100 / ($col-nb / $i)) * 1%;
                 padding: 0 calc($gutter-width/2) ;
             }
         }
@@ -51,6 +52,7 @@ $map-grid-props: (
 .row {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: row;
     width: 100%;
     //margin: 0 calc(#{$gutter-width}/-2);
 }

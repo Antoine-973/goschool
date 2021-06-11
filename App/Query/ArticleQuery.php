@@ -83,7 +83,7 @@ class ArticleQuery
     /**
      * @param array $data
      */
-    public function updateArticle(array $data, int $id)
+    public function updateArticle(int $id, array $data)
     {
         $query = $this->builder->update("articles")->set($data)->where("id = $id");
         return $query;
