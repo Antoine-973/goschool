@@ -1145,6 +1145,22 @@ body {
   color: #fff;
 }
 
+.admin-sidebar .admin-menu-links ul {
+  padding: 0;
+  margin: 0;
+}
+
+.admin-sidebar .admin-menu-links ul li {
+  border-top: 1px solid #02A2AD;
+}
+
+.admin-sidebar .admin-menu-links ul li a {
+  display: block;
+  padding: 20px;
+  height: 100%;
+  width: 100%;
+}
+
 .admin-sidebar .parameters {
   position: absolute;
   bottom: 0;
@@ -1165,6 +1181,35 @@ body {
   right: 0;
   border-radius: 0px 0px 0px 50px;
   text-align: right;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding-left: 50px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.admin-topbar .user-controls .identity {
+  display: flex;
+  flex-direction: row;
+  color: #fff;
+}
+
+.admin-topbar .user-controls .identity .img {
+  width: 35px;
+  height: 35px;
+  margin-right: 15px;
+  border-radius: 50%;
+  background-color: #fff;
+}
+
+.admin-topbar .user-controls .identity p {
+  margin: 0;
+}
+
+.admin-topbar .user-controls ul {
+  margin: 0;
+  padding: 0;
 }
 
 .admin-topbar .user-controls ul li {
