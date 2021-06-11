@@ -57,12 +57,12 @@ class AdminArticleController extends Controller {
     {
         if($this->request->isPost()) {
             $data = $this->request->getBody();
-            $errors = $this->validator->validate($this->userModel, $data);
+            $errors = $this->validator->validate($this->articleModel, $data);
             if(!empty($errors)){
                 $this->articleQuery->create($data);
-                $this->request->redirect('/admin/articles');
+                $this->render("admin/article/list.phtml");
             }else{
-                $this->request->redirect('/admin/articles');
+                $this->render("admin/article/list.phtml");
             }
         } else {
             $form = new ArticleAddForm();
@@ -85,17 +85,15 @@ class AdminArticleController extends Controller {
             $data = $this->request->getBody();
             $id = $data['id'];
             $dataToUpdate = array_slice($data, 1);
-            $errors = $this->validator->validate($this->articleModel, $data);
-            if(!empty($errors)) {
+            $errors = $this->validator->validate($this->articleModel, $dataToUpdate);
+            if(empty($errors)) {
                 if($this->articleQuery->updateArticle($dataToUpdate, $id)) {
-                    $this->request->redirect('/admin/articles');
-                } else {
-                    $this->request->redirect('/admin/articles');
+                    $this->request->redirect('/admin/articles')->with('success', 'Mise a jour');
                 }
             } else {
                 $form = new ArticleEditForm();
                 $editArticle = $form->getForm();
-                $this->render("admin/articles/edit.phtml", ['editArticle'=>$editArticle]);
+                $this->render('/admin/articles/edit.phtml', ['editArticle'=>$editArticle, 'errors'=>$errors]);
             }
         }
     }
@@ -107,10 +105,10 @@ class AdminArticleController extends Controller {
             if($this->articleQuery->deleteArticle($id)) {
                 $this->request->redirect('/admin/articles');
             } else {
-                $this->request->redirect('/admin/articles/delete');
+                $this->request->redirect('/admin/articles');
             }
         } else {
-            $this->request->redirect('/admin/articles/delete');
+            $this->request->redirect('/admin/articles');
         }
     }
 }
