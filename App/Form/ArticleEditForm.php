@@ -15,7 +15,7 @@ class ArticleEditForm
     {
         $id = $this->request->getBody();
 
-        $form = Form::create('/admin/articles/edit')
+        $form = Form::create('/admin/article/edit')
                 ->input('id', 'hidden', ['value' => $id['id']])
                 ->input('title', 'text', ['value' => 'Titre', 'min' => 4, 'max' => 55, 'required' => 'required'])
                 ->textarea('content', 'textarea', ['required' => 'required', 'max' => 400])

@@ -31,6 +31,7 @@ class AdminArticleController extends Controller {
         $this->request = new Request();
         $this->response = new Response();
         $this->articleModel = new ArticleModel();
+        $this->articleAddForm = new ArticleAddForm();
         $this->articleEditForm = new ArticleEditForm();
         $this->articleQuery = new ArticleQuery();
         $this->articleModel = new ArticleModel();
@@ -38,79 +39,87 @@ class AdminArticleController extends Controller {
 
     }
 
-    public function indexArticle()
+    public function indexListArticle()
     {
         $articles = ($this->articleQuery->getArticles());
-        $this->render("admin/article/list.phtml", ['articles'=>$articles]);
+        $this->render("admin/article/listArticle.phtml", ['articles'=>$articles]);
     }
 
-    public function add()
+    public function indexAddArticle()
     {
         $form = new ArticleAddForm();
-        $addArticle = $form->getForm();
+        $articleAddForm = $form->getForm();
         
-        $this->render("admin/article/add.phtml", ['addArticle'=>$addArticle]);
-        //$this->render("admin/articles/list.phtml");
+        $this->render("admin/article/addArticle.phtml", ['articleAdd'=>$articleAddForm]);
     }
 
-    public function create()
+    public function addArticle()
     {
         if($this->request->isPost()) {
             $data = $this->request->getBody();
-            $errors = $this->validator->validate($this->userModel, $data);
-            if(!empty($errors)){
-                $this->articleQuery->create($data);
-                $this->request->redirect('/admin/articles');
-            }else{
-                $this->request->redirect('/admin/articles');
-            }
-        } else {
-            $form = new ArticleAddForm();
-            $addArticle = $form->getForm();
-            $this->render("admin/article/add.phtml", ['addArticle'=>$addArticle]);
-        }
-    }
+            $errors = $this->validator->validate($this->articleModel, $data);
 
-    public function edit()
+            if(empty($errors)){
+                if($this->articleQuery->create($data))
+                {
+                    $this->request->redirect('/admin/articles')->with('created', 'L\'article a bien été crée');
+                }
+                else{
+                    $this->request->redirect('/admin/articles')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                    }
+                }
+            }
+            else {
+                $form = new ArticleAddForm();
+                $articleAddForm = $form->getForm();
+                $this->render("admin/article/addArticle.phtml", ['errors' => $errors, 'articleAdd'=>$articleAddForm]);
+            }
+        }
+
+    public function indexEditArticle()
     {
         $form = new ArticleEditForm();
         $editArticle = $form->getForm();
         $id = $this->request->getBody();
-        $this->render("admin/article/edit.phtml", ['editArticle'=>$editArticle]);
+        $this->render("admin/article/editArticle.phtml", ['editArticle'=>$editArticle]);
     }
 
-    public function update()
+    public function editArticle()
     {
         if($this->request->isPost()) {
             $data = $this->request->getBody();
             $id = $data['id'];
             $dataToUpdate = array_slice($data, 1);
-            $errors = $this->validator->validate($this->articleModel, $data);
-            if(!empty($errors)) {
+            $errors = $this->validator->validate($this->articleModel, $dataToUpdate);
+
+            if(empty($errors)) {
                 if($this->articleQuery->updateArticle($dataToUpdate, $id)) {
-                    $this->request->redirect('/admin/articles');
-                } else {
-                    $this->request->redirect('/admin/articles');
+                    $this->request->redirect('/admin/articles')->with('edited', 'L\'article a bien été édité');
                 }
-            } else {
+                else{
+                    $this->request->redirect('/admin/articles')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                }
+            }
+            else{
                 $form = new ArticleEditForm();
-                $editArticle = $form->getForm();
-                $this->render("admin/articles/edit.phtml", ['editArticle'=>$editArticle]);
+                $articleEditForm = $form->getForm();
+
+                $this->render("admin/user/editArticle.phtml", ['errors' => $errors, 'editArticle'=>$articleEditForm]);
             }
         }
     }
 
-    public function delete()
+    public function deleteArticle()
     {
         $id = $_GET['id'];
         if($this->request->isGet()) {
             if($this->articleQuery->deleteArticle($id)) {
                 $this->request->redirect('/admin/articles');
             } else {
-                $this->request->redirect('/admin/articles/delete');
+                $this->request->redirect('/admin/articles');
             }
         } else {
-            $this->request->redirect('/admin/articles/delete');
+            $this->request->redirect('/admin/articles');
         }
     }
 }

@@ -9,8 +9,6 @@ class ArticleModel extends Model
 
     private $content;
 
-    private $tag;
-
     public function setTitle($title)
     {
         $this->title = $title;
@@ -19,11 +17,6 @@ class ArticleModel extends Model
     public function setContent($content)
     {
         $this->content = $content;
-    }
-
-    public function setTag($tag)
-    {
-        $this->tag = $tag;
     }
     
     public function getTitle()
@@ -34,11 +27,6 @@ class ArticleModel extends Model
     public function getContent()
     {
         return $this->content;
-    }
-
-    public function getTag()
-    {
-        return $this->tag;
     }
 
     public function rules()

@@ -1,0 +1,16 @@
+<div class="content admin-article--edit">
+    <div class="container">
+        <h1>Modifier l'article</h1>
+        <div class="col-6">
+            <?php if(isset($errors) && !empty($errors)): ?>
+                <ul>
+                    <?php foreach($errors as $error): ?>
+                        <li><?php echo $error;?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
+            <?= $editArticle; ?>
+            <a href="/admin/articles" class="btn btn--infos btn--sm">Revenir à la liste</a>
+        </div>
+    </div>
+</div>

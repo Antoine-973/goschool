@@ -29,27 +29,26 @@ $route->post('/admin/resetpassword', ['controller' => 'AdminLostPassword', 'meth
 $route->get('/admin/lostpassword', ['controller' => 'AdminLostPassword', 'method' => 'indexLostPassword']);
 $route->post('/admin/lostpassword', ['controller' => 'AdminLostPassword', 'method' => 'lostPassword']);
 
-$route->get('/admin/articles', ['controller' => 'AdminArticleController', 'method' => 'indexArticle']);
-
-$route->post('/admin/articles/add', ['controller' => 'AdminArticleController', 'method' => 'create']);
-$route->get('/admin/articles/add', ['controller' => 'AdminArticleController', 'method' => 'add']);
-$route->get('/admin/articles/delete', ['controller' => 'AdminArticleController', 'method' => 'delete']);
-$route->get('/admin/articles/edit', ['controller' => 'AdminArticleController', 'method' => 'edit']);
-$route->post('/admin/articles/edit', ['controller' => 'AdminArticleController', 'method' => 'update']);
+$route->get('/admin/articles', ['controller' => 'AdminArticleController', 'method' => 'indexListArticle']);
+$route->get('/admin/article/add', ['controller' => 'AdminArticleController', 'method' => 'indexAddArticle']);
+$route->post('/admin/article/add', ['controller' => 'AdminArticleController', 'method' => 'addArticle']);
+$route->get('/admin/article/edit', ['controller' => 'AdminArticleController', 'method' => 'indexEditArticle']);
+$route->post('/admin/article/edit', ['controller' => 'AdminArticleController', 'method' => 'editArticle']);
+$route->get('/admin/article/delete', ['controller' => 'AdminArticleController', 'method' => 'deleteArticle']);
 
 $route->get('/admin/pages', ['controller' => 'AdminPageController', 'method' => 'indexPageManager']);
-$route->get('/admin/pages/add', ['controller' => 'AdminPageController', 'method' => 'indexAddPage']);
-$route->post('/admin/pages/add', ['controller' => 'AdminPageController', 'method' => 'addPage']);
-$route->get('/admin/pages/edit', ['controller' => 'AdminPageController', 'method' => 'indexEditPage']);
-$route->post('/admin/pages/edit', ['controller' => 'AdminPageController', 'method' => 'editPage']);
-$route->get('/admin/pages/delete', ['controller' => 'AdminPageController', 'method' => 'deletePage']);
+$route->get('/admin/page/add', ['controller' => 'AdminPageController', 'method' => 'indexAddPage']);
+$route->post('/admin/page/add', ['controller' => 'AdminPageController', 'method' => 'addPage']);
+$route->get('/admin/page/edit', ['controller' => 'AdminPageController', 'method' => 'indexEditPage']);
+$route->post('/admin/page/edit', ['controller' => 'AdminPageController', 'method' => 'editPage']);
+$route->get('/admin/page/delete', ['controller' => 'AdminPageController', 'method' => 'deletePage']);
 
-$route->get('/admin/users', ['controller' => 'AdminUserController', 'method' => 'indexUserManager']);
-$route->get('/admin/users/add', ['controller' => 'AdminUserController', 'method' => 'indexAddUser']);
-$route->post('/admin/users/add', ['controller' => 'AdminUserController', 'method' => 'addUser']);
-$route->get('/admin/users/edit', ['controller' => 'AdminUserController', 'method' => 'indexEditUser']);
-$route->post('/admin/users/edit', ['controller' => 'AdminUserController', 'method' => 'editUser']);
-$route->get('/admin/users/delete', ['controller' => 'AdminUserController', 'method' => 'deleteUser']);
+$route->get('/admin/users', ['controller' => 'AdminUserController', 'method' => 'indexListUser']);
+$route->get('/admin/user/add', ['controller' => 'AdminUserController', 'method' => 'indexAddUser']);
+$route->post('/admin/user/add', ['controller' => 'AdminUserController', 'method' => 'addUser']);
+$route->get('/admin/user/edit', ['controller' => 'AdminUserController', 'method' => 'indexEditUser']);
+$route->post('/admin/user/edit', ['controller' => 'AdminUserController', 'method' => 'editUser']);
+$route->get('/admin/user/delete', ['controller' => 'AdminUserController', 'method' => 'deleteUser']);
 
 $route->get('/admin/param', ['controller' => 'AdminParamController', 'method' => 'index']);
 
