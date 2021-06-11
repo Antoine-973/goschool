@@ -2,7 +2,7 @@
 <?php if(($message = $helper->getFlashMessage('success'))):?>
 <p><?php echo $message;?></p>
 <?php else:?>
-<p> <?php echo $helper->getFlashMessage('fail');?></p>
+<p> <?php var_dump($helper->getFlashMessage('fail'));?></p>
 <?php endif;?>
 <p><?= $registerForm; ?></p>
 <p><?php var_dump($query); ?></p>

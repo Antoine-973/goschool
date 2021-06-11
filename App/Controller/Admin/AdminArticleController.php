@@ -6,17 +6,23 @@ use Core\Http\Request;
 use Core\Http\Response;
 use App\Model\ArticleModel;
 use App\Form\ArticleAddForm;
+use App\Form\ArticleEditForm;
 use App\Query\ArticleQuery;
+use Core\Component\Validator;
 
 class AdminArticleController extends Controller {
 
     private $request;
+
+    private $validator;
 
     private $response;
 
     private $articleModel;
 
     private $articleAddForm;
+
+    private $articleEditForm;
 
     private $articleQuery;
 
@@ -25,16 +31,17 @@ class AdminArticleController extends Controller {
         $this->request = new Request();
         $this->response = new Response();
         $this->articleModel = new ArticleModel();
-        $this->articleAddForm = new ArticleAddForm();
+        $this->articleEditForm = new ArticleEditForm();
         $this->articleQuery = new ArticleQuery();
         $this->articleModel = new ArticleModel();
+        $this->validator = new Validator();
 
     }
 
     public function indexArticle()
     {
-        $articles = $this->articleQuery->getArticles();
-        $this->render("admin/articles/list.phtml", ['articles'=>$articles]);
+        $articles = ($this->articleQuery->getArticles());
+        $this->render("admin/article/list.phtml", ['articles'=>$articles]);
     }
 
     public function add()
@@ -42,7 +49,7 @@ class AdminArticleController extends Controller {
         $form = new ArticleAddForm();
         $addArticle = $form->getForm();
         
-        $this->render("admin/articles/add.phtml", ['addArticle'=>$addArticle]);
+        $this->render("admin/article/add.phtml", ['addArticle'=>$addArticle]);
         //$this->render("admin/articles/list.phtml");
     }
 
@@ -50,37 +57,60 @@ class AdminArticleController extends Controller {
     {
         if($this->request->isPost()) {
             $data = $this->request->getBody();
-            if(!empty($data)){
+            $errors = $this->validator->validate($this->userModel, $data);
+            if(!empty($errors)){
                 $this->articleQuery->create($data);
-                $form = new ArticleAddForm();
-                $addArticle = $form->getForm();
-                $this->render("admin/articles/add.phtml", ['addArticle'=>$addArticle]);
+                $this->request->redirect('/admin/articles');
             }else{
-                echo "no";
-                $form = new ArticleAddForm();
-                $addArticle = $form->getForm();
-                $this->render("admin/articles/add.phtml", ['addArticle'=>$addArticle]);
+                $this->request->redirect('/admin/articles');
             }
+        } else {
+            $form = new ArticleAddForm();
+            $addArticle = $form->getForm();
+            $this->render("admin/article/add.phtml", ['addArticle'=>$addArticle]);
         }
     }
 
     public function edit()
     {
-        $form = new ArticleAddForm();
+        $form = new ArticleEditForm();
         $editArticle = $form->getForm();
-        $this->render("admin/articles/edit.phtml", ['editArticle'=>$editArticle]);
+        $id = $this->request->getBody();
+        $this->render("admin/article/edit.phtml", ['editArticle'=>$editArticle]);
+    }
+
+    public function update()
+    {
+        if($this->request->isPost()) {
+            $data = $this->request->getBody();
+            $id = $data['id'];
+            $dataToUpdate = array_slice($data, 1);
+            $errors = $this->validator->validate($this->articleModel, $data);
+            if(!empty($errors)) {
+                if($this->articleQuery->updateArticle($dataToUpdate, $id)) {
+                    $this->request->redirect('/admin/articles');
+                } else {
+                    $this->request->redirect('/admin/articles');
+                }
+            } else {
+                $form = new ArticleEditForm();
+                $editArticle = $form->getForm();
+                $this->render("admin/articles/edit.phtml", ['editArticle'=>$editArticle]);
+            }
+        }
     }
 
     public function delete()
     {
+        $id = $_GET['id'];
         if($this->request->isGet()) {
             if($this->articleQuery->deleteArticle($id)) {
-                $this->request->redirect('/admin/article');
+                $this->request->redirect('/admin/articles');
             } else {
-                echo "article non supprimé";
+                $this->request->redirect('/admin/articles/delete');
             }
         } else {
-            echo "no btn";
+            $this->request->redirect('/admin/articles/delete');
         }
     }
 }

@@ -12,7 +12,7 @@ use App\Model\UserModel;
 use Core\Component\Validator;
 use App\Query\UserQuery;
 use Core\Util\Hash;
-
+use Core\Util\DotEnv;
 class AdminAuthController extends Controller{
 
     private $request;
@@ -67,7 +67,7 @@ class AdminAuthController extends Controller{
 
        
 
-            if( !empty($data['email']) && !empty($data['password']) ){
+            if(!empty($data['email']) && !empty($data['password']) ){
          
                 if(!empty($user) && $hash->compareHash($data['password'], $user['password_hash'])){
                         $this->request->redirect('/')->with('success', 'Connecté avec succès');
@@ -93,7 +93,6 @@ class AdminAuthController extends Controller{
             if(empty($errors)){
                 if($this->userQuery->create($data))
                 {
-                    
                     $this->request->redirect('/admin/login')->with('success', 'Thanks for your registration.');
                 }
                 $this->request->redirect('/install')->with('errors', $errors);
@@ -101,5 +100,17 @@ class AdminAuthController extends Controller{
                 $this->request->redirect('/install')->with('errors', $errors);
             }
         }
+    }
+
+    public function DBConnection($data)
+    {/*
+        (new DotEnv(dirname(dirname(dirname(__DIR__))) . '/.env'))->load();
+        if($data['db_user'] && $data['db_name'] && $data['db_host']){
+            putenv('DB_USER') = $data['db_user'];
+            putenv('DB_NAME') = $data['db_name'];
+            putenv('DB_HOTS') = $data['db_host'];
+            putenv('DB_PASSWORD') = $data['db_password'];
+        }
+        */
     }
 }

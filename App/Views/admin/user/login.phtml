@@ -1,22 +1,23 @@
-<body>
+<div class="content admin-login">
+    <h1>Connexion</h1>
 	<div class="container">
 		<div class="row">
-			<div class="col-6">
-				<div class="logoContainer">
-					<img src="../../../../public/librairies/images/connexion.jpg" alt="go school logo">
+			<div class="container col-6">
+				<div class="content logoContainer">
+					<img src="/librairies/images/admin/logo.svg" alt="go school logo">
 					<p>Bienvenue à l’école de la réussite</p>
 				</div>
 			</div>
-			<div class="col-6">
+			<div class="container col-6">
 				<div class="row">
 					<div class="col-12">
 						<div class="content formContainer--form white">
-                        <?php echo $userLogin; ?>
+						<?php echo $userLogin; ?>
 						</div>
 					</div>
 					<div class="col-12">
-						<div class="formContainer--contact white">
-                            <button class="button button--contact"><a href="/admin/lostpassword">Mot de passe oublié ?</a></button>
+						<div class="content formContainer--contact white">
+							<button class="button button--contact"><a href="/admin/lostpassword">Mot de passe oublié ?</a></button>
 							<p>Vous n'avez pas encore de compte ?</p>
 							<button type="submit" class="button button--contact"><a href="/admin/register">S'inscrire </a></button>
 						</div>
@@ -25,4 +26,4 @@
 			</div>
 		</div>
 	</div>
-</body>
+</div>

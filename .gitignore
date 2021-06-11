@@ -1,2 +1,5 @@
 .env
 .idea
+public/librairies/dist/
+public/librairies/dist/main.css
+public/librairies/dist/main.js

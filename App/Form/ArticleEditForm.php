@@ -2,18 +2,23 @@
 namespace App\Form;
 use Core\Interfaces\FormInterface;
 use Core\Facade\Form;
+use Core\Http\Request;
 
-
-class ArticleAddForm
+class ArticleEditForm
 {
+
+    public function __construct(){
+        $this->request = new Request();
+    }
 
     public function getForm()
     {
+        $id = $this->request->getBody();
 
-        $form = Form::create('/admin/article/edit')
+        $form = Form::create('/admin/articles/edit')
+                ->input('id', 'hidden', ['value' => $id['id']])
                 ->input('title', 'text', ['value' => 'Titre', 'min' => 4, 'max' => 55, 'required' => 'required'])
                 ->textarea('content', 'textarea', ['required' => 'required', 'max' => 400])
-                // ->input('tag', 'text', ['value' => 'Tag'])
                 ->input('submit', 'submit', ['value' => 'Modifier']);
         return $form->getForm();
     }

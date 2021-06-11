@@ -6,16 +6,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>admin</title>
     <link rel="stylesheet" type="text/css" href="/librairies/dist/main.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     <script src="/librairies/dist/main.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 </head>
 <body>
-<nav class="admin-main--menu"></nav>
-<header class="admin-main--header"><h2>Header</h2></header>
+    <div class="admin-sidebar">
+        <nav class="admin-main--menu">
+            <div class="logo">
+                <a href="#"><img src="/images/logo.png" alt=""></a>
+            </div>
+            <div class="dashboard-home">
+                <a href="#"><i class="fas fa-tachometer-alt"></i>Tableau de bord</a>
+            </div>
+            <div class="admin-menu-links">
+                <ul>
+                <li><a href="#">Pages</a></li>
+                <li><a href="#">Articles</a></li>
+                <li><a href="#">Catégories</a></li>
+                <li><a href="#">Planning</a></li>
+                <li><a href="#">Newsletters</a></li>
+                </ul>
+            </div>
+            <div class="parameters">
+            <a href="#"><i class="fad fa-badge-dollar"></i>Paramètres</a>
+            </div>
+        </nav>
 
-<div class="admin-main--content">
-    {{content}}
-</div>
+    </div>
+    <div class="admin-topbar">
+        <div class="user-controls">
+            <div class="identity">
+                <div class="img">
 
-<footer class="admin-main--footer"><h2>Footer</h2></footer>
+                </div>
+                <p class="fullname">Christian Mohindo</p>
+            </div>
+            <div class="user-actions">
+                <ul>
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="#">Déconnexion</a></li>
+                </ul>
+            </div>  
+        </div>
+    </div>
+    <div class="admin-main--content">
+        {{content}}
+    </div>
+
+    <footer class="admin-main--footer"><h2>Footer</h2></footer>
 </body>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#articletableid').DataTable({
+            "searching": true,
+            "paging": true,
+            "pagingType": "full_numbers",
+            "lengthMenu":[
+                [10, 25, 50, -1],
+                [10, 25, 50 ,"All"]
+            ],
+            responsive: true,
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "Rechercher",
+            }
+        });
+    } );
+    </script>
+<script>
+function confirmDelete(delArticle){
+    if (confirm("Voulez vous vraiment supprimer ?")) {
+        document.location = delArticle;
+    }
+}
+</script>
 </html>

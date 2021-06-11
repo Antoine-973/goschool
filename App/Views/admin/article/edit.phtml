@@ -1,18 +1,16 @@
-<div class="content admin-register">
-    <h1>Inscription</h1>
+<div class="content admin-article--edit">
+    <h1>Modifier l'article</h1>
     <div class="container">
         <div class="container col-6">
             <?php if(isset($errors) && !empty($errors)): ?>
-                <ul>
+            <ul>
                 <?php foreach($errors as $error): ?>
                     <li><?php echo $error;?></li>
                 <?php endforeach; ?>
-                </ul>
+            </ul>
             <?php endif; ?>
-            <div class="user-register">
-                <?= $userRegister; ?>
-            </div>
-            <a href="/admin/login">Déjà inscrit(e) ? S’identifier</a>
+            <?= $editArticle; ?>
         </div>
     </div>
+    <a href="/admin/articles" class="btn btn--infos btn--sm">Revenir à la liste</a>
 </div>
