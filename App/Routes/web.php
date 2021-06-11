@@ -29,17 +29,13 @@ $route->post('/admin/resetpassword', ['controller' => 'AdminLostPassword', 'meth
 $route->get('/admin/lostpassword', ['controller' => 'AdminLostPassword', 'method' => 'indexLostPassword']);
 $route->post('/admin/lostpassword', ['controller' => 'AdminLostPassword', 'method' => 'lostPassword']);
 
-$route->get('/admin/article', ['controller' => 'AdminArticleController', 'method' => 'indexArticle']);
+$route->get('/admin/articles', ['controller' => 'AdminArticleController', 'method' => 'indexArticle']);
 
-$route->post('/admin/article/add', ['controller' => 'AdminArticleController', 'method' => 'create']);
-$route->get('/admin/article/add', ['controller' => 'AdminArticleController', 'method' => 'add']);
-$route->get('/admin/article/delete/{id}', ['controller' => 'AdminArticleController', 'method' => 'delete']);
-$route->post('/admin/article/delete', ['controller' => 'AdminArticleController', 'method' => 'delete']);
-
-$route->get('/admin/article/delete', ['controller' => 'AdminArticleController', 'method' => 'delete']);
-
-$route->get('/admin/article/edit', ['controller' => 'AdminArticleController', 'method' => 'edit']);
-$route->post('/admin/article/edit', ['controller' => 'AdminArticleController', 'method' => 'update']);
+$route->post('/admin/articles/add', ['controller' => 'AdminArticleController', 'method' => 'create']);
+$route->get('/admin/articles/add', ['controller' => 'AdminArticleController', 'method' => 'add']);
+$route->get('/admin/articles/delete', ['controller' => 'AdminArticleController', 'method' => 'delete']);
+$route->get('/admin/articles/edit', ['controller' => 'AdminArticleController', 'method' => 'edit']);
+$route->post('/admin/articles/edit', ['controller' => 'AdminArticleController', 'method' => 'update']);
 
 $route->get('/admin/users', ['controller' => 'AdminUserController', 'method' => 'indexUserManager']);
 $route->get('/admin/users/add', ['controller' => 'AdminUserController', 'method' => 'indexAddUser']);

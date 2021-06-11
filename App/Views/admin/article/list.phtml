@@ -1,10 +1,9 @@
 <div class="content admin-article--list">
-    <h1>List of articles</h1>
+    <h1>Liste des articles</h1>
     <div class="container">
         <div class="container col-10">
         <?php $keys = array_keys($articles);?>
-        <a href="article/add" class="btn btn--infos btn--sm"><i class="fas fa-plus-circle"></i> Ajouter</a>
-        <a href="article/edit" class="btn btn--warning btn--sm">Modifier</a>
+        <a href="articles/add" class="btn btn--infos btn--sm"><i class="fas fa-plus-circle"></i> Ajouter</a>
             <table id="articletableid" class="display">
                     <thead>
                         <tr>
@@ -24,8 +23,9 @@
                             <?php foreach($articles[$keys[$i]] as $key => $value) { ?>
                                 <td><?php echo $value ?></td>
                             <?php } ?>
-                            <td><a href="article/edit?id=<?php echo $articles[$i]['id'] ?>" class="btn btn--warning btn--sm"><i class="fas fa-edit"></i></a></td>
-                            <td><a href="javascript:confirmDelete('article/delete?id=<?php echo $articles[$i]['id'] ?>')" class="btn btn--danger btn--sm"><i class="fas fa-trash-alt"></i></a></td>
+                            <td><a href="articles/edit?id=<?php echo $articles[$i]['id'] ?>" class="btn btn--warning btn--sm"><i class="fas fa-edit"></i></a></td>
+                            <!-- <td><a href="javascript:confirmDelete('article/delete?id=<?php // echo $articles[$i]['id'] ?>')" class="btn btn--danger btn--sm"><i class="fas fa-trash-alt"></i></a></td> -->
+                            <td><a href="javascript:confirmDelete('articles/delete?id=<?php echo $articles[$i]['id'] ?>')" class="btn btn--danger btn--sm"><i class="fas fa-trash-alt"></i></a></td>
                         <tr>
                         <?php } ?>
                 </tbody>
