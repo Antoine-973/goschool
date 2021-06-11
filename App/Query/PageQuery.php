@@ -14,6 +14,16 @@ class PageQuery
     }
 
     /**
+     * @return string $query
+     */
+    public function getPages()
+    {
+        $query = $this->builder->select("id, title")->from("pages");
+
+        return $query->getResult();
+    }
+
+    /**
      * @param int $id
      * @return string $query
      */
