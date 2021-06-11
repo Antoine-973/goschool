@@ -30,10 +30,10 @@ class AdminPageController extends Controller {
         $this->validator = new Validator();
     }
 
-    public function indexPageManager()
+    public function indexListPage()
     {
         $pages = $this->pageQuery->getPages();
-        $this->render("admin/page/pageManager.phtml", ['pages'=>$pages]);
+        $this->render("admin/page/listPage.phtml", ['pages'=>$pages]);
     }
 
     public function indexAddPage()

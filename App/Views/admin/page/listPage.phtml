@@ -1,7 +1,7 @@
 <div class="container">
     <div content admin-page--list>
         <h1>Pages</h1>
-        <a class="btn" href="/admin/pages/add" class="btn btn--infos btn--sm"><i class="fas fa-plus-circle"></i>Ajouter une Page</a>
+        <a class="btn" href="/admin/page/add" class="btn btn--infos btn--sm"><i class="fas fa-plus-circle"></i>Ajouter une Page</a>
         <div class="col-12">
             <?php $keys = array_keys($pages);?>
 
@@ -16,19 +16,17 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tbody>
                 <?php if(!empty($pages)) { ?>
                     <?php for($i = 0; $i < count($pages); $i++) { ?>
                 <tr>
                         <?php foreach($pages[$keys[$i]] as $key => $value) { ?>
                             <td><?php echo $value ?></td>
                         <?php } ?>
-                    <td><a href="users/edit?id=<?php echo $pages[$i]['id'] ?>" class="btn btn--warning btn--sm"><i class="fas fa-edit"></i></a></td>
-                    <td><a href="javascript:confirmDelete('users/delete?id=<?php echo $pages[$i]['id'] ?>')" class="btn btn--danger btn--sm"><i class="fas fa-trash-alt"></i></a></td>
+                    <td><a href="page/edit?id=<?php echo $pages[$i]['id'] ?>" class="btn btn--warning btn--sm"><i class="fas fa-edit"></i></a></td>
+                    <td><a href="javascript:confirmDelete('page/delete?id=<?php echo $pages[$i]['id'] ?>')" class="btn btn--danger btn--sm"><i class="fas fa-trash-alt"></i></a></td>
                     <?php } ?>
                 <?php } ?>
                 </tr>
-                </tbody>
                 </tbody>
 
                 <tfoot>
@@ -44,11 +42,7 @@
 
             <script>
                 $(document).ready( function () {
-                    $('#pages_table').DataTable({
-                        "processing" : true,
-                        "serverSide" : true
-                        //"ajax": ""
-                    });
+                    $('#pages_table').DataTable();
                 });
             </script>
 
