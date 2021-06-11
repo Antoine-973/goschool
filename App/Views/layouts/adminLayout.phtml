@@ -61,25 +61,6 @@
 
     <footer class="admin-main--footer"><h2>Footer</h2></footer>
 </body>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#articletableid').DataTable({
-            "searching": true,
-            "paging": true,
-            "pagingType": "full_numbers",
-            "lengthMenu":[
-                [10, 25, 50, -1],
-                [10, 25, 50 ,"All"]
-            ],
-            responsive: true,
-            language: {
-                search: "_INPUT_",
-                searchPlaceholder: "Rechercher",
-            }
-        });
-    } );
-    </script>
 <script>
 function confirmDelete(delArticle){
     if (confirm("Voulez vous vraiment supprimer ?")) {
