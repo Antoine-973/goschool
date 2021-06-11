@@ -102,7 +102,7 @@ class AdminAuthController extends Controller{
         }
     }
 
-    public function DBConnection($data)
+    /*public function DBConnection($data)
     {
         (new DotEnv(dirname(dirname(dirname(__DIR__))) . '/.env'))->load();
         if($data['db_user'] && $data['db_name'] && $data['db_host']){
@@ -111,5 +111,5 @@ class AdminAuthController extends Controller{
             putenv('DB_HOTS') = $data['db_host'];
             putenv('DB_PASSWORD') = $data['db_password'];
         }
-    }
+    }*/
 }
