@@ -2,6 +2,8 @@
 namespace Core;
 use Core\Routing\Template;
 use Core\Http\Session;
+use Core\Util\Helper;
+
 class Controller{
 
     public function render($view, $data = [])
@@ -37,7 +39,12 @@ class Controller{
 
     public function view($view)
     {
-        require_once dirname(__DIR__) . DIRECTORY_SEPARATOR. "App" . DIRECTORY_SEPARATOR . "Views" . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $view);
+        $helper = new Helper();
+
+        ob_start();
+        extract([ 'helper' => $helper]);
+        require dirname(__DIR__) . DIRECTORY_SEPARATOR. "App" . DIRECTORY_SEPARATOR . "Views" . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $view);
+        echo ob_get_clean();
     }
 
 

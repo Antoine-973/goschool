@@ -33,13 +33,20 @@ $route->get('/admin/article', ['controller' => 'AdminArticleController', 'method
 
 $route->post('/admin/article/add', ['controller' => 'AdminArticleController', 'method' => 'create']);
 $route->get('/admin/article/add', ['controller' => 'AdminArticleController', 'method' => 'add']);
+$route->get('/admin/article/delete/{id}', ['controller' => 'AdminArticleController', 'method' => 'delete']);
+$route->post('/admin/article/delete', ['controller' => 'AdminArticleController', 'method' => 'delete']);
 
 $route->get('/admin/article/delete', ['controller' => 'AdminArticleController', 'method' => 'delete']);
 
 $route->get('/admin/article/edit', ['controller' => 'AdminArticleController', 'method' => 'edit']);
 $route->post('/admin/article/edit', ['controller' => 'AdminArticleController', 'method' => 'update']);
 
+$route->get('/admin/users', ['controller' => 'AdminUserController', 'method' => 'indexUserManager']);
+$route->get('/admin/users/add', ['controller' => 'AdminUserController', 'method' => 'indexAddUser']);
 $route->post('/admin/users/add', ['controller' => 'AdminUserController', 'method' => 'addUser']);
+$route->get('/admin/users/edit', ['controller' => 'AdminUserController', 'method' => 'indexEditUser']);
+$route->post('/admin/users/edit', ['controller' => 'AdminUserController', 'method' => 'editUser']);
+$route->get('/admin/users/delete', ['controller' => 'AdminUserController', 'method' => 'deleteUser']);
 
 $route->get('/admin/param', ['controller' => 'AdminParamController', 'method' => 'index']);
 

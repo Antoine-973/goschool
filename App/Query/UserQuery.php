@@ -19,7 +19,7 @@ class UserQuery
      */
     public function getUsers()
     {
-        $query = $this->builder->select("firstname, lastname, email, roles")->from("users");
+        $query = $this->builder->select("id, firstname, lastname, email, roles")->from("users");
         
         return $query->getResult();
     }
@@ -89,8 +89,8 @@ class UserQuery
      */
     public function delete(int $id)
     {
-        $query = $this->builder->delete()->from("users")->where("id = $id");
-        return $query->getQuery();
+        $query = $this->builder->delete()->from("users")->where("id = $id")->save();
+        return $query;
     }
 
     /**
@@ -119,8 +119,19 @@ class UserQuery
      */
     public function update(array $data, int $id)
     {
-        $query = $this->builder->update("users")->set($data)->where("id = $id");
-        return $query;
+        $hash = new Hash();
+
+        if(array_key_exists('password', $data) && array_key_exists('passwordConfirm', $data)){
+
+            $data['password_hash'] = $hash->passwordHash($data['password']);
+
+            unset($data["password"]);
+            unset($data["passwordConfirm"]);
+
+
+            $query = $this->builder->update("users")->set($data)->where("id = $id")->save();
+            return $query;
+        }
     }
 
     /**
