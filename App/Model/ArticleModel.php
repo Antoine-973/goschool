@@ -44,12 +44,8 @@ class ArticleModel extends Model
     public function rules()
     {
         return [
-            'firstname' => ['type' => 'string',  'min' => 3, 'required' => 'required', 'max' => 25],
-            'lastname' => ['type' => 'string',  'min' => 3, 'required' => 'required', 'max' => 25],
-            'username' => ['type' => 'string',  'min' => 3, 'required' => 'required', 'max' => 25],
-            'email' => ['type' => 'email',  'min' => 8, 'required' => 'required', 'max' => 25],
-            'password' => ['type' => 'password',  'min' => 6, 'required' => 'required', 'max' => 25],
-            'passwordConfirm' => ['match' => 'password']
+            'title' => ['type' => 'string',  'min' => 4, 'required' => 'required', 'max' => 55],
+            'content' => ['type' => 'string', 'required' => 'required', 'max' => 400],
         ];
 
     }
