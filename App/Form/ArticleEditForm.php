@@ -23,7 +23,7 @@ class ArticleEditForm
 
         $form = Form::create('/admin/article/edit')
                 ->input('id', 'hidden', ['value' => $id['id']])
-                ->input('title', 'text', ['value' => 'Titre', 'min' => 4, 'max' => 55, 'required' => 'required'])
+                ->input('title', 'text', ['value' => 'Titre', 'min' => 4, 'max' => 55, 'text' => $data['title'], 'required' => 'required'])
                 ->textarea('content', 'textarea', ['value' => $data['content'], 'max' => 400])
                 ->input('submit', 'submit', ['value' => 'Modifier']);
         return $form->getForm();
