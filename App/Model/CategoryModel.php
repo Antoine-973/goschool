@@ -76,4 +76,14 @@ class CategoryModel extends Model
     {
         $this->image = $image;
     }
+
+    public function rules()
+    {
+        return [
+            'name' => ['type' => 'string',  'min' => 4, 'required' => 'required', 'max' => 55],
+            'slug' => ['type' => 'string',  'min' => 4, 'required' => 'required', 'max' => 55],
+            'description' => ['type' => 'string', 'max' => 400],
+            'image' => ['type' => 'string', 'max' => 400],
+        ];
+    }
 }
