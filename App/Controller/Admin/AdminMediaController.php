@@ -35,12 +35,7 @@ class AdminMediaController extends Controller{
         /* nombre d'images récupérées */
         $nb_total_img=count($name_fichiers);
         //var_dump($name_fichiers);
-        /* affichage */
-        foreach($name_fichiers as $value)
-        {
-            echo '<img src="'.$repertoire.$value.'" /> ==> '.$value.'<br />';
-        }
         $listMedias = $name_fichiers;
-        $this->render("admin/media/listMedia.phtml", ['listMedias'=>$listMedias, 'nb_total_img'=>$nb_total_img]);
+        $this->render("admin/media/listMedia.phtml", ['listMedias'=>$listMedias, 'nb_total_img'=>$nb_total_img, 'repertoire'=>$repertoire]);
     }
 }
