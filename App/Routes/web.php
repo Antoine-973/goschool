@@ -52,6 +52,6 @@ $route->get('/admin/user/delete', ['controller' => 'AdminUserController', 'metho
 
 $route->get('/admin/param', ['controller' => 'AdminParamController', 'method' => 'index']);
 
-$route->get('/admin/medias', ['controller' => 'AdminMediaController', 'method' => 'index']);
+$route->get('/admin/media', ['controller' => 'AdminMediaController', 'method' => 'index']);
 
 return $route->getRoutes();

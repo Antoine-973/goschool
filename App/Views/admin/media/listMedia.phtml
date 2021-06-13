@@ -1,0 +1,47 @@
+    <div class="container">
+        <div class="content admin-media--list">
+            <div class="col-10">
+                <h1>Liste des medias</h1>
+                <a href="/admin/media/add" class="btn btn--infos btn--sm"><i class="fas fa-plus-circle"></i> Ajouter une image</a>
+                <table id="medias_table" class="display dataTable">
+                    <thead>
+                        <tr>
+                            <th>Titre</th>
+                            <th>Image</th>
+                            <th>Modifier</th>
+                            <th>Supprimer</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <?php for($i = 0; $i < $nb_total_img; $i++) { ?>
+                            <tr>
+                                <td><?php echo $listMedias[$i] ?></td>
+                                <td></td>
+                                <td><a href="" class="btn btn--warning btn--sm"><i class="fas fa-edit"></i></a></td>
+                                <td><a href="" class="btn btn--danger btn--sm"><i class="fas fa-trash-alt"></i></a></td>
+                            <tr>
+                            <?php } ?>
+                    </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <th>Titre</th>
+                            <th>Image</th>
+                            <th>Modifier</th>
+                            <th>Supprimer</th>
+                        <tr>
+                    </tfoot>
+                </table>
+
+                <script>
+                    $(document).ready(function() {
+                        $('#medias_table').DataTable();
+                    } );
+                </script>
+
+                <p> Il y a <?php echo $nb_total_img ?> fichiers.<p>
+            </div>
+        </div>
+    </div>
+</div>

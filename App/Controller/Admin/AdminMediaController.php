@@ -3,19 +3,13 @@ namespace App\Controller\Admin;
 
 use Core\Controller;
 use Core\Http\Request;
-use Core\Http\Session;
 use Core\Http\Response;
-use Core\Component\Validator;
 
 class AdminMediaController extends Controller{
 
     private $request;
 
     private $response;
-
-    private $validator;
-
-    private $session;
 
     public function __construct()
     {
@@ -25,7 +19,28 @@ class AdminMediaController extends Controller{
 
     public function index()
     {
-        $listMedias = "/librairies/images/admin/logo.svg";
-        $this->render("admin/medias/list.phtml", ['listMedias'=>$listMedias]);
+        $repertoire='../images/';/* chemin du repertoire */
+        /* ouverture du dossier */
+        $chemin_fichiers = opendir($repertoire);
+        /* initialisation tableau des noms */
+        $name_fichiers= [];
+        while($fichier = readdir($chemin_fichiers))
+        {
+            if(!is_dir($fichier))
+            {
+                array_push($name_fichiers, $fichier);/* rajout au tableau */
+            }
+        }
+        closedir();
+        /* nombre d'images récupérées */
+        $nb_total_img=count($name_fichiers);
+        //var_dump($name_fichiers);
+        /* affichage */
+        foreach($name_fichiers as $value)
+        {
+            echo '<img src="'.$repertoire.$value.'" /> ==> '.$value.'<br />';
+        }
+        $listMedias = $name_fichiers;
+        $this->render("admin/media/listMedia.phtml", ['listMedias'=>$listMedias, 'nb_total_img'=>$nb_total_img]);
     }
 }
