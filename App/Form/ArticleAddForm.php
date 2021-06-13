@@ -12,8 +12,7 @@ class ArticleAddForm
 
         $form = Form::create('/admin/article/add')
                 ->input('title', 'text', ['value' => 'Titre', 'min' => 4, 'max' => 55, 'required' => 'required'])
-                ->textarea('content', 'textarea', ['required' => 'required', 'max' => 400])
-                // ->input('tag', 'text', ['value' => 'Tag'])
+                ->textarea('content', 'textarea', ['max' => 400])
                 ->input('submit', 'submit', ['value' => 'Ajouter']);
         return $form->getForm();
     }
