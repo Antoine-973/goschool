@@ -28,7 +28,7 @@ class AdminMediaController extends Controller{
         {
             if(!is_dir($fichier))
             {
-                array_push($name_fichiers, $fichier);/* rajout au tableau */
+                array_push($name_fichiers, $fichier);/* ajout au tableau */
             }
         }
         closedir();
@@ -37,5 +37,21 @@ class AdminMediaController extends Controller{
         //var_dump($name_fichiers);
         $listMedias = $name_fichiers;
         $this->render("admin/media/listMedia.phtml", ['listMedias'=>$listMedias, 'nb_total_img'=>$nb_total_img, 'repertoire'=>$repertoire]);
+    }
+
+    public function indexAddMedia()
+    {
+        if(isset($_POST["env"])){
+            $dir = "/images";
+            $uploadFile = $dir.basename($_FILES['image']['name']);
+            if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile)) {
+                echo "fichier yes";
+            } else {
+                echo "fichier non";
+            }
+        }
+
+        //print_r($_FILES);
+        $this->render("admin/media/addMedia.phtml");
     }
 }
