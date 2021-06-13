@@ -10,7 +10,8 @@ class categories_table_migration
         $sql = "CREATE TABLE IF NOT EXISTS categories
         (
             `id`  BIGINT(20) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-            `name` VARCHAR(55) NOT NULL,
+            `name` VARCHAR(55) NOT NULL UNIQUE,
+            `slug` VARCHAR(55) NOT NULL UNIQUE,
             `description` TEXT NULL,
             `image` VARCHAR(255) NULL,
             `categorie_parent` BIGINT(20) NULL
