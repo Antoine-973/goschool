@@ -19,10 +19,8 @@ class ArticleQuery
      */
     public function getById(int $id)
     {
-        $query = $this->builder->select("*")->from("articles")->where("id = $id");
+        $query = $this->builder->select("title, content")->from("articles")->where("id = $id");
         return $query->getResult();
-        return $query->getQuery();
-    
     }
 
     /**
@@ -67,7 +65,7 @@ class ArticleQuery
      */
     public function getArticles()
     {
-        $query = $this->builder->select('id, title, content')->from("articles");
+        $query = $this->builder->select('id, title')->from("articles");
         return $query->getResult();
     }
 
