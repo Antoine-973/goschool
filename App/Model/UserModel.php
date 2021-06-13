@@ -1,7 +1,6 @@
 <?php
 namespace App\Model;
 use Core\Database\Model;
-use Core\Database\Validator;
 
 class UserModel extends Model
 {

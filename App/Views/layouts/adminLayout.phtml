@@ -30,7 +30,7 @@
                     <li><a href="/admin/medias"><i class="fas fa-photo-video"></i>  Médias</a></li>
                     <li><a href="#"><i class="fas fa-brush"></i>  Apparence</a></li>
                     <li><a href="/admin/users"><i class="fas fa-user"></i>  Utilisateurs</a></li>
-                    <li><a href="#"><i class="fas fa-graduation-cap"></i>  Scolarité</a></li>
+                    <li><a href="#"><i class="fas fa-comment"></i>  Commentaires</a></li>
                     <li><a href="#"><i class="far fa-calendar-alt"></i>  Planning</a></li>
                     <li><a href="#"><i class="far fa-newspaper"></i>  Newsletters</a></li>
                 </ul>
@@ -63,25 +63,6 @@
 
     <footer class="admin-main--footer"><h2>Footer</h2></footer>
 </body>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#articletableid').DataTable({
-            "searching": true,
-            "paging": true,
-            "pagingType": "full_numbers",
-            "lengthMenu":[
-                [10, 25, 50, -1],
-                [10, 25, 50 ,"All"]
-            ],
-            responsive: true,
-            language: {
-                search: "_INPUT_",
-                searchPlaceholder: "Rechercher",
-            }
-        });
-    } );
-    </script>
 <script>
 function confirmDelete(delArticle){
     if (confirm("Voulez vous vraiment supprimer ?")) {
