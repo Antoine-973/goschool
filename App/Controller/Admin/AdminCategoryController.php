@@ -43,4 +43,12 @@ class AdminCategoryController extends Controller {
         $categories = ($this->categoryQuery->getCategories());
         $this->render("admin/category/listCategory.phtml", ['categories'=>$categories]);
     }
+
+    public function indexaddCategory(){
+
+        $form = new CategoryAddForm();
+        $categoryAddForm = $form->getForm();
+
+        $this->render("admin/category/addCategory.phtml", ['categoryAdd'=>$categoryAddForm]);
+    }
 }
