@@ -1,0 +1,4 @@
+DB_DRIVER=hello
+DB_HOST=hello
+DB_USER=hello
+DB_PASSWORD=hello

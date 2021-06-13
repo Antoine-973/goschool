@@ -9,7 +9,7 @@ class DB extends \PDO
 
   public function __construct()
   {
-        (new DotEnv(dirname(dirname(__DIR__)) . '/.env'))->load();
+      if( (new DotEnv(dirname(dirname(__DIR__)) . '/.env'))->load()){
 
         $conn =  getenv('DB_DRIVER').":host=".getenv('DB_HOST').";dbname=".getenv('DB_NAME');
 
@@ -24,6 +24,8 @@ class DB extends \PDO
         }catch(\PDOException $e){
           echo $e->getMessage();
         }
+
+      }
 
   }
 

@@ -18,10 +18,11 @@ class DotEnv
         $this->path = $path;
     }
 
-    public function load() :void
+    public function load() :bool
     {
         if (!is_readable($this->path)) {
             throw new \RuntimeException(sprintf('%s file is not readable', $this->path));
+            return false;
         }
 
         $lines = file($this->path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
@@ -41,5 +42,7 @@ class DotEnv
                 $_SERVER[$name] = $value;
             }
         }
+
+        return true;
     }
 }
