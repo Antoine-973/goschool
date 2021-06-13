@@ -11,11 +11,12 @@ class TextareaField{
         $cols = $params['cols'] ?? 33;
         $rows = $params['rows'] ?? 5;
         $required = $params['required'] ?? '';
+        $value = $params['value'] ?? '...';
 
         return sprintf(
             "<div class=\"input-group\">
                 <label for=%s>%s</label>
-                <textarea name=%s id=%s rows=%s cols=%s placeholder=%s minlength=%s maxlength=%s $required></textarea>
+                <textarea name=%s id=%s rows=%s cols=%s placeholder=%s minlength=%s maxlength=%s $required>$value</textarea>
             </div>
             ",
             $name,
