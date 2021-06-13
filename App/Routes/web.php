@@ -36,6 +36,13 @@ $route->get('/admin/article/edit', ['controller' => 'AdminArticleController', 'm
 $route->post('/admin/article/edit', ['controller' => 'AdminArticleController', 'method' => 'editArticle']);
 $route->get('/admin/article/delete', ['controller' => 'AdminArticleController', 'method' => 'deleteArticle']);
 
+$route->get('/admin/categories', ['controller' => 'AdminCategoryController', 'method' => 'indexListCategory']);
+$route->get('/admin/categorie/add', ['controller' => 'AdminCategoryController', 'method' => 'indexAddCategory']);
+$route->post('/admin/categorie/add', ['controller' => 'AdminCategoryController', 'method' => 'addACategory']);
+$route->get('/admin/categorie/edit', ['controller' => 'AdminCategoryController', 'method' => 'indexEditCategory']);
+$route->post('/admin/categorie/edit', ['controller' => 'AdminCategoryController', 'method' => 'editCategory']);
+$route->get('/admin/categorie/delete', ['controller' => 'AdminCategoryController', 'method' => 'deleteCategory']);
+
 $route->get('/admin/pages', ['controller' => 'AdminPageController', 'method' => 'indexListPage']);
 $route->get('/admin/page/add', ['controller' => 'AdminPageController', 'method' => 'indexAddPage']);
 $route->post('/admin/page/add', ['controller' => 'AdminPageController', 'method' => 'addPage']);
