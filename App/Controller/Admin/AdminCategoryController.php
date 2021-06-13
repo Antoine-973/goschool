@@ -51,4 +51,28 @@ class AdminCategoryController extends Controller {
 
         $this->render("admin/category/addCategory.phtml", ['categoryAdd'=>$categoryAddForm]);
     }
+
+    public function addCategory()
+    {
+        if($this->request->isPost()) {
+            $data = $this->request->getBody();
+            $errors = $this->validator->validate($this->categoryModel, $data);
+
+            if(empty($errors)){
+                if($this->categoryQuery->create($data))
+                {
+                    $this->request->redirect('/admin/categories')->with('created', 'La catégorie a bien été créee');
+                }
+                else{
+                    $this->request->redirect('/admin/categories')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                }
+            }
+            else {
+                $form = new CategoryAddForm();
+                $categoryAddForm = $form->getForm();
+                $this->render("admin/article/addCategory.phtml", ['errors' => $errors, 'categoryAdd'=>$categoryAddForm]);
+            }
+        }
+    }
+
 }
