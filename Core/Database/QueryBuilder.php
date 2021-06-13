@@ -2,6 +2,7 @@
 namespace Core\Database;
 use Core\Database\DB;
 use Core\Util\Hash;
+use Core\Util\Table;
 class QueryBuilder{
 
     private $fields;
@@ -74,24 +75,35 @@ class QueryBuilder{
 
             $stmt = $pdo->prepare($this->query);
             $stmt->execute();
-            $result = array();
-
-            while(($row = $stmt->fetch(DB::FETCH_ASSOC))) {
-                $result[] = $row;
-            }
+            $result = [];
 
             $count = 0;
-            foreach($result as $subarray){
-                $count += count($subarray);
-            }
 
-            if ($count == 1)
-            {
-                return $result[0];
+            while(($row = $stmt->fetch(DB::FETCH_ASSOC))) {
+
+                $count+=1;
+
+                if ($count > 1){
+                    if($row != null) {
+                        $multiDimentionalArray[] = $row;
+                    }
+                }
+
+                else{
+                    if($row != null) {
+                        $result = $row;
+                        $multiDimentionalArray[] = $result;
+                    }
+                    }
+                }
+
+            if ($count > 1){
+                return $multiDimentionalArray;
             }
             else{
                 return $result;
             }
+
         }catch(\PDOException $e){
             echo $e->getMessage();
         }
