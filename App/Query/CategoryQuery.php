@@ -21,4 +21,13 @@ class CategoryQuery{
         $query = $this->builder->select('id, name, slug, description')->from("categories");
         return $query->getResult();
     }
+
+    /**
+     * @param array $data
+     */
+    public function create(array $data)
+    {
+        $query = $this->builder->insertInto('categories')->columns($data)->values($data)->save();
+        return $query;
+    }
 }
