@@ -10,14 +10,10 @@ class pages_table_migration
         $sql = "CREATE TABLE IF NOT EXISTS pages
         (
             `id`  BIGINT(20) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-            `title` VARCHAR(255) NOT NULL,
-            `url` VARCHAR(255) NOT NULL,
+            `title` VARCHAR(255) NOT NULL UNIQUE,
+            `url` VARCHAR(255) NULL UNIQUE,
             `image` VARCHAR(255) NULL,
             `content` TEXT NULL,
-            `articles_id` BIGINT(20) NULL,
-            `articles_categories_id` BIGINT(20) NULL,
-            `articles_tags_id` BIGINT(20) NULL,
-            `categorie_parent` BIGINT NULL,
             `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         ) ENGINE=INNODB CHARSET=`utf8`;";
