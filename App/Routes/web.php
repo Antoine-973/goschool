@@ -36,7 +36,7 @@ $route->get('/admin/article/edit', ['controller' => 'AdminArticleController', 'm
 $route->post('/admin/article/edit', ['controller' => 'AdminArticleController', 'method' => 'editArticle']);
 $route->get('/admin/article/delete', ['controller' => 'AdminArticleController', 'method' => 'deleteArticle']);
 
-$route->get('/admin/pages', ['controller' => 'AdminPageController', 'method' => 'indexPageManager']);
+$route->get('/admin/pages', ['controller' => 'AdminPageController', 'method' => 'indexListPage']);
 $route->get('/admin/page/add', ['controller' => 'AdminPageController', 'method' => 'indexAddPage']);
 $route->post('/admin/page/add', ['controller' => 'AdminPageController', 'method' => 'addPage']);
 $route->get('/admin/page/edit', ['controller' => 'AdminPageController', 'method' => 'indexEditPage']);

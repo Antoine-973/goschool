@@ -1,6 +1,6 @@
 <div class="container">
     <div class="content admin-article--add">
-        <div class="col-6">
+        <div class="col-12">
             <h1>Ajouter un nouvel article</h1>
             <?php if(isset($errors) && !empty($errors)): ?>
                 <ul>
@@ -15,3 +15,14 @@
         </div>
     </div>
 </div>
+
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#content' ) )
+        .then( editor => {
+            console.log( editor );
+        } )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>

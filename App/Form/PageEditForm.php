@@ -1,16 +1,16 @@
 <?php
 namespace App\Form;
-use App\Query\ArticleQuery;
+use App\Query\PageQuery;
 use Core\Interfaces\FormInterface;
 use Core\Facade\Form;
 use Core\Http\Request;
 
-class ArticleEditForm
+class PageEditForm
 {
 
     public function __construct(){
         $this->request = new Request();
-        $this->articleQuery = new ArticleQuery();
+        $this->pageQuery = new PageQuery();
     }
 
     public function getForm()
@@ -19,11 +19,11 @@ class ArticleEditForm
 
         $stringId = implode("','",$id);
 
-        $data=$this->articleQuery->getById($stringId);
+        $data=$this->pageQuery->getById($stringId);
 
-        $form = Form::create('/admin/article/edit')
+        $form = Form::create('/admin/page/edit')
                 ->input('id', 'hidden', ['value' => $id['id']])
-                ->input('title', 'text', ['value' => 'Titre', 'min' => 4, 'max' => 55, 'text' => $data['title'], 'required' => 'required'])
+                ->input('title', 'text', ['value' => 'title', 'min' => 4, 'max' => 55, 'text' => $data['title'], 'required' => 'required'])
                 ->textarea('content', 'textarea', ['value' => $data['content'], 'max' => 400])
                 ->input('submit', 'submit', ['value' => 'Modifier']);
         return $form->getForm();

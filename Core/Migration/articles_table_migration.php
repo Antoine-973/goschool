@@ -10,8 +10,8 @@ class articles_table_migration
         $sql = "CREATE TABLE IF NOT EXISTS articles
         (
             `id`  BIGINT(20) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-            `title` VARCHAR(255) NOT NULL,
-            `slug` VARCHAR(255) NULL,
+            `title` VARCHAR(255) NOT NULL UNIQUE,
+            `slug` VARCHAR(255) NULL UNIQUE,
             `content` TEXT NULL,
             `tags_id` BIGINT(20) NULL DEFAULT '0',
             `categories_id` BIGINT(20) NULL DEFAULT '0',
