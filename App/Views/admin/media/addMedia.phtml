@@ -4,11 +4,23 @@
             <h1>Ajouter une image</h1>
             <form method="POST" enctype="multipart/form-data">
             <h3>Inserer l'image</h3>
-            <input type="file" name="image" id="image" />
-            <input type="submit" class="btn btn--success btn--md" value="envoyer" />
-            <input type="hidden" value="b" name="env"/>
+            <input type="file" name="image"/>
+            <input type="submit" class="btn btn--success btn--md" value="Envoyer l'image" />
             </form>
             <a href="/admin/medias" class="btn btn--infos btn--sm">Revenir à la liste</a>
         </div>
     </div>
 </div>
+
+<!-- 
+        if(isset($_POST["image"])){
+            $dir = "/images";
+            $uploadFile = $dir.basename($_FILES['image']['name']);
+            if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile)) {
+                echo "fichier yes";
+            } else {
+                echo "fichier non";
+            }
+        }
+
+-->

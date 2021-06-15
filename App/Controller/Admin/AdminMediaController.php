@@ -41,17 +41,41 @@ class AdminMediaController extends Controller{
 
     public function indexAddMedia()
     {
-        if(isset($_POST["env"])){
-            $dir = "/images";
-            $uploadFile = $dir.basename($_FILES['image']['name']);
-            if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile)) {
-                echo "fichier yes";
-            } else {
-                echo "fichier non";
-            }
-        }
-
-        //print_r($_FILES);
         $this->render("admin/media/addMedia.phtml");
+    }
+
+    public function addMedia()
+    {
+        var_dump($_FILES['image']['size']);
+        if($this->request->isPost()) {
+            if($_FILES['image']['size'] <= 1000000) {
+                $fileInfos = pathinfo($_FILES['image']['name']);
+                $fileExtension = $fileInfos['extension'];
+                $extensionsOk = ['jpg', 'jpeg', 'svg', 'png'];
+                if(in_array($fileExtension, $extensionsOk)) {
+                    move_uploaded_file($_FILES['image']['tmp_name'], '../images/'.basename($_FILES['image']['name']));
+                    $this->request->redirect('/admin/medias');
+                } else {
+                    $this->request->redirect('/admin/media/add');
+                }
+            } else {
+                $this->request->redirect('/admin/media/add');
+            }
+        } else {
+            $this->request->redirect('/admin/media/add');
+        }
+    }
+
+    public function deleteMedia()
+    {
+        if($this->request->isGet()) {
+            if($this->articleQuery->deleteArticle($id)) {
+                $this->request->redirect('/admin/articles');
+            } else {
+                $this->request->redirect('/admin/articles');
+            }
+        } else {
+            $this->request->redirect('/admin/articles');
+        }
     }
 }
