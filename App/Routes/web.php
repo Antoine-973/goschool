@@ -55,5 +55,6 @@ $route->get('/admin/param', ['controller' => 'AdminParamController', 'method' =>
 $route->get('/admin/medias', ['controller' => 'AdminMediaController', 'method' => 'index']);
 $route->get('/admin/media/add', ['controller' => 'AdminMediaController', 'method' => 'indexAddMedia']);
 $route->post('/admin/media/add', ['controller' => 'AdminMediaController', 'method' => 'addMedia']);
+$route->get('/admin/media/delete', ['controller' => 'AdminMediaController', 'method' => 'deleteMedia']);
 
 return $route->getRoutes();

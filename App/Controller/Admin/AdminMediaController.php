@@ -68,14 +68,12 @@ class AdminMediaController extends Controller{
 
     public function deleteMedia()
     {
+        $image = $_GET['name'];
         if($this->request->isGet()) {
-            if($this->articleQuery->deleteArticle($id)) {
-                $this->request->redirect('/admin/articles');
-            } else {
-                $this->request->redirect('/admin/articles');
-            }
+            unlink("../images/".$image);
+            $this->request->redirect('/admin/medias');
         } else {
-            $this->request->redirect('/admin/articles');
+            $this->request->redirect('/admin/medias');
         }
     }
 }
