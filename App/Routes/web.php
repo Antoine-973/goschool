@@ -38,7 +38,7 @@ $route->get('/admin/article/delete', ['controller' => 'AdminArticleController', 
 
 $route->get('/admin/categories', ['controller' => 'AdminCategoryController', 'method' => 'indexListCategory']);
 $route->get('/admin/categorie/add', ['controller' => 'AdminCategoryController', 'method' => 'indexAddCategory']);
-$route->post('/admin/categorie/add', ['controller' => 'AdminCategoryController', 'method' => 'addACategory']);
+$route->post('/admin/categorie/add', ['controller' => 'AdminCategoryController', 'method' => 'addCategory']);
 $route->get('/admin/categorie/edit', ['controller' => 'AdminCategoryController', 'method' => 'indexEditCategory']);
 $route->post('/admin/categorie/edit', ['controller' => 'AdminCategoryController', 'method' => 'editCategory']);
 $route->get('/admin/categorie/delete', ['controller' => 'AdminCategoryController', 'method' => 'deleteCategory']);
