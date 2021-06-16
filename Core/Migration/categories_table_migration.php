@@ -14,7 +14,9 @@ class categories_table_migration
             `slug` VARCHAR(55) NOT NULL UNIQUE,
             `description` TEXT NULL,
             `image` VARCHAR(255) NULL,
-            `categorie_parent` BIGINT(20) NULL
+            `categorie_parent` VARCHAR(55) NULL,
+            `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         ) ENGINE=INNODB CHARSET=`utf8`;";
         $conn->exec($sql);
     }
