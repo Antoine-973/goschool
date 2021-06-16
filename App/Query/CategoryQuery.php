@@ -30,4 +30,22 @@ class CategoryQuery{
         $query = $this->builder->insertInto('categories')->columns($data)->values($data)->save();
         return $query;
     }
+
+    /**
+     * @param array $data
+     */
+    public function updateCategory(array $data, int $id)
+    {
+        $query = $this->builder->update("categories")->set($data)->where("id = $id")->save();
+        return $query;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function deleteCategory(int $id)
+    {
+        $query = $this->builder->delete()->from('categories')->where("id = $id")->save();
+        return $query;
+    }
 }
