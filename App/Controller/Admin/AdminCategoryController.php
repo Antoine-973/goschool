@@ -75,4 +75,51 @@ class AdminCategoryController extends Controller {
         }
     }
 
+    public function indexEditCategory(){
+
+        $form = new CategoryEditform();
+        $categoryEditForm = $form->getForm();
+
+        $this->render("admin/category/editCategory.phtml", ['categoryEdit'=>$categoryEditForm]);
+    }
+
+    public function editCategory()
+    {
+        if($this->request->isPost()) {
+            $data = $this->request->getBody();
+            $id = $data['id'];
+            $dataToUpdate = array_slice($data, 1);
+            $errors = $this->validator->validate($this->categoryModel, $dataToUpdate);
+
+            if(empty($errors)) {
+                if($this->categoryQuery->updateCategory($dataToUpdate, $id)) {
+                    $this->request->redirect('/admin/categories')->with('edited', 'La catégorie a bien été éditée');
+                }
+                else{
+                    $this->request->redirect('/admin/categories')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                }
+            }
+            else{
+                $form = new CategoryEditForm();
+                $categoryEditForm = $form->getForm();
+
+                $this->render("admin/user/editCategory.phtml", ['errors' => $errors, 'categoryEdit'=>$categoryEditForm]);
+            }
+        }
+    }
+
+    public function deleteCategory()
+    {
+        $id = $_GET['id'];
+        if($this->request->isGet()) {
+            if($this->categoryQuery->deleteCategory($id)) {
+                $this->request->redirect('/admin/categories')->with('deleted', 'La catégorie a bien été supprimé');
+            } else {
+                $this->request->redirect('/admin/categories')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+            }
+        } else {
+            $this->request->redirect('/admin/categories')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+        }
+    }
+
 }
