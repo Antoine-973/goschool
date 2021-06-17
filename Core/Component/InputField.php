@@ -18,7 +18,7 @@ class InputField{
         $checked = $params['checked'] ?? '';
         $text = $params['text'] ?? '';
 
-        if($type == 'text' || $type == 'email' || $type == 'password'){
+        if($type == 'text' || $type == 'email' || $type == 'password' || $type == 'file'){
 
             return sprintf(
                 "<div class=\"input-group\">

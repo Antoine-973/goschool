@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 use Core\Controller;
 use Core\Http\Request;
 use Core\Http\Response;
+use App\Form\MediaAddForm;
 
 class AdminMediaController extends Controller{
 
@@ -11,10 +12,13 @@ class AdminMediaController extends Controller{
 
     private $response;
 
+    private $mediaAddForm;
+
     public function __construct()
     {
         $this->request = new Request();
         $this->response = new Response();
+        $this->mediaAddForm = new MediaAddForm();
     }
 
     public function index()
@@ -41,7 +45,10 @@ class AdminMediaController extends Controller{
 
     public function indexAddMedia()
     {
-        $this->render("admin/media/addMedia.phtml");
+        $form = new MediaAddForm();
+        $mediaAddForm = $form->getForm();
+
+        $this->render("admin/media/addMedia.phtml", ['mediaAddForm'=>$mediaAddForm]);
     }
 
     public function addMedia()
