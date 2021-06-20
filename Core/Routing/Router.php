@@ -14,32 +14,69 @@ use Core\Controller;
 
  class Router extends Controller{
 
-    private array $routes = [];
+    private static array $routes = [];
 
-    private Request $request;
+    private static Request $request;
 
-    private Response $response;
+    private static Response $response;
+
+    private static $instance = null;
 
     /**
      * @param array $routes
      */
     public function __construct($routes){
 
-        $this->request = new Request();
-        $this->response = new Response();
-        $this->routes = $routes;
+        self::$request = new Request();
+        self::$response = new Response();
+        self::$routes = $routes;
     }
 
 
      /**
       * @return void
       */
-     public function resolve()
+     public  function resolve(string $url = null)
      {
-        $path = $this->request->getPath();
-        $method = $this->request->getMethod();
-        $callback = $this->routes[$method][$path] ?? false;
+        self::$request = new Request();
+
+        if(!self::envFileExists()){
+            $method = self::$request->getMethod();
+            $callback = self::$routes[$method]['/install'] ?? false;
+            exit(self::resolveCallBack($callback));
+        }
         
+        $path = ($url) ? $url : self::$request->getPath();
+        $method = self::$request->getMethod();
+
+        $callback = self::$routes[$method][$path] ?? false;
+        exit(self::resolveCallBack($callback, $path));
+    
+        
+     }
+
+    protected function methodHasParamters($controller, $method){
+
+        $reflexion  = new \ReflectionMethod($controller, $method);
+        $params = $reflexion->getParameters();
+
+        return !empty($params) ? true : false;
+
+    }
+
+    protected static function envFileExists()
+    {
+        $envFile = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . ".env";
+
+        if(file_exists($envFile)){
+            return true;
+        }
+        return false;
+    }
+
+    protected static function resolveCallBack($callback = false, $path = null)
+    {
+     
         if($callback === false){
             return;
         }
@@ -49,7 +86,7 @@ use Core\Controller;
 
         $contrellerFile = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "App" . DIRECTORY_SEPARATOR . "Controller" . DIRECTORY_SEPARATOR . $callback['controller'] . ".php";
  
-        if (strpos($path, 'admin') !== false) {
+        if ($path && strpos($path, 'admin') !== false) {
             
             $contrellerFile = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "App" . DIRECTORY_SEPARATOR . "Controller" . DIRECTORY_SEPARATOR . "Admin" . DIRECTORY_SEPARATOR . $callback['controller'] . ".php";
             $controller_class  = "App\\Controller\\Admin\\" . $callback['controller'];
@@ -61,19 +98,19 @@ use Core\Controller;
             $controller = new  $controller_class();
             
             if(method_exists($controller, $method)){
-                $controller->$method();
+               exit($controller->$method());
+                
             }
 
         }
-    
-     }
+    }
 
-    protected function methodHasParamters($controller, $method){
+    public static function getRouter()
+    {
+        if(is_null(self::$instance)){
+            self::$instance = new Router();
+        }
 
-        $reflexion  = new \ReflectionMethod($controller, $method);
-        $params = $reflexion->getParameters();
-
-        return !empty($params) ? true : false;
-
+        return self::$instance;
     }
  }

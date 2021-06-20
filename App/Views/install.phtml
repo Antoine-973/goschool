@@ -12,34 +12,9 @@
         <h1>Assistant d'installation</h1>
 
         <div class="container install">
-            <form action="/admin/register" method="post">
+            <form action="/install" method="post">
                 <div class="container">
                     <div class="row">
-                        <div class="col-6">
-                            <h3>Information personnelle</h3>
-                            <div class="container">
-                            <div class="input-group"
-                                <label>Nom</label>
-                                <input type="text" name="firstname" />
-                            </div>
-                            <div class="input-group"
-                                <label>Prénom</label>
-                                <input type="text" name="lastname" />
-                            </div>
-                            <div class="input-group"
-                                <label>Email</label>
-                                <input type="email" name="email" />
-                            </div>
-                            <div class="input-group"
-                                <label>Mot de passe</label>
-                                <input type="password" name="password" />
-                            </div>
-                            <div class="input-group"
-                                <label>Confirmer mot de passe</label>
-                                <input type="password" name="confirmPassword" />
-                            </div>
-                            </div>
-                        </div>
                         <div class="col-6">
                             <div class="container">
                             <h3>Information de la base des données</h3>
@@ -59,11 +34,17 @@
                                 <label>Host</label>
                                 <input type="text" name="db_host" />
                             </div>
+                            <div class="input-group"
+                                <label>Driver</label>
+                                <select name="db_driver" id="db_driver">
+                                    <option value="mysql" selected>Mysql</option>
+                                </select>
+                            </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12"><button class="btn btn--info btn--lg">Installation</button></div>
+                        <div class="col-6"><button class="btn btn--info btn--lg">Installation</button></div>
                     </div>
                 </div>
             </form>

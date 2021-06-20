@@ -30,7 +30,7 @@ class Helper
 
     public function getFlashMessage($key)
     {
-        $session = new Session();
+        $session = Session::getSession();
         return $session->getMessage($key);
     }
 

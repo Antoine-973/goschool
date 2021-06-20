@@ -5,6 +5,8 @@ class Session{
     
     private const FLASH_KEY = 'FLASH_KEY';
 
+    private static $instance = null;
+
     public function __construct()
     {
         \session_start();
@@ -43,5 +45,14 @@ class Session{
         }
 
         $_SESSION[self::FLASH_KEY] = $messages;
+    }
+
+    public static function getSession()
+    {
+        if(is_null(self::$instance)){
+            self::$instance = new Session();
+        }
+
+        return self::$instance;
     }
 }

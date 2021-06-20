@@ -5,6 +5,7 @@ namespace Core\Http;
  * @author Christian Mohindo
  */
 use Core\Http\Session;
+use Core\Http\Redirect;
 
 class Request{
 
@@ -81,13 +82,13 @@ class Request{
     public function redirect($route, $statusCode = 303)
     {
        
-        header('Location: ' . $route, true, $statusCode);exit;
+        Redirect::to($route);
         return $this;
     }
 
     public function with($key, $message)
     {
-        $session = new Session();
+        $session = Session::getSession();
         $session->setMessage($key, $message);
     }
 

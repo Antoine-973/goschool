@@ -1,5 +1,6 @@
 <?php
 namespace Core\Util;
+use Core\Http\Redirect;
 class DotEnv
 {
     /**
@@ -13,6 +14,7 @@ class DotEnv
     public function __construct(string $path)
     {
         if(!file_exists($path)) {
+            Redirect::to('/install');exit;
             throw new \InvalidArgumentException(sprintf('%s does not exist', $path));
         }
         $this->path = $path;

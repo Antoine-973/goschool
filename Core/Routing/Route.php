@@ -3,7 +3,7 @@ namespace Core\Routing;
 
 class Route{
 
-    private $routes = [];
+    private static $routes = [];
 
     /**
      * @param string $path
@@ -12,7 +12,7 @@ class Route{
      */
      public function get(string $path, array $callback)
      {
-        $this->routes['get'][$path] = $callback;
+        self::$routes['get'][$path] = $callback;
         return $this;
         
      }
@@ -24,14 +24,14 @@ class Route{
      */
     public function post(string $path, array $callback)
     {
-       $this->routes['post'][$path] = $callback;
+       self::$routes['post'][$path] = $callback;
        return $this;
        
     }
 
-     public function getRoutes()
+     public static function getRoutes()
      {
-        return $this->routes;
+        return self::$routes;
 
      }
 

@@ -37,7 +37,7 @@ class AdminAuthController extends Controller{
         $this->userModel = new UserModel();
         $this->validator = new Validator();
         $this->userQuery = new UserQuery();
-        $this->session = new Session();
+        //$this->session = new Session();
     }
 
     public function indexLogin()

@@ -10,18 +10,12 @@ $routes = require_once "../App/Routes/web.php";
 use Core\Application;
 use Core\Database\DB;
 use Core\Util\Email;
-use Core\Http\Request;
+use Core\Http\Redirect;
 
-$request = new Request();
-
-$envFile = dirname(__DIR__) . DIRECTORY_SEPARATOR . ".env";
-
-if(!file_exists($envFile)){
-    $request->redirect('/install');
-}
+$app = new Application($routes);
+$app->run();
 
 //runInstall($envFile);
 
 
-$app = new Application($routes);
-$app->run();
+

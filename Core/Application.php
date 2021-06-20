@@ -24,6 +24,8 @@ class Application{
 
     private $status = false;
 
+    private $request;
+
     /**
      * @param array $routes
      * @param array $db_config
@@ -32,6 +34,7 @@ class Application{
     {
 
         $this->router = new Router($routes);
+        $this->request = new Request();
     
         
     }

@@ -2,7 +2,7 @@
 
 $route = new Core\Routing\Route();
 $route->get('/install', ['controller' => 'InstallationController', 'method' => 'index']);
-$route->post('/install', ['controller' => 'InstallationController', 'method' => 'handleInstallation']);
+$route->post('/install', ['controller' => 'InstallationController', 'method' => 'install']);
 
 
 /**
@@ -43,4 +43,4 @@ $route->get('/admin/article', ['controller' => 'AdminArticleController', 'method
 $route->get('/admin/article/add', ['controller' => 'AdminArticleController', 'method' => 'add']);
 $route->post('/admin/article/add', ['controller' => 'AdminArticleController', 'method' => 'create']);
 
-return $route->getRoutes();
+return $route::getRoutes();
