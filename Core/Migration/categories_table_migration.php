@@ -17,7 +17,11 @@ class categories_table_migration
             `categorie_parent` VARCHAR(55) NULL,
             `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-        ) ENGINE=INNODB CHARSET=`utf8`;";
+        ) ENGINE=INNODB CHARSET=`utf8`;
+        
+        INSERT INTO categories (name, slug)
+        VALUES
+        ('Non-classé', 'non-classé');";
         $conn->exec($sql);
     }
 }
