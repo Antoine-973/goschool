@@ -23,10 +23,33 @@ class CategoryQuery{
     }
 
     /**
+     * @return array $data
+     */
+    public function getCategoriesName()
+    {
+        $query = $this->builder->select('name')->from("categories");
+        return $query->getResult();
+    }
+
+    /**
      * @param array $data
      */
     public function create(array $data)
     {
+
+        if(array_key_exists('categorie_parent', $data)){
+
+            if ($data['categorie_parent'] == 'Aucune'){
+                $data['categorie_parent'] = null;
+            }
+        }
+
+        if(array_key_exists('slug', $data)){
+
+            $data['slug'] = strtolower($data['slug']);
+
+        }
+
         $query = $this->builder->insertInto('categories')->columns($data)->values($data)->save();
         return $query;
     }
@@ -36,6 +59,19 @@ class CategoryQuery{
      */
     public function updateCategory(array $data, int $id)
     {
+        if(array_key_exists('categorie_parent', $data)){
+
+            if ($data['categorie_parent'] == 'Aucune'){
+                $data['categorie_parent'] = null;
+            }
+        }
+
+        if(array_key_exists('slug', $data)){
+
+            $data['slug'] = strtolower($data['slug']);
+
+        }
+
         $query = $this->builder->update("categories")->set($data)->where("id = $id")->save();
         return $query;
     }
