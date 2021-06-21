@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="content admin-article--add">
+        <div class="col-12">
+            <h1>Ajouter une nouvelle catégorie</h1>
+            <?php if(isset($errors) && !empty($errors)): ?>
+                <ul>
+                    <?php foreach($errors as $error): ?>
+                        <li><?php echo $error;?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
+
+            <?= $categoryAdd; ?>
+            <a href="/admin/categories" class="btn btn--infos btn--sm">Revenir à la liste</a>
+        </div>
+    </div>
+</div>
