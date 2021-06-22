@@ -64,4 +64,9 @@ $route->get('/admin/media/add', ['controller' => 'AdminMediaController', 'method
 $route->post('/admin/media/add', ['controller' => 'AdminMediaController', 'method' => 'addMedia']);
 $route->get('/admin/media/delete', ['controller' => 'AdminMediaController', 'method' => 'deleteMedia']);
 
+$route->get('/admin/comments', ['controller' => 'AdminCommentController', 'method' => 'indexListComment']);
+$route->get('/admin/comment/edit', ['controller' => 'AdminCommentController', 'method' => 'indexeditComment']);
+$route->post('/admin/comment/edit', ['controller' => 'AdminCommentController', 'method' => 'editComment']);
+$route->get('/admin/comment/delete', ['controller' => 'AdminCommentController', 'method' => 'deleteComment']);
+
 return $route->getRoutes();
