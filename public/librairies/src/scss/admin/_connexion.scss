@@ -1,10 +1,10 @@
 body.admin-login{
-    background-image: linear-gradient(to top,rgba(54,55,64,0.9),rgba(54,55,64,0.5)), url("/public/librairies/images/admin/connexion.jpg");
+    background-image: linear-gradient(to top,rgba(54,55,64,0.9),rgba(54,55,64,0.5)), url("/images/connexion.jpg");
     background-position: left;
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover;
 
-    .container__col-6{
+    .col-6{
         &.connexion-leading{
 
             height: 100vh;
