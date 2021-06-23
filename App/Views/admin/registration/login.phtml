@@ -1,6 +1,13 @@
 <div class="content admin-login">
     <h1>Connexion</h1>
             <div class="content formContainer--form white">
+
+                <?php if(($message = $helper->getFlashMessage('error'))):?>
+                    <p><?php echo $message;?></p>
+                <?php elseif(($message = $helper->getFlashMessage('fail'))):?>
+                    <p> <?php echo $message;?></p>
+                <?php endif;?>
+
                 <?php echo $userLogin; ?>
             </div>
         <div class="content formContainer--contact white">
