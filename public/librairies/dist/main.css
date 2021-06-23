@@ -1011,7 +1011,7 @@ body {
 }
 
 .admin-sidebar {
-  position: absolute;
+  position: fixed;
   width: 15%;
   left: 0;
   bottom: 0;
@@ -1063,7 +1063,7 @@ body {
 }
 
 .admin-topbar {
-  position: absolute;
+  position: fixed;
   width: 85%;
   left: 15%;
   top: 0;
