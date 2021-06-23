@@ -16,7 +16,7 @@ $route->get('/users/register', ['controller' => 'UserController', 'method' => 'r
 /**
  * ===== Admin Routes ====
  */
-$route->get('/admin', ['controller' => 'DashBoardController', 'method' => 'index']);
+$route->get('/admin', ['controller' => 'AdminDashBoardController', 'method' => 'index']);
 
 $route->get('/admin/login', ['controller' => 'AdminAuthController', 'method' => 'indexLogin']);
 $route->post('/admin/login', ['controller' => 'AdminAuthController', 'method' => 'login']);
