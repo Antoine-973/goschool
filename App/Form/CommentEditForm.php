@@ -22,7 +22,7 @@ class CommentEditForm
             ->input('id', 'hidden', ['value' => $id['id']])
             ->input('title', 'text', ['value' => 'Titre', 'min' => 4, 'max' => 55, 'required' => 'required'])
             ->textarea('message', 'textarea', ['min' => 3, 'max' => 280, 'required' => 'required'])
-            ->select('statut','Statut',['id' => 'statut', 'name' => 'statut', 'options' => ['Approuvé','En attente','Spam']])
+            ->select('status','Statut',['id' => 'status', 'name' => 'status', 'options' => ['Approuvé','En-attente','Spam']])
             ->input('submit', 'submit', ['value' => 'Modifier']);
         return $form->getForm();
     }
