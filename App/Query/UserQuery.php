@@ -118,7 +118,10 @@ class UserQuery
             unset($data["password"]); 
             unset($data["passwordConfirm"]);
 
-            $query = $this->builder->insertInto("users")->columns($data)->values($data)->save();
+            $token_verified = [ 'token_verified' => md5( rand(0,1000) )];
+            $finalData = $data + $token_verified;
+
+            $query = $this->builder->insertInto("users")->columns($finalData)->values($finalData)->save();
             return $query;
         }
         

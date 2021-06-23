@@ -7,7 +7,6 @@ use Core\Http\Session;
 use Core\Http\Response;
 use App\Form\UserLoginForm;
 use App\Form\UserRegisterForm;
-use App\Form\UserResetPasswordForm;
 use App\Model\UserModel;
 use Core\Component\Validator;
 use App\Query\UserQuery;
@@ -65,8 +64,6 @@ class RegistrationAuthController extends Controller{
             $data = $this->request->getBody();
             $user = $this->userQuery->getByEmail($data['email']);
 
-       
-
             if(!empty($data['email']) && !empty($data['password']) ){
          
                 if(!empty($user) && $hash->compareHash($data['password'], $user['password_hash'])){
@@ -100,6 +97,18 @@ class RegistrationAuthController extends Controller{
             if(empty($errors)){
                 if($this->userQuery->create($data))
                 {
+                    $urlParams = array(
+                        "email" => $data['email'],
+                        "token_verified" => $this->token->bin2hex($token),
+                    );
+                    $url = new Url();
+                    $generateUrl = $url->generateUrlWithParameters('/admin/verify', $urlParams);
+
+                    $email = new UserResetPasswordEmail();
+                    $userResetPasswordEmail = $email->sendEmail($data['email'], $generateUrl);
+
+
+
                     $this->request->redirect('/admin/login')->with('success', 'Thanks for your registration.');
                 }
                 $this->request->redirect('/install')->with('errors', $errors);
