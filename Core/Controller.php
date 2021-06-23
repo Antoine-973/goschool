@@ -8,15 +8,21 @@ class Controller{
 
     public function render($view, $data = [])
     {
-
         $template = new Template();
         $viewContent = $template->getView($view, $data);
+        $namespace = explode('\\', get_called_class());
 
-        if(strpos(get_called_class(), 'Admin') !== false){
+        if(strpos($namespace[count($namespace)-1], 'Admin') !== false){
+
             $adminLayout = $template->getAdminLayout();
             echo \str_replace('{{content}}', $viewContent, $adminLayout);
-        }else{
-            
+        }
+        elseif (strpos($namespace[count($namespace)-1], 'Registration') !== false){
+
+            $registrationLayout = $template->getRegistrationLayout();
+            echo \str_replace('{{content}}', $viewContent, $registrationLayout);
+        }
+        else{
             $siteLayout = $template->getSiteLayout();
             echo \str_replace('{{content}}', $viewContent, $siteLayout);
         }
