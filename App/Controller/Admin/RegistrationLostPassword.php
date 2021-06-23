@@ -16,7 +16,7 @@ use Core\Util\Hash;
 use Core\Util\TokenGenerator;
 use Core\Util\Url;
 
-class AdminLostPassword extends Controller
+class RegistrationLostPassword extends Controller
 {
     private $request;
 
@@ -52,7 +52,7 @@ class AdminLostPassword extends Controller
         $form = new UserLostPasswordForm();
         $userLostPasswordForm = $form->getForm();
 
-        $this->render("admin/user/lostpassword.phtml", ['userLostPassword'=>$userLostPasswordForm]);
+        $this->render("admin/registration/lostpassword.phtml", ['userLostPassword'=>$userLostPasswordForm]);
     }
 
     public function lostPassword()
@@ -101,7 +101,7 @@ class AdminLostPassword extends Controller
                     $form = new UserLostPasswordForm();
                     $userLostPassword = $form->getForm();
 
-                    $this->render("admin/user/lostpassword.phtml", ['errors' => $errors, 'userLostPassword'=>$userLostPassword]);
+                    $this->render("admin/registration/lostpassword.phtml", ['errors' => $errors, 'userLostPassword'=>$userLostPassword]);
                 }
         }
         else {
@@ -125,7 +125,7 @@ class AdminLostPassword extends Controller
                 {
                     $form = new UserResetPasswordForm();
                     $userResetPassword = $form->getForm();
-                    $this->render("admin/user/resetpassword.phtml", ['userResetPassword' => $userResetPassword]);
+                    $this->render("admin/registration/resetpassword.phtml", ['userResetPassword' => $userResetPassword]);
                 }
                 else{
                     die('Impossible de valider votre requête');
@@ -190,7 +190,7 @@ class AdminLostPassword extends Controller
             else{
                 $form = new UserResetPasswordForm();
                 $userResetPassword = $form->getForm();
-                $this->render("admin/user/resetpassword.phtml", ['errors' => $errors, 'userResetPassword' => $userResetPassword]);
+                $this->render("admin/registration/resetpassword.phtml", ['errors' => $errors, 'userResetPassword' => $userResetPassword]);
             }
         }
     }

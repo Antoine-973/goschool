@@ -18,16 +18,16 @@ $route->get('/users/register', ['controller' => 'UserController', 'method' => 'r
  */
 $route->get('/admin', ['controller' => 'AdminDashBoardController', 'method' => 'index']);
 
-$route->get('/admin/login', ['controller' => 'AdminAuthController', 'method' => 'indexLogin']);
-$route->post('/admin/login', ['controller' => 'AdminAuthController', 'method' => 'login']);
-$route->get('/admin/register', ['controller' => 'AdminAuthController', 'method' => 'indexRegister']);
-$route->post('/admin/register', ['controller' => 'AdminAuthController', 'method' => 'register']);
+$route->get('/admin/login', ['controller' => 'RegistrationAuthController', 'method' => 'indexLogin']);
+$route->post('/admin/login', ['controller' => 'RegistrationAuthController', 'method' => 'login']);
+$route->get('/admin/register', ['controller' => 'RegistrationAuthController', 'method' => 'indexRegister']);
+$route->post('/admin/register', ['controller' => 'RegistrationAuthController', 'method' => 'register']);
 
-$route->get('/admin/resetpassword', ['controller' => 'AdminLostPassword', 'method' => 'indexResetPassword']);
-$route->post('/admin/resetpassword', ['controller' => 'AdminLostPassword', 'method' => 'resetPassword']);
+$route->get('/admin/resetpassword', ['controller' => 'RegistrationLostPassword', 'method' => 'indexResetPassword']);
+$route->post('/admin/resetpassword', ['controller' => 'RegistrationLostPassword', 'method' => 'resetPassword']);
 
-$route->get('/admin/lostpassword', ['controller' => 'AdminLostPassword', 'method' => 'indexLostPassword']);
-$route->post('/admin/lostpassword', ['controller' => 'AdminLostPassword', 'method' => 'lostPassword']);
+$route->get('/admin/lostpassword', ['controller' => 'RegistrationLostPassword', 'method' => 'indexLostPassword']);
+$route->post('/admin/lostpassword', ['controller' => 'RegistrationLostPassword', 'method' => 'lostPassword']);
 
 $route->get('/admin/articles', ['controller' => 'AdminArticleController', 'method' => 'indexListArticle']);
 $route->get('/admin/article/add', ['controller' => 'AdminArticleController', 'method' => 'indexAddArticle']);

@@ -13,7 +13,7 @@ use Core\Component\Validator;
 use App\Query\UserQuery;
 use Core\Util\Hash;
 use Core\Util\DotEnv;
-class AdminAuthController extends Controller{
+class RegistrationAuthController extends Controller{
 
     private $request;
 
@@ -45,7 +45,7 @@ class AdminAuthController extends Controller{
         $form = new UserLoginForm();
         $userLogin = $form->getForm();
 
-        $this->render("admin/user/login.phtml", ['userLogin'=>$userLogin]);
+        $this->render("admin/registration/login.phtml", ['userLogin'=>$userLogin]);
     }
 
     public function indexRegister()
@@ -54,7 +54,7 @@ class AdminAuthController extends Controller{
         $form = new UserRegisterForm();
         $userRegister = $form->getForm();
 
-        $this->render("admin/user/register.phtml", ['userRegister'=>$userRegister]);
+        $this->render("admin/registration/register.phtml", ['userRegister'=>$userRegister]);
     }
     
     public function login()
@@ -70,7 +70,7 @@ class AdminAuthController extends Controller{
             if(!empty($data['email']) && !empty($data['password']) ){
          
                 if(!empty($user) && $hash->compareHash($data['password'], $user['password_hash'])){
-                        $this->request->redirect('/')->with('success', 'Connecté avec succès');
+                        $this->request->redirect('/admin')->with('success', 'Connecté avec succès');
                 }
             }else{
 
