@@ -12,7 +12,7 @@ class comments_table_migration
             `id`  BIGINT(20) PRIMARY KEY NOT NULL AUTO_INCREMENT,
             `title`  varchar(100) NOT NULL,
             `message` TEXT NOT NULL,
-            `status` varchar(20) DEFAULT 'En attente' NOT NULL,
+            `status` varchar(20) DEFAULT 'En-attente' NOT NULL,
             `users_id` BIGINT(20) NULL,
             `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
