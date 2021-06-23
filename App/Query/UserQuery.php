@@ -65,6 +65,16 @@ class UserQuery
 
         return $query->getResult();
     }
+
+    /**
+     * @param string $email
+     */
+    public function getVerified(string $email)
+    {
+        $query = $this->builder->select("verified")->from("users")->where("email = $email");
+
+        return $query->getResult();
+    }
     
     /**
      * @param string $firstname

@@ -70,7 +70,14 @@ class RegistrationAuthController extends Controller{
             if(!empty($data['email']) && !empty($data['password']) ){
          
                 if(!empty($user) && $hash->compareHash($data['password'], $user['password_hash'])){
+
+                    if ($user['verified'] == '1'){
                         $this->request->redirect('/admin')->with('success', 'Connecté avec succès');
+                    }
+                    else{
+                        $this->request->redirect('/admin/login')->with('error', 'Ce compte n\'a pas encore été validé.');
+                    }
+
                 }
             }else{
 
