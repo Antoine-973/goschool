@@ -20,4 +20,11 @@ class Hash{
     {
         return (password_verify($password, $hash)) ? true : false;
     }
+
+    public function getCsrfToken()
+    {
+        $this->token = bin2hex(random_bytes(16));
+        $_SESSION['token'] = $this->token;
+        return $this->token;
+    }
 }

@@ -5,6 +5,7 @@ use Core\ORM\Model;
 use Core\Component\InputField;
 use Core\Component\SelectField;
 use Core\Component\TextareaField;
+use Core\Util\Hash;
 
 class FormBuilder
 {
@@ -53,7 +54,14 @@ class FormBuilder
      */
     public function getForm()
     {
+        $hash = new Hash();
+        $csrf = $hash->getCsrfToken();
+
+        $csrfInput = "<input type='hidden' name='csrf_token' value='$csrf'>";
+
+        $this->form[] = $csrfInput;
         $this->form[] = "</form>";
+        
         return implode('', $this->form);
     }
 }
