@@ -19,6 +19,8 @@ class QueryBuilder{
 
     private $values;
 
+    private $sort;
+
     private $data = [];
 
     public function select(): QueryBuilder
@@ -213,4 +215,10 @@ class QueryBuilder{
 
     }
 
+    public function orderBy($sortName)
+    {
+        $this->sort = $sortName;
+        $this->query .= ' ORDER BY '. $this->sort;
+        return $this;
+    }
 }

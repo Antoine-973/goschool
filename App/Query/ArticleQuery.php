@@ -86,4 +86,10 @@ class ArticleQuery
         $query = $this->builder->update("articles")->set($data)->where("id = $id")->save();
         return $query;
     }
+
+    public function orderByTitle()
+    {
+        $query = $this->builder->select('id, title')->from("articles")->orderBy('title');
+        return $query->getResult();
+    }
 }
