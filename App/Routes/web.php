@@ -22,6 +22,7 @@ $route->get('/admin/login', ['controller' => 'RegistrationAuthController', 'meth
 $route->post('/admin/login', ['controller' => 'RegistrationAuthController', 'method' => 'login']);
 $route->get('/admin/register', ['controller' => 'RegistrationAuthController', 'method' => 'indexRegister']);
 $route->post('/admin/register', ['controller' => 'RegistrationAuthController', 'method' => 'register']);
+$route->get('/admin/verify', ['controller' => 'RegistrationAuthController', 'method' => 'verifyRegister']);
 
 $route->get('/admin/resetpassword', ['controller' => 'RegistrationLostPassword', 'method' => 'indexResetPassword']);
 $route->post('/admin/resetpassword', ['controller' => 'RegistrationLostPassword', 'method' => 'resetPassword']);
