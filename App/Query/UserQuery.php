@@ -75,6 +75,38 @@ class UserQuery
 
         return $query->getResult();
     }
+
+    /**
+     * @param string $email
+     */
+    public function getTokenVerified(string $email)
+    {
+        $query = $this->builder->select("token_verified")->from("users")->where("email = $email");
+
+        return $query->getResult();
+    }
+
+    /**
+     * @param string $email,
+     * @param string $token_verified
+     */
+    public function getByEmailAndToken(string $email, string $token_verified)
+    {
+        $query = $this->builder->select("email, token_verified, verified")->from("users")->where("email = $email", "token_verified = $token_verified");
+
+        return $query->getResult();
+    }
+
+    /**
+     * @param string $email,
+     * @param string $token_verified
+     */
+    public function getByEmailTokenVerified(string $email, string $token_verified)
+    {
+        $query = $this->builder->select("email, token_verified, verified")->from("users")->where("email = $email", "token_verified = $token_verified", "verified = 0");
+
+        return $query->getResult();
+    }
     
     /**
      * @param string $firstname
@@ -152,7 +184,16 @@ class UserQuery
      */
     public function updatePassword(array $data, string $email)
     {
-        $query = $this->builder->update("users")->set($data)->where("email = $email");
+        $query = $this->builder->update("users")->set($data)->where("email = $email")->save();
+        return $query;
+    }
+
+    /**
+     * @param array $data
+     */
+    public function updateVerified(array $data, string $email, string $tokenVerified)
+    {
+        $query = $this->builder->update("users")->set($data)->where("email = $email", "token_verified = $tokenVerified")->save();
         return $query;
     }
 
