@@ -7,11 +7,15 @@ class Session{
 
     public function __construct()
     {
-        \session_start();
+
+        if(!isset($_SESSION))
+        {
+            \session_start();
+        }
 
         $messages = $_SESSION[self::FLASH_KEY] ?? [];
 
-        foreach($messages as $kety => &$message){
+        foreach($messages as $key => &$message){
             $messages['remove'] = true;
         }
 
@@ -36,7 +40,7 @@ class Session{
         
         $messages = $_SESSION[self::FLASH_KEY] ?? [];
 
-        foreach($messages as $key => &$message){
+        foreach($messages as $key => $message){
             if($messages['remove']){
                 unset($messages[$key]);
             }
