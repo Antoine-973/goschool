@@ -11,7 +11,9 @@ use App\Model\UserModel;
 use Core\Component\Validator;
 use App\Query\UserQuery;
 use Core\Util\Hash;
-use Core\Util\DotEnv;
+use App\Email\UserRegisterValidationEmail;
+use Core\Util\Url;
+
 class RegistrationAuthController extends Controller{
 
     private $request;
@@ -72,7 +74,7 @@ class RegistrationAuthController extends Controller{
                         $this->request->redirect('/admin')->with('success', 'Connecté avec succès');
                     }
                     else{
-                        $this->request->redirect('/admin/login')->with('error', 'Ce compte n\'a pas encore été validé.');
+                        $this->request->redirect('/admin/login')->with('error', 'Ce compte n\'a pas encore été validé. Veuillez vérifier vos emails.');
                     }
 
                 }
@@ -90,30 +92,69 @@ class RegistrationAuthController extends Controller{
 
             $data = $this->request->getBody();
             
-            ['db_user' => $db_user, 'db_password' => $db_password, 'db_name' => $db_name, 'db_host' => $db_host] = $this->request->getBody();
+            //['db_user' => $db_user, 'db_password' => $db_password, 'db_name' => $db_name, 'db_host' => $db_host] = $this->request->getBody();
            
             $errors = $this->validator->validate($this->userModel, $data);
 
             if(empty($errors)){
-                if($this->userQuery->create($data))
+                if (empty($this->userQuery->getByEmail($data['email'])))
                 {
-                    $urlParams = array(
-                        "email" => $data['email'],
-                        "token_verified" => $this->token->bin2hex($token),
-                    );
-                    $url = new Url();
-                    $generateUrl = $url->generateUrlWithParameters('/admin/verify', $urlParams);
+                    if($this->userQuery->create($data))
+                    {
+                        $verifiedQuery = new UserQuery();
+                        $token_verified = $verifiedQuery->getTokenVerified($data['email']);
 
-                    $email = new UserResetPasswordEmail();
-                    $userResetPasswordEmail = $email->sendEmail($data['email'], $generateUrl);
+                        $urlParams = array(
+                            "email" => $data['email'],
+                            "token_verified" => $token_verified['token_verified'],
+                        );
 
+                        $url = new Url();
+                        $generateUrl = $url->generateUrlWithParameters('/admin/verify', $urlParams);
 
+                        $email = new UserRegisterValidationEmail();
 
-                    $this->request->redirect('/admin/login')->with('success', 'Thanks for your registration.');
+                        if ($email->sendEmail($data['email'], $generateUrl)){
+                            $this->request->redirect('/admin/login')->with('success', 'Votre compte a bien été créer, avant de vous connecter vous devez le vérifier en cliquant sur le lien reçu par email. ');
+                        }
+                    }
                 }
-                $this->request->redirect('/install')->with('errors', $errors);
-            }else{
-                $this->request->redirect('/install')->with('errors', $errors);
+                else{
+                    $this->request->redirect('/admin/register')->with('userEmailAlreadyUse', 'Un compte goSchool utilisant cette adresse email existe déjà.');
+                }
+            }
+            else{
+                $this->request->redirect('/admin/register')->with('errors', $errors);
+            }
+        }
+    }
+
+    public function verifyRegister(){
+
+        $dataFromRequest = $this->request->getBody();
+
+        $dataToUpdate = [
+            'verified' => 1
+        ];
+
+        if(!empty($this->userQuery->getByEmailTokenVerified($dataFromRequest['email'], $dataFromRequest['token_verified']))){
+
+            if (!$this->userQuery->updateVerified($dataToUpdate, $dataFromRequest['email'], $dataFromRequest['token_verified'])){
+
+                $this->render("admin/registration/verifyRegister.phtml");
+
+            }
+        }
+        else{
+
+            $verifiedQuery = new UserQuery();
+            $verifiedValue = $verifiedQuery->getByEmailAndToken($dataFromRequest['email'], $dataFromRequest['token_verified']);
+
+            if ($verifiedValue['verified'] == 1){
+                $this->request->redirect('/admin/login')->with('alreadyVerified', 'Votre compte goSchool est déjà vérifié.');
+            }
+            else{
+                die('403 FORBIDDEN');
             }
         }
     }
