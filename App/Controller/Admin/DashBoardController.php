@@ -36,7 +36,11 @@ class DashBoardController extends Controller{
 
     public function index(){
         $users = $this->userQuery->orderByDateRegister();
+
+        $this->userQuery = new UserQuery();
+        $usersAdmin = $this->userQuery->getByRole('admin');
+        $adminCount = array_count_values($usersAdmin);
         $articles = $this->articleQuery->orderByDate();
-        $this->render('admin/index.phtml', ['articles'=>$articles, 'users'=>$users]);
+        $this->render('admin/index.phtml', ['articles'=>$articles, 'users'=>$users, 'adminCount'=>$adminCount]);
     }
 }
