@@ -174,9 +174,9 @@ class UserQuery
     /**
      * @param int $created_at
      */
-    public function orderByCreationDate(string $created_at)
+    public function orderByDateRegister()
     {
-        $query = $this->builder->select("*")->from("users")->orderBy("created_at", "ASC");
-        return $query->getQuery();
+        $query = $this->builder->select("firstname, lastname, roles, created_at")->from("users")->orderBy('created_at');
+        return $query->getResult();
     }
 }

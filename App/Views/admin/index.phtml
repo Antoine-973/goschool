@@ -24,27 +24,39 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-6">
-                    <h4>Les 5 derniers inscrit.</h4>
-                    <div class="container">
+                <div class="col-3">
+                    <div class="container shadow shadow--none">
+                        <h4>Les 5 derniers inscrit.</h4>
+                        <?php $cles = array_keys($users);?>
                         <ul>
-                            <li>Calvin - Eleve</li>
-                            <li>Camille - Eleve</li>
-                            <li>PAul - Eleve</li>
-                            <li>Antoine - Eleve</li>
-                            <li>Christian - Professeur</li>
+                            <?php for($y = 0; $y < 5; $y++) { ?>
+                                <li>
+                                        <?php echo $users[$y]['lastname'] ?> <?php echo $users[$y]['firstname'] ?><br>
+                                        <?php echo $users[$y]['roles'] ?><br>
+                                        <?php echo $users[$y]['created_at'] ?><br><br>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="container shadow shadow--none">
+                        <h4>Les 5 derniers articles.</h4>
+                        <?php $keys = array_keys($articles);?>
+                        <ul>
+                            <?php for($i = 0; $i < 5; $i++) { ?>
+                                <li>
+                                        <?php echo $articles[$i]['title'] ?><br>
+                                        <?php echo $articles[$i]['created_at'] ?><br><br>
+                                </li>
+                            <?php } ?>
                         </ul>
                     </div>
                 </div>
                 <div class="col-6">
-                    <h4>Les 5 derniers articles.</h4>
-                        <ul>
-                            <li>Article</li>
-                            <li>Article</li>
-                            <li>Article</li>
-                            <li>Article</li>
-                            <li>Article</li>
-                        </ul>
+                    <div class="container shadow shadow--none">
+                        <h4>Les évènements à venir.</h4>
+                    </div>
                 </div>
             </div>
         </div>

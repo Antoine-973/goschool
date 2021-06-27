@@ -215,10 +215,11 @@ class QueryBuilder{
 
     }
 
-    public function orderBy($sortName)
+    public function orderBy($sortName, $orderName = 'DESC')
     {
+        $this->order = $orderName;
         $this->sort = $sortName;
-        $this->query .= ' ORDER BY '. $this->sort;
+        $this->query .= ' ORDER BY '. $this->sort.' '.$this->order;
         return $this;
     }
 }
