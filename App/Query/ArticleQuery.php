@@ -89,7 +89,7 @@ class ArticleQuery
 
     public function orderByDate()
     {
-        $query = $this->builder->select('title, created_at')->from("articles")->orderBy('created_at');
+        $query = $this->builder->select('title, created_at')->from("articles")->orderBy('created_at','DESC');
         return $query->getResult();
     }
 }

@@ -42,7 +42,7 @@ class UserQuery
     public function getByRole(string $roles)
     {
         $query = $this->builder->select("*")->from("users")->where("roles = $roles");
-        return $query->getQuery();
+        return $query->getResult();
     
     }
 
@@ -176,7 +176,7 @@ class UserQuery
      */
     public function orderByDateRegister()
     {
-        $query = $this->builder->select("firstname, lastname, roles, created_at")->from("users")->orderBy('created_at');
+        $query = $this->builder->select("firstname, lastname, roles, created_at")->from("users")->orderBy('created_at', 'DESC');
         return $query->getResult();
     }
 }
