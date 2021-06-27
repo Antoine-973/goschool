@@ -11,8 +11,8 @@ class PageAddForm
     {
 
         $form = Form::create('/admin/page/add')
-                ->input('title', 'text', ['value' => 'Titre', 'min' => 4, 'max' => 55, 'required' => 'required'])
-                ->textarea('content', 'textarea', ['max' => 400])
+                ->input('title', 'text', ['value' => 'Titre de la page', 'min' => 4, 'max' => 55, 'required' => 'required', 'placeholder' => 'ex: accueil'])
+                ->input('url', 'text', ['value' => 'Url de la page', 'min' => 4, 'max' => 55, 'required' => 'required', 'placeholder' => 'ex: /accueil'])
                 ->input('submit', 'submit', ['value' => 'Ajouter']);
         return $form->getForm();
     }
