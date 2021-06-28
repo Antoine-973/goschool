@@ -80,6 +80,18 @@ class AdminAuthController extends Controller{
         }
     }
 
+    public function logout()
+    {
+        session_start();
+        $_SESSION = [];
+        session_destroy();
+
+        $form = new UserRegisterForm();
+        $userRegister = $form->getForm();
+
+        $this->render("/admin/login", ['userRegister'=>$userRegister]);
+    }
+
     public function register()
     {
         if($this->request->isPost()){
