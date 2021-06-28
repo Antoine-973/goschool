@@ -34,7 +34,6 @@ class AdminArticleController extends Controller {
         $this->articleAddForm = new ArticleAddForm();
         $this->articleEditForm = new ArticleEditForm();
         $this->articleQuery = new ArticleQuery();
-        $this->articleModel = new ArticleModel();
         $this->validator = new Validator();
 
     }
