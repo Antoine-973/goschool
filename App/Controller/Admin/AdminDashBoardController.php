@@ -9,7 +9,7 @@ use App\Query\UserQuery;
 use App\Model\ArticleModel;
 use App\Query\ArticleQuery;
 
-class DashBoardController extends Controller{
+class AdminDashBoardController extends Controller{
 
     private $request;
 

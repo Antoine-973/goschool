@@ -1012,7 +1012,7 @@ body {
 }
 
 .admin-sidebar {
-  position: absolute;
+  position: fixed;
   width: 15%;
   left: 0;
   bottom: 0;
@@ -1064,7 +1064,7 @@ body {
 }
 
 .admin-topbar {
-  position: absolute;
+  position: fixed;
   width: 85%;
   left: 15%;
   top: 0;
@@ -1113,44 +1113,44 @@ body {
 }
 
 body.admin-login {
-  background-image: linear-gradient(to top, rgba(54, 55, 64, 0.9), rgba(54, 55, 64, 0.5)), url("/public/librairies/images/admin/connexion.jpg");
+  background-image: linear-gradient(to top, rgba(54, 55, 64, 0.9), rgba(54, 55, 64, 0.5)), url("/images/connexion.jpg");
   background-position: left;
   background-repeat: no-repeat;
   /* Do not repeat the image */
   background-size: cover;
 }
-body.admin-login .container__col-6.connexion-leading {
+body.admin-login .col-6.connexion-leading {
   height: 100vh;
   position: relative;
   text-align: center;
 }
-body.admin-login .container__col-6.connexion-leading .container-leading {
+body.admin-login .col-6.connexion-leading .container-leading {
   text-align: center;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
-body.admin-login .container__col-6.connexion-leading .container-leading .connexion-title {
+body.admin-login .col-6.connexion-leading .container-leading .connexion-title {
   text-align: center;
   color: #fff;
 }
-body.admin-login .container__col-6.connexion-leading .container-leading .logo {
+body.admin-login .col-6.connexion-leading .container-leading .logo {
   width: 100%;
 }
-body.admin-login .container__col-6.connexion-leading small {
+body.admin-login .col-6.connexion-leading small {
   color: #6c757d;
   position: absolute;
   bottom: 1%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
-body.admin-login .container__col-6.connexion-form {
+body.admin-login .col-6.connexion-form {
   height: 100vh;
   background-color: #363740;
   position: relative;
 }
-body.admin-login .container__col-6.connexion-form .container-form {
+body.admin-login .col-6.connexion-form .container-form {
   border-radius: 8px;
   background: #fff;
   padding: 20px;
@@ -1160,18 +1160,18 @@ body.admin-login .container__col-6.connexion-form .container-form {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-body.admin-login .container__col-6.connexion-form .container-form form {
+body.admin-login .col-6.connexion-form .container-form form {
   padding: 30px;
   text-align: center;
 }
-body.admin-login .container__col-6.connexion-form .container-form .form-input a {
+body.admin-login .col-6.connexion-form .container-form .form-input a {
   text-decoration: none;
   color: #00A2AC;
 }
-body.admin-login .container__col-6.connexion-form .container-form .form-input a:hover {
+body.admin-login .col-6.connexion-form .container-form .form-input a:hover {
   text-decoration: underline;
 }
-body.admin-login .container__col-6.connexion-form .container-form .form-input input {
+body.admin-login .col-6.connexion-form .container-form .form-input input {
   background: #FFFFFF;
   border: 1px solid #00A2AC;
   box-sizing: border-box;
@@ -1179,12 +1179,12 @@ body.admin-login .container__col-6.connexion-form .container-form .form-input in
   width: 100%;
   padding: 10px;
 }
-body.admin-login .container__col-6.connexion-form .container-form .form-input input[type=submit] {
+body.admin-login .col-6.connexion-form .container-form .form-input input[type=submit] {
   background-color: #00A2AC;
   color: #fff;
   border: none;
 }
-body.admin-login .container__col-6.connexion-form .container-form .form-input input[type=submit]:hover {
+body.admin-login .col-6.connexion-form .container-form .form-input input[type=submit]:hover {
   background-color: #00d2df;
 }
 
