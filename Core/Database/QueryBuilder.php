@@ -39,7 +39,7 @@ class QueryBuilder{
             $this->condition[] = $field . " = " . "'$value'";
         }
     
-        $this->query .= ' WHERE ' . implode(', AND', $this->condition) . ";";
+        $this->query .= ' WHERE ' . implode(' AND ', $this->condition) . ";";
         return $this;
     }
 

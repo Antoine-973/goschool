@@ -16,6 +16,8 @@ class users_table_migration{
             `email` VARCHAR(55) NOT NULL UNIQUE,
             `password_hash` VARCHAR(255) NOT NULL,
             `roles` VARCHAR(16) DEFAULT 'admin',
+            `verified` BOOL DEFAULT 0,
+            `token_verified` VARCHAR(255),
             `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         ) ENGINE=INNODB CHARSET=`utf8`;";

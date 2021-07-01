@@ -41,7 +41,7 @@ class RegistrationLostPassword extends Controller
         $this->lostPasswordModel = new LostPasswordModel();
         $this->userModel = new UserModel();
         $this->validator = new Validator();
-        $this->userQuery = new userQuery();
+        $this->userQuery = new UserQuery();
         $this->lostPasswordQuery = new LostPasswordQuery();
         $this->token = new TokenGenerator();
         $this->hashToken = new Hash();
