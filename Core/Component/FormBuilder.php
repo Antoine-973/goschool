@@ -54,12 +54,12 @@ class FormBuilder
      */
     public function getForm()
     {
-        $hash = new Hash();
-        $csrf = $hash->getCsrfToken();
+        //$hash = new Hash();
+        //$csrf = $hash->getCsrfToken();
 
-        $csrfInput = "<input type='hidden' name='csrf_token' value='$csrf'>";
+        //$csrfInput = "<input type='hidden' name='csrf_token' value='$csrf'>";
 
-        $this->form[] = $csrfInput;
+        //$this->form[] = $csrfInput;
         $this->form[] = "</form>";
         
         return implode('', $this->form);
