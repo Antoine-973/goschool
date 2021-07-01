@@ -18,26 +18,7 @@
 
 <script>
     ClassicEditor
-        .create( document.querySelector( '#content' ), {
-            image: {
-                resizeUnit: "%",
-                resizeOPtions: [{
-                    name: 'resizeImage:original',
-                    value: null,
-                    label: 'Original size'
-                },
-                {
-                    name: 'resizeImage:50',
-                    value: '50',
-                    label: 'Medium size'
-                },
-                {
-                    name: 'resizeImage:75',
-                    value: '75',
-                    label: 'Large size'
-                }]
-            }
-        } )
+        .create( document.querySelector( '#content' ) )
         .then( editor => {
             console.log( editor );
         } )
