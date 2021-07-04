@@ -8,60 +8,74 @@
     <link rel="stylesheet" type="text/css" href="/librairies/dist/main.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="/librairies/dist/main.js"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/28.0.0/classic/ckeditor.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/librairies/webpack/node_modules/chart.js/dist/chart.js"></script>
+    <link href='/librairies/webpack/node_modules/fullcalendar/main.css' rel='stylesheet' />
+    <script src='/librairies/webpack/node_modules/fullcalendar/main.js'></script>
 </head>
 <body>
-    <div class="admin-sidebar">
-        <nav class="admin-main--menu">
-            <div class="logo">
-                <a href="/admin"><img src="/images/logo.png" alt=""></a>
-            </div>
-            <div class="dashboard-home">
-                <a href="/admin"><i class="fas fa-tachometer-alt"></i>Tableau de bord</a>
-            </div>
-            <div class="admin-menu-links">
-                <ul>
-                    <li><a href="/admin/articles"><i class="fas fa-pen"></i>  Articles</a></li>
-                    <li><a href="/admin/categories"><i class="fas fa-book-open"></i>  Catégories</a></li>
-                    <li><a href="/admin/pages"><i class="fas fa-copy"></i>  Pages</a></li>
-                    <li><a href="/admin/medias"><i class="fas fa-photo-video"></i>  Médias</a></li>
-                    <li><a href="#"><i class="fas fa-brush"></i>  Apparence</a></li>
-                    <li><a href="/admin/users"><i class="fas fa-user"></i>  Utilisateurs</a></li>
-                    <li><a href="/admin/comments"><i class="fas fa-comment"></i>  Commentaires</a></li>
-                    <li><a href="#"><i class="far fa-calendar-alt"></i>  Planning</a></li>
-                    <li><a href="#"><i class="far fa-newspaper"></i>  Newsletters</a></li>
-                </ul>
-            </div>
-            <div class="parameters">
-            <a href="admin/param"><i class="fas fa-cog"></i> Paramètres</a>
-            </div>
-        </nav>
+    <div class="container--fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="admin-topbar">
+                    <div class="user-controls">
+                        <div class="identity">
+                            <div class="img">
 
-    </div>
-    <div class="admin-topbar">
-        <div class="user-controls">
-            <div class="identity">
-                <div class="img">
-
+                            </div>
+                            <p class="fullname">Christian Mohindo</p>
+                        </div>
+                        <div class="user-actions">
+                            <ul>
+                                <li><a href="#">Profil</a></li>
+                                <li><a href="#">Déconnexion</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <p class="fullname">Christian Mohindo</p>
             </div>
-            <div class="user-actions">
-                <ul>
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="/admin/logout">Déconnexion</a></li>
-                </ul>
-            </div>  
         </div>
-    </div>
-    <div class="admin-main--content">
-        {{content}}
-    </div>
 
-    <footer class="admin-main--footer"><h2>Footer</h2></footer>
+        <div class="row">
+            <div class="col-4">
+                <div class="admin-sidebar">
+                    <nav class="admin-main--menu">
+                        <div class="logo">
+                            <a href="/admin"><img src="/images/logo.png" alt=""></a>
+                        </div>
+                        <div class="admin-menu-links">
+                            <ul>
+                                <li><a href="/admin"><i class="fas fa-tachometer-alt"></i>Tableau de bord</a></li>
+                                <li><a href="/admin/articles"><i class="fas fa-pen"></i>  Articles</a></li>
+                                <li><a href="/admin/categories"><i class="fas fa-book-open"></i>  Catégories</a></li>
+                                <li><a href="/admin/pages"><i class="fas fa-copy"></i>  Pages</a></li>
+                                <li><a href="/admin/medias"><i class="fas fa-photo-video"></i>  Médias</a></li>
+                                <li><a href="#"><i class="fas fa-brush"></i>  Apparence</a></li>
+                                <li><a href="/admin/users"><i class="fas fa-user"></i>  Utilisateurs</a></li>
+                                <li><a href="/admin/comments"><i class="fas fa-comment"></i>  Commentaires</a></li>
+                                <li><a href="#"><i class="far fa-calendar-alt"></i>  Planning</a></li>
+                                <li><a href="#"><i class="far fa-newspaper"></i>  Newsletters</a></li>
+                            </ul>
+                        </div>
+                        <div class="admin-menu-links parameters">
+                            <ul>
+                                <li><a href="/admin/param"><i class="fas fa-cog"></i> Paramètres</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="col-8">
+                <div class="admin-main--content">
+                        {{content}}
+                </div>
+            </div>
+        </div>
+
+    </div>
 </body>
 <script>
 function confirmDelete(delArticle){
