@@ -18,7 +18,7 @@ class PageQuery
      */
     public function getPages()
     {
-        $query = $this->builder->select("id, title, updated_at")->from("pages");
+        $query = $this->builder->select("id, title, status, updated_at")->from("pages");
 
         return $query->getResult();
     }
