@@ -1,6 +1,6 @@
 <div class="container">
-    <div class="content admin-article--add">
-        <div class="col-12">
+    <div class="row">
+        <div class="col-12 add-form">
             <h1>Ajouter un nouvel article</h1>
             <?php if(isset($errors) && !empty($errors)): ?>
                 <ul>
@@ -11,8 +11,8 @@
             <?php endif; ?>
 
             <?= $articleAdd; ?>
-            <a href="/admin/articles" class="btn btn--infos btn--sm">Revenir à la liste</a>
         </div>
+        <div class="col-12 back-to-list">  <a href="/admin/articles" class="btn btn--infos btn--sm">Revenir à la liste</a></div>
     </div>
 </div>
 
