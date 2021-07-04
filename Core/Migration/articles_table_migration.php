@@ -13,7 +13,7 @@ class articles_table_migration
             `title` VARCHAR(255) NOT NULL UNIQUE,
             `slug` VARCHAR(255) NULL UNIQUE,
             `content` TEXT NULL,
-            `tags_id` BIGINT(20) DEFAULT 'tag',
+            `tags_id` BIGINT(20),
             `categories_id` BIGINT(20),
             `image` VARCHAR(255) NULL,
             `status` VARCHAR(55) NOT NULL DEFAULT 'unpublished',
@@ -22,6 +22,7 @@ class articles_table_migration
             `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (id),
             FOREIGN KEY (categories_id) REFERENCES categories(id),
+            FOREIGN KEY (tags_id) REFERENCES name_tags(id)
 
         ) ENGINE=INNODB CHARSET=`utf8`;";
 

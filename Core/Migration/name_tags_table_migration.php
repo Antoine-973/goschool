@@ -10,7 +10,7 @@ class name_tags_table_migration
         $sql = "CREATE TABLE IF NOT EXISTS name_tags
         (
             `id`  BIGINT(20) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-            `name` VARCHAR(55) NOT NULL,
+            `name` VARCHAR(55) NOT NULL
             
         ) ENGINE=INNODB CHARSET=`utf8`;
 
