@@ -9,6 +9,7 @@ use Core\Http\Response;
 use App\Model\PageModel;
 use App\Query\PageQuery;
 use Core\Component\Validator;
+use Core\Util\PhpFileGenerator;
 
 class AdminPageController extends Controller {
 
@@ -52,7 +53,11 @@ class AdminPageController extends Controller {
 
             if($this->pageQuery->create($data))
             {
-                $this->request->redirect('/admin/pages')->with('created', 'La page a bien été créee');
+                $page = new PhpFileGenerator();
+
+                if ($page->generateViewFile($data['title'],$data['content'],'pages')){
+                    $this->request->redirect('/admin/pages')->with('created', 'La page a bien été créee');
+                }
             }
             else{
                 $this->request->redirect('/admin/pages')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
