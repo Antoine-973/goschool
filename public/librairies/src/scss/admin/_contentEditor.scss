@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
+
+.contentEditor{
+  margin: 0 auto;
+  width: 95%;
+  margin-top: 50vh;
+  transform: translateY(-50%);
+
+  #title{
+    width: 50%;
+  }
+
+  input{
+    margin-bottom: 1%;
+  }
+
+  .ck-editor__editable_inline {
+    min-height: 600px;
+  }
+}

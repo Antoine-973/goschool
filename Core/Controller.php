@@ -12,15 +12,23 @@ class Controller{
         $viewContent = $template->getView($view, $data);
         $namespace = explode('\\', get_called_class());
 
-        if(strpos($namespace[count($namespace)-1], 'Admin') !== false){
-
-            $adminLayout = $template->getAdminLayout();
-            echo \str_replace('{{content}}', $viewContent, $adminLayout);
+        if (strpos($namespace[count($namespace)-1], 'Article') && strpos(debug_backtrace()[1]['function'], 'Add' ) || strpos($namespace[count($namespace)-1], 'Article') && (strpos(debug_backtrace()[1]['function'], 'Edit' ) ) ){
+            $contentEditorLayout = $template->getContentEditorLayout();
+            echo \str_replace('{{content}}', $viewContent, $contentEditorLayout);
+        }
+        elseif(strpos($namespace[count($namespace)-1], 'Page') && strpos(debug_backtrace()[1]['function'], 'Add' ) || strpos($namespace[count($namespace)-1], 'Page') && (strpos(debug_backtrace()[1]['function'], 'Edit' ) )){
+            $contentEditorLayout = $template->getContentEditorLayout();
+            echo \str_replace('{{content}}', $viewContent, $contentEditorLayout);
         }
         elseif (strpos($namespace[count($namespace)-1], 'Registration') !== false){
 
             $registrationLayout = $template->getRegistrationLayout();
             echo \str_replace('{{content}}', $viewContent, $registrationLayout);
+        }
+        elseif(strpos($namespace[count($namespace)-1], 'Admin') !== false){
+
+            $adminLayout = $template->getAdminLayout();
+            echo \str_replace('{{content}}', $viewContent, $adminLayout);
         }
         else{
             $siteLayout = $template->getSiteLayout();
