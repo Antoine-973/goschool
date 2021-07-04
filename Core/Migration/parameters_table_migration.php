@@ -18,7 +18,9 @@ class parameters_table_migration
             `description` TEXT NULL,
             `lang` VARCHAR(25) NOT NULL DEFAULT 'fr',
             `save` TINYINT DEFAULT '0',
-            `update` TINYINT DEFAULT '0'
+            `update` TINYINT DEFAULT '0',
+            `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         ) ENGINE=INNODB CHARSET=`utf8`;";
         $conn->exec($sql);
     }

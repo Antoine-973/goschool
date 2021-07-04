@@ -6,6 +6,7 @@ use Core\Http\Request;
 use Core\Http\Session;
 use Core\Http\Response;
 use Core\Component\Validator;
+use App\Form\ParamEditForm;
 
 class AdminParamController extends Controller{
 
@@ -17,14 +18,20 @@ class AdminParamController extends Controller{
 
     private $session;
 
+    private $paramEditForm;
+
     public function __construct()
     {
         $this->request = new Request();
         $this->response = new Response();
+        $this->paramEditForm = new ParamEditForm();
     }
 
     public function index()
     {
-        $this->render("admin/parameters/param.phtml");
+        $form = new ParamEditForm();
+        $paramEditForm = $form->getForm();
+
+        $this->render("admin/parameters/param.phtml", ['paramEditForm'=>$paramEditForm]);
     }
 }
