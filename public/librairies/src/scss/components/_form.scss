@@ -27,8 +27,18 @@
     color: $white;
     border: none;
 
+    display: inline-block;
+    max-width: 280px;
+    margin-top: 10px;
+    float: right;
     &:hover{
       background-color: lighten($green, 10%);
     }
   }
+  
+  label {
+        padding: 10px 0;
+        display: inline-block;
+    }
+
 }

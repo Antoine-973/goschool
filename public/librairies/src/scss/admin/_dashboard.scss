@@ -2,6 +2,7 @@
 
 body {
   font-family: 'PT Sans', sans-serif;
+  background-color: #f3f3f3;
 }
 
 .admin-sidebar {
@@ -138,3 +139,17 @@ body {
     float: right;
   }
 }
+
+
+.add-form{
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  h1 { margin: 0;}
+
+}
+
+.back-to-list {
+  padding-top: 15px;
+}
+

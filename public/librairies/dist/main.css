@@ -554,9 +554,17 @@ p {
   background-color: #28a745;
   color: #fff;
   border: none;
+  display: inline-block;
+  max-width: 280px;
+  margin-top: 10px;
+  float: right;
 }
 .input-group input[type=submit]:hover {
   background-color: #34ce57;
+}
+.input-group label {
+  padding: 10px 0;
+  display: inline-block;
 }
 
 aside.left {
@@ -1009,6 +1017,7 @@ select::-ms-expand {
 
 body {
   font-family: "PT Sans", sans-serif;
+  background-color: #f3f3f3;
 }
 
 .admin-sidebar {
@@ -1110,6 +1119,20 @@ body {
   position: absolute;
   left: 15%;
   width: 85%;
+  margin-top: 40px;
+}
+
+.add-form {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+}
+.add-form h1 {
+  margin: 0;
+}
+
+.back-to-list {
+  padding-top: 15px;
 }
 
 body.admin-login {

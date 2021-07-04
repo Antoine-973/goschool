@@ -6,6 +6,8 @@ use Core\Util\Helper;
 
 class Controller{
 
+    private $middlewares = [];
+
     public function render($view, $data = [])
     {
         $template = new Template();
@@ -59,6 +61,11 @@ class Controller{
         extract([ 'helper' => $helper]);
         require dirname(__DIR__) . DIRECTORY_SEPARATOR. "App" . DIRECTORY_SEPARATOR . "Views" . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $view);
         echo ob_get_clean();
+    }
+
+    public function registerMiddleware($middleware)
+    {
+        $this->middlewares[] = $middleware;
     }
 
 
