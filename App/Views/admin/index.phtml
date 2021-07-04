@@ -26,13 +26,19 @@
             <div class="row">
                 <div class="col-2">
                     <div class="container shadow shadow--none">
-                        <h4>Les 5 derniers inscrit.</h4>
+                        <h4>Les 3 derniers inscrit.</h4>
                         <?php $cles = array_keys($users);?>
                         <ul>
-                            <?php for($y = 0; $y < 5; $y++) { ?>
-                                <li>
-                                        <?php echo $users[$y]['lastname'] ?> <?php echo $users[$y]['firstname'] ?> <?php echo $users[$y]['roles'] ?><br>
-                                        <?php echo $users[$y]['created_at'] ?><br><br>
+                            <?php if ($users != null) { ?>
+                                <?php for($y = 0; $y < 3; $y++) { ?>
+                                    <li>
+                                            <?php echo $users[$y]['lastname'] ?> <?php echo $users[$y]['firstname'] ?> <?php echo $users[$y]['roles'] ?><br>
+                                            <?php echo $users[$y]['created_at'] ?><br><br>
+                                    </li>
+                                <?php } ?>
+                            <?php } else { ?>
+                                <li>Il n'y a pas encore d'utilisateur.<br>
+                                <a href="/admin/user/add" class="btn btn--sm"><i class="fas fa-plus-circle"></i> Ajouter </a>
                                 </li>
                             <?php } ?>
                         </ul>
@@ -40,14 +46,19 @@
                 </div>
                 <div class="col-2">
                     <div class="container shadow shadow--none">
-                        <h4>Les 5 derniers articles.</h4>
+                        <h4>Les 3 derniers articles.</h4>
                         <?php $keys = array_keys($articles);?>
                         <ul>
-                            <?php for($i = 0; $i < 5; $i++) { ?>
-                                <li>
-                                        <?php echo $articles[$i]['title'] ?><br>
-                                        <?php echo $articles[$i]['created_at'] ?><br><br>
-                                </li>
+                            <?php if ($articles != null) { ?>
+                                <?php for($i = 0; $i < 3; $i++) { ?>
+                                    <li>
+                                            <?php echo $articles[$i]['title'] ?><br>
+                                            <?php echo $articles[$i]['created_at'] ?><br><br>
+                                    </li>
+                                <?php } ?>
+                            <?php } else { ?>
+                                <li>Il n'y a pas encore d'article.<br>
+                                <a href="/admin/article/add" class="btn btn--sm"><i class="fas fa-plus-circle"></i> Ajouter </a></li>
                             <?php } ?>
                         </ul>
                     </div>
