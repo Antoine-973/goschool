@@ -24,6 +24,7 @@ class PageEditForm
         $form = Form::create('/admin/page/edit')
                 ->input('id', 'hidden', ['value' => $id['id']])
                 ->input('title', 'text', ['value' => 'title', 'min' => 4, 'max' => 55, 'text' => $data['title'], 'required' => 'required'])
+                ->select('status','Statut',['id' => 'status', 'name' => 'status', 'options' => ['Publié','Brouillon','Attente de validation']])
                 ->textarea('content', 'textarea', ['value' => $data['content'], 'max' => 400])
                 ->input('submit', 'submit', ['value' => 'Modifier']);
         return $form->getForm();
