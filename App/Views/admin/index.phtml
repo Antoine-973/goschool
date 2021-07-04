@@ -1,61 +1,109 @@
-<h1>Tableau de bord</h1>
-<div class="container__fluid">
+<h1 class="section-title">Tableau de bord</h1>
     <div class="content admin--index">
-        <div class="col-12">
-            <div class="row">
-                <div class="col-3">
-                    <table class="shadow shadow--none">
-                        <thead>
+        <div class="row">
+            <div class="col-gutter-2">
+                <div class="row">
+                    <div class="col-2">
+                        <table class="count-table shadow shadow--none">
+                            <thead>
                             <tr>
                                 <th colspan="1">Professeurs</th>
                                 <th colspan="1">Eleves</th>
                             </tr>
-                        </thead>
-                        <tbody>
+                            </thead>
+                            <tbody>
                             <tr>
                                 <td><?php echo $teacherCount; ?></td>
                                 <td><?php echo $studentCount; ?></td>
                             </tr>
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="col-9">
-                <img class="img img--center" src="/images/planning.png" alt="planning">
+                <div class="row">
+                    <div class="col-2">
+                        <canvas id="voteChart" width="400" height="400"></canvas>
+                        <script>
+                            var ctx = document.getElementById('voteChart');
+                            var myChart = new Chart(ctx, {
+                                type: 'bar',
+                                data: {
+                                    labels: ['Red', 'Blue', 'Yellow'],
+                                    datasets: [{
+                                        label: '# of Votes',
+                                        data: [12, 19, 3],
+                                        backgroundColor: [
+                                            'rgba(255, 99, 132, 0.2)',
+                                            'rgba(54, 162, 235, 0.2)',
+                                            'rgba(255, 206, 86, 0.2)',
+                                        ],
+                                        borderColor: [
+                                            'rgba(255, 99, 132, 1)',
+                                            'rgba(54, 162, 235, 1)',
+                                            'rgba(255, 206, 86, 1)',
+                                        ],
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true
+                                        }
+                                    }
+                                }
+                            });
+                        </script>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-2">
-                    <div class="container shadow shadow--none">
-                        <h4>Les 5 derniers inscrit.</h4>
-                        <?php $cles = array_keys($users);?>
-                        <ul>
-                            <?php for($y = 0; $y < 5; $y++) { ?>
-                                <li>
-                                        <?php echo $users[$y]['lastname'] ?> <?php echo $users[$y]['firstname'] ?> <?php echo $users[$y]['roles'] ?><br>
-                                        <?php echo $users[$y]['created_at'] ?><br><br>
-                                </li>
-                            <?php } ?>
-                        </ul>
-                    </div>
+            <div class="col-gutter-10">
+                <div id='calendar'></div>
+                <script>
+
+                    document.addEventListener('DOMContentLoaded', function() {
+                        var calendarEl = document.getElementById('calendar');
+                        var calendar = new FullCalendar.Calendar(calendarEl, {
+                            initialView: 'dayGridMonth'
+                        });
+                        calendar.render();
+                    });
+
+                </script>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-gutter-2">
+                <div class="shadow shadow--none">
+                    <h4>Les 5 derniers inscrit.</h4>
+                    <?php $cles = array_keys($users);?>
+                    <ul>
+                        <?php for($y = 0; $y < 5; $y++) { ?>
+                            <li>
+                                    <?php echo $users[$y]['lastname'] ?> <?php echo $users[$y]['firstname'] ?> <?php echo $users[$y]['roles'] ?><br>
+                                    <?php echo $users[$y]['created_at'] ?><br><br>
+                            </li>
+                        <?php } ?>
+                    </ul>
                 </div>
-                <div class="col-2">
-                    <div class="container shadow shadow--none">
-                        <h4>Les 5 derniers articles.</h4>
-                        <?php $keys = array_keys($articles);?>
-                        <ul>
-                            <?php for($i = 0; $i < 5; $i++) { ?>
-                                <li>
-                                        <?php echo $articles[$i]['title'] ?><br>
-                                        <?php echo $articles[$i]['created_at'] ?><br><br>
-                                </li>
-                            <?php } ?>
-                        </ul>
-                    </div>
+            </div>
+            <div class="col-gutter-2">
+                <div class="shadow shadow--none">
+                    <h4>Les 5 derniers articles.</h4>
+                    <?php $keys = array_keys($articles);?>
+                    <ul>
+                        <?php for($i = 0; $i < 5; $i++) { ?>
+                            <li>
+                                    <?php echo $articles[$i]['title'] ?><br>
+                                    <?php echo $articles[$i]['created_at'] ?><br><br>
+                            </li>
+                        <?php } ?>
+                    </ul>
                 </div>
-                <div class="col-8">
-                    <div class="container shadow shadow--none">
-                        <h4>Les évènements à venir.</h4>
-                    </div>
+            </div>
+            <div class="col-gutter-8">
+                <div class="shadow shadow--none">
+                    <h4>Les évènements à venir.</h4>
                 </div>
             </div>
         </div>
