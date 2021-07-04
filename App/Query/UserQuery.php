@@ -39,6 +39,16 @@ class UserQuery
     /**
      * @param string $roles
      */
+    public function getRole()
+    {
+        $query = $this->builder->select("DISTINCT roles")->from("users");
+        return $query->getResult();
+    
+    }
+
+    /**
+     * @param string $roles
+     */
     public function getByRole(string $roles)
     {
         $query = $this->builder->select("*")->from("users")->where("roles = $roles");
