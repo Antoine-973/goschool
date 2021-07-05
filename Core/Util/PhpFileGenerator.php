@@ -19,6 +19,19 @@ class PhpFileGenerator{
         }
     }
 
+    public function deleteViewFile($viewName, $postType){
+        if ($postType == 'pages' || $postType == 'articles'){
+
+            $titleToName = str_replace(" ", "-", $viewName);
+            $cleanName = strtolower($titleToName);
+
+            return unlink("../App/Views/site/".$postType."/".$cleanName.".phtml");
+        }
+        else{
+            throw new Exception('deleteViewFile need a valid postType (articles or pages)');
+        }
+    }
+
 }
 
 
