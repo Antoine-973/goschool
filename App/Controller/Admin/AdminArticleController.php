@@ -73,7 +73,6 @@ class AdminArticleController extends Controller {
                 }
                 else{
                     $this->request->redirect('/admin/articles')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
-                    }
                 }
             }
             else {
@@ -82,6 +81,7 @@ class AdminArticleController extends Controller {
                 $this->render("admin/article/addArticle.phtml", ['errors' => $errors, 'articleAdd'=>$articleAddForm]);
             }
         }
+    }
 
     public function indexEditArticle()
     {
