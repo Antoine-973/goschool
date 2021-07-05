@@ -12,7 +12,7 @@ class PhpFileGenerator{
             $titleToName = explode(" ", $viewName);
             $cleanName = strtolower($titleToName[0]);
 
-            file_put_contents("../App/Views/site/".$postType."/".$cleanName.".phtml", str_replace( '&', '&amp;', $viewContent));
+            file_put_contents("../App/Views/site/".$postType."/".$cleanName.".phtml", str_replace( '&', '&amp;', html_entity_decode($viewContent)));
 
         }
         else{
