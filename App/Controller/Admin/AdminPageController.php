@@ -58,6 +58,9 @@ class AdminPageController extends Controller {
                 if ($page->generateViewFile($data['title'],$data['content'],'pages')){
                     $this->request->redirect('/admin/pages')->with('created', 'La page a bien été créee');
                 }
+                else{
+                    $this->request->redirect('/admin/pages')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                }
             }
             else{
                 $this->request->redirect('/admin/pages')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
@@ -82,7 +85,14 @@ class AdminPageController extends Controller {
             $errors = $this->validator->validate($this->pageModel, $dataToUpdate);
 
             if($this->pageQuery->updatePage($dataToUpdate, $id)) {
-                $this->request->redirect('/admin/pages')->with('edited', 'La page a bien été édité');
+                $page = new PhpFileGenerator();
+
+                if ($page->generateViewFile($data['title'],$data['content'],'pages')) {
+                    $this->request->redirect('/admin/pages')->with('edited', 'La page a bien été édité');
+                }
+                else{
+                    $this->request->redirect('/admin/pages')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                }
             }
             else{
                 $this->request->redirect('/admin/pages')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
