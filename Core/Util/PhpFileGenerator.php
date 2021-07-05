@@ -9,8 +9,8 @@ class PhpFileGenerator{
 
         if ($postType == 'pages' || $postType == 'articles'){
 
-            $titleToName = explode(" ", $viewName);
-            $cleanName = strtolower($titleToName[0]);
+            $titleToName = str_replace(" ", "-", $viewName);
+            $cleanName = strtolower($titleToName);
 
             return file_put_contents("../App/Views/site/".$postType."/".$cleanName.".phtml", str_replace( '&', '&amp;', html_entity_decode($viewContent)));
         }
