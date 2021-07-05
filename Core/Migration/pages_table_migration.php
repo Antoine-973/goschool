@@ -12,6 +12,7 @@ class pages_table_migration
             `id`  BIGINT(20) PRIMARY KEY NOT NULL AUTO_INCREMENT,
             `title` VARCHAR(255) NOT NULL UNIQUE,
             `url` VARCHAR(255) NULL UNIQUE,
+            `slug` VARCHAR(255) NULL UNIQUE,
             `image` VARCHAR(255) NULL,
             `content` TEXT NULL,
             `status` VARCHAR(55) NOT NULL DEFAULT 'unpublished',
