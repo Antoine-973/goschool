@@ -104,8 +104,19 @@ class AdminPageController extends Controller {
     {
         $id = $_GET['id'];
         if($this->request->isGet()) {
-            if($this->pageQuery->delete($id)) {
-                $this->request->redirect('/admin/pages')->with('deleted', 'La page a bien été supprimé');
+
+            $slug = $this->pageQuery->getSlugById($id)['slug'];
+            $deleteQuery = new PageQuery();
+
+            if($deleteQuery->delete($id)) {
+
+                $deleteView = new PhpFileGenerator();
+
+                if ($deleteView->deleteViewFile($slug,'pages')){
+                    $this->request->redirect('/admin/pages')->with('deleted', 'La page a bien été supprimé');
+                }else {
+                    $this->request->redirect('/admin/pages')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                }
             } else {
                 $this->request->redirect('/admin/pages')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
             }
