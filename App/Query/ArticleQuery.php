@@ -74,6 +74,8 @@ class ArticleQuery
      */
     public function create(array $data)
     {
+        $data['content']= html_entity_decode($data['content']);
+
         $query = $this->builder->insertInto('articles')->columns($data)->values($data)->save();
         return $query;
     }
@@ -83,6 +85,8 @@ class ArticleQuery
      */
     public function updateArticle(array $data, int $id)
     {
+        $data['content']= html_entity_decode($data['content']);
+
         $query = $this->builder->update("articles")->set($data)->where("id = $id")->save();
         return $query;
     }
