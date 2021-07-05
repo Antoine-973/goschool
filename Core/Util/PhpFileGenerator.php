@@ -12,8 +12,7 @@ class PhpFileGenerator{
             $titleToName = explode(" ", $viewName);
             $cleanName = strtolower($titleToName[0]);
 
-            file_put_contents("../App/Views/site/".$postType."/".$cleanName.".phtml", str_replace( '&', '&amp;', html_entity_decode($viewContent)));
-
+            return file_put_contents("../App/Views/site/".$postType."/".$cleanName.".phtml", str_replace( '&', '&amp;', html_entity_decode($viewContent)));
         }
         else{
             throw new Exception('generateViewFile need a valid postType (articles or pages)');
