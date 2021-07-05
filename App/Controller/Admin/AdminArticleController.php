@@ -127,8 +127,19 @@ class AdminArticleController extends Controller {
     {
         $id = $_GET['id'];
         if($this->request->isGet()) {
-            if($this->articleQuery->deleteArticle($id)) {
-                $this->request->redirect('/admin/articles')->with('deleted', 'L\'article a bien été supprimé');
+
+            $slug = $this->articleQuery->getSlugById($id)['slug'];
+            $deleteQuery = new ArticleQuery();
+
+            if($deleteQuery->deleteArticle($id)) {
+
+                $deleteView = new PhpFileGenerator();
+
+                if ($deleteView->deleteViewFile($slug,'articles')){
+                    $this->request->redirect('/admin/articles')->with('deleted', 'L\'article a bien été supprimé');
+                }else {
+                    $this->request->redirect('/admin/articles')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                }
             } else {
                 $this->request->redirect('/admin/articles')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
             }
