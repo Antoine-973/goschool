@@ -9,6 +9,7 @@ use App\Form\ArticleAddForm;
 use App\Form\ArticleEditForm;
 use App\Query\ArticleQuery;
 use Core\Component\Validator;
+use Core\Util\PhpFileGenerator;
 
 class AdminArticleController extends Controller {
 
@@ -61,7 +62,14 @@ class AdminArticleController extends Controller {
             if(empty($errors)){
                 if($this->articleQuery->create($data))
                 {
-                    $this->request->redirect('/admin/articles')->with('created', 'L\'article a bien été crée');
+                    $article = new PhpFileGenerator();
+
+                    if ($article->generateViewFile($data['title'],$data['content'],'articles')) {
+                        $this->request->redirect('/admin/articles')->with('created', 'L\'article a bien été crée');
+                    }
+                    else{
+                        $this->request->redirect('/admin/articles')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                    }
                 }
                 else{
                     $this->request->redirect('/admin/articles')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
@@ -93,7 +101,14 @@ class AdminArticleController extends Controller {
 
             if(empty($errors)) {
                 if($this->articleQuery->updateArticle($dataToUpdate, $id)) {
-                    $this->request->redirect('/admin/articles')->with('edited', 'L\'article a bien été édité');
+                    $article = new PhpFileGenerator();
+
+                    if ($article->generateViewFile($data['title'],$data['content'],'articles')) {
+                        $this->request->redirect('/admin/articles')->with('edited', 'L\'article a bien été édité');
+                    }
+                    else{
+                        $this->request->redirect('/admin/articles')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                    }
                 }
                 else{
                     $this->request->redirect('/admin/articles')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
