@@ -75,6 +75,8 @@ class PageQuery
     public function create(array $data)
     {
         $data['content']= html_entity_decode($data['content']);
+        $titleToSlug = str_replace(" ", "-", $data['title']);
+        $data['slug']= strtolower($titleToSlug);
 
         $query = $this->builder->insertInto('pages')->columns($data)->values($data)->save();
         return $query;
