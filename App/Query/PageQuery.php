@@ -85,6 +85,8 @@ class PageQuery
      */
     public function updatePage(array $data, int $id)
     {
+        $data['content']= html_entity_decode($data['content']);
+
         $query = $this->builder->update('pages')->set($data)->where("id = $id")->save();
     }
 }
