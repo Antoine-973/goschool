@@ -12,7 +12,7 @@ class PhpFileGenerator{
                     $clearUrl .= $explodeUrl[$key];
                 }
                 else{
-                    $clearUrl .= "-". $explodeUrl[$key];
+                    $clearUrl .= "_". $explodeUrl[$key];
                 }
 
             }
