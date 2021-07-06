@@ -50,20 +50,27 @@ class AdminPageController extends Controller {
     public function addPage(){
         if($this->request->isPost()) {
             $data = $this->request->getBody();
+            $errors = $this->validator->validate($this->pageModel, $data);
 
-            if($this->pageQuery->create($data))
-            {
-                $page = new PhpFileGenerator();
+            if (empty($errors)){
+                if($this->pageQuery->create($data))
+                {
+                    $page = new PhpFileGenerator();
 
-                if ($page->generateViewFile($data['url'],$data['content'],'pages')){
-                    $this->request->redirect('/admin/pages')->with('created', 'La page a bien été créee');
-                }
-                else{
+                    if ($page->generateViewFile($data['url'],$data['content'],'pages')){
+                        $this->request->redirect('/admin/pages')->with('created', 'La page a bien été créee');
+                    }
+                    else{
+                        $this->request->redirect('/admin/pages')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                    }
+                }else{
                     $this->request->redirect('/admin/pages')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
                 }
             }
             else{
-                $this->request->redirect('/admin/pages')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                $form = new PageAddForm();
+                $pageAddForm = $form->getForm();
+                $this->render("admin/page/addPage.phtml", ['errors'=>$errors, 'pageAdd'=>$pageAddForm]);
             }
         }
     }
