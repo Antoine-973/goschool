@@ -119,9 +119,9 @@ class Validator
 
     public function validateUrl($value, $name)
     {
-        $pattern = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/";
+        $pattern = "/[^\/a-z0-9]/m";
 
-        if(preg_match($pattern, $value)){
+        if(!preg_match($pattern, $value)){
             return true;
         }
 
