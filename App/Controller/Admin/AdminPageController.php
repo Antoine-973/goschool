@@ -55,7 +55,7 @@ class AdminPageController extends Controller {
             {
                 $page = new PhpFileGenerator();
 
-                if ($page->generateViewFile($data['title'],$data['content'],'pages')){
+                if ($page->generateViewFile($data['url'],$data['content'],'pages')){
                     $this->request->redirect('/admin/pages')->with('created', 'La page a bien été créee');
                 }
                 else{
@@ -87,7 +87,7 @@ class AdminPageController extends Controller {
             if($this->pageQuery->updatePage($dataToUpdate, $id)) {
                 $page = new PhpFileGenerator();
 
-                if ($page->generateViewFile($data['title'],$data['content'],'pages')) {
+                if ($page->generateViewFile($data['url'],$data['content'],'pages')) {
                     $this->request->redirect('/admin/pages')->with('edited', 'La page a bien été édité');
                 }
                 else{
@@ -105,14 +105,14 @@ class AdminPageController extends Controller {
         $id = $_GET['id'];
         if($this->request->isGet()) {
 
-            $slug = $this->pageQuery->getSlugById($id)['slug'];
+            $url = $this->pageQuery->getUrlById($id)['url'];
             $deleteQuery = new PageQuery();
 
             if($deleteQuery->delete($id)) {
 
                 $deleteView = new PhpFileGenerator();
 
-                if ($deleteView->deleteViewFile($slug,'pages')){
+                if ($deleteView->deleteViewFile($url,'pages')){
                     $this->request->redirect('/admin/pages')->with('deleted', 'La page a bien été supprimé');
                 }else {
                     $this->request->redirect('/admin/pages')->with('failed', 'Une erreur c\'est produite veuillez réessayer');

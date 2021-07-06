@@ -37,9 +37,9 @@ class PageQuery
      * @param int $id
      * @return string $query
      */
-    public function getSlugById(int $id)
+    public function getUrlById(int $id)
     {
-        $query = $this->builder->select("slug")->from("pages")->where("id = $id");
+        $query = $this->builder->select("url")->from("pages")->where("id = $id");
         return $query->getResult();
     }
 
@@ -85,8 +85,6 @@ class PageQuery
     public function create(array $data)
     {
         $data['content']= html_entity_decode($data['content']);
-        $titleToSlug = str_replace(" ", "-", $data['title']);
-        $data['slug']= strtolower($titleToSlug);
 
         $query = $this->builder->insertInto('pages')->columns($data)->values($data)->save();
         return $query;
