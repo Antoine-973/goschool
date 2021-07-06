@@ -9,6 +9,8 @@ class PageModel extends Model
 
     private $content;
 
+    private $url;
+
 
     public function setTitle($title)
     {
@@ -25,11 +27,22 @@ class PageModel extends Model
         return $this->content;
     }
 
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    public function setUrl($url): void
+    {
+        $this->url = $url;
+    }
+
     public function rules()
     {
         return [
             'title' => ['type' => 'string',  'min' => 4, 'required' => 'required', 'max' => 55],
             'content' => ['type' => 'string', 'required' => 'required', 'max' => 400],
+            'url' => ['id' => 'url', 'type' => 'string', 'required' => 'required', 'min' => 4, 'max' => 55],
         ];
 
     }
