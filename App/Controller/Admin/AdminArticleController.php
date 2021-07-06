@@ -100,18 +100,29 @@ class AdminArticleController extends Controller {
             $errors = $this->validator->validate($this->articleModel, $dataToUpdate);
 
             if(empty($errors)) {
-                if($this->articleQuery->updateArticle($dataToUpdate, $id)) {
-                    $article = new PhpFileGenerator();
+                $slugInDb = $this->articleQuery->getSlugById($id);
 
-                    if ($article->generateViewFile($data['title'],$data['content'],'articles')) {
-                        $this->request->redirect('/admin/articles')->with('edited', 'L\'article a bien été édité');
+                if ($slugInDb['slug'] != $data['slug']) {
+                    $deleteOldView = new PhpFileGenerator();
+
+                    if ($deleteOldView->deleteViewFile($slugInDb['slug'], 'articles')) {
+                        if($this->articleQuery->updateArticle($dataToUpdate, $id)) {
+                            $article = new PhpFileGenerator();
+
+                            if ($article->generateViewFile($data['slug'],$data['content'],'articles')) {
+                                $this->request->redirect('/admin/articles')->with('edited', 'L\'article a bien été édité');
+                            }
+                            else{
+                                $this->request->redirect('/admin/articles')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                            }
+                        }
+                        else{
+                            $this->request->redirect('/admin/articles')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                        }
                     }
                     else{
-                        $this->request->redirect('/admin/articles')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                        die('KO');
                     }
-                }
-                else{
-                    $this->request->redirect('/admin/articles')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
                 }
             }
             else{
