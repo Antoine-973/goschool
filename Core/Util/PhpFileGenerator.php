@@ -49,6 +49,7 @@ class PhpFileGenerator{
             return unlink("../App/Views/site/".$postType."/".$cleanName);
         }
         elseif($postType == 'articles'){
+
             $titleToName = str_replace(" ", "-", $viewName);
             $cleanName = strtolower($titleToName) . '_article.phtml';
 
