@@ -29,7 +29,7 @@ class PageQuery
      */
     public function getById(int $id)
     {
-        $query = $this->builder->select("title, content")->from("pages")->where("id = $id");
+        $query = $this->builder->select("title, content, url")->from("pages")->where("id = $id");
         return $query->getResult();
     }
 
