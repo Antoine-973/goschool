@@ -18,7 +18,7 @@ class PageQuery
      */
     public function getPages()
     {
-        $query = $this->builder->select("id, title, updated_at")->from("pages");
+        $query = $this->builder->select("id, title, status, updated_at")->from("pages");
 
         return $query->getResult();
     }
@@ -29,7 +29,17 @@ class PageQuery
      */
     public function getById(int $id)
     {
-        $query = $this->builder->select("title, content")->from("pages")->where("id = $id");
+        $query = $this->builder->select("title, content, url")->from("pages")->where("id = $id");
+        return $query->getResult();
+    }
+
+    /**
+     * @param int $id
+     * @return string $query
+     */
+    public function getUrlById(int $id)
+    {
+        $query = $this->builder->select("url")->from("pages")->where("id = $id");
         return $query->getResult();
     }
 
@@ -74,6 +84,8 @@ class PageQuery
      */
     public function create(array $data)
     {
+        $data['content']= html_entity_decode($data['content']);
+
         $query = $this->builder->insertInto('pages')->columns($data)->values($data)->save();
         return $query;
     }
@@ -83,6 +95,9 @@ class PageQuery
      */
     public function updatePage(array $data, int $id)
     {
+        $data['content']= html_entity_decode($data['content']);
+
         $query = $this->builder->update('pages')->set($data)->where("id = $id")->save();
+        return $query;
     }
 }

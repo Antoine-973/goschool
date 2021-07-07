@@ -14,6 +14,7 @@ class pages_table_migration
             `url` VARCHAR(255) NULL UNIQUE,
             `image` VARCHAR(255) NULL,
             `content` TEXT NULL,
+            `status` VARCHAR(55) NOT NULL DEFAULT 'unpublished',
             `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         ) ENGINE=INNODB CHARSET=`utf8`;";

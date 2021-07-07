@@ -6,7 +6,7 @@ class HomeController extends Controller{
 
     public function index(){
 
-        return $this->render('page.phtml');
+        return $this->render("site/pages/sample-page.phtml");
 
     }
 }

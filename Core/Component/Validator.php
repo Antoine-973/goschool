@@ -8,6 +8,8 @@ class Validator
 
     private $password;
 
+    private $url;
+
     public function validate($model, $data){
         $properties = get_object_vars($model);
         $rules = $model->rules();
@@ -29,6 +31,11 @@ class Validator
             if($key == 'type' && $value == 'password'){
                 $this->password = $data;
                 $this->validatePassword($data, $name);
+            }
+
+            if($key == 'id' && $value == 'url'){
+                $this->url = $data;
+                $this->validateUrl($data, $name);
             }
 
             if($key == 'type' && $value == 'string'){
@@ -108,6 +115,17 @@ class Validator
         }
 
         $this->errors[] = "Invalid $name must contains at least 8 characters, and with at least 1 number, 1 uppercase and 1 letter";
+    }
+
+    public function validateUrl($value, $name)
+    {
+        $pattern = "/[^\/a-z0-9]/m";
+
+        if(!preg_match($pattern, $value)){
+            return true;
+        }
+
+        $this->errors[] = "Invalid $name must contains at least 4 characters, with only slash and alpha-numeric characters";
     }
 
     protected function validateMatch($value, $name)
