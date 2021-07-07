@@ -71,4 +71,8 @@ $route->get('/admin/comment/edit', ['controller' => 'AdminCommentController', 'm
 $route->post('/admin/comment/edit', ['controller' => 'AdminCommentController', 'method' => 'editComment']);
 $route->get('/admin/comment/delete', ['controller' => 'AdminCommentController', 'method' => 'deleteComment']);
 
+$route->get('/admin/appearance', ['controller' => 'AdminAppearanceController', 'method' => 'indexListAppearance']);
+
+$route->get('/admin/planning', ['controller' => 'AdminPlanningController', 'method' => 'indexPlanning']);
+
 return $route->getRoutes();
