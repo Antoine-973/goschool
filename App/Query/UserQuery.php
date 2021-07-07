@@ -36,6 +36,11 @@ class UserQuery
     
     }
 
+    public function getIdByEmail($email){
+        $query = $this->builder->select("id")->from("users")->where("email = $email");
+        return $query->getResult();
+    }
+
     /**
      * @param string $roles
      */
