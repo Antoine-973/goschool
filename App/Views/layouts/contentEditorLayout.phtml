@@ -6,12 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>goSchool - Admin</title>
     <link rel="stylesheet" type="text/css" href="/librairies/dist/main.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     <script src="/librairies/dist/main.js"></script>
-    <script src="/librairies/vendor/ckeditor5/packages/ckeditor5-build-classic/build/ckeditor.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="/librairies/src/js/vendor/ckeditor5/build/ckeditor.js"></script>
 </head>
 <body>
 
@@ -20,6 +16,102 @@
         {{content}}
     </div>
 </div>
+
+<script>
+    const watchdog = new CKSource.EditorWatchdog();
+
+    window.watchdog = watchdog;
+
+    watchdog.setCreator((element, config) => {
+        return CKSource.Editor
+            .create(element, config)
+            .then(editor => {
+
+
+                return editor;
+            })
+    });
+
+    watchdog.setDestructor(editor => {
+
+
+        return editor.destroy();
+    });
+
+    watchdog.on('error', handleError);
+
+    watchdog
+        .create(document.querySelector('#content'), {
+
+            toolbar: {
+                items: [
+                    'heading',
+                    '|',
+                    'pageBreak',
+                    'alignment',
+                    'restrictedEditingException',
+                    'bold',
+                    'italic',
+                    'fontFamily',
+                    'fontSize',
+                    'fontColor',
+                    'fontBackgroundColor',
+                    'underline',
+                    'highlight',
+                    'horizontalLine',
+                    'bulletedList',
+                    'numberedList',
+                    '|',
+                    'outdent',
+                    'indent',
+                    '|',
+                    'link',
+                    'imageUpload',
+                    'imageInsert',
+                    '|',
+                    'specialCharacters',
+                    'blockQuote',
+                    'code',
+                    'codeBlock',
+                    'htmlEmbed',
+                    'insertTable',
+                    'mediaEmbed',
+                    'findAndReplace',
+                    'undo',
+                    'redo'
+                ]
+            },
+            language: 'fr',
+            image: {
+                toolbar: [
+                    'imageTextAlternative',
+                    'imageStyle:full',
+                    'imageStyle:side'
+                ]
+            },
+            table: {
+                contentToolbar: [
+                    'tableColumn',
+                    'tableRow',
+                    'mergeTableCells',
+                    'tableCellProperties',
+                    'tableProperties'
+                ]
+            },
+            licenseKey: '',
+
+
+        })
+        .catch(handleError);
+
+    function handleError(error) {
+        console.error('Oops, something went wrong!');
+        console.error('Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:');
+        console.warn('Build id: japdqregr4pi-x3cuspnt9v32');
+        console.error(error);
+
+    }
+</script>
 
 </body>
 </html>
