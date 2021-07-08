@@ -9,6 +9,7 @@ use App\Form\UserAddForm;
 use App\Form\UserEditForm;
 use App\Query\UserQuery;
 use Core\Component\Validator;
+use Core\Http\Session;
 
 class AdminUserController extends Controller {
 
@@ -26,6 +27,8 @@ class AdminUserController extends Controller {
 
     private $userEditForm;
 
+    private $session;
+
     public function __construct()
     {
         $this->request = new Request();
@@ -35,6 +38,7 @@ class AdminUserController extends Controller {
         $this->userEditForm = new UserEditForm();
         $this->userQuery = new UserQuery();
         $this->validator = new Validator();
+        $this->session = new Session();
     }
 
     public function indexListUser()
@@ -124,13 +128,15 @@ class AdminUserController extends Controller {
     {
         $id = $_GET['id'];
         if($this->request->isGet()) {
-            if($this->userQuery->delete($id)) {
-                $this->request->redirect('/admin/users')->with('deleted', 'L\'utilisateur a bien été supprimé');
-            } else {
-                $this->request->redirect('/admin/users')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+            if($this->session->getSession('id') != $id){
+                if($this->userQuery->delete($id)) {
+                    $this->request->redirect('/admin/users')->with('deleted', 'L\'utilisateur a bien été supprimé');
+                } else {
+                    $this->request->redirect('/admin/users')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                }
+            }else {
+                $this->request->redirect('/admin/users')->with('failed', 'Impossible de supprimer votre propre compte.');
             }
-        } else {
-            $this->request->redirect('/admin/users')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
         }
     }
 }
