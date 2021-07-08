@@ -24,7 +24,6 @@ class MediaAddForm
 
         $form = Form::create('/admin/media/add')
             ->input('image', 'file', ['value' => 'Image'])
-            ->select('roles','Role',['id' => 'roles', 'name' => 'roles', 'options' => $data])
             ->input('submit', 'submit', ['value' => 'Ajouter']);
         return $form->getForm();
     }
