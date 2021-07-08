@@ -22,15 +22,31 @@
                 <div class="admin-topbar">
                     <div class="user-controls">
                         <div class="identity">
-                            <div class="img">
+                            <?php
+                            use App\Query\UserQuery;
+                            use Core\Http\Session;
 
-                            </div>
-                            <p class="fullname">Christian Mohindo</p>
+
+                            $session = new Session();
+                            $user = new UserQuery();
+                            if ($id = $session->getSession('id')){
+                                if($memberResult = $user->getUserById($id)){
+                                    $displayName = $memberResult['firstname'] . ' ' . $memberResult['lastname'];
+                                }
+                            }
+                            ?>
+
+                            <ul>
+                                <li><a href="/admin/user/profil"><i class="fas fa-user"></i><?php if (isset($displayName)){
+                                            echo $displayName;
+                                        }  ?></a></li>
+                                | <li><a href="/admin/logout">Déconnexion</a></li>
+                            </ul>
                         </div>
                         <div class="user-actions">
                             <ul>
-                                <li><a href="#">Profil</a></li>
-                                <li><a href="#">Déconnexion</a></li>
+                                <li><a href="/admin/article/add"><i class="fas fa-plus"></i>Ajouter</a></li>
+                                <li><a href="/">Voir le site</a></li>
                             </ul>
                         </div>
                     </div>

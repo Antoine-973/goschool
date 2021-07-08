@@ -1452,27 +1452,38 @@ body {
   align-items: center;
   flex-direction: row;
   justify-content: space-around;
-  padding-left: 10px;
+}
+.admin-topbar .user-controls i {
+  margin-right: 7px;
 }
 .admin-topbar .user-controls .identity {
   display: flex;
   flex-direction: row;
   color: #fff;
 }
-.admin-topbar .user-controls .identity .img {
-  transform: translateY(25%);
-  width: 35px;
-  height: 35px;
-  margin-right: 15px;
-  border-radius: 50%;
-  background-color: #fff;
+.admin-topbar .user-controls .identity li {
+  display: inline-block;
 }
-.admin-topbar .user-controls ul {
+.admin-topbar .user-controls .identity a {
+  color: white;
+}
+.admin-topbar .user-controls .identity a:hover {
+  color: #00A2AC;
+}
+.admin-topbar .user-controls .identity a:hover i {
+  color: #00A2AC;
+}
+.admin-topbar .user-controls .user-actions ul {
   margin: 0;
   padding: 0;
 }
-.admin-topbar .user-controls ul li {
+.admin-topbar .user-controls .user-actions ul li {
   display: inline-block;
+  margin-right: 2px;
+  margin-left: 2px;
+}
+.admin-topbar .user-controls .user-actions a:hover {
+  color: white;
 }
 
 .admin-main--content {

@@ -71,6 +71,10 @@ class RegistrationAuthController extends Controller{
                 if(!empty($user) && $hash->compareHash($data['password'], $user['password_hash'])){
 
                     if ($user['verified'] == '1'){
+
+                        $selectIdQuery = new UserQuery();
+                        $idUser = $selectIdQuery->getIdbyEmail($data['email']);
+                        $this->session->setSession('id',$idUser['id']);
                         $this->request->redirect('/admin')->with('success', 'Connecté avec succès');
                     }
                     else{
@@ -88,14 +92,9 @@ class RegistrationAuthController extends Controller{
 
     public function logout()
     {
-        session_start();
-        $_SESSION = [];
         session_destroy();
 
-        $form = new UserRegisterForm();
-        $userRegister = $form->getForm();
-
-        $this->render("/admin/login", ['userRegister'=>$userRegister]);
+        $this->request->redirect('/admin/login')->with('disconnectSuccess', 'Vous avez été déconnectez avec succès.');
     }
 
     public function register()
@@ -151,7 +150,7 @@ class RegistrationAuthController extends Controller{
 
         if(!empty($this->userQuery->getByEmailTokenVerified($dataFromRequest['email'], $dataFromRequest['token_verified']))){
 
-            if (!$this->userQuery->updateVerified($dataToUpdate, $dataFromRequest['email'], $dataFromRequest['token_verified'])){
+            if ($this->userQuery->updateVerified($dataToUpdate, $dataFromRequest['email'], $dataFromRequest['token_verified'])){
 
                 $this->render("admin/registration/verifyRegister.phtml");
 

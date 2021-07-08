@@ -1,0 +1,13 @@
+<h1>Profil</h1>
+<div class="col-gutter-12">
+    <?php if(isset($errors) && !empty($errors)): ?>
+        <ul>
+            <?php foreach($errors as $error): ?>
+                <li><?php echo $error;?></li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+
+    <?= $userProfile; ?>
+</div>
+<div class="back-to-list">  <a href="/admin" class="btn btn--infos btn--sm">Revenir au Tableau de bord</a></div>
