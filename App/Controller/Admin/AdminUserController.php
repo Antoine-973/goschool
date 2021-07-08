@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller\Admin;
 
+use App\Form\UserProfileForm;
 use Core\Controller;
 use Core\Http\Request;
 use Core\Http\Response;
@@ -46,6 +47,33 @@ class AdminUserController extends Controller {
         $userProfileForm = $form->getForm();
 
         $this->render("admin/user/userProfile.phtml", ['userProfile'=>$userProfileForm]);
+    }
+
+    public function updateUserProfile(){
+
+        if($this->request->isPost()){
+
+            $data = $this->request->getBody();
+            $id = $this->session->getSession('id');
+
+            $errors = $this->validator->validate($this->userModel, $data);
+
+            if(empty($errors)){
+                if($this->userQuery->update($data, $id))
+                {
+                    $this->request->redirect('/admin/users')->with('edited', 'Votre profil a bien été modifié');
+                }
+                else{
+                    $this->request->redirect('/admin/users')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                }
+            }
+            else{
+                $form = new UserProfileForm();
+                $userProfileForm = $form->getForm();
+
+                $this->render("admin/user/userProfile.phtml", ['errors' => $errors, 'userProfile'=>$userProfileForm]);
+            }
+        }
     }
 
     public function indexListUser()
