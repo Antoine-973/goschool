@@ -108,8 +108,17 @@ class AdminPageController extends Controller {
                             }
                         }
                     }
-                } else {
-                    $this->request->redirect('/admin/pages')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                }
+                else {
+                    if ($this->pageQuery->updatePage($dataToUpdate, $id)) {
+                        $page = new PhpFileGenerator();
+
+                        if ($page->generateViewFile($data['url'], $data['content'], 'pages')) {
+                            $this->request->redirect('/admin/pages')->with('edited', 'La page a bien été édité');
+                        } else {
+                            $this->request->redirect('/admin/pages')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                        }
+                    }
                 }
             }
             else{
