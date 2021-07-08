@@ -33,7 +33,7 @@ class ArticleModel extends Model
     {
         return [
             'title' => ['type' => 'string',  'min' => 4, 'required' => 'required', 'max' => 55],
-            'content' => ['type' => 'string', 'required' => 'required', 'max' => 400],
+            'content' => ['type' => 'string', 'required' => 'required', 'max' => 6000],
         ];
 
     }
