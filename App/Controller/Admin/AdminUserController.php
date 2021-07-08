@@ -41,6 +41,13 @@ class AdminUserController extends Controller {
         $this->session = new Session();
     }
 
+    public function indexUserProfile(){
+        $form = new UserProfileForm();
+        $userProfileForm = $form->getForm();
+
+        $this->render("admin/user/userProfile.phtml", ['userProfile'=>$userProfileForm]);
+    }
+
     public function indexListUser()
     {
         $users = $this->userQuery->getUsers();
