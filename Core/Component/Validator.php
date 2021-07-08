@@ -108,7 +108,7 @@ class Validator
 
     public function validatePassword($value, $name)
     {
-        $pattern = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/";
+        $pattern = "/^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[\]:;<>,.?\/~_+\-=|]).*$/";
 
         if(preg_match($pattern, $value)){
             return true;
