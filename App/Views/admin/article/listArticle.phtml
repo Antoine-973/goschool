@@ -6,13 +6,9 @@
             <?php use Core\Util\Table; ?>
             <?php $verifTable = new Table() ?>
 
-            <?php if(($message = $helper->getFlashMessage('created'))):?>
+            <?php if(($message = $helper->getFlashMessage('success'))):?>
                 <p><?php echo $message;?></p>
-            <?php elseif(($message = $helper->getFlashMessage('edited'))):?>
-                <p> <?php echo $message;?></p>
-            <?php elseif(($message = $helper->getFlashMessage('deleted'))):?>
-                <p> <?php echo $message;?></p>
-            <?php elseif(($message = $helper->getFlashMessage('failed'))):?>
+            <?php elseif(($message = $helper->getFlashMessage('error'))):?>
                 <p> <?php echo $message;?></p>
             <?php endif;?>
 

@@ -58,13 +58,13 @@ class AdminPageController extends Controller {
                     $page = new PhpFileGenerator();
 
                     if ($page->generateViewFile($data['url'],$data['content'],'pages')){
-                        $this->request->redirect('/admin/pages')->with('created', 'La page a bien été créee');
+                        $this->request->redirect('/admin/pages')->with('success', 'La page a bien été créee');
                     }
                     else{
-                        $this->request->redirect('/admin/pages')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                        $this->request->redirect('/admin/pages')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                     }
                 }else{
-                    $this->request->redirect('/admin/pages')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/pages')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                 }
             }
             else{
@@ -102,9 +102,9 @@ class AdminPageController extends Controller {
                             $page = new PhpFileGenerator();
 
                             if ($page->generateViewFile($data['url'], $data['content'], 'pages')) {
-                                $this->request->redirect('/admin/pages')->with('edited', 'La page a bien été édité');
+                                $this->request->redirect('/admin/pages')->with('success', 'La page a bien été édité');
                             } else {
-                                $this->request->redirect('/admin/pages')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                                $this->request->redirect('/admin/pages')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                             }
                         }
                     }
@@ -133,15 +133,13 @@ class AdminPageController extends Controller {
                 $deleteView = new PhpFileGenerator();
 
                 if ($deleteView->deleteViewFile($url,'pages')){
-                    $this->request->redirect('/admin/pages')->with('deleted', 'La page a bien été supprimé');
+                    $this->request->redirect('/admin/pages')->with('success', 'La page a bien été supprimé');
                 }else {
-                    $this->request->redirect('/admin/pages')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/pages')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                 }
             } else {
-                $this->request->redirect('/admin/pages')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                $this->request->redirect('/admin/pages')->with('error', 'Une erreur c\'est produite veuillez réessayer');
             }
-        } else {
-            $this->request->redirect('/admin/pages')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
         }
     }
 

@@ -92,9 +92,10 @@ class RegistrationLostPassword extends Controller
 
                             $this->request->redirect('/admin/lostpassword')->with('resetEmailSend', 'Succès ! Un email de réinitialisation vous a été envoyé !');
                         }
+                                $this->request->redirect('/admin/lostpassword')->with('success', 'Succès ! Un email de réinitialisation vous a été envoyé !');
                     }
                     else {
-                        $this->request->redirect('/admin/lostpassword')->with('noAccountFound', 'Erreur, aucun compte goSchool est relié à l\'email fourni.');
+                        $this->request->redirect('/admin/lostpassword')->with('error', 'Erreur, aucun compte goSchool est relié à l\'email fourni.');
                     }
                 }
                 else{
@@ -105,7 +106,7 @@ class RegistrationLostPassword extends Controller
                 }
         }
         else {
-            $this->request->redirect('/admin/lostpassword')->with('postError', 'Il y a eu une erreur.');
+            $this->request->redirect('/admin/lostpassword')->with('error', 'Il y a eu une erreur.');
             }
     }
 
@@ -118,7 +119,7 @@ class RegistrationLostPassword extends Controller
 
             if (empty($selector) || empty($validator))
             {
-                die('Impossible de valider votre requête');
+                $this->request->redirect('/admin/login')->with('error', 'Impossible de valider votre requête. ');
             }
             else {
                 if (ctype_xdigit($selector) !== false && ctype_xdigit($validator) != false)
@@ -151,19 +152,19 @@ class RegistrationLostPassword extends Controller
                 $result = $this->lostPasswordQuery->getBySelectorAndExpires($selector, $currentDate);
 
                 if (!$this->lostPasswordQuery->getBySelectorAndExpires($selector, $currentDate)) {
-                    $this->request->redirect('/admin/lostpassword')->with('linkExpired', 'Il y a eu une erreur, ce lien de renouvellement de mot de passe a expiré.');
+                    $this->request->redirect('/admin/lostpassword')->with('error', 'Il y a eu une erreur, ce lien de renouvellement de mot de passe a expiré.');
                 } else {
                     $tokenbin = $this->token->hex2bin($validator);
                     $tokenCheck = $this->hashToken->compareHash($tokenbin, $result['token']);
 
                     if ($tokenCheck === false) {
-                        $this->request->redirect('/admin/lostpassword')->with('errorReset', 'Il y a eu une erreur, vous devez refaire une demande de réinitialisation de mot de passe.');
+                        $this->request->redirect('/admin/lostpassword')->with('error', 'Il y a eu une erreur, vous devez refaire une demande de réinitialisation de mot de passe.');
                     } elseif ($tokenCheck === true) {
 
                         $tokenEmail = $result['email'];
 
                         if (!$this->userQuery->getByEmail($tokenEmail)) {
-                            $this->request->redirect('/admin/lostpassword')->with('errorReset', 'Il y a eu une erreur, vous devez refaire une demande de réinitialisation de mot de passe.');
+                            $this->request->redirect('/admin/lostpassword')->with('error', 'Il y a eu une erreur, vous devez refaire une demande de réinitialisation de mot de passe.');
                         } else {
                             $newPasswordHash = $this->hashToken->passwordHash($password);
                             $value = array(
@@ -173,7 +174,7 @@ class RegistrationLostPassword extends Controller
                             $userUpdateQuery = new UserQuery();
 
                             if (!$userUpdateQuery->updatePassword($value, $tokenEmail)) {
-                                $this->request->redirect('/admin/lostpassword')->with('errorReset', 'Il y a eu une erreur, vous devez refaire une demande de réinitialisation de mot de passe.');
+                                $this->request->redirect('/admin/lostpassword')->with('error', 'Il y a eu une erreur, vous devez refaire une demande de réinitialisation de mot de passe.');
                             } else {
                                 $lostPasswordDelete = new LostPasswordQuery();
 

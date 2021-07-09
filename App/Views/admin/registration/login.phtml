@@ -4,12 +4,13 @@
 
                 <?php if(($message = $helper->getFlashMessage('error'))):?>
                     <p><?php echo $message;?></p>
-                <?php elseif(($message = $helper->getFlashMessage('fail'))):?>
+                <?php elseif(($message = $helper->getFlashMessage('success'))):?>
                     <p> <?php echo $message;?></p>
                 <?php endif;?>
 
                 <?php echo $userLogin; ?>
             </div>
+
         <div class="content formContainer--contact white">
             <a href="/admin/lostpassword">Mot de passe oublié ?</a><br>
             <a href="/admin/register">Vous n'avez pas encore de compte ? Inscrivez vous ! </a></button>
