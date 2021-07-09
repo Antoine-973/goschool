@@ -2,7 +2,7 @@
 namespace Core\Migration;
 use Core\Database\DB;
 
-class users_table_migration{
+class create_users_table_migration{
     
     public function up()
     {
@@ -19,8 +19,8 @@ class users_table_migration{
             `verified` BOOL DEFAULT 0,
             `token_verified` VARCHAR(255),
             `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-        ) ENGINE=INNODB CHARSET=`utf8`;";
+            `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP   
+    ) ENGINE=INNODB CHARSET=`utf8`;";
 
         $conn->exec($sql);
     }
