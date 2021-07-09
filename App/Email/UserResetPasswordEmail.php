@@ -11,7 +11,13 @@ class UserResetPasswordEmail{
         $body = str_replace('%url%', $url, $body);
 
         $email = new Email();
-        $email->send('contact.goschool@gmail.com', $emailTo, 'Réinitialisation de votre mot de passe goSchool', $body);
+
+        if($email->send('contact.goschool@gmail.com', $emailTo, 'Réinitialisation de votre mot de passe goSchool', $body)){
+            return true;
+        }
+        else{
+            return false;
+        }
 
     }
 }

@@ -17,7 +17,7 @@ class Session{
         $messages = $_SESSION[self::FLASH_KEY] ?? [];
         $users = $_SESSION[self::USER_DATA] ?? [];
 
-        foreach($messages as $key => &$message){
+        foreach($messages as $key => $message){
             $messages['remove'] = true;
         }
 

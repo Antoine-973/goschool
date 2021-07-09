@@ -15,6 +15,14 @@
 </head>
 <body>
 
+<?php
+use Core\Util\SessionHelper;
+
+$sessionHelper = new SessionHelper();
+$sessionHelper->redirectToLoginIfNotConnected();
+
+?>
+
 <div class="container-fluid">
     <div class="contentEditor">
         {{content}}
