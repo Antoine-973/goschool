@@ -86,13 +86,15 @@ class RegistrationLostPassword extends Controller
                             );
                             $url = new Url();
                             $generateUrl = $url->generateUrlWithParameters('/admin/resetpassword', $urlParams);
-
                             $email = new UserResetPasswordEmail();
-                            $userResetPasswordEmail = $email->sendEmail($emailTo, $generateUrl);
 
-                            $this->request->redirect('/admin/lostpassword')->with('resetEmailSend', 'Succès ! Un email de réinitialisation vous a été envoyé !');
-                        }
+                            if ($email->sendEmail($emailTo, $generateUrl)){
                                 $this->request->redirect('/admin/lostpassword')->with('success', 'Succès ! Un email de réinitialisation vous a été envoyé !');
+                            }
+                            else{
+                                $this->request->redirect('/admin/lostpassword')->with('error', 'Impossible de vous envoyez un mail');
+                            }
+                        }
                     }
                     else {
                         $this->request->redirect('/admin/lostpassword')->with('error', 'Erreur, aucun compte goSchool est relié à l\'email fourni.');
