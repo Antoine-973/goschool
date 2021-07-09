@@ -1,6 +1,8 @@
 <?php
 namespace Core\Util;
 
+include('../Core/Vendor/htmLawed/htmLawed.php');
+
 class PhpFileGenerator{
 
     public function clearUrl($url){
@@ -33,10 +35,10 @@ class PhpFileGenerator{
             $titleToName = str_replace(" ", "-", $viewName);
             $cleanName = strtolower($titleToName) . '_article.phtml';
 
-            return file_put_contents("../App/Views/site/".$postType."/".$cleanName, str_replace( '&', '&amp;', html_entity_decode($viewContent)));
-        }
-        else{
-            throw new Exception('generateViewFile need a valid postType (articles or pages)');
+            $cleanContent = str_replace( '&nbsp', '', html_entity_decode($viewContent));
+            $indentContent = htmLawed($cleanContent, array('tidy'=>4));
+
+            return file_put_contents("../App/Views/site/".$postType."/".$cleanName, $indentContent);
         }
     }
 
@@ -54,9 +56,6 @@ class PhpFileGenerator{
             $cleanName = strtolower($titleToName) . '_article.phtml';
 
             return unlink("../App/Views/site/".$postType."/".$cleanName);
-        }
-        else{
-            throw new Exception('generateViewFile need a valid postType (articles or pages)');
         }
     }
 

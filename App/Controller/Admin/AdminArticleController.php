@@ -120,8 +120,17 @@ class AdminArticleController extends Controller {
                             $this->request->redirect('/admin/articles')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                         }
                     }
-                    else{
-                        die('KO');
+                }
+                else{
+                    if($this->articleQuery->updateArticle($dataToUpdate, $id)) {
+                        $article = new PhpFileGenerator();
+
+                        if ($article->generateViewFile($data['slug'],$data['content'],'articles')) {
+                            $this->request->redirect('/admin/articles')->with('edited', 'L\'article a bien été édité');
+                        }
+                        else{
+                            $this->request->redirect('/admin/articles')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                        }
                     }
                 }
             }

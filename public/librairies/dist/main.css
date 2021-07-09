@@ -1531,14 +1531,12 @@ body {
   margin-top: 15px;
 }
 
-body.admin-login {
+body.admin-login .col-6.connexion-leading {
   background-image: linear-gradient(to top, rgba(54, 55, 64, 0.9), rgba(54, 55, 64, 0.5)), url("/images/connexion.jpg");
   background-position: left;
   background-repeat: no-repeat;
   /* Do not repeat the image */
   background-size: cover;
-}
-body.admin-login .col-6.connexion-leading {
   height: 100vh;
   position: relative;
   text-align: center;
