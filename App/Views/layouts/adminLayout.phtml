@@ -24,16 +24,19 @@
                         <div class="identity">
                             <?php
                             use App\Query\UserQuery;
+                            use Core\Http\Request;
                             use Core\Http\Session;
+                            use Core\Util\SessionHelper;
 
-
+                            $sessionHelper = new SessionHelper();
                             $session = new Session();
+                            $sessionHelper->redirectToLoginIfNotConnected();
+
                             $user = new UserQuery();
-                            if ($id = $session->getSession('id')){
-                                if($memberResult = $user->getUserById($id)){
-                                    $displayName = $memberResult['firstname'] . ' ' . $memberResult['lastname'];
-                                }
-                            }
+                            $memberResult = $user->getUserById($session->getSession('id'));
+                            $displayName = $memberResult['firstname'] . ' ' . $memberResult['lastname'];
+
+
                             ?>
 
                             <ul>
