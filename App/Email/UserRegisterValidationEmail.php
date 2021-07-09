@@ -11,7 +11,12 @@ class UserRegisterValidationEmail{
         $body = str_replace('%url%', $url, $body);
 
         $email = new Email();
-        $email->send('contact.goschool@gmail.com', $emailTo, 'Vérification de votre compte goSchool', $body);
 
+        if ($email->send('contact.goschool@gmail.com', $emailTo, 'Vérification de votre compte goSchool', $body)){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }

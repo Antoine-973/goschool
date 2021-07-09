@@ -1,28 +1,13 @@
-<div class="container">
-    <div class="content admin-page--add">
-        <div class="col-12">
-            <h1>Ajouter une nouvelle page</h1>
-            <?php if(isset($errors) && !empty($errors)): ?>
-                <ul>
-                    <?php foreach($errors as $error): ?>
-                        <li><?php echo $error;?></li>
-                    <?php endforeach; ?>
-                </ul>
-            <?php endif; ?>
+<div class="add-form">
+    <h1>Ajouter une nouvelle page</h1>
+    <?php if(isset($errors) && !empty($errors)): ?>
+        <ul>
+            <?php foreach($errors as $error): ?>
+                <li><?php echo $error;?></li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
 
-            <?= $pageAdd; ?>
-            <a href="/admin/articles" class="btn btn--infos btn--sm">Revenir à la liste</a>
-        </div>
-    </div>
+    <?= $pageAdd; ?>
 </div>
-
-<script>
-    ClassicEditor
-        .create( document.querySelector( '#content' ) )
-        .then( editor => {
-            console.log( editor );
-        } )
-        .catch( error => {
-            console.error( error );
-        } );
-</script>
+<div class="back-to-list">  <a href="/admin/articles" class="btn btn--infos btn--sm">Revenir à la liste</a></div>

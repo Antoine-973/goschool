@@ -120,10 +120,11 @@ class QueryBuilder{
             
             $stmt= $pdo->prepare($this->query);
             $stmt->execute($values);
+
+            return true;
         }catch(\PDOException $e){
             echo $e->getMessage();
         }
-        return $this->data;
     }
 
 

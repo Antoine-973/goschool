@@ -1,18 +1,16 @@
-<div class="container">
-    <h1>Editer l'utilisateur</h1>
-    <div class="col-6">
-    <div>
+<h1>Editer l'utilisateur</h1>
+<div class="col-gutter-12">
+<div>
 
-        <?php if(isset($errors) && !empty($errors)): ?>
-            <ul>
-                <?php foreach($errors as $error): ?>
-                    <li><?php echo $error;?></li>
-                <?php endforeach; ?>
-            </ul>
-        <?php endif; ?>
+    <?php if(isset($errors) && !empty($errors)): ?>
+        <ul>
+            <?php foreach($errors as $error): ?>
+                <li><?php echo $error;?></li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
 
-        <?= $editUser; ?>
-    </div>
-        <a href="/admin/users" class="btn btn--infos btn--sm">Revenir à la liste</a>
-    </div>
+    <?= $editUser; ?>
+</div>
+    <a href="/admin/users" class="btn btn--infos btn--sm">Revenir à la liste</a>
 </div>

@@ -23,7 +23,7 @@ class InputField{
             return sprintf(
                 "<div class=\"input-group\">
                     <label for=%s>%s</label>
-                    <input type=%s name=%s id=%s placeholder=%s minlength=%s maxlength=%s value='%s' $required />
+                    <input type=%s name=%s id=%s placeholder='%s' minlength=%s maxlength=%s value='%s' $required />
                     <div class=\"text-error\"></div>
                 </div>
                 ",
