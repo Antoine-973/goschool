@@ -54,8 +54,10 @@ class QueryBuilder{
         return $this;
     }
 
-    public function join(): QueryBuilder
+    public function join($jointType, $table, $primaryKeyTable1, $tableToJoin, $primaryKeyTable2): QueryBuilder
     {
+        $this->query .= ' ' . strtoupper($jointType) . ' ' . $tableToJoin . ' ON ' . $table . '.' . $primaryKeyTable1 . ' = ' . $tableToJoin . '.' . $primaryKeyTable2;
+
         return $this;
     }
 
