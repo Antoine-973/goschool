@@ -1,15 +1,14 @@
 <?php
+
 namespace App\Controller\Admin;
+
 
 use Core\Controller;
 use Core\Http\Request;
-use Core\Http\Session;
 use Core\Http\Response;
-use Core\Component\Validator;
-use App\Form\ParamEditForm;
 
-class AdminPlanningController extends Controller{
-
+class AdminNewsletterController extends Controller
+{
     private $request;
 
     private $response;
@@ -20,8 +19,8 @@ class AdminPlanningController extends Controller{
         $this->response = new Response();
     }
 
-    public function indexPlanning()
+    public function indexNewsletter()
     {
-        $this->render("admin/planning/planning.phtml");
+        $this->render("admin/newsletter/newsletter.phtml");
     }
 }

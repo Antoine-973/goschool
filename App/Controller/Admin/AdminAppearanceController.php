@@ -20,8 +20,8 @@ class AdminAppearanceController extends Controller{
         $this->response = new Response();
     }
 
-    public function index()
+    public function indexAppearance()
     {
-        $this->render("admin/appaerance/listAppearance.phtml");
+        $this->render("admin/appearance/appearance.phtml");
     }
 }
