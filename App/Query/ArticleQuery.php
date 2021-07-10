@@ -87,6 +87,14 @@ class ArticleQuery
         $data['content']= str_replace( '&nbsp', '', html_entity_decode($data['content']));
         $data['slug']= strtolower(str_replace(" ", "-", $data['title']));
 
+        if(array_key_exists('active_comment', $data)){
+
+            $data['active_comment'] = 1;
+
+        }else{
+            $data['active_comment'] = 0;
+        }
+
         $query = $this->builder->insertInto('articles')->columns($data)->values($data)->save();
         return $query;
     }
@@ -97,6 +105,17 @@ class ArticleQuery
     public function updateArticle(array $data, int $id)
     {
         $data['content']= str_replace( '&nbsp', '', html_entity_decode($data['content']));
+        $categorieQuery = new CategoryQuery();
+        $data['categorie_id'] = $categorieQuery->getCategoriesIdByName($data['categorie'])['id'];
+        unset($data['categorie']);
+
+        if(array_key_exists('active_comment', $data)){
+
+            $data['active_comment'] = 1;
+
+        }else{
+            $data['active_comment'] = 0;
+        }
 
         $query = $this->builder->update("articles")->set($data)->where("id = $id")->save();
         return $query;
