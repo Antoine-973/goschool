@@ -84,9 +84,8 @@ class ArticleQuery
      */
     public function create(array $data)
     {
-        $data['content']= html_entity_decode($data['content']);
-        $titleToSlug = str_replace(" ", "-", $data['title']);
-        $data['slug']= strtolower($titleToSlug);
+        $data['content']= str_replace( '&nbsp', '', html_entity_decode($data['content']));
+        $data['slug']= strtolower(str_replace(" ", "-", $data['title']));
 
         $query = $this->builder->insertInto('articles')->columns($data)->values($data)->save();
         return $query;
@@ -97,7 +96,7 @@ class ArticleQuery
      */
     public function updateArticle(array $data, int $id)
     {
-        $data['content']= html_entity_decode($data['content']);
+        $data['content']= str_replace( '&nbsp', '', html_entity_decode($data['content']));
 
         $query = $this->builder->update("articles")->set($data)->where("id = $id")->save();
         return $query;
