@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller\Admin;
 
+use App\Form\UserProfileForm;
 use Core\Controller;
 use Core\Http\Request;
 use Core\Http\Response;
@@ -9,6 +10,7 @@ use App\Form\UserAddForm;
 use App\Form\UserEditForm;
 use App\Query\UserQuery;
 use Core\Component\Validator;
+use Core\Http\Session;
 
 class AdminUserController extends Controller {
 
@@ -26,6 +28,8 @@ class AdminUserController extends Controller {
 
     private $userEditForm;
 
+    private $session;
+
     public function __construct()
     {
         $this->request = new Request();
@@ -35,6 +39,41 @@ class AdminUserController extends Controller {
         $this->userEditForm = new UserEditForm();
         $this->userQuery = new UserQuery();
         $this->validator = new Validator();
+        $this->session = new Session();
+    }
+
+    public function indexUserProfile(){
+        $form = new UserProfileForm();
+        $userProfileForm = $form->getForm();
+
+        $this->render("admin/user/userProfile.phtml", ['userProfile'=>$userProfileForm]);
+    }
+
+    public function updateUserProfile(){
+
+        if($this->request->isPost()){
+
+            $data = $this->request->getBody();
+            $id = $this->session->getSession('id');
+
+            $errors = $this->validator->validate($this->userModel, $data);
+
+            if(empty($errors)){
+                if($this->userQuery->update($data, $id))
+                {
+                    $this->request->redirect('/admin/users')->with('edited', 'Votre profil a bien été modifié');
+                }
+                else{
+                    $this->request->redirect('/admin/users')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                }
+            }
+            else{
+                $form = new UserProfileForm();
+                $userProfileForm = $form->getForm();
+
+                $this->render("admin/user/userProfile.phtml", ['errors' => $errors, 'userProfile'=>$userProfileForm]);
+            }
+        }
     }
 
     public function indexListUser()
@@ -61,10 +100,10 @@ class AdminUserController extends Controller {
             if(empty($errors)){
                 if($this->userQuery->create($data))
                 {
-                    $this->request->redirect('/admin/users')->with('created', 'L\'utilisateur a bien été crée');
+                    $this->request->redirect('/admin/users')->with('success', 'L\'utilisateur a bien été crée');
                 }
                 else{
-                    $this->request->redirect('/admin/users')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/users')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                 }
             }else{
                 $form = new UserAddForm();
@@ -97,10 +136,10 @@ class AdminUserController extends Controller {
             if(empty($errors)){
                 if($this->userQuery->update($dataToUpdate, $id))
                 {
-                    $this->request->redirect('/admin/users')->with('edited', 'L\'utilisateur a bien été édité');
+                    $this->request->redirect('/admin/users')->with('success', 'L\'utilisateur a bien été édité');
                 }
                 else{
-                    $this->request->redirect('/admin/users')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/users')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                 }
             }
             else{
@@ -124,13 +163,15 @@ class AdminUserController extends Controller {
     {
         $id = $_GET['id'];
         if($this->request->isGet()) {
-            if($this->userQuery->delete($id)) {
-                $this->request->redirect('/admin/users')->with('deleted', 'L\'utilisateur a bien été supprimé');
-            } else {
-                $this->request->redirect('/admin/users')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+            if($this->session->getSession('id') != $id){
+                if($this->userQuery->delete($id)) {
+                    $this->request->redirect('/admin/users')->with('deleted', 'L\'utilisateur a bien été supprimé');
+                } else {
+                    $this->request->redirect('/admin/users')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                }
+            }else {
+                $this->request->redirect('/admin/users')->with('failed', 'Impossible de supprimer votre propre compte.');
             }
-        } else {
-            $this->request->redirect('/admin/users')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
         }
     }
 }

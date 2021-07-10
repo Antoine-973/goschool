@@ -61,10 +61,10 @@ class AdminCategoryController extends Controller {
             if(empty($errors)){
                 if($this->categoryQuery->create($data))
                 {
-                    $this->request->redirect('/admin/categories')->with('created', 'La catégorie a bien été créee');
+                    $this->request->redirect('/admin/categories')->with('success', 'La catégorie a bien été créee');
                 }
                 else{
-                    $this->request->redirect('/admin/categories')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/categories')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                 }
             }
             else {
@@ -93,10 +93,10 @@ class AdminCategoryController extends Controller {
 
             if(empty($errors)) {
                 if($this->categoryQuery->updateCategory($dataToUpdate, $id)) {
-                    $this->request->redirect('/admin/categories')->with('edited', 'La catégorie a bien été éditée');
+                    $this->request->redirect('/admin/categories')->with('success', 'La catégorie a bien été éditée');
                 }
                 else{
-                    $this->request->redirect('/admin/categories')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/categories')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                 }
             }
             else{
@@ -113,12 +113,12 @@ class AdminCategoryController extends Controller {
         $id = $_GET['id'];
         if($this->request->isGet()) {
             if($this->categoryQuery->deleteCategory($id)) {
-                $this->request->redirect('/admin/categories')->with('deleted', 'La catégorie a bien été supprimé');
+                $this->request->redirect('/admin/categories')->with('success', 'La catégorie a bien été supprimé');
             } else {
-                $this->request->redirect('/admin/categories')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                $this->request->redirect('/admin/categories')->with('error', 'Une erreur c\'est produite veuillez réessayer');
             }
         } else {
-            $this->request->redirect('/admin/categories')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+            $this->request->redirect('/admin/categories')->with('error', 'Une erreur c\'est produite veuillez réessayer');
         }
     }
 

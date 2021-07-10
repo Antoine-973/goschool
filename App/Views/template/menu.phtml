@@ -1,0 +1,21 @@
+<?php
+//@TODO get menu items from database and render
+
+//exemple menu items
+$menuItem = [
+    "Accueil" => "<a href='/accueil'>",
+    "About" => "<a href='/about'>",
+    "Products" => "<a href='/products'>",
+    "Contact" => "<a href='/contact'>",
+];
+?>
+
+<nav class="main-top-menu">
+<?php if($menuItem): ?>
+    <?php foreach($menuItem as $name => $link): ?>
+        <li>
+            <?php echo $link . $name . "</a>";?>
+        </li>
+    <?php endforeach;?>
+<?php endif;?>
+</nav>

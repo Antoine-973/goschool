@@ -68,19 +68,30 @@ class RegistrationAuthController extends Controller{
 
             if(!empty($data['email']) && !empty($data['password']) ){
          
-                if(!empty($user) && $hash->compareHash($data['password'], $user['password_hash'])){
+                if(!empty($user)){
+                    if($hash->compareHash($data['password'], $user['password_hash'])){
 
-                    if ($user['verified'] == '1'){
-                        $this->request->redirect('/admin')->with('success', 'Connecté avec succès');
+                        if ($user['verified'] == '1'){
+
+                            $selectIdQuery = new UserQuery();
+                            $idUser = $selectIdQuery->getIdbyEmail($data['email']);
+                            $this->session->setSession('id',$idUser['id']);
+                            $this->request->redirect('/admin')->with('error', 'Connecté avec succès');
+                        }
+                        else{
+                            $this->request->redirect('/admin/login')->with('error', 'Ce compte n\'a pas encore été validé. Veuillez vérifier vos emails.');
+                        }
                     }
                     else{
-                        $this->request->redirect('/admin/login')->with('error', 'Ce compte n\'a pas encore été validé. Veuillez vérifier vos emails.');
+                        $this->request->redirect('/admin/login')->with('error', 'Vos informations de connexion ne coreespondent pas. Veuillez recommencer');
                     }
-
                 }
-            }else{
-
-                $this->request->redirect('/admin/login')->with('fail', 'Invalid credentials');
+                else{
+                    $this->request->redirect('/admin/login')->with('error', 'Impossible de trouver un compte goSchool associé à cet e-mail. Veuillez recommencer. ');
+                }
+            }
+            else{
+                $this->request->redirect('/admin/login')->with('error', 'Le champ email et le champs mot de passe doivent être remplis.');
             }
 
         }
@@ -88,14 +99,9 @@ class RegistrationAuthController extends Controller{
 
     public function logout()
     {
-        session_start();
-        $_SESSION = [];
         session_destroy();
 
-        $form = new UserRegisterForm();
-        $userRegister = $form->getForm();
-
-        $this->render("/admin/login", ['userRegister'=>$userRegister]);
+        $this->request->redirect('/admin/login')->with('success', 'Vous avez été déconnectez avec succès.');
     }
 
     public function register()
@@ -132,7 +138,7 @@ class RegistrationAuthController extends Controller{
                     }
                 }
                 else{
-                    $this->request->redirect('/admin/register')->with('userEmailAlreadyUse', 'Un compte goSchool utilisant cette adresse email existe déjà.');
+                    $this->request->redirect('/admin/register')->with('error', 'Un compte goSchool utilisant cette adresse email existe déjà.');
                 }
             }
             else{
@@ -151,7 +157,7 @@ class RegistrationAuthController extends Controller{
 
         if(!empty($this->userQuery->getByEmailTokenVerified($dataFromRequest['email'], $dataFromRequest['token_verified']))){
 
-            if (!$this->userQuery->updateVerified($dataToUpdate, $dataFromRequest['email'], $dataFromRequest['token_verified'])){
+            if ($this->userQuery->updateVerified($dataToUpdate, $dataFromRequest['email'], $dataFromRequest['token_verified'])){
 
                 $this->render("admin/registration/verifyRegister.phtml");
 
@@ -163,7 +169,7 @@ class RegistrationAuthController extends Controller{
             $verifiedValue = $verifiedQuery->getByEmailAndToken($dataFromRequest['email'], $dataFromRequest['token_verified']);
 
             if ($verifiedValue['verified'] == 1){
-                $this->request->redirect('/admin/login')->with('alreadyVerified', 'Votre compte goSchool est déjà vérifié.');
+                $this->request->redirect('/admin/login')->with('error', 'Votre compte goSchool est déjà vérifié.');
             }
             else{
                 die('403 FORBIDDEN');

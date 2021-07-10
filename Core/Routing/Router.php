@@ -41,7 +41,7 @@ use Core\Controller;
         $callback = $this->routes[$method][$path] ?? false;
         
         if($callback === false){
-            return;
+            die('Erreur 404 Page Introuvable !');
         }
 
         $controller_class = "App\\Controller\\" . $callback['controller'];

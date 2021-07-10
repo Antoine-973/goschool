@@ -28,12 +28,17 @@ class UserQuery
      * @param int $id
      * @return string $query
      */
-    public function getById(int $id)
+    public function getUserById(int $id)
     {
-        $query = $this->builder->select("*")->from("users")->where("id = $id");
+        $query = $this->builder->select("id, firstname, lastname, email, roles")->from("users")->where("id = $id");
     
         return $query->getResult();
     
+    }
+
+    public function getIdByEmail($email){
+        $query = $this->builder->select("id")->from("users")->where("email = $email");
+        return $query->getResult();
     }
 
     /**
@@ -43,7 +48,6 @@ class UserQuery
     {
         $query = $this->builder->select("DISTINCT roles")->from("users");
         return $query->getResult();
-    
     }
 
     /**

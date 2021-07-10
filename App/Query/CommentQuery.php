@@ -23,6 +23,16 @@ class CommentQuery{
     }
 
     /**
+     * @param int $id
+     * @return string $query
+     */
+    public function getById(int $id)
+    {
+        $query = $this->builder->select("title, message, status")->from("comments")->where("id = $id");
+        return $query->getResult();
+    }
+
+    /**
      * @param array $data
      */
     public function create(array $data)

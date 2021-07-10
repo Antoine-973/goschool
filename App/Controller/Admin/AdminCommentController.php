@@ -43,10 +43,10 @@ class AdminCommentController extends Controller
             if(empty($errors)){
                 if($this->categoryQuery->create($data))
                 {
-                    $this->request->redirect('/admin/categories')->with('created', 'La catégorie a bien été créee');
+                    $this->request->redirect('/admin/categories')->with('success', 'La catégorie a bien été créee');
                 }
                 else{
-                    $this->request->redirect('/admin/categories')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/categories')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                 }
             }
             else {
@@ -75,10 +75,10 @@ class AdminCommentController extends Controller
 
             if(empty($errors)) {
                 if($this->commentQuery->updateComment($dataToUpdate, $id)) {
-                    $this->request->redirect('/admin/comments')->with('edited', 'Le commentaire a bien été éditée');
+                    $this->request->redirect('/admin/comments')->with('success', 'Le commentaire a bien été éditée');
                 }
                 else{
-                    $this->request->redirect('/admin/comments')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/comments')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                 }
             }
             else{
@@ -95,12 +95,10 @@ class AdminCommentController extends Controller
         $id = $_GET['id'];
         if($this->request->isGet()) {
             if($this->commentQuery->deleteComment($id)) {
-                $this->request->redirect('/admin/comments')->with('deleted', 'Le commentaires a bien été supprimé');
+                $this->request->redirect('/admin/comments')->with('success', 'Le commentaires a bien été supprimé');
             } else {
-                $this->request->redirect('/admin/comments')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                $this->request->redirect('/admin/comments')->with('error', 'Une erreur c\'est produite veuillez réessayer');
             }
-        } else {
-            $this->request->redirect('/admin/comments')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
         }
     }
 }

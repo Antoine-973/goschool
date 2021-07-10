@@ -1,0 +1,44 @@
+<?php
+namespace Core\Routing;
+
+class Layout {
+
+    public function getMenu()
+    {
+        $menuFile = $this->getTemplateFolder() . "menu.phtml";
+
+        \ob_start();
+        include $this->getTemplateFolder() . "menu.phtml";
+        return \ob_get_clean();
+    }
+
+    public function getAside()
+    {
+        
+    }
+
+    public function getFooter()
+    {
+        
+    }
+
+    public function getContent()
+    {
+        
+        return "<h1>Hello World !</h1>";
+    }
+
+    protected function getTemplateFolder()
+    {
+        return dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "App" .DIRECTORY_SEPARATOR . "Views" .DIRECTORY_SEPARATOR . "template" .DIRECTORY_SEPARATOR;
+    }
+
+    
+    protected function getPageFolder()
+    {
+        return dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "App" .DIRECTORY_SEPARATOR . "Views" .DIRECTORY_SEPARATOR . "site" .DIRECTORY_SEPARATOR . "pages" . DIRECTORY_SEPARATOR;
+    }
+
+
+
+}

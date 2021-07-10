@@ -23,6 +23,16 @@ class CategoryQuery{
     }
 
     /**
+     * @param int $id
+     * @return string $query
+     */
+    public function getById(int $id)
+    {
+        $query = $this->builder->select("name, slug, categorie_parent, description")->from("categories")->where("id = $id");
+        return $query->getResult();
+    }
+
+    /**
      * @return array $data
      */
     public function getCategoriesName()
@@ -32,10 +42,21 @@ class CategoryQuery{
     }
 
     /**
+     * @return array $data
+     */
+    public function getCategoriesIdByName(string $name)
+    {
+        $query = $this->builder->select('id')->from("categories")->where("name = $name");
+        return $query->getResult();
+    }
+
+    /**
      * @param array $data
      */
     public function create(array $data)
     {
+
+        $data['name'] = str_replace(' ', '-', $data['name']);
 
         if(array_key_exists('categorie_parent', $data)){
 
@@ -44,11 +65,7 @@ class CategoryQuery{
             }
         }
 
-        if(array_key_exists('slug', $data)){
-
-            $data['slug'] = strtolower($data['slug']);
-
-        }
+        $data['slug'] = strtolower(str_replace(' ', '-', $data['name']));
 
         $query = $this->builder->insertInto('categories')->columns($data)->values($data)->save();
         return $query;
@@ -66,11 +83,7 @@ class CategoryQuery{
             }
         }
 
-        if(array_key_exists('slug', $data)){
-
-            $data['slug'] = strtolower($data['slug']);
-
-        }
+        $data['slug'] = strtolower(str_replace(' ', '-', $data['slug']));
 
         $query = $this->builder->update("categories")->set($data)->where("id = $id")->save();
         return $query;

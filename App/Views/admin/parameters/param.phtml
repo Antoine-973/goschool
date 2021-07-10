@@ -1,14 +1,43 @@
 <h1>Paramètres</h1>
 <div class="content admin-parameters">
-            <div class="container row">
-                <div class="col-4">
-                <h2>Général</h2>
-                <?= $paramEditForm; ?>
+        <h2>Général</h2>
+            <div class="row">
+                <div class="col-gutter-12">
+                    <p>
+                        <B>Nom du site</B>
+                        <div><input type="text"></div>
+                        <B>URL</B>
+                        <div><input type="text"></div>
+                        <B>Visibilité</B>
+                        <div><input type="radio" name="public" value="public" checked><label for="public">Public</label></div>
+                        <div><input type="radio" name="privee" value="privee"><label for="privee">Privée</label></div>
+                        <div><B>Définir un rôle par défaut pour les nouveaux utilisateurs :</B><input type="checkbox">
+                            <select>
+                                <option value="">Eleves</option>
+                                <option value="">Parents</option>
+                                <option value="">Professeurs</option>
+                            </select>
+                        </div>
+                        <div><B>Description</B><div><textarea rows="7" cols="35"></textarea></div></div>
+                    </p>
                 </div>
-                <div class="col-2">
+                <div class="col-gutter-12">
+                    <p>
+                        <B>Langue</B>
+                        <div><input type="radio" name="ang" value="ang"><label for="ang">Anglais</label></div>
+                        <div><input type="radio" name="fr" value="fr" checked><label for="fr">Français</label></div>
+                        <B>Sauvegarde</B>
+                        <div><input type="radio" name="manuelle" value="manuelle" checked><label for="manuelle">Manuelle</label></div>
+                        <div><input type="radio" name="auto" value="auto"><label for="auto">Automatique</label></div>
+                        <B>Mise à jour</B>
+                        <div><input type="radio" name="manuelle" value="manuelle" checked><label for="manuelle">Manuelle</label></div>
+                        <div><input type="radio" name="auto" value="auto"><label for="auto">Automatique</label></div>
+                    </p>
                 </div>
-                <div class="col-6">
-                <h2>Mises à jour de GoSchool</h2>
+            </div>
+            <h2>Mises à jour de GoSchool</h2>
+            <div class="row">
+                <div class="col-gutter-12">
                     <p>
                         Dernière vérification le JJ/MM/AAAA à HH:MM. <a href="#" class="btn btn--primary btn--sm">Vérifier</a>
                     </p>

@@ -2,7 +2,7 @@
 namespace Core\Migration;
 use Core\Database\DB;
 
-class categories_table_migration
+class create_categories_table_migration
 {
     public function up(){
         $conn = DB::getConnection();
@@ -16,7 +16,7 @@ class categories_table_migration
             `image` VARCHAR(255) NULL,
             `categorie_parent` VARCHAR(55) NULL,
             `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+            `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP    
         ) ENGINE=INNODB CHARSET=`utf8`;
         
         INSERT INTO categories (name, slug)
