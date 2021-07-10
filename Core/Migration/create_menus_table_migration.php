@@ -13,9 +13,9 @@ class create_menus_table_migration
             `name` VARCHAR(55) NOT NULL,
             `description` TEXT NULL,
             `link` VARCHAR(255) NOT NULL,
-            `page_id` BIGINT(20) NOT NULL,
-            `article_id` BIGINT(20) NOT NULL,
-            `categorie_id` BIGINT(20) NOT NULL
+            `page_id` BIGINT(20) NULL,
+            `article_id` BIGINT(20) NULL,
+            `categorie_id` BIGINT(20) NULL
             
             
     

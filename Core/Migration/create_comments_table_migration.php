@@ -13,8 +13,8 @@ class create_comments_table_migration
             `title`  varchar(100) NOT NULL,
             `message` TEXT NULL,
             `status` varchar(20) DEFAULT 'En-attente' NOT NULL,
-            `user_id` BIGINT(20) NOT NULL,
-            `article_id` BIGINT(20) NOT NULL,
+            `user_id` BIGINT(20) NULL,
+            `article_id` BIGINT(20) NULL,
             `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
             

@@ -9,11 +9,11 @@ class relation_user_comment_article_table_migration
 
         $sql = "ALTER TABLE comments
                 ADD FOREIGN KEY (`article_id`)
-                REFERENCES articles(`id`);
+                REFERENCES articles(`id`) ON UPDATE CASCADE ON DELETE SET NULL;
                 
                 ALTER TABLE comments
                 ADD FOREIGN KEY (`user_id`)
-                REFERENCES users(`id`);";
+                REFERENCES users(`id`) ON UPDATE CASCADE ON DELETE SET NULL;";
         $conn->exec($sql);
     }
 }
