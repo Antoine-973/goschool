@@ -19,7 +19,11 @@ class Layout {
 
     public function getFooter()
     {
-        
+        $footerFile = $this->getTemplateFolder() . "footer.phtml";
+
+        \ob_start();
+        include $this->getTemplateFolder() . "footer.phtml";
+        return \ob_get_clean();
     }
 
     public function getContent()

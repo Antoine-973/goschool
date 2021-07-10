@@ -10,12 +10,18 @@ $menuItem = [
 ];
 ?>
 
-<nav class="main-top-menu">
-<?php if($menuItem): ?>
-    <?php foreach($menuItem as $name => $link): ?>
-        <li>
-            <?php echo $link . $name . "</a>";?>
-        </li>
-    <?php endforeach;?>
-<?php endif;?>
-</nav>
+<header id="header" class="site-main--header">
+    <div class="container">
+        <nav class="site-main--nav">
+            <ul>
+            <?php if($menuItem): ?>
+                <?php foreach($menuItem as $name => $link): ?>
+                    <li>
+                        <?php echo $link . $name . "</a>";?>
+                    </li>
+                <?php endforeach;?>
+            <?php endif;?>
+            </ul>
+        </nav>
+    </div>
+</header>
