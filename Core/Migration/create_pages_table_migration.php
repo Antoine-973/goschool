@@ -2,23 +2,23 @@
 namespace Core\Migration;
 use Core\Database\DB;
 
-class password_reset_table_migration
+class create_pages_table_migration
 {
     public function up(){
         $conn = DB::getConnection();
 
-        $sql = "CREATE TABLE password_reset
+        $sql = "CREATE TABLE IF NOT EXISTS pages
         (
             `id`  BIGINT(20) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-            `email` VARCHAR(55) NOT NULL,
-            `token` VARCHAR(255) NOT NULL,
-            `selector` VARCHAR(255) NOT NULL,
-            `expires` VARCHAR(100) NOT NULL,
+            `title` VARCHAR(255) NOT NULL UNIQUE,
+            `url` VARCHAR(255) NULL UNIQUE,
+            `image` VARCHAR(255) NULL,
+            `content` TEXT NULL,
+            `status` VARCHAR(55) NOT NULL DEFAULT 'unpublished',
             `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-        
+    
         ) ENGINE=INNODB CHARSET=`utf8`;";
-
         $conn->exec($sql);
     }
 }

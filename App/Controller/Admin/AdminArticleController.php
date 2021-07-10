@@ -2,6 +2,7 @@
 namespace App\Controller\Admin;
 
 use Core\Controller;
+use Core\Database\QueryBuilder;
 use Core\Http\Request;
 use Core\Http\Response;
 use App\Model\ArticleModel;
@@ -100,7 +101,8 @@ class AdminArticleController extends Controller {
             $errors = $this->validator->validate($this->articleModel, $dataToUpdate);
 
             if(empty($errors)) {
-                $slugInDb = $this->articleQuery->getSlugById($id);
+                $slugQuery = new ArticleQuery();
+                $slugInDb = $slugQuery->getSlugById($id);
 
                 if ($slugInDb['slug'] != $data['slug']) {
                     $deleteOldView = new PhpFileGenerator();
