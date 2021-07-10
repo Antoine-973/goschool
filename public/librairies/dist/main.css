@@ -1612,3 +1612,33 @@ body.admin-login .col-6.connexion-form .container-form .form-input input[type=su
 .install .col-6 .container {
   padding: 10px;
 }
+
+.site-main body, .site-main html {
+  scroll-behavior: smooth;
+}
+.site-main--nav ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.site-main--nav ul li {
+  float: left;
+  margin-left: 25px;
+  font-size: 1.5em;
+}
+.site-main--nav ul li a {
+  text-decoration: none;
+  color: #00A2AC;
+}
+.site-main--header {
+  background: rgba(0, 0, 0, 0.8);
+  padding: 20px 0;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+.site-main--content h1, .site-main--content h2, .site-main--content h3, .site-main--content h4, .site-main--content h5, .site-main--content h6 {
+  font-family: "Roboto", sans-serif;
+  color: #363740;
+}
