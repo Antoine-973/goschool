@@ -1,3 +1,10 @@
+<?php
+require_once dirname(dirname(dirname(__DIR__))) . DIRECTORY_SEPARATOR ."Core" . DIRECTORY_SEPARATOR . "bootstrap.php";
+
+$layout = new Core\Routing\Layout();
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -11,11 +18,11 @@
     <script src="/librairies/dist/main.js"></script>
 </head>
 <body>
-<nav class="site-main--menu"></nav>
-<header class="site-main--header"><h2>Header</h2></header>
+<?php echo $layout->getMenu();?>
+
 
 <div class="site-main--content">
-    {{content}}
+    <?php echo $layout->getContent();?>
 </div>
 
 <footer class="site-main--footer"><h2>Footer</h2></footer>
