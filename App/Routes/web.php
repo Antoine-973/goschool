@@ -75,6 +75,8 @@ $route->get('/admin/comment/delete', ['controller' => 'AdminCommentController', 
 
 $route->get('/admin/themes', ['controller' => 'AdminThemeController', 'method' => 'indexTheme']);
 $route->get('/admin/menus', ['controller' => 'AdminMenuController', 'method' => 'indexSelectMenu']);
+$route->post('/admin/menus', ['controller' => 'AdminMenuController', 'method' => 'selectMenu']);
+$route->get('/admin/menu/edit', ['controller' => 'AdminMenuController', 'method' => 'indexEditMenu']);
 $route->get('/admin/personnalisation', ['controller' => 'AdminCustomizationController', 'method' => 'indexCustomization']);
 
 $route->get('/admin/plannings', ['controller' => 'AdminPlanningController', 'method' => 'indexPlanning']);
