@@ -45,6 +45,13 @@ class AdminMenuController extends Controller
 
     }
 
+    public function indexAddMenu(){
+        $form = new MenuAddForm();
+        $addMenuForm = $form->getForm();
+
+        $this->render("admin/menu/addMenu.phtml", ['addMenu' => $addMenuForm]);
+    }
+
     public function indexEditMenu(){
         $form = new MenuEditForm();
         $editMenuForm = $form->getForm();
