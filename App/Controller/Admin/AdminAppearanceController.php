@@ -8,30 +8,20 @@ use Core\Http\Response;
 use Core\Component\Validator;
 use App\Form\ParamEditForm;
 
-class AdminParamController extends Controller{
+class AdminAppearanceController extends Controller{
 
     private $request;
 
     private $response;
 
-    private $validator;
-
-    private $session;
-
-    private $paramEditForm;
-
     public function __construct()
     {
         $this->request = new Request();
         $this->response = new Response();
-        $this->paramEditForm = new ParamEditForm();
     }
 
-    public function index()
+    public function indexAppearance()
     {
-        $form = new ParamEditForm();
-        $paramEditForm = $form->getForm();
-
-        $this->render("admin/parameters/param.phtml", ['paramEditForm'=>$paramEditForm]);
+        $this->render("admin/appearance/appearance.phtml");
     }
 }
