@@ -15,6 +15,7 @@ class create_pages_table_migration
             `image` VARCHAR(255) NULL,
             `content` TEXT NULL,
             `status` VARCHAR(55) NOT NULL DEFAULT 'unpublished',
+            `menu_id` BIGINT(20) NULL,
             `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     

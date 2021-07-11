@@ -12,10 +12,7 @@ class create_menus_table_migration
             `id`  BIGINT(20) PRIMARY KEY NOT NULL AUTO_INCREMENT,
             `name` VARCHAR(55) NOT NULL,
             `description` TEXT NULL,
-            `link` VARCHAR(255) NOT NULL,
-            `page_id` BIGINT(20) NULL,
-            `article_id` BIGINT(20) NULL,
-            `categorie_id` BIGINT(20) NULL
+            `position` VARCHAR(20) NULL
             
             
     
