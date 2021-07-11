@@ -4,6 +4,7 @@
 namespace App\Controller\Admin;
 
 
+use App\Form\SelectMenuForm;
 use Core\Controller;
 use Core\Http\Request;
 use Core\Http\Response;
@@ -20,8 +21,11 @@ class AdminMenuController extends Controller
         $this->response = new Response();
     }
 
-    public function indexMenu()
+    public function indexSelectMenu()
     {
-        $this->render("admin/menu/menu.phtml");
+        $form = new SelectMenuForm();
+        $selectMenuForm = $form->getForm();
+
+        $this->render("admin/menu/menu.phtml", ['selectMenu' => $selectMenuForm]);
     }
 }
