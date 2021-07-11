@@ -73,7 +73,9 @@ $route->get('/admin/comment/edit', ['controller' => 'AdminCommentController', 'm
 $route->post('/admin/comment/edit', ['controller' => 'AdminCommentController', 'method' => 'editComment']);
 $route->get('/admin/comment/delete', ['controller' => 'AdminCommentController', 'method' => 'deleteComment']);
 
-$route->get('/admin/apparence', ['controller' => 'AdminAppearanceController', 'method' => 'indexAppearance']);
+$route->get('/admin/themes', ['controller' => 'AdminThemeController', 'method' => 'indexTheme']);
+$route->get('/admin/menus', ['controller' => 'AdminMenuController', 'method' => 'indexMenu']);
+$route->get('/admin/personnalisation', ['controller' => 'AdminCustomizationController', 'method' => 'indexCustomization']);
 
 $route->get('/admin/plannings', ['controller' => 'AdminPlanningController', 'method' => 'indexPlanning']);
 
