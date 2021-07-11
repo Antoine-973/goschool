@@ -38,8 +38,37 @@
     &--aside {
         position:fixed;
         right: 0;
-        height: 100%;
-        background-color: gold;
+        top: 0;
+        bottom: 0;
+        width: 15%;
+        background-color: $primary;
+        z-index: 7;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        border-image: linear-gradient(to left, $secondary, $light-gray)1 0;
+        div{
+            width: 80%;
+            h5{
+                text-transform: uppercase;
+            }
+        }
+        hr{
+            border-top-color: $light-gray;
+            opacity:0.5;
+            &.small{
+                margin:20px 0;
+            }
+        }
+        a{
+            text-decoration: none;
+            color: $light-gray;
+            transition: all 0.3s ease 0s;
+            &:hover{
+                color: $secondary;
+            }
+        }        
     }
     &--content {
         h1,h2,h3,h4,h5,h6{

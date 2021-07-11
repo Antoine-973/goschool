@@ -1651,8 +1651,38 @@ body.admin-login .col-6.connexion-form .container-form .form-input input[type=su
 .site-main--aside {
   position: fixed;
   right: 0;
-  height: 100%;
-  background-color: gold;
+  top: 0;
+  bottom: 0;
+  width: 15%;
+  background-color: #363740;
+  z-index: 7;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  -o-border-image: linear-gradient(to left, #00A2AC, #ced4da) 1 0;
+     border-image: linear-gradient(to left, #00A2AC, #ced4da) 1 0;
+}
+.site-main--aside div {
+  width: 80%;
+}
+.site-main--aside div h5 {
+  text-transform: uppercase;
+}
+.site-main--aside hr {
+  border-top-color: #ced4da;
+  opacity: 0.5;
+}
+.site-main--aside hr.small {
+  margin: 20px 0;
+}
+.site-main--aside a {
+  text-decoration: none;
+  color: #ced4da;
+  transition: all 0.3s ease 0s;
+}
+.site-main--aside a:hover {
+  color: #00A2AC;
 }
 .site-main--content h1, .site-main--content h2, .site-main--content h3, .site-main--content h4, .site-main--content h5, .site-main--content h6 {
   font-family: "Roboto", sans-serif;
