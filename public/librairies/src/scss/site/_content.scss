@@ -3,29 +3,43 @@
         scroll-behavior: smooth;
     }
     &--nav {
+        float: right;
         ul{
             padding: 0;
             margin: 0;
             list-style: none;
-        }
-        ul li{
-            float: left;
-            margin-left: 25px;
-            font-size: 1.5em;
-        }
-        ul li a{
-            text-decoration: none;
-            color: $light-gray;
+            li{
+                float: left;
+                margin-left: 25px;
+                font-size: 1.3em;
+                a{
+                    text-decoration: none;
+                    color: $light-gray;
+                    transition: all 0.3s ease 0s;
+                    &:hover{
+                        color: $secondary;
+                    }
+                }
+            }
         }
     }
     &--header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         background: $primary; //rgba(0,0,0,0.8);
-        padding: 20px 0;
+        padding: 30px 10%;
         width: 100%;
-        position: fixed;
+        position: relative;
         left: 0;
         top: 0;
 
+    }
+    &--aside {
+        position:fixed;
+        right: 0;
+        height: 100%;
+        background-color: gold;
     }
     &--content {
         h1,h2,h3,h4,h5,h6{
@@ -34,7 +48,7 @@
         }
     }
     &--footer {
-        position: fixed;
+        position: relative;
         left: 0;
         bottom: 0;
         width: 100%;

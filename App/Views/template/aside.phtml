@@ -1,0 +1,44 @@
+<?php
+//@TODO get menu items from database and render
+
+//exemple menu items
+$articleItem = [
+    "Article 1" => "<a href=''>",
+    "Article 2" => "<a href=''>",
+    "Article 3" => "<a href=''>",
+    "Article 4" => "<a href=''>",
+];
+
+$eventItem = [
+    "Event 1" => "<a href=''>",
+    "Event 2" => "<a href=''>",
+    "Event 3" => "<a href=''>",
+    "Event 4" => "<a href=''>",
+];
+
+?>
+
+<aside id="aside" class="site-main--aside">
+    <div class="container">
+        <ul>
+        <?php if($articleItem): ?>
+            <?php foreach($articleItem as $name => $link): ?>
+                <li>
+                    <?php echo $link . $name . "</a>";?>
+                </li>
+            <?php endforeach;?>
+        <?php endif;?>
+        </ul>
+    </div>
+    <div class="container">
+        <ul>
+        <?php if($eventItem): ?>
+            <?php foreach($eventItem as $name => $link): ?>
+                <li>
+                    <?php echo $link . $name . "</a>";?>
+                </li>
+            <?php endforeach;?>
+        <?php endif;?>
+        </ul>
+    </div>
+</aside>

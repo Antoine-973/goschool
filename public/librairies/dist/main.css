@@ -1616,6 +1616,9 @@ body.admin-login .col-6.connexion-form .container-form .form-input input[type=su
 .site-main body, .site-main html {
   scroll-behavior: smooth;
 }
+.site-main--nav {
+  float: right;
+}
 .site-main--nav ul {
   padding: 0;
   margin: 0;
@@ -1624,26 +1627,39 @@ body.admin-login .col-6.connexion-form .container-form .form-input input[type=su
 .site-main--nav ul li {
   float: left;
   margin-left: 25px;
-  font-size: 1.5em;
+  font-size: 1.3em;
 }
 .site-main--nav ul li a {
   text-decoration: none;
   color: #ced4da;
+  transition: all 0.3s ease 0s;
+}
+.site-main--nav ul li a:hover {
+  color: #00A2AC;
 }
 .site-main--header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background: #363740;
-  padding: 20px 0;
+  padding: 30px 10%;
   width: 100%;
-  position: fixed;
+  position: relative;
   left: 0;
   top: 0;
+}
+.site-main--aside {
+  position: fixed;
+  right: 0;
+  height: 100%;
+  background-color: gold;
 }
 .site-main--content h1, .site-main--content h2, .site-main--content h3, .site-main--content h4, .site-main--content h5, .site-main--content h6 {
   font-family: "Roboto", sans-serif;
   color: #363740;
 }
 .site-main--footer {
-  position: fixed;
+  position: relative;
   left: 0;
   bottom: 0;
   width: 100%;
