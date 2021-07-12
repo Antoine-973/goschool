@@ -10,5 +10,5 @@ use Core\Database\DB;
 use Core\Util\Email;
 
 
-$app = new Application($routes);
+$app = new Application();
 $app->run();

@@ -33,8 +33,8 @@
                             <?php foreach($users[$keys[$i]] as $key => $value) { ?>
                             <td><?php echo $value ?></td>
                             <?php } ?>
-                            <td><a href="user/edit?id=<?php echo $users[$i]['id'] ?>" class="btn btn--warning btn--sm"><i class="fas fa-edit"></i></a></td>
-                            <td><a href="javascript:confirmDelete('user/delete?id=<?php echo $users[$i]['id'] ?>')" class="btn btn--danger btn--sm"><i class="fas fa-trash-alt"></i></a></td>
+                            <td><a href="/admin/user/edit?id=<?php echo $users[$i]['id'] ?>" class="btn btn--warning btn--sm"><i class="fas fa-edit"></i></a></td>
+                            <td><a href="javascript:confirmDelete('/admin/user/delete/<?php echo $users[$i]['id'] ?>')" class="btn btn--danger btn--sm"><i class="fas fa-trash-alt"></i></a></td>
                         </tr>
                     <?php }
                 }
@@ -43,8 +43,8 @@
                         <?php foreach($users as $value) { ?>
                         <td><?php echo $value ?></td>
                         <?php } ?>
-                        <td><a href="user/edit?id=<?php echo $users['id'] ?>" class="btn btn--warning btn--sm"><i class="fas fa-edit"></i></a></td>
-                        <td><a href="javascript:confirmDelete('user/delete?id=<?php echo $users['id'] ?>')" class="btn btn--danger btn--sm"><i class="fas fa-trash-alt"></i></a></td>
+                        <td><a href="/admin/user/edit?id=<?php echo $users['id'] ?>" class="btn btn--warning btn--sm"><i class="fas fa-edit"></i></a></td>
+                        <td><a href="javascript:confirmDelete('/admin/user/delete/<?php echo $users['id'] ?>')" class="btn btn--danger btn--sm"><i class="fas fa-trash-alt"></i></a></td>
                     </tr>
                 <?php } ?>
             <?php } ?>

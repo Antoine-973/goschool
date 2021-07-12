@@ -1,7 +1,7 @@
 <div class="content admin-categorie--list">
     <div class="col-gutter-12">
         <h1>Catégories</h1>
-        <a href="/admin/categorie/add" class="btn btn--infos btn--sm"><i class="fas fa-plus-circle"></i> Ajouter une categorie</a>
+        <a href="/admin/category/add" class="btn btn--infos btn--sm"><i class="fas fa-plus-circle"></i> Ajouter une categorie</a>
         <?php $keys = array_keys($categories);?>
         <?php use Core\Util\Table; ?>
         <?php $verifTable = new Table() ?>
@@ -32,8 +32,8 @@
                             <?php foreach($categories[$keys[$i]] as $key => $value) { ?>
                                 <td><?php echo $value ?></td>
                             <?php } ?>
-                            <td><a href="categorie/edit?id=<?php echo $categories[$i]['id'] ?>" class="btn btn--warning btn--sm"><i class="fas fa-edit"></i></a></td>
-                            <td><a href="javascript:confirmDelete('categorie/delete?id=<?php echo $categories[$i]['id'] ?>')" class="btn btn--danger btn--sm"><i class="fas fa-trash-alt"></i></a></td>
+                            <td><a href="/admin/category/edit?=<?php echo $categories[$i]['id'] ?>" class="btn btn--warning btn--sm"><i class="fas fa-edit"></i></a></td>
+                            <td><a href="javascript:confirmDelete('/admin/category/delete/<?php echo $categories[$i]['id'] ?>')" class="btn btn--danger btn--sm"><i class="fas fa-trash-alt"></i></a></td>
                         </tr>
                     <?php }
                 }
@@ -42,8 +42,8 @@
                         <?php foreach($categories as $value) { ?>
                             <td><?php echo $value ?></td>
                         <?php } ?>
-                        <td><a href="categorie/edit?id=<?php echo $categories['id'] ?>" class="btn btn--warning btn--sm"><i class="fas fa-edit"></i></a></td>
-                        <td><a href="javascript:confirmDelete('categorie/delete?id=<?php echo $categories['id'] ?>')" class="btn btn--danger btn--sm"><i class="fas fa-trash-alt"></i></a></td>
+                        <td><a href="/admin/category/edit?id=<?php echo $categories['id'] ?>" class="btn btn--warning btn--sm"><i class="fas fa-edit"></i></a></td>
+                        <td><a href="javascript:confirmDelete('/admin/category/delete/<?php echo $categories['id'] ?>')" class="btn btn--danger btn--sm"><i class="fas fa-trash-alt"></i></a></td>
                     </tr>
                 <?php } ?>
             <?php } ?>

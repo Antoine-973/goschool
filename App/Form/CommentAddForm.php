@@ -9,7 +9,7 @@ class CommentAddForm
 
     public function getForm()
     {
-        $form = Form::create('/admin/comment/add')
+        $form = Form::create('/admin/comment/store')
             ->input('title', 'text', ['value' => 'Titre', 'min' => 4, 'max' => 55, 'required' => 'required'])
             ->textarea('message', 'textarea', ['min' => 3, 'max' => 280, 'required' => 'required'])
             ->input('submit', 'submit', ['value' => 'Poster']);

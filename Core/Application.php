@@ -9,7 +9,7 @@ namespace Core;
 use Core\Routing\Router;
 use Core\Http\Request;
 use Core\Database\DB;
-
+use Core\Routing\DynamicRouting;
 class Application{
     
     /**
@@ -28,17 +28,18 @@ class Application{
      * @param array $routes
      * @param array $db_config
      */
-    public function __construct($routes)
+    public function __construct()
     {
 
-        $this->router = new Router($routes);
+        //$this->router = new Router($routes);
     
         
     }
 
     public function run()
     {
-        $this->router->resolve();
+        $router =  new DynamicRouting();
+        $router->dispatch();
     }
 
     public function getStatus()

@@ -2,15 +2,18 @@
 namespace App\Query;
 
 use Core\Database\QueryBuilder;
+use Core\Util\Helper;
 
 class ArticleQuery
 {
     private $builder;
 
+    private $helper;
+
     public function __construct()
     {
         $this->builder = new QueryBuilder();
-
+        $this->helper = new Helper();
     }
 
     /**
@@ -85,8 +88,7 @@ class ArticleQuery
     public function create(array $data)
     {
         $data['content']= html_entity_decode($data['content']);
-        $titleToSlug = str_replace(" ", "-", $data['title']);
-        $data['slug']= strtolower($titleToSlug);
+        $data['slug']= $this->helper->slugify($data['title']);
 
         $query = $this->builder->insertInto('articles')->columns($data)->values($data)->save();
         return $query;
@@ -98,6 +100,7 @@ class ArticleQuery
     public function updateArticle(array $data, int $id)
     {
         $data['content']= html_entity_decode($data['content']);
+        $data['slug']= $this->helper->slugify($data['title']);
 
         $query = $this->builder->update("articles")->set($data)->where("id = $id")->save();
         return $query;

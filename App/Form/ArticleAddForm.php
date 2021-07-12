@@ -10,7 +10,7 @@ class ArticleAddForm
     public function getForm()
     {
 
-        $form = Form::create('/admin/article/add')
+        $form = Form::create('/admin/article/store')
                 ->input('title', 'text', ['value' => 'Titre', 'min' => 4, 'max' => 55, 'required' => 'required'])
                 ->select('status','Statut',['id' => 'status', 'name' => 'status', 'options' => ['Publié','Brouillon','Attente de validation']])
                 ->textarea('content', 'textarea', ['max' => 400])

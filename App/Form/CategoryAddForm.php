@@ -21,7 +21,7 @@ class CategoryAddForm
         $data = $convertTable->multi_to_single($categoriesName);
         array_unshift($data , 'Aucune');
 
-        $form = Form::create('/admin/categorie/add')
+        $form = Form::create('/admin/category/store')
             ->input('name', 'text', ['value' => 'Titre', 'min' => 4, 'max' => 55, 'required' => 'required'])
             ->input('slug', 'text', ['value' => 'Slug', 'min' => 4, 'max' => 55])
             ->select('categorie_parent','Catégorie Parent',['id' => 'categorie_parent', 'name' => 'categorie_parent', 'options' => $data])

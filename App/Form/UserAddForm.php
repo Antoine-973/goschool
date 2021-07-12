@@ -10,7 +10,7 @@ class UserAddForm
     public function getForm()
     {
 
-        $form = Form::create('/admin/user/add')
+        $form = Form::create('/admin/user/store')
             ->input('firstname', 'text', ['value' => 'Prénom', 'min' => 3, 'max' => 55, 'required' => 'required'])
             ->input('lastname', 'text', ['value' => 'Nom', 'min' => 3, 'max' => 55, 'required' => 'required'])
             ->input('email', 'email', ['value' => 'Email', 'min' => 4, 'max' => 55, 'required' => 'required'])

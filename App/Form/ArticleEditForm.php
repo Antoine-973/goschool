@@ -16,12 +16,13 @@ class ArticleEditForm
     public function getForm()
     {
         $id = $this->request->getBody();
+  
 
         $stringId = implode("','",$id);
 
         $data=$this->articleQuery->getById($stringId);
 
-        $form = Form::create('/admin/article/edit')
+        $form = Form::create('/admin/article/update/'.$id['id'])
                 ->input('id', 'hidden', ['value' => $id['id']])
                 ->input('title', 'text', ['value' => 'Titre', 'min' => 4, 'max' => 55, 'text' => $data['title'], 'required' => 'required'])
                 ->input('slug', 'text', ['value' => 'Slug', 'min' => 4, 'max' => 55, 'text' => $data['slug'], 'required' => 'required'])

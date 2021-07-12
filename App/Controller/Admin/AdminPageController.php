@@ -33,13 +33,13 @@ class AdminPageController extends Controller {
         $this->validator = new Validator();
     }
 
-    public function indexListPage()
+    public function list()
     {
         $pages = $this->pageQuery->getPages();
         $this->render("admin/page/listPage.phtml", ['pages'=>$pages]);
     }
 
-    public function indexAddPage()
+    public function add()
     {
         $form = new PageAddForm();
         $pageAddForm = $form->getForm();
@@ -47,7 +47,7 @@ class AdminPageController extends Controller {
         $this->render("admin/page/addPage.phtml", ['pageAdd'=>$pageAddForm]);
     }
 
-    public function addPage(){
+    public function store(){
         if($this->request->isPost()) {
             $data = $this->request->getBody();
             $errors = $this->validator->validate($this->pageModel, $data);
@@ -75,7 +75,7 @@ class AdminPageController extends Controller {
         }
     }
 
-    public function indexEditPage()
+    public function edit()
     {
         $form = new PageEditForm();
         $pageEditForm = $form->getForm();
@@ -83,11 +83,10 @@ class AdminPageController extends Controller {
         $this->render("admin/page/editPage.phtml", ['pageEdit'=>$pageEditForm]);
     }
 
-    public function editPage()
+    public function update($id)
     {
         if($this->request->isPost()) {
             $data = $this->request->getBody();
-            $id = $data['id'];
             $dataToUpdate = array_slice($data, 1);
             $errors = $this->validator->validate($this->pageModel, $dataToUpdate);
 
@@ -129,7 +128,7 @@ class AdminPageController extends Controller {
         }
     }
 
-    public function deletePage()
+    public function delete()
     {
         $id = $_GET['id'];
         if($this->request->isGet()) {

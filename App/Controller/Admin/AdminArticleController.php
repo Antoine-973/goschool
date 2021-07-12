@@ -39,13 +39,13 @@ class AdminArticleController extends Controller {
 
     }
 
-    public function indexListArticle()
+    public function list()
     {
         $articles = ($this->articleQuery->getArticles());
         $this->render("admin/article/listArticle.phtml", ['articles'=>$articles]);
     }
 
-    public function indexAddArticle()
+    public function add()
     {
         $form = new ArticleAddForm();
         $articleAddForm = $form->getForm();
@@ -53,7 +53,7 @@ class AdminArticleController extends Controller {
         $this->render("admin/article/addArticle.phtml", ['articleAdd'=>$articleAddForm]);
     }
 
-    public function addArticle()
+    public function store()
     {
         if($this->request->isPost()) {
             $data = $this->request->getBody();
@@ -65,14 +65,14 @@ class AdminArticleController extends Controller {
                     $article = new PhpFileGenerator();
 
                     if ($article->generateViewFile($data['title'],$data['content'],'articles')) {
-                        $this->request->redirect('/admin/articles')->with('success', 'L\'article a bien été crée');
+                        $this->request->redirect('/admin/article/list')->with('success', 'L\'article a bien été crée');
                     }
                     else{
-                        $this->request->redirect('/admin/articles')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                        $this->request->redirect('/admin/article/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                     }
                 }
                 else{
-                    $this->request->redirect('/admin/articles')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/article/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                 }
             }
             else {
@@ -83,7 +83,7 @@ class AdminArticleController extends Controller {
         }
     }
 
-    public function indexEditArticle()
+    public function edit()
     {
         $form = new ArticleEditForm();
         $editArticle = $form->getForm();
@@ -91,11 +91,10 @@ class AdminArticleController extends Controller {
         $this->render("admin/article/editArticle.phtml", ['editArticle'=>$editArticle]);
     }
 
-    public function editArticle()
+    public function update($id)
     {
         if($this->request->isPost()) {
             $data = $this->request->getBody();
-            $id = $data['id'];
             $dataToUpdate = array_slice($data, 1);
             $errors = $this->validator->validate($this->articleModel, $dataToUpdate);
 
@@ -110,14 +109,14 @@ class AdminArticleController extends Controller {
                             $article = new PhpFileGenerator();
 
                             if ($article->generateViewFile($data['slug'],$data['content'],'articles')) {
-                                $this->request->redirect('/admin/articles')->with('success', 'L\'article a bien été édité');
+                                $this->request->redirect('/admin/article/list')->with('success', 'L\'article a bien été édité');
                             }
                             else{
-                                $this->request->redirect('/admin/articles')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                                $this->request->redirect('/admin/article/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                             }
                         }
                         else{
-                            $this->request->redirect('/admin/articles')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                            $this->request->redirect('/admin/article/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                         }
                     }
                 }
@@ -126,10 +125,10 @@ class AdminArticleController extends Controller {
                         $article = new PhpFileGenerator();
 
                         if ($article->generateViewFile($data['slug'],$data['content'],'articles')) {
-                            $this->request->redirect('/admin/articles')->with('edited', 'L\'article a bien été édité');
+                            $this->request->redirect('/admin/article/list')->with('edited', 'L\'article a bien été édité');
                         }
                         else{
-                            $this->request->redirect('/admin/articles')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                            $this->request->redirect('/admin/article/list')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
                         }
                     }
                 }
@@ -143,9 +142,9 @@ class AdminArticleController extends Controller {
         }
     }
 
-    public function deleteArticle()
+    public function delete($id)
     {
-        $id = $_GET['id'];
+ 
         if($this->request->isGet()) {
 
             $slug = $this->articleQuery->getSlugById($id)['slug'];
@@ -156,15 +155,15 @@ class AdminArticleController extends Controller {
                 $deleteView = new PhpFileGenerator();
 
                 if ($deleteView->deleteViewFile($slug,'articles')){
-                    $this->request->redirect('/admin/articles')->with('success', 'L\'article a bien été supprimé');
+                    $this->request->redirect('/admin/article/list')->with('success', 'L\'article a bien été supprimé');
                 }else {
-                    $this->request->redirect('/admin/articles')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/article/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                 }
             } else {
-                $this->request->redirect('/admin/articles')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                $this->request->redirect('/admin/article/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
             }
         } else {
-            $this->request->redirect('/admin/articles')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+            $this->request->redirect('/admin/article/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
         }
     }
 }

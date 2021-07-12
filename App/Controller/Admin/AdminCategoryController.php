@@ -39,12 +39,12 @@ class AdminCategoryController extends Controller {
 
     }
 
-    public function indexListCategory(){
+    public function list(){
         $categories = ($this->categoryQuery->getCategories());
         $this->render("admin/category/listCategory.phtml", ['categories'=>$categories]);
     }
 
-    public function indexAddCategory(){
+    public function add(){
 
         $form = new CategoryAddForm();
         $categoryAddForm = $form->getForm();
@@ -52,7 +52,7 @@ class AdminCategoryController extends Controller {
         $this->render("admin/category/addCategory.phtml", ['categoryAdd'=>$categoryAddForm]);
     }
 
-    public function addCategory()
+    public function store()
     {
         if($this->request->isPost()) {
             $data = $this->request->getBody();
@@ -75,7 +75,7 @@ class AdminCategoryController extends Controller {
         }
     }
 
-    public function indexEditCategory(){
+    public function edit(){
 
         $form = new CategoryEditform();
         $categoryEditForm = $form->getForm();
@@ -83,7 +83,7 @@ class AdminCategoryController extends Controller {
         $this->render("admin/category/editCategory.phtml", ['categoryEdit'=>$categoryEditForm]);
     }
 
-    public function editCategory()
+    public function update($id)
     {
         if($this->request->isPost()) {
             $data = $this->request->getBody();
@@ -93,10 +93,10 @@ class AdminCategoryController extends Controller {
 
             if(empty($errors)) {
                 if($this->categoryQuery->updateCategory($dataToUpdate, $id)) {
-                    $this->request->redirect('/admin/categories')->with('success', 'La catégorie a bien été éditée');
+                    $this->request->redirect('/admin/category/list')->with('success', 'La catégorie a bien été éditée');
                 }
                 else{
-                    $this->request->redirect('/admin/categories')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/category/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                 }
             }
             else{
@@ -108,17 +108,16 @@ class AdminCategoryController extends Controller {
         }
     }
 
-    public function deleteCategory()
+    public function delete($id)
     {
-        $id = $_GET['id'];
         if($this->request->isGet()) {
             if($this->categoryQuery->deleteCategory($id)) {
-                $this->request->redirect('/admin/categories')->with('success', 'La catégorie a bien été supprimé');
+                $this->request->redirect('/admin/category/list')->with('success', 'La catégorie a bien été supprimé');
             } else {
-                $this->request->redirect('/admin/categories')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                $this->request->redirect('/admin/category/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
             }
         } else {
-            $this->request->redirect('/admin/categories')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+            $this->request->redirect('/admin/category/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
         }
     }
 

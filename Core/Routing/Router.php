@@ -40,9 +40,6 @@ use Core\Controller;
         $method = $this->request->getMethod();
         $callback = $this->routes[$method][$path] ?? false;
         
-        if($callback === false){
-            die('Erreur 404 Page Introuvable !');
-        }
 
         $controller_class = "App\\Controller\\" . $callback['controller'];
         $method = $callback['method'];

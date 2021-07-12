@@ -1,6 +1,6 @@
 <?php
 namespace Core\Routing;
-
+use Core\Http\Request;
 class Layout {
 
     public function getMenu()
@@ -24,8 +24,27 @@ class Layout {
 
     public function getContent()
     {
-        
-        return "<h1>Hello World !</h1>";
+
+        $request = new Request();
+
+        $pageFile = "";
+
+        if($request->getPath() == "/"){
+            $pageFile = $this->getPageFolder() . "home_page.phtml";
+        }else{
+            $pageFile = $this->getPageFolder() . strtolower(trim($request->getPath(), "/")) . "_page.phtml";
+            echo $pageFile;die;
+
+        }
+
+
+        if(\file_exists($pageFile)){
+        \ob_start();
+        include $pageFile;
+        return \ob_get_clean();
+
+        }
+
     }
 
     protected function getTemplateFolder()

@@ -21,7 +21,7 @@ class AdminMediaController extends Controller{
         $this->mediaAddForm = new MediaAddForm();
     }
 
-    public function index()
+    public function list()
     {
         $repertoire='../images/';/* chemin du repertoire */
         /* ouverture du dossier */

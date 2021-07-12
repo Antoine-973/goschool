@@ -28,13 +28,13 @@ class AdminCommentController extends Controller
 
     }
 
-    public function indexListComment()
+    public function list()
     {
         $comments = $this->commentQuery->getComments();
         $this->render("admin/comment/listComment.phtml", ['comments'=>$comments]);
     }
 
-    public function addComment()
+    public function store()
     {
         if($this->request->isPost()) {
             $data = $this->request->getBody();
@@ -57,7 +57,7 @@ class AdminCommentController extends Controller
         }
     }
 
-    public function indexEditComment(){
+    public function edit(){
 
         $form = new CommentEditform();
         $commentEditForm = $form->getForm();
@@ -65,20 +65,19 @@ class AdminCommentController extends Controller
         $this->render("admin/comment/editComment.phtml", ['commentEdit'=>$commentEditForm]);
     }
 
-    public function editComment()
+    public function update($id)
     {
         if($this->request->isPost()) {
             $data = $this->request->getBody();
-            $id = $data['id'];
             $dataToUpdate = array_slice($data, 1);
             $errors = $this->validator->validate($this->commentModel, $dataToUpdate);
 
             if(empty($errors)) {
                 if($this->commentQuery->updateComment($dataToUpdate, $id)) {
-                    $this->request->redirect('/admin/comments')->with('success', 'Le commentaire a bien été éditée');
+                    $this->request->redirect('/admin/comment/list')->with('success', 'Le commentaire a bien été éditée');
                 }
                 else{
-                    $this->request->redirect('/admin/comments')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/comment/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                 }
             }
             else{
@@ -90,14 +89,13 @@ class AdminCommentController extends Controller
         }
     }
 
-    public function deleteComment()
+    public function delete($id)
     {
-        $id = $_GET['id'];
         if($this->request->isGet()) {
             if($this->commentQuery->deleteComment($id)) {
-                $this->request->redirect('/admin/comments')->with('success', 'Le commentaires a bien été supprimé');
+                $this->request->redirect('/admin/comment/list')->with('success', 'Le commentaires a bien été supprimé');
             } else {
-                $this->request->redirect('/admin/comments')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                $this->request->redirect('/admin/comment/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
             }
         }
     }

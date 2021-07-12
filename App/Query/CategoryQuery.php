@@ -26,7 +26,7 @@ class CategoryQuery{
      * @param int $id
      * @return string $query
      */
-    public function getById(int $id)
+    public function getById($id)
     {
         $query = $this->builder->select("name, slug, categorie_parent, description")->from("categories")->where("id = $id");
         return $query->getResult();
@@ -89,7 +89,7 @@ class CategoryQuery{
     /**
      * @param int $id
      */
-    public function deleteCategory(int $id)
+    public function deleteCategory($id)
     {
         $query = $this->builder->delete()->from('categories')->where("id = $id")->save();
         return $query;
