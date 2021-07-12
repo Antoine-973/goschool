@@ -15,7 +15,6 @@ class create_articles_table_migration
             `content` TEXT NULL,
             `tags_id` BIGINT(20),
             `categorie_id` BIGINT(20) NULL,
-            `menu_id` BIGINT(20) NULL,
             `image` VARCHAR(255) NULL,
             `status` VARCHAR(55) NOT NULL DEFAULT 'unpublished',
             `active_comment` TINYINT NULL DEFAULT 0,
