@@ -32,7 +32,6 @@ class Layout {
 
     public function getContent()
     {
-<<<<<<< HEAD
 
         $request = new Request();
 
@@ -54,7 +53,6 @@ class Layout {
 
         }
 
-=======
         
         return "<h1>Hello World !</h1><br><br><br><br>
         <h1>Hello World !</h1><br><br><br><br>
@@ -65,7 +63,6 @@ class Layout {
         <h1>Hello World !</h1><br><br><br><br>
         <h1>Hello World !</h1><br><br><br><br>
         ";
->>>>>>> f1697b875b17e5e59a465421e7c478d33b87d6ab
     }
 
     protected function getTemplateFolder()
