@@ -14,17 +14,17 @@ $layout = new Core\Routing\Layout();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Site</title>
     <link rel="stylesheet" type="text/css" href="/librairies/dist/main.css">
-    <link rel="stylesheet" type="text/css" href="/librairies/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="/librairies/dist/main.js"></script>
 </head>
 <body>
 <?php echo $layout->getMenu();?>
 
-
+<?php echo $layout->getAside();?>
 <div class="site-main--content">
     <?php echo $layout->getContent();?>
 </div>
 
-<footer class="site-main--footer"><h2>Footer</h2></footer>
+<?php echo $layout->getFooter();?>
 </body>
 </html>

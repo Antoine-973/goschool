@@ -23,7 +23,6 @@ class CategoryAddForm
 
         $form = Form::create('/admin/category/store')
             ->input('name', 'text', ['value' => 'Titre', 'min' => 4, 'max' => 55, 'required' => 'required'])
-            ->input('slug', 'text', ['value' => 'Slug', 'min' => 4, 'max' => 55])
             ->select('categorie_parent','Catégorie Parent',['id' => 'categorie_parent', 'name' => 'categorie_parent', 'options' => $data])
             ->textarea('description', 'textarea', ['max' => 400])
             ->input('submit', 'submit', ['value' => 'Ajouter']);

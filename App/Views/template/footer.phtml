@@ -1,0 +1,75 @@
+<?php
+//@TODO get menu items from database and render
+
+//exemple menu items
+$menuItem = [
+    "Accueil" => "<a href='/accueil'>",
+    "About" => "<a href='/about'>",
+    "Products" => "<a href='/products'>",
+    "Contact" => "<a href='/contact'>",
+];
+$menuCatItem = [
+    "Logiciels" => "<a href=''>",
+    "Objets Connectés" => "<a href=''>",
+    "IA et Big data" => "<a href=''>",
+    "Web" => "<a href=''>",
+    "Blockchain" => "<a href=''>",
+    "Sécurité" => "<a href=''>",
+    "Réseaux" => "<a href=''>",
+];
+?>
+
+<footer class="site-main--footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <h6>About</h6>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed beatae reprehenderit asperiores corporis aperiam quod, eligendi voluptatem, officiis veniam animi, itaque dolorem eveniet laborum possimus modi dolorum blanditiis. Esse, omnis.
+                </p>
+            </div>
+            <div class="col-3">
+                <h6>Menu</h6>
+                <ul class="footer-links">
+                    <?php if($menuItem): ?>
+                        <?php foreach($menuItem as $name => $link): ?>
+                            <li>
+                                <?php echo $link . $name . "</a>";?>
+                            </li>
+                        <?php endforeach;?>
+                    <?php endif;?>
+                </ul>
+            </div>
+            <div class="col-3">
+                <h6>Catégories</h6>
+                <ul class="footer-links">
+                    <?php if($menuCatItem): ?>
+                        <?php foreach($menuCatItem as $name => $link): ?>
+                            <li>
+                                <?php echo $link . $name . "</a>";?>
+                            </li>
+                        <?php endforeach;?>
+                    <?php endif;?>
+                </ul>
+            </div>
+        </div>
+        <hr>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                <p>
+                    Copyright &copy; 2021 - Tous droits réservés par <a href="#">GoSchool</a>.
+                </p>
+            </div>
+
+            <div class="col-4">
+                <ul class="social">
+                    <li><a class="facebook" href="#"><i class="fab fa-facebook-f fa-lg"></i></a></li>
+                    <li><a class="twitter" href="#"><i class="fab fa-twitter fa-lg"></i></a></li>
+                    <li><a class="linkedin" href="#"><i class="fab fa-linkedin-in fa-lg"></i></a></li>   
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>

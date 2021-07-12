@@ -84,7 +84,7 @@ class PageQuery
      */
     public function create(array $data)
     {
-        $data['content']= html_entity_decode($data['content']);
+        $data['content']= str_replace( '&nbsp', '', html_entity_decode($data['content']));
 
         $query = $this->builder->insertInto('pages')->columns($data)->values($data)->save();
         return $query;
@@ -95,7 +95,7 @@ class PageQuery
      */
     public function updatePage(array $data, int $id)
     {
-        $data['content']= html_entity_decode($data['content']);
+        $data['content']= str_replace( '&nbsp', '', html_entity_decode($data['content']));
 
         $query = $this->builder->update('pages')->set($data)->where("id = $id")->save();
         return $query;

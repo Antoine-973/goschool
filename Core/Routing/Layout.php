@@ -14,16 +14,25 @@ class Layout {
 
     public function getAside()
     {
-        
+        $asideFile = $this->getTemplateFolder() . "aside.phtml";
+
+        \ob_start();
+        include $this->getTemplateFolder() . "aside.phtml";
+        return \ob_get_clean();
     }
 
     public function getFooter()
     {
-        
+        $footerFile = $this->getTemplateFolder() . "footer.phtml";
+
+        \ob_start();
+        include $this->getTemplateFolder() . "footer.phtml";
+        return \ob_get_clean();
     }
 
     public function getContent()
     {
+<<<<<<< HEAD
 
         $request = new Request();
 
@@ -45,6 +54,18 @@ class Layout {
 
         }
 
+=======
+        
+        return "<h1>Hello World !</h1><br><br><br><br>
+        <h1>Hello World !</h1><br><br><br><br>
+        <h1>Hello World !</h1><br><br><br><br>
+        <h1>Hello World !</h1><br><br><br><br>
+        <h1>Hello World !</h1><br><br><br><br>
+        <h1>Hello World !</h1><br><br><br><br>
+        <h1>Hello World !</h1><br><br><br><br>
+        <h1>Hello World !</h1><br><br><br><br>
+        ";
+>>>>>>> f1697b875b17e5e59a465421e7c478d33b87d6ab
     }
 
     protected function getTemplateFolder()

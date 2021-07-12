@@ -87,8 +87,21 @@ class ArticleQuery
      */
     public function create(array $data)
     {
+<<<<<<< HEAD
         $data['content']= html_entity_decode($data['content']);
         $data['slug']= $this->helper->slugify($data['title']);
+=======
+        $data['content']= str_replace( '&nbsp', '', html_entity_decode($data['content']));
+        $data['slug']= strtolower(str_replace(" ", "-", $data['title']));
+
+        if(array_key_exists('active_comment', $data)){
+
+            $data['active_comment'] = 1;
+
+        }else{
+            $data['active_comment'] = 0;
+        }
+>>>>>>> f1697b875b17e5e59a465421e7c478d33b87d6ab
 
         $query = $this->builder->insertInto('articles')->columns($data)->values($data)->save();
         return $query;
@@ -99,8 +112,23 @@ class ArticleQuery
      */
     public function updateArticle(array $data, int $id)
     {
+<<<<<<< HEAD
         $data['content']= html_entity_decode($data['content']);
         $data['slug']= $this->helper->slugify($data['title']);
+=======
+        $data['content']= str_replace( '&nbsp', '', html_entity_decode($data['content']));
+        $categorieQuery = new CategoryQuery();
+        $data['categorie_id'] = $categorieQuery->getCategoriesIdByName($data['categorie'])['id'];
+        unset($data['categorie']);
+
+        if(array_key_exists('active_comment', $data)){
+
+            $data['active_comment'] = 1;
+
+        }else{
+            $data['active_comment'] = 0;
+        }
+>>>>>>> f1697b875b17e5e59a465421e7c478d33b87d6ab
 
         $query = $this->builder->update("articles")->set($data)->where("id = $id")->save();
         return $query;
