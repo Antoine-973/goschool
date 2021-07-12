@@ -32,4 +32,31 @@ class MenuQuery
         $query = $this->builder->select('id')->from("menus")->where("name = $name");
         return $query->getResult();
     }
+
+    /**
+     * @param int $id
+     */
+    public function delete(int $id)
+    {
+        $query = $this->builder->delete()->from("menus")->where("id = $id")->save();
+        return $query;
+    }
+
+    /**
+     * @param array $data
+     */
+    public function create(array $data)
+    {
+        $query = $this->builder->insertInto('menus')->columns($data)->values($data)->save();
+        return $query;
+    }
+
+    /**
+     * @param array $data
+     */
+    public function update($data, $id)
+    {
+        $query = $this->builder->update('menus')->set($data)->where("id = $id")->save();
+        return $query;
+    }
 }
