@@ -62,7 +62,6 @@ class CommentModel extends Model
         return [
             'title' => ['type' => 'string', 'required' => 'required', 'min' => 3, 'max' => 55],
             'message' => ['type' => 'string', 'required' => 'required', 'min' => 3, 'max' => 280],
-            'status' => ['type' => 'string', 'required' => 'required', 'max' => 20],
         ];
     }
 }

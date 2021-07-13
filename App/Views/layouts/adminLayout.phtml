@@ -42,7 +42,7 @@
                             <ul>
                                 <?php
                                 if (isset($firstname)&& isset($lastname)){ ?>
-                                <li><a href="/admin/user/profil"><i class="fas fa-user"><?= $firstname . $lastname ?></i></a></li>
+                                <li><a href="/admin/user/profil"><i class="fas fa-user">  <?= $firstname . ' ' . $lastname ?></i></a></li>
                                 <?php }  ?></a></li>
                                 | <li><a href="/admin/auth/logout">Déconnexion</a></li>
                             </ul>
@@ -63,11 +63,11 @@
                 <div class="admin-sidebar">
                     <nav class="admin-main--menu">
                         <div class="logo">
-                            <a href="/admin"><img src="/images/logo.png" alt=""></a>
+                            <a href="/admin/dashboard/index"><img src="/images/logo.png" alt=""></a>
                         </div>
                         <div class="admin-menu-links">
                             <ul>
-                                <li><a href="/admin/dashBoard/index"><i class="fas fa-tachometer-alt"></i>Tableau de bord</a></li>
+                                <li><a href="/admin/dashboard/index"><i class="fas fa-tachometer-alt"></i>Tableau de bord</a></li>
                                 <li><a href="/admin/article/list"><i class="fas fa-pen"></i>  Articles</a></li>
                                 <li><a href="/admin/category/list"><i class="fas fa-book-open"></i>  Catégories</a></li>
                                 <li><a href="/admin/page/list"><i class="fas fa-copy"></i>  Pages</a></li>
@@ -81,7 +81,7 @@
                         </div>
                         <div class="admin-menu-links parameters">
                             <ul>
-                                <li><a href="/admin/param/list"><i class="fas fa-cog"></i> Paramètres</a></li>
+                                <li><a href="/admin/param/index"><i class="fas fa-cog"></i> Paramètres</a></li>
                             </ul>
                         </div>
                     </nav>

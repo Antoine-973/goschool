@@ -34,19 +34,27 @@ class AdminCommentController extends Controller
         $this->render("admin/comment/listComment.phtml", ['comments'=>$comments]);
     }
 
+    public function add(){
+
+        $form = new CommentAddForm();
+        $commentAddForm = $form->getForm();
+
+        $this->render("admin/comment/addComment.phtml", ['commentAdd'=>$commentAddForm]);
+    }
+
     public function store()
     {
         if($this->request->isPost()) {
             $data = $this->request->getBody();
-            $errors = $this->validator->validate($this->categoryModel, $data);
+            $errors = $this->validator->validate($this->commentModel, $data);
 
             if(empty($errors)){
-                if($this->categoryQuery->create($data))
+                if($this->commentQuery->create($data))
                 {
-                    $this->request->redirect('/admin/categories')->with('success', 'La catégorie a bien été créee');
+                    $this->request->redirect('/admin/comment/list')->with('success', 'La catégorie a bien été créee');
                 }
                 else{
-                    $this->request->redirect('/admin/categories')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/comment/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                 }
             }
             else {
@@ -69,11 +77,10 @@ class AdminCommentController extends Controller
     {
         if($this->request->isPost()) {
             $data = $this->request->getBody();
-            $dataToUpdate = array_slice($data, 1);
-            $errors = $this->validator->validate($this->commentModel, $dataToUpdate);
+            $errors = $this->validator->validate($this->commentModel, $data);
 
             if(empty($errors)) {
-                if($this->commentQuery->updateComment($dataToUpdate, $id)) {
+                if($this->commentQuery->updateComment($data, $id)) {
                     $this->request->redirect('/admin/comment/list')->with('success', 'Le commentaire a bien été éditée');
                 }
                 else{

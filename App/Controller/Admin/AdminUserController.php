@@ -49,7 +49,7 @@ class AdminUserController extends Controller {
         $this->render("admin/user/userProfile.phtml", ['userProfile'=>$userProfileForm]);
     }
 
-    public function update(){
+    public function updateProfile(){
 
         if($this->request->isPost()){
 
@@ -123,17 +123,15 @@ class AdminUserController extends Controller {
         $this->render("admin/user/editUser.phtml", ['editUser'=>$editUser]);
     }
 
-    public function updateProfile($id)
+    public function update($id)
     {
         if($this->request->isPost()){
 
             $data = $this->request->getBody();
-            $dataToUpdate = array_slice($data, 1);
-
-            $errors = $this->validator->validate($this->userModel, $dataToUpdate);
+            $errors = $this->validator->validate($this->userModel, $data);
 
             if(empty($errors)){
-                if($this->userQuery->update($dataToUpdate, $id))
+                if($this->userQuery->update($data, $id))
                 {
                     $this->request->redirect('/admin/user/list')->with('success', 'L\'utilisateur a bien été édité');
                 }

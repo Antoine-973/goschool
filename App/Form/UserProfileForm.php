@@ -22,7 +22,7 @@ class UserProfileForm
         $id = $this->session->getSession('id');
         $data=$this->userQuery->getUserById($id);
 
-        $form = Form::create('/admin/user/profil')
+        $form = Form::create('/admin/user/updateProfile')
             ->input('firstname', 'text', ['value' => 'Prénom', 'min' => 3, 'max' => 55, 'text' => $data['firstname'], 'required' => 'required'])
             ->input('lastname', 'text', ['value' => 'Nom', 'min' => 3, 'max' => 55, 'text' => $data['lastname'], 'required' => 'required'])
             ->input('email', 'email', ['value' => 'Email', 'min' => 4, 'max' => 55, 'text' => $data['email'], 'required' => 'required'])

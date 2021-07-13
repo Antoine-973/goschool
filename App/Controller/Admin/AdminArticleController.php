@@ -96,18 +96,18 @@ class AdminArticleController extends Controller {
     {
         if($this->request->isPost()) {
             $data = $this->request->getBody();
-            $dataToUpdate = array_slice($data, 1);
-            $errors = $this->validator->validate($this->articleModel, $dataToUpdate);
+            $errors = $this->validator->validate($this->articleModel, $data);
 
             if(empty($errors)) {
                 $slugQuery = new ArticleQuery();
+
                 $slugInDb = $slugQuery->getSlugById($id);
 
                 if ($slugInDb['slug'] != $data['slug']) {
                     $deleteOldView = new PhpFileGenerator();
 
                     if ($deleteOldView->deleteViewFile($slugInDb['slug'], 'articles')) {
-                        if($this->articleQuery->updateArticle($dataToUpdate, $id)) {
+                        if($this->articleQuery->updateArticle($data, $id)) {
                             $article = new PhpFileGenerator();
 
                             if ($article->generateViewFile($data['slug'],$data['content'],'articles')) {
@@ -123,7 +123,7 @@ class AdminArticleController extends Controller {
                     }
                 }
                 else{
-                    if($this->articleQuery->updateArticle($dataToUpdate, $id)) {
+                    if($this->articleQuery->updateArticle($data, $id)) {
                         $article = new PhpFileGenerator();
 
                         if ($article->generateViewFile($data['slug'],$data['content'],'articles')) {
