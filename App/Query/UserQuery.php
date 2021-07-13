@@ -28,8 +28,9 @@ class UserQuery
      * @param int $id
      * @return string $query
      */
-    public function getUserById(int $id)
+    public function getUserById($id)
     {
+  
         $query = $this->builder->select("id, firstname, lastname, email, roles")->from("users")->where("id = $id");
     
         return $query->getResult();

@@ -1,3 +1,20 @@
+<?php
+    use App\Query\UserQuery;
+    use Core\Http\Request;
+    use Core\Http\Session;
+    use Core\Util\SessionHelper;
+
+    $sessionHelper = new SessionHelper();
+    $session = new Session();
+    $sessionHelper->redirectToLoginIfNotConnected();
+
+    $user = new UserQuery();
+    $memberResult = $user->getUserById($session->getSession('id'));
+    $firstname = $memberResult['firstname'] ?? null;
+    $last = $memberResult['last'] ?? null; 
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -22,28 +39,11 @@
                 <div class="admin-topbar">
                     <div class="user-controls">
                         <div class="identity">
-                            <?php
-                            use App\Query\UserQuery;
-                            use Core\Http\Request;
-                            use Core\Http\Session;
-                            use Core\Util\SessionHelper;
-
-                            $sessionHelper = new SessionHelper();
-                            $session = new Session();
-                            $sessionHelper->redirectToLoginIfNotConnected();
-
-                            $user = new UserQuery();
-                            $memberResult = $user->getUserById($session->getSession('id'));
-                            $displayName = $memberResult['firstname'] . ' ' . $memberResult['lastname'];
-
-
-                            ?>
-
+        
                             <ul>
-                                <li><a href="/admin/user/profil"><i class="fas fa-user"></i><?php if (isset($displayName)){
-                                            echo $displayName;
-                                        }  ?></a></li>
-                                | <li><a href="/admin/logout">Déconnexion</a></li>
+                                <li><a href="/admin/user/profil"><i class="fas fa-user"></i><?php
+                                // if (isset($displayName)){}  ?></a></li>
+                                | <li><a href="/admin/auth/logout">Déconnexion</a></li>
                             </ul>
                         </div>
                         <div class="user-actions">
@@ -66,8 +66,7 @@
                         </div>
                         <div class="admin-menu-links">
                             <ul>
-<<<<<<< HEAD
-                                <li><a href="/admin/DashBoard/index"><i class="fas fa-tachometer-alt"></i>Tableau de bord</a></li>
+                                <li><a href="/admin/dashBoard/index"><i class="fas fa-tachometer-alt"></i>Tableau de bord</a></li>
                                 <li><a href="/admin/article/list"><i class="fas fa-pen"></i>  Articles</a></li>
                                 <li><a href="/admin/category/list"><i class="fas fa-book-open"></i>  Catégories</a></li>
                                 <li><a href="/admin/page/list"><i class="fas fa-copy"></i>  Pages</a></li>
@@ -77,18 +76,6 @@
                                 <li><a href="/admin/comment/list"><i class="fas fa-comment"></i>  Commentaires</a></li>
                                 <li><a href="#"><i class="far fa-calendar-alt"></i>  Planning</a></li>
                                 <li><a href="#"><i class="far fa-newspaper"></i>  Newsletters</a></li>
-=======
-                                <li><a href="/admin"><i class="fas fa-tachometer-alt"></i>Tableau de bord</a></li>
-                                <li><a href="/admin/articles"><i class="fas fa-pen"></i>  Articles</a></li>
-                                <li><a href="/admin/categories"><i class="fas fa-book-open"></i>  Catégories</a></li>
-                                <li><a href="/admin/pages"><i class="fas fa-copy"></i>  Pages</a></li>
-                                <li><a href="/admin/medias"><i class="fas fa-photo-video"></i>  Médias</a></li>
-                                <li><a href="/admin/apparence"><i class="fas fa-brush"></i>  Apparence</a></li>
-                                <li><a href="/admin/users"><i class="fas fa-user"></i>  Utilisateurs</a></li>
-                                <li><a href="/admin/comments"><i class="fas fa-comment"></i>  Commentaires</a></li>
-                                <li><a href="/admin/plannings"><i class="far fa-calendar-alt"></i>  Planning</a></li>
-                                <li><a href="/admin/newsletters"><i class="far fa-newspaper"></i>  Newsletters</a></li>
->>>>>>> f1697b875b17e5e59a465421e7c478d33b87d6ab
                             </ul>
                         </div>
                         <div class="admin-menu-links parameters">

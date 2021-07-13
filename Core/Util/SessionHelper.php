@@ -21,14 +21,14 @@ class SessionHelper
         }
         else{
             $request = new Request();
-            $request->redirect('/admin/login')->with('error','Vous devez être connecté pour accéder à cette page !');
+            $request->redirect('/admin/auth/index')->with('error','Vous devez être connecté pour accéder à cette page !');
         }
     }
 
     public function redirectToDashboardIfAlreadyLogged(){
         if($this->session->getSession('id')){
             $request = new Request();
-            $request->redirect('/admin')->with('success','Vous êtes déjà connecté !');
+            $request->redirect('/admin/dashboard/index')->with('success','Vous êtes déjà connecté !');
         }
         else{
 

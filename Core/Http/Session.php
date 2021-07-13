@@ -52,7 +52,7 @@ class Session{
         $messages = $_SESSION[self::FLASH_KEY] ?? [];
 
         foreach($messages as $key => $message){
-            if($messages['remove']){
+            if(array_key_exists('remove', $messages)){
                 unset($messages[$key]);
             }
         }
