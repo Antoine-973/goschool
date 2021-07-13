@@ -1,6 +1,8 @@
 <?php
 namespace Core\Routing;
 use Core\Http\Request;
+use Core\Middleware\AuthMiddleware;
+use App\Controller\Admin\AdminAuthController;
 
 class DynamicRouting {
 
@@ -29,21 +31,28 @@ class DynamicRouting {
             include_once($adminfile);
             $class = "App\\Controller\\Admin\\" . $controller;
             $controller = new $class();
-   
+            
+            if(!AuthMiddleware::check($path)){
+                $request->redirect('/admin/auth/index');
+            }else{
+                if($params){
+          
+                    $controller->$action(implode(',', $params));
+                }else{
+                    $controller->$action();
+                }
+            }
 
+        }elseif(\file_exists($sitefile)){
+            include_once($sitefile);
+            $class =  "App\\Controller\\" . $controller;
+            $controller = new $class();
             if($params){
           
                 $controller->$action(implode(',', $params));
             }else{
                 $controller->$action();
             }
-
-        }elseif(\file_exists($sitefile)){
-            include_once($sitefile);
-
-            $class =  "App\\Controller\\" . $controller;
-            $controller = new $class();
-            $controller->$action();
         }
 
     }
