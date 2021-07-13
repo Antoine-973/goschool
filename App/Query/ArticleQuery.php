@@ -34,6 +34,15 @@ class ArticleQuery
     }
 
     /**
+     * @return array $data
+     */
+    public function getArticleIdBySlug(string $slug)
+    {
+        $query = $this->builder->select('id')->from("articles")->where("slug = $slug");
+        return $query->getResult();
+    }
+
+    /**
      * @param string $title
      */
     public function getByTitle(string $title)
@@ -82,9 +91,9 @@ class ArticleQuery
     /**
      * @return array $data
      */
-    public function getArticlesName()
+    public function getArticlesSlug()
     {
-        $query = $this->builder->select('title')->from("articles");
+        $query = $this->builder->select('slug')->from("articles");
         return $query->getResult();
     }
 

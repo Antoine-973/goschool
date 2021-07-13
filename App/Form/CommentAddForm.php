@@ -12,10 +12,10 @@ class CommentAddForm
 
     public function getForm()
     {
-        $articlesNameQuery = new ArticleQuery();
-        $articlesName = $articlesNameQuery->getArticlesName();
+        $articlesSlugQuery = new ArticleQuery();
+        $articlesSlug = $articlesSlugQuery->getArticlesSLug();
         $convertTable = new Table();
-        $articles = $convertTable->multi_to_single($articlesName);
+        $articles = $convertTable->multi_to_single($articlesSlug);
 
         $form = Form::create('/admin/comment/add')
             ->input('title', 'text', ['value' => 'Titre', 'min' => 4, 'max' => 55, 'required' => 'required'])

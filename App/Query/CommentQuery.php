@@ -37,6 +37,10 @@ class CommentQuery{
      */
     public function create(array $data)
     {
+        $articleQuery = new ArticleQuery();
+        $data['article_id'] = $articleQuery->getArticleIdBySlug($data['article'])['id'];
+        unset($data['article']);
+
         $query = $this->builder->insertInto('comments')->columns($data)->values($data)->save();
         return $query;
     }

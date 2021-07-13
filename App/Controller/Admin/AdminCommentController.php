@@ -49,7 +49,7 @@ class AdminCommentController extends Controller
             $errors = $this->validator->validate($this->commentModel, $data);
 
             if(empty($errors)){
-                if($this->categoryQuery->create($data))
+                if($this->commentQuery->create($data))
                 {
                     $this->request->redirect('/admin/comments')->with('success', 'Le commentaire bien été créee');
                 }
