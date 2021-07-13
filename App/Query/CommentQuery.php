@@ -41,6 +41,10 @@ class CommentQuery{
         $data['article_id'] = $articleQuery->getArticleIdBySlug($data['article'])['id'];
         unset($data['article']);
 
+        $userQuery = new UserQuery();
+        $data['user_id'] = $userQuery->getIdByEmail($data['user'])['id'];
+        unset($data['user']);
+
         $query = $this->builder->insertInto('comments')->columns($data)->values($data)->save();
         return $query;
     }
