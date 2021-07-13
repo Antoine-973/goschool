@@ -61,10 +61,10 @@ class AdminCategoryController extends Controller {
             if(empty($errors)){
                 if($this->categoryQuery->create($data))
                 {
-                    $this->request->redirect('/admin/categories')->with('success', 'La catégorie a bien été créee');
+                    $this->request->redirect('/admin/category/list')->with('success', 'La catégorie a bien été créee');
                 }
                 else{
-                    $this->request->redirect('/admin/categories')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/category/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                 }
             }
             else {
@@ -87,12 +87,10 @@ class AdminCategoryController extends Controller {
     {
         if($this->request->isPost()) {
             $data = $this->request->getBody();
-            $id = $data['id'];
-            $dataToUpdate = array_slice($data, 1);
-            $errors = $this->validator->validate($this->categoryModel, $dataToUpdate);
+            $errors = $this->validator->validate($this->categoryModel, $data);
 
             if(empty($errors)) {
-                if($this->categoryQuery->updateCategory($dataToUpdate, $id)) {
+                if($this->categoryQuery->updateCategory($data, $id)) {
                     $this->request->redirect('/admin/category/list')->with('success', 'La catégorie a bien été éditée');
                 }
                 else{

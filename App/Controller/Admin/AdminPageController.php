@@ -48,6 +48,7 @@ class AdminPageController extends Controller {
     }
 
     public function store(){
+
         if($this->request->isPost()) {
             $data = $this->request->getBody();
             $errors = $this->validator->validate($this->pageModel, $data);
@@ -58,13 +59,13 @@ class AdminPageController extends Controller {
                     $page = new PhpFileGenerator();
 
                     if ($page->generateViewFile($data['url'],$data['content'],'pages')){
-                        $this->request->redirect('/admin/pages')->with('success', 'La page a bien été créee');
+                        $this->request->redirect('/admin/page/list')->with('success', 'La page a bien été créee');
                     }
                     else{
-                        $this->request->redirect('/admin/pages')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                        $this->request->redirect('/admin/page/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                     }
                 }else{
-                    $this->request->redirect('/admin/pages')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/page/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                 }
             }
             else{
@@ -87,8 +88,7 @@ class AdminPageController extends Controller {
     {
         if($this->request->isPost()) {
             $data = $this->request->getBody();
-            $dataToUpdate = array_slice($data, 1);
-            $errors = $this->validator->validate($this->pageModel, $dataToUpdate);
+            $errors = $this->validator->validate($this->pageModel, $data);
 
             if (empty($errors)) {
                 $urlInDb = $this->pageQuery->getUrlById($id);
@@ -97,32 +97,30 @@ class AdminPageController extends Controller {
                     $deleteOldView = new PhpFileGenerator();
 
                     if ($deleteOldView->deleteViewFile($urlInDb['url'], 'pages')) {
-                        if ($this->pageQuery->updatePage($dataToUpdate, $id)) {
+                        if ($this->pageQuery->updatePage($data, $id)) {
                             $page = new PhpFileGenerator();
 
                             if ($page->generateViewFile($data['url'], $data['content'], 'pages')) {
-                                $this->request->redirect('/admin/pages')->with('success', 'La page a bien été édité');
+                                $this->request->redirect('/admin/page/list')->with('success', 'La page a bien été édité');
                             } else {
-                                $this->request->redirect('/admin/pages')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                                $this->request->redirect('/admin/page/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                             }
                         }
                     }
                 }
                 else {
-                    if ($this->pageQuery->updatePage($dataToUpdate, $id)) {
+                    if ($this->pageQuery->updatePage($data, $id)) {
                         $page = new PhpFileGenerator();
 
                         if ($page->generateViewFile($data['url'], $data['content'], 'pages')) {
-                            $this->request->redirect('/admin/pages')->with('edited', 'La page a bien été édité');
+                            $this->request->redirect('/admin/page/list')->with('edited', 'La page a bien été édité');
                         } else {
-                            $this->request->redirect('/admin/pages')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                            $this->request->redirect('/admin/page/list')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
                         }
                     }
                 }
             }
             else{
-                $form = new PageEditForm();
-                $pageEditForm = $form->getForm();
                 $this->request->redirect('/admin/page/edit?id='.$id)->with('errors', $errors);
             }
         }
@@ -141,12 +139,12 @@ class AdminPageController extends Controller {
                 $deleteView = new PhpFileGenerator();
 
                 if ($deleteView->deleteViewFile($url,'pages')){
-                    $this->request->redirect('/admin/pages')->with('success', 'La page a bien été supprimé');
+                    $this->request->redirect('/admin/page/list')->with('success', 'La page a bien été supprimé');
                 }else {
-                    $this->request->redirect('/admin/pages')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/page/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                 }
             } else {
-                $this->request->redirect('/admin/pages')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                $this->request->redirect('/admin/page/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
             }
         }
     }

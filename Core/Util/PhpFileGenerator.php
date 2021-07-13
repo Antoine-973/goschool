@@ -27,7 +27,7 @@ class PhpFileGenerator{
         if ($postType == 'pages'){
 
             $urlToName = $this->clearUrl($viewName);
-            $cleanName = $urlToName . '.html';
+            $cleanName = $urlToName . '_page.phtml';
 
             $cleanContent = str_replace( '&nbsp', '', html_entity_decode($viewContent));
             $indentContent = htmLawed($cleanContent, array('tidy'=>4));
@@ -36,7 +36,7 @@ class PhpFileGenerator{
         }
         elseif($postType == 'articles'){
             $titleToName = str_replace(" ", "-", $viewName);
-            $cleanName = strtolower($titleToName) . '_article.html';
+            $cleanName = strtolower($titleToName) . '_article.phtml';
 
             $cleanContent = str_replace( '&nbsp', '', html_entity_decode($viewContent));
             $indentContent = htmLawed($cleanContent, array('tidy'=>4));
@@ -49,14 +49,14 @@ class PhpFileGenerator{
         if ($postType == 'pages'){
 
             $urlToName = $this->clearUrl($viewName);
-            $cleanName = $urlToName . '_page.html';
+            $cleanName = $urlToName . '_page.phtml';
 
             return unlink("../App/Views/site/".$postType."/".$cleanName);
         }
         elseif($postType == 'articles'){
 
             $titleToName = str_replace(" ", "-", $viewName);
-            $cleanName = strtolower($titleToName) . '_article.html';
+            $cleanName = strtolower($titleToName) . '_article.phtml';
 
             return unlink("../App/Views/site/".$postType."/".$cleanName);
         }
