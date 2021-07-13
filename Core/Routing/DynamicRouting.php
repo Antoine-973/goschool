@@ -33,18 +33,22 @@ class DynamicRouting {
             $controller = new $class();
             
             if(!AuthMiddleware::check($path)){
-                $request->redirect('/admin/auth/index');
-            }else{
-                if($params){
+                $auth = new AdminAuthController();
+                $auth->index();die;
+            }
+
+            if($params){
           
-                    $controller->$action(implode(',', $params));
+                $controller->$action(implode(',', $params));
                 }else{
                     $controller->$action();
                 }
             }
+            
 
-        }elseif(\file_exists($sitefile)){
+        if(\file_exists($sitefile)){
             include_once($sitefile);
+
             $class =  "App\\Controller\\" . $controller;
             $controller = new $class();
             if($params){

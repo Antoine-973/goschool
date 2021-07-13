@@ -81,7 +81,7 @@ class Request{
     public function redirect($route, $statusCode = 303)
     {
        
-        header('Location: ' . $route, true, $statusCode);
+        die(header('Location: ' . $route, true, $statusCode));
         return $this;
     }
 
