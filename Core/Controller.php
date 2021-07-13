@@ -13,7 +13,6 @@ class Controller{
         $template = new Template();
         $viewContent = $template->getView($view, $data);
         $namespace = explode('\\', get_called_class());
-
         if (strpos($namespace[count($namespace)-1], 'Article') && stripos(debug_backtrace()[1]['function'], 'Add' ) || strpos($namespace[count($namespace)-1], 'Article') && (stripos(debug_backtrace()[1]['function'], 'Edit' ) ) ){
             $contentEditorLayout = $template->getContentEditorLayout();
             echo \str_replace('{{content}}', $viewContent, $contentEditorLayout);
@@ -22,7 +21,7 @@ class Controller{
             $contentEditorLayout = $template->getContentEditorLayout();
             echo \str_replace('{{content}}', $viewContent, $contentEditorLayout);
         }
-        elseif (strpos($namespace[count($namespace)-1], 'Registration') !== false){
+        elseif (strpos($namespace[count($namespace)-1], 'AdminAuthController') !== false){
 
             $registrationLayout = $template->getRegistrationLayout();
             echo \str_replace('{{content}}', $viewContent, $registrationLayout);
