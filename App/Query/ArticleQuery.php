@@ -80,6 +80,15 @@ class ArticleQuery
     }
 
     /**
+     * @return array $data
+     */
+    public function getArticlesName()
+    {
+        $query = $this->builder->select('title')->from("articles");
+        return $query->getResult();
+    }
+
+    /**
      * @param array $data
      */
     public function create(array $data)

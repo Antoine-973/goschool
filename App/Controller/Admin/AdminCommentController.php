@@ -34,25 +34,33 @@ class AdminCommentController extends Controller
         $this->render("admin/comment/listComment.phtml", ['comments'=>$comments]);
     }
 
+    public function indexAddComment()
+    {
+        $form = new CommentAddForm();
+        $commentAddForm = $form->getForm();
+        
+        $this->render("admin/comment/addComment.phtml", ['commentAdd'=>$commentAddForm]);
+    }
+
     public function addComment()
     {
         if($this->request->isPost()) {
             $data = $this->request->getBody();
-            $errors = $this->validator->validate($this->categoryModel, $data);
+            $errors = $this->validator->validate($this->commentModel, $data);
 
             if(empty($errors)){
                 if($this->categoryQuery->create($data))
                 {
-                    $this->request->redirect('/admin/categories')->with('success', 'La catégorie a bien été créee');
+                    $this->request->redirect('/admin/comments')->with('success', 'Le commentaire bien été créee');
                 }
                 else{
-                    $this->request->redirect('/admin/categories')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/comments')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                 }
             }
             else {
-                $form = new CategoryAddForm();
-                $categoryAddForm = $form->getForm();
-                $this->render("admin/article/addCategory.phtml", ['errors' => $errors, 'categoryAdd'=>$categoryAddForm]);
+                $form = new CommentAddForm();
+                $commentAddForm = $form->getForm();
+                $this->render("admin/comment/addComment.phtml", ['errors' => $errors, 'commentAdd'=>$commentAddForm]);
             }
         }
     }
