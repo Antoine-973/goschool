@@ -75,8 +75,8 @@ class AdminAuthController extends Controller{
                         if ($user['verified'] == '1'){
 
                             $selectIdQuery = new UserQuery();
-                            $idUser = $selectIdQuery->getIdbyEmail($data['email']);
-                            $this->session->setSession('id',$idUser['id']);
+                            $user = $selectIdQuery->getIdbyEmail($data['email']);
+                            $this->session->setSession('user',$user);
                             $this->request->redirect('/admin/dashBoard/index')->with('error', 'Connecté avec succès');
                         }
                         else{
