@@ -1,6 +1,5 @@
 <?php
     use App\Query\UserQuery;
-    use Core\Http\Request;
     use Core\Http\Session;
     use Core\Util\SessionHelper;
 
@@ -10,8 +9,9 @@
 
     $user = new UserQuery();
     $memberResult = $user->getUserById($session->getSession('id'));
-    $firstname = $memberResult['firstname'] ?? null;
-    $last = $memberResult['last'] ?? null; 
+    //die(var_dump($memberResult));
+    $firstname = $memberResult['firstname'];
+    $lastname = $memberResult['lastname'];
 ?>
 
 
@@ -39,10 +39,11 @@
                 <div class="admin-topbar">
                     <div class="user-controls">
                         <div class="identity">
-        
                             <ul>
-                                <li><a href="/admin/user/profil"><i class="fas fa-user"></i><?php
-                                // if (isset($displayName)){}  ?></a></li>
+                                <?php
+                                if (isset($firstname)&& isset($lastname)){ ?>
+                                <li><a href="/admin/user/profil"><i class="fas fa-user"><?= $firstname . $lastname ?></i></a></li>
+                                <?php }  ?></a></li>
                                 | <li><a href="/admin/auth/logout">Déconnexion</a></li>
                             </ul>
                         </div>
