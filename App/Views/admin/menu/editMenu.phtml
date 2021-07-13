@@ -2,7 +2,48 @@
     <div class="col-gutter-12">
         <h1>Edition du Menu</h1>
 
-        <?= $editMenu; ?>
+        <?php
+        $verifTable = new \Core\Util\Table();
+        $request = new \Core\Http\Request();
+
+        $id = $request->getBody();
+        $stringId = implode("','",$id);
+
+        if (!empty($pages)){ ?>
+
+            <form class="container--fluid">
+                <div class="row">
+                    <input type="hidden" name="id" value="<?php echo $stringId; ?>">
+                </div>
+
+                <div class="row">
+                    <label for="name">Nom du menu</label>
+                    <input type="text" name="name">
+                </div>
+
+                <div class="row">
+                    <label for="description">Description du menu</label>
+                    <textarea id="description" name="description"></textarea>
+                </div>
+
+                <fieldset>
+                    <legend>Choisissez les pages à ajouter au menu</legend>
+                    <?php if ($verifTable->is_multi($pages)){ ?>
+                        <?php foreach ($pages as $page) { ?>
+                            <input type="checkbox" name="<?= $page['title'] ?>" value="<?= $page['id'] ?>"><?= $page['title'] ?><br>
+                        <?php } ?>
+                    <?php } else{ ?>
+                        <input type="checkbox" name="page-<?=$pages['title'] ?>" value="<?=$pages['id'] ?>"><?= $pages['title'] ?><br>
+                    <?php } ?>
+                    <br>
+                </fieldset>
+                <input class="btn-success btn" formmethod="post" type="submit" value="Éditer le menu" />
+            </form>
+
+        <?php }else{ ?>
+            <p>Vous devez d'abord créer des pages avant de pouvoir créer des menus</p>
+            <a class="btn btn-info" href="/admin/page/add">Ajouter une nouvelle page</a>
+        <?php } ?>
 
     </div>
 </div>

@@ -85,10 +85,39 @@ class AdminMenuController extends Controller
     }
 
     public function indexEditMenu(){
-        $form = new MenuEditForm();
-        $editMenuForm = $form->getForm();
 
-        $this->render("admin/menu/editMenu.phtml", ['editMenu' => $editMenuForm]);
+        $pages = $this->pageQuery->getTitleAndId();
+
+        $this->render("admin/menu/editMenu.phtml", ['pages'=>$pages]);
+    }
+
+    public function editMenu(){
+        if ($this->request->isPost()){
+            $data =$this->request->getBody();
+
+            $menuData = array_slice($data,1, 2);
+            $pageToAddToMenu = array_slice($data, 3);
+
+            $idMenu = $data['id'];
+
+            if($this->menuQuery->update($menuData, $idMenu)){
+
+                foreach ($pageToAddToMenu as $value){
+
+                    $pageToUpdate = [
+                        'menu_id' => $idMenu,
+                        'page_id' => $value
+                    ];
+
+                    $havePageQuery = new HavePageQuery();
+                    $havePageQuery->update($pageToUpdate, $idMenu, $value);
+                }
+                $this->request->redirect('/admin/menus')->with('success', 'Le menu a bien été créer, vous pouvez maintenant choisir son emplacement dans le site.');
+            }
+            /*else{
+                $this->request->redirect('/admin/menus')->with('error', 'Une erreur c\'est produite. Veuillez réessayer.');
+            }*/
+        }
     }
 
 
