@@ -20,7 +20,7 @@ use App\Email\UserRegisterValidationEmail;
 use Core\Util\TokenGenerator;
 use Core\Util\Url;
 
-class RegistrationAuthController extends Controller{
+class AdminAuthController extends Controller{
 
     private $request;
 
@@ -60,19 +60,16 @@ class RegistrationAuthController extends Controller{
         $this->hashToken = new Hash();
     }
 
-<<<<<<< Updated upstream:App/Controller/Admin/RegistrationAuthController.php
-    public function indexLogin()
-=======
     public function login()
->>>>>>> Stashed changes:App/Controller/Admin/AdminAuthController.php
     {
+
         $form = new UserLoginForm();
         $userLogin = $form->getForm();
 
         $this->render("admin/registration/login.phtml", ['userLogin'=>$userLogin]);
     }
 
-    public function indexRegister()
+    public function register()
     {
 
         $form = new UserRegisterForm();
@@ -97,26 +94,8 @@ class RegistrationAuthController extends Controller{
                         if ($user['verified'] == '1'){
 
                             $selectIdQuery = new UserQuery();
-                            $idUser = $selectIdQuery->getIdbyEmail($data['email']);
-                            $this->session->setSession('id',$idUser['id']);
-<<<<<<< Updated upstream:App/Controller/Admin/RegistrationAuthController.php
-                            $this->request->redirect('/admin')->with('error', 'Connecté avec succès');
-                        }
-                        else{
-                            $this->request->redirect('/admin/login')->with('error', 'Ce compte n\'a pas encore été validé. Veuillez vérifier vos emails.');
-                        }
-                    }
-                    else{
-                        $this->request->redirect('/admin/login')->with('error', 'Vos informations de connexion ne coreespondent pas. Veuillez recommencer');
-                    }
-                }
-                else{
-                    $this->request->redirect('/admin/login')->with('error', 'Impossible de trouver un compte goSchool associé à cet e-mail. Veuillez recommencer. ');
-                }
-            }
-            else{
-                $this->request->redirect('/admin/login')->with('error', 'Le champ email et le champs mot de passe doivent être remplis.');
-=======
+                            $this->session->setSession('user',$user);
+                            $user = $selectIdQuery->getIdbyEmail($data['email']);
                             $this->request->redirect('/admin/dashboard/index')->with('success', 'Connecté avec succès');
                         }
                         else{
@@ -133,7 +112,6 @@ class RegistrationAuthController extends Controller{
             }
             else{
                 $this->request->redirect('/admin/auth/index')->with('error', 'Le champ email et le champs mot de passe doivent être remplis.');
->>>>>>> Stashed changes:App/Controller/Admin/AdminAuthController.php
             }
 
         }
@@ -143,10 +121,10 @@ class RegistrationAuthController extends Controller{
     {
         session_destroy();
 
-        $this->request->redirect('/admin/login')->with('success', 'Vous avez été déconnectez avec succès.');
+        $this->request->redirect('/admin/auth/login')->with('success', 'Vous avez été déconnectez avec succès.');
     }
 
-    public function register()
+    public function store()
     {
         if($this->request->isPost()){
 
@@ -175,16 +153,16 @@ class RegistrationAuthController extends Controller{
                         $email = new UserRegisterValidationEmail();
 
                         if ($email->sendEmail($data['email'], $generateUrl)){
-                            $this->request->redirect('/admin/login')->with('success', 'Votre compte a bien été créer, avant de vous connecter vous devez le vérifier en cliquant sur le lien reçu par email. ');
+                            $this->request->redirect('/admin/auth/login')->with('success', 'Votre compte a bien été créer, avant de vous connecter vous devez le vérifier en cliquant sur le lien reçu par email. ');
                         }
                     }
                 }
                 else{
-                    $this->request->redirect('/admin/register')->with('error', 'Un compte goSchool utilisant cette adresse email existe déjà.');
+                    $this->request->redirect('/admin/auth/register')->with('error', 'Un compte goSchool utilisant cette adresse email existe déjà.');
                 }
             }
             else{
-                $this->request->redirect('/admin/register')->with('errors', $errors);
+                $this->request->redirect('/admin/auth/register')->with('errors', $errors);
             }
         }
     }
@@ -211,7 +189,7 @@ class RegistrationAuthController extends Controller{
             $verifiedValue = $verifiedQuery->getByEmailAndToken($dataFromRequest['email'], $dataFromRequest['token_verified']);
 
             if ($verifiedValue['verified'] == 1){
-                $this->request->redirect('/admin/login')->with('error', 'Votre compte goSchool est déjà vérifié.');
+                $this->request->redirect('/admin/auth/login')->with('error', 'Votre compte goSchool est déjà vérifié.');
             }
             else{
                 die('403 FORBIDDEN');
