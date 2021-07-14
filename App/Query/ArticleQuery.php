@@ -86,6 +86,7 @@ class ArticleQuery
     {
         $data['content']= str_replace( '&nbsp', '', html_entity_decode($data['content']));
         $data['slug']= strtolower(str_replace(" ", "-", $data['title']));
+        $data['title']= ucfirst(strtolower($data['title']));
 
         if(array_key_exists('active_comment', $data)){
 
@@ -115,6 +116,10 @@ class ArticleQuery
 
         }else{
             $data['active_comment'] = '0';
+        }
+
+        if (array_key_exists('title', $data)){
+            $data['title']= ucfirst(strtolower($data['title']));
         }
 
         $query = $this->builder->update("articles")->set($data)->where("id = $id")->save();

@@ -114,6 +114,7 @@ class PageQuery
      */
     public function create(array $data)
     {
+        $data['title']= ucfirst(strtolower($data['title']));
         $data['content']= str_replace( '&nbsp', '', html_entity_decode($data['content']));
 
         $query = $this->builder->insertInto('pages')->columns($data)->values($data)->save();
@@ -125,6 +126,9 @@ class PageQuery
      */
     public function updatePage(array $data, int $id)
     {
+        if (array_key_exists('title', $data)){
+            $data['title']= ucfirst(strtolower($data['title']));
+        }
 
         if (array_key_exists('content',$data)){
             $data['content']= str_replace( '&nbsp', '', html_entity_decode($data['content']));
