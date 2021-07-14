@@ -12,8 +12,12 @@
             {?>
                 <div>
                     <h2>Choisissez un menu à éditer</h2>
-                    <?= $selectMenu; ?>
+                    <?= $positionMenu; ?>
                 </div>
+            <?php }
+            else{ ?>
+            <p>Vous devez d'abord créer un des menus avant de pouvoir choisir leurs emplacements dans le site. </p>
+            <a class="btn btn-info" href="/admin/menu/add">Ajouter un menu</a>
             <?php } ?>
         </div>
     </div>

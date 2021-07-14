@@ -117,7 +117,29 @@ class AdminMenuController extends Controller
             /*else{
                 $this->request->redirect('/admin/menus')->with('error', 'Une erreur c\'est produite. Veuillez réessayer.');
             }*/
+    public function delete()
+    {
+        $id = $_GET['id'];
+        if($this->request->isGet()) {
+
+            $deleteQuery = new MenuQuery();
+
+            if($deleteQuery->delete($id)) {
+                $this->request->redirect('/admin/menus')->with('success', 'Le menu a bien été supprimé');
+            } else {
+                $this->request->redirect('/admin/menus')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+            }
+        } else {
+            $this->request->redirect('/admin/menus')->with('error', 'Une erreur c\'est produite veuillez réessayer');
         }
+    }
+
+    public function position(){
+        $form = new SelectMenuPositionForm();
+        $positionMenu = $form->getForm();
+
+        $this->render("admin/menu/menuPositon.phtml", ['positionMenu' => $positionMenu]);
+    }
     }
 
 
