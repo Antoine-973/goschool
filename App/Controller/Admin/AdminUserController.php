@@ -97,6 +97,8 @@ class AdminUserController extends Controller {
             $data = $this->request->getBody();
             $errors = $this->validator->validate($this->userModel, $data);
 
+            $data['verified'] ='1';
+
             if(empty($errors)){
                 if($this->userQuery->create($data))
                 {

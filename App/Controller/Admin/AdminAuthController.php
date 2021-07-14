@@ -99,19 +99,19 @@ class AdminAuthController extends Controller{
                             $this->request->redirect('/admin/dashboard/index')->with('success', 'Connecté avec succès');
                         }
                         else{
-                            $this->request->redirect('/admin/auth/index')->with('error', 'Ce compte n\'a pas encore été validé. Veuillez vérifier vos emails.');
+                            $this->request->redirect('/admin/auth/login')->with('error', 'Ce compte n\'a pas encore été validé. Veuillez vérifier vos emails.');
                         }
                     }
                     else{
-                        $this->request->redirect('/admin/auth/index')->with('error', 'Vos informations de connexion ne coreespondent pas. Veuillez recommencer');
+                        $this->request->redirect('/admin/auth/login')->with('error', 'Vos informations de connexion ne coreespondent pas. Veuillez recommencer');
                     }
                 }
                 else{
-                    $this->request->redirect('/admin/auth/index')->with('error', 'Impossible de trouver un compte goSchool associé à cet e-mail. Veuillez recommencer. ');
+                    $this->request->redirect('/admin/auth/login')->with('error', 'Impossible de trouver un compte goSchool associé à cet e-mail. Veuillez recommencer. ');
                 }
             }
             else{
-                $this->request->redirect('/admin/auth/index')->with('error', 'Le champ email et le champs mot de passe doivent être remplis.');
+                $this->request->redirect('/admin/auth/login')->with('error', 'Le champ email et le champs mot de passe doivent être remplis.');
             }
 
         }
@@ -340,6 +340,10 @@ class AdminAuthController extends Controller{
                 $this->render("admin/registration/resetpassword.phtml", ['errors' => $errors, 'userResetPassword' => $userResetPassword]);
             }
         }
+    }
+
+    public function forbidden(){
+        $this->render("403.phtml");
     }
 
     public function DBConnection($data)

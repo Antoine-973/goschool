@@ -74,6 +74,15 @@ class UserQuery
     /**
      * @param string $roles
      */
+    public function getRoleById($id)
+    {
+        $query = $this->builder->select("roles")->from("users")->where("id = $id");
+        return $query->getResult();
+    }
+
+    /**
+     * @param string $roles
+     */
     public function getByRole(string $roles)
     {
         $query = $this->builder->select("*")->from("users")->where("roles = $roles");
