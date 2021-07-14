@@ -104,22 +104,39 @@ class AdminMenuController extends Controller
             $idMenu = $data['id'];
 
             if($this->menuQuery->update($menuData, $idMenu)){
-
-                foreach ($pageToAddToMenu as $value){
+                foreach ($pageToAddToMenu as $titre => $page_id){
 
                     $pageToUpdate = [
                         'menu_id' => $idMenu,
-                        'page_id' => $value
+                        'page_id' => $page_id
                     ];
 
                     $havePageQuery = new HavePageQuery();
-                    $havePageQuery->update($pageToUpdate, $idMenu, $value);
+                    $pageQuery = new PageQuery();
+
+                    if ($page_id == '0'){
+
+                        $pageToUpdate['page_id'] = $pageQuery->getIdByTitle($titre)['id'];
+
+                        if (!empty($havePageQuery->getById($pageToUpdate['menu_id'], $pageToUpdate['page_id']))){
+                            $deleteHavePage = new HavePageQuery();
+                            $deleteHavePage->delete($pageToUpdate['menu_id'], $pageToUpdate['page_id']);
+                        }
+                    }
+                    else{
+                        if (empty($havePageQuery->getById($pageToUpdate['menu_id'], $pageToUpdate['page_id']))){
+                            $havePageQuery->create($pageToUpdate);
+                        }
+                    }
                 }
                 $this->request->redirect('/admin/menus')->with('success', 'Le menu a bien été créer, vous pouvez maintenant choisir son emplacement dans le site.');
             }
-            /*else{
+            else{
                 $this->request->redirect('/admin/menus')->with('error', 'Une erreur c\'est produite. Veuillez réessayer.');
-            }*/
+            }
+        }
+    }
+
     public function delete()
     {
         $id = $_GET['id'];
