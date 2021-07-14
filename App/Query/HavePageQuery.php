@@ -33,9 +33,9 @@ class HavePageQuery{
     /**
      * @param int $id
      */
-    public function delete(int $menu_id, int $page_id)
+    public function delete($menu_id, $page_id)
     {
-        $query = $this->builder->delete()->from('havePage')->where("menu_id = $menu_id, page_id = $page_id")->save();
+        $query = $this->builder->delete()->from('havePage')->where("menu_id = $menu_id", "page_id = $page_id")->save();
         return $query;
     }
 }
