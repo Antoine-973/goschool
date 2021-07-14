@@ -67,15 +67,18 @@ class AdminMenuController extends Controller
                 $menuQueryId = new MenuQuery();
                 $idMenu = $menuQueryId->getMenuIdByName($menuData['name']);
 
-                foreach ($pageToAddToMenu as $value){
+                foreach ($pageToAddToMenu as $page_id){
 
                     $pageToUpdate = [
                         'menu_id' => $idMenu['id'],
-                        'page_id' => $value
+                        'page_id' => $page_id
                     ];
 
                     $havePageQuery = new HavePageQuery();
-                    $havePageQuery->create($pageToUpdate, $value);
+
+                    if (!$page_id == '0'){
+                        $havePageQuery->create($pageToUpdate, $page_id);
+                    }
                 }
                 $this->request->redirect('/admin/menus')->with('success', 'Le menu a bien été créer, vous pouvez maintenant choisir son emplacement dans le site.');
             }else{
