@@ -28,7 +28,7 @@ class AdminMenuController extends Controller
         $this->pageQuery = new PageQuery();
     }
 
-    public function indexSelectMenu()
+    public function menu()
     {
         $form = new SelectMenuForm();
         $selectMenuForm = $form->getForm();
@@ -36,7 +36,7 @@ class AdminMenuController extends Controller
         $this->render("admin/menu/menu.phtml", ['selectMenu' => $selectMenuForm]);
     }
 
-    public function selectMenu(){
+    public function select(){
 
         if ($this->request->isPost()){
             $name =$this->request->getBody()['name'];
@@ -48,14 +48,14 @@ class AdminMenuController extends Controller
 
     }
 
-    public function indexAddMenu(){
+    public function add(){
 
         $pages = $this->pageQuery->getTitleAndId();
 
         $this->render("admin/menu/addMenu.phtml", ['pages'=>$pages]);
     }
 
-    public function addMenu(){
+    public function store(){
         if ($this->request->isPost()){
             $data =$this->request->getBody();
 
@@ -84,14 +84,14 @@ class AdminMenuController extends Controller
         }
     }
 
-    public function indexEditMenu(){
+    public function edit(){
 
         $pages = $this->pageQuery->getTitleAndId();
 
         $this->render("admin/menu/editMenu.phtml", ['pages'=>$pages]);
     }
 
-    public function editMenu(){
+    public function update(){
         if ($this->request->isPost()){
             $data =$this->request->getBody();
 
