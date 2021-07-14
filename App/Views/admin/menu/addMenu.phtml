@@ -22,10 +22,10 @@
                     <legend>Choisissez les pages à ajouter au menu</legend>
                     <?php if ($verifTable->is_multi($pages)){ ?>
                         <?php foreach ($pages as $page) { ?>
-                            <input type="checkbox" name="<?= $page['title'] ?>" value="<?= $page['id'] ?>"><?= $page['title'] ?><br>
+                            <input type="hidden" name="<?= $page['title'] ?>" value="0"><input type="checkbox" onclick="this.previousSibling.value=1-this.previousSibling.value" name="<?= $page['title'] ?>" value="<?= $page['id'] ?>"><?= $page['title'] ?><br>
                         <?php } ?>
                     <?php } else{ ?>
-                        <input type="checkbox" name="page-<?=$pages['title'] ?>" value="<?=$pages['id'] ?>"><?= $pages['title'] ?><br>
+                        <input type="checkbox" name="<?=$pages['title'] ?>" value="<?=$pages['id'] ?>"><?= $pages['title'] ?><br>
                     <?php } ?>
                     <br>
                 </fieldset>
