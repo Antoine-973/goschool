@@ -24,7 +24,6 @@ class UserEditForm
         $data = $this->userQuery->getUserById($stringId);
 
         $form = Form::create('/admin/user/update/' .$id['id'])
-            ->input('id', 'hidden', ['value' => $id['id']])
             ->input('firstname', 'text', ['value' => 'Prénom', 'text' => $data['firstname'], 'min' => 3, 'max' => 55, 'required' => 'required'])
             ->input('lastname', 'text', ['value' => 'Nom', 'text' => $data['lastname'], 'min' => 3, 'max' => 55, 'required' => 'required'])
             ->input('email', 'email', ['value' => 'Email', 'text' => $data['email'], 'min' => 4, 'max' => 55, 'required' => 'required'])

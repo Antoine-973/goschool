@@ -21,8 +21,7 @@ class PageEditForm
 
         $data=$this->pageQuery->getById($stringId);
 
-        $form = Form::create('/admin/page/edit')
-                ->input('id', 'hidden', ['value' => $id['id']])
+        $form = Form::create('/admin/page/update/'. $stringId)
                 ->input('title', 'text', ['value' => 'title', 'min' => 4, 'max' => 55, 'text' => $data['title'], 'required' => 'required'])
                 ->input('url', 'text', ['value' => 'Url de la page', 'min' => 4, 'max' => 55, 'text' => $data['url'], 'required' => 'required', 'placeholder' => 'ex: /accueil'])
                 ->select('status','Statut',['id' => 'status', 'name' => 'status', 'options' => ['Publié','Brouillon','Attente de validation']])

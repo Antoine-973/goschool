@@ -21,7 +21,7 @@ class SessionHelper
         }
         else{
             $request = new Request();
-            $request->redirect('/admin/login')->with('error','Vous devez être connecté pour accéder à cette page !');
+            $request->redirect('/admin/auth/login')->with('error','Vous devez être connecté pour accéder à cette page !');
         }
     }
 

@@ -1,4 +1,4 @@
-<h1>Profil</h1>
+<h1>Ajouter un commentaire</h1>
 <div class="col-gutter-12">
     <?php if(isset($errors) && !empty($errors)): ?>
         <ul>
@@ -8,6 +8,6 @@
         </ul>
     <?php endif; ?>
 
-    <?= $userProfile; ?>
+    <?= $commentAdd; ?>
+    <div class="col-12 back-to-list">  <a href="/admin/comment/list" class="btn btn--infos btn--sm">Revenir à la liste</a></div>
 </div>
-<div class="back-to-list">  <a href="/admin/dashboard/index" class="btn btn--infos btn--sm">Revenir au Tableau de bord</a></div>

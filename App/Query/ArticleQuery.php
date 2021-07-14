@@ -30,7 +30,7 @@ class ArticleQuery
      * @param int $id
      * @return string $query
      */
-    public function getSlugById(int $id)
+    public function getSlugById($id)
     {
         $query = $this->builder->select("slug")->from("articles")->where("id = $id");
         return $query->getResult();
@@ -105,20 +105,24 @@ class ArticleQuery
     /**
      * @param array $data
      */
-    public function updateArticle(array $data, int $id)
+    public function updateArticle(array $data, $id)
     {
-        $data['slug']= $this->helper->slugify($data['title']);
+        $data['slug']= $this->helper->slugify($data['slug']);
         $data['content']= str_replace( '&nbsp', '', html_entity_decode($data['content']));
         $categorieQuery = new CategoryQuery();
-        $data['categorie_id'] = $categorieQuery->getCategoriesIdByName($data['categorie'])['id'];
+
+        if (!$data['categorie']=='Non-classé'){
+            $data['categorie_id'] = $categorieQuery->getCategoriesIdByName($data['categorie'])['id'];
+        }
+
         unset($data['categorie']);
 
         if(array_key_exists('active_comment', $data)){
 
-            $data['active_comment'] = 1;
+            $data['active_comment'] = '1';
 
         }else{
-            $data['active_comment'] = 0;
+            $data['active_comment'] = '0';
         }
 
         $query = $this->builder->update("articles")->set($data)->where("id = $id")->save();

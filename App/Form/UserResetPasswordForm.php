@@ -17,7 +17,7 @@ class UserResetPasswordForm
     {
         $data = $this->request->getBody();
 
-        $form = Form::create('/admin/resetpassword')
+        $form = Form::create('/admin/auth/postResetPassword')
                 ->input('selector', 'hidden', ['value' => $data['selector']])
                 ->input('validator', 'hidden', ['value' => $data['validator']])
                 ->input('password', 'password', ['value' => 'Nouveau mot de passe'])
