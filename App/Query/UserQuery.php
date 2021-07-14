@@ -50,6 +50,11 @@ class UserQuery
         return $query->getResult();
     }
 
+    public function getEmailById($id){
+        $query = $this->builder->select("email")->from("users")->where("id = $id");
+        return $query->getResult();
+    }
+
     /**
      * @param string $roles
      */

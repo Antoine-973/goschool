@@ -18,7 +18,7 @@ class CommentQuery{
      */
     public function getComments()
     {
-        $query = $this->builder->select('id, title, message, status, created_at')->from("comments");
+        $query = $this->builder->select('id, title, message, status, created_at, user_id')->from("comments");
         return $query->getResult();
     }
 

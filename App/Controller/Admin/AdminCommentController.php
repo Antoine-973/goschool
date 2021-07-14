@@ -1,37 +1,56 @@
 <?php
 namespace App\Controller\Admin;
 
+use Core\Component\Validator;
+use Core\Http\Request;
+use Core\Controller;
 use App\Form\CommentAddForm;
 use App\Form\CommentEditForm;
 use App\Model\CommentModel;
-use Core\Component\Validator;
-use Core\Controller;
+use App\Model\UserModel;
 use App\Query\CommentQuery;
-use Core\Http\Request;
+use App\Query\UserQuery;
 
 class AdminCommentController extends Controller
 {
+    private $validator;
+
+    private $request;
 
     private $commentQuery;
-    private $request;
+
+    private $userQuery;
+
     private $commentModel;
-    private $validator;
+
+    private $userModel;
 
     public function __construct()
     {
-        $this->commentQuery = new CommentQuery();
+        $this->validator = new Validator();
         $this->request = new Request();
-        $this->commentModel = new CommentModel();
         $this->commentAddForm = new CommentAddForm();
         $this->commentEditForm = new CommentEditForm();
-        $this->validator = new Validator();
+        $this->commentQuery = new CommentQuery();
+        $this->userQuery = new UserQuery();
+        $this->commentModel = new CommentModel();
+        $this->userModel = new UserModel();
 
     }
 
     public function indexListComment()
     {
-        $comments = $this->commentQuery->getComments();
-        $this->render("admin/comment/listComment.phtml", ['comments'=>$comments]);
+        $comments = $this->commentQuery->getComments(); // Récupération de tout les commentaires.
+        $countComments = count($comments); // Compter le nombre total de commentaire.
+
+        for($y = 0; $y < $countComments; $y++) { // Change la valeur de user_id dans le tableau par le mail de l'user.
+            $userId = $comments[$y]['user_id'];
+            $userQuery = new UserQuery();
+            $userEmail = $userQuery->getEmailById($userId);
+            $value = array_shift($userEmail); // Dépile l'élément qu'on a obtenu de getEmailById.
+            $comments[$y]['user_id'] = $value;
+        }
+        $this->render("admin/comment/listComment.phtml", ['comments'=>$comments]); // Retourne à la view la liste de commentaire.
     }
 
     public function indexAddComment()
