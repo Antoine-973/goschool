@@ -9,15 +9,15 @@ class relation_menu_have_page_article_table_migration
 
         $sql = "ALTER TABLE havePage
                 ADD FOREIGN KEY (`menu_id`)
-                REFERENCES `menus`(`id`) ON UPDATE CASCADE ON DELETE SET NULL;
+                REFERENCES `menus`(`id`) ON UPDATE CASCADE ON DELETE CASCADE;
 
                 ALTER TABLE havePage
                 ADD FOREIGN KEY (`page_id`)
-                REFERENCES `pages`(`id`) ON UPDATE CASCADE ON DELETE SET NULL;
+                REFERENCES `pages`(`id`) ON UPDATE CASCADE ON DELETE CASCADE;
 
                 ALTER TABLE havePage
                 ADD FOREIGN KEY (`article_id`)
-                REFERENCES `articles`(`id`) ON UPDATE CASCADE ON DELETE SET NULL;";
+                REFERENCES `articles`(`id`) ON UPDATE CASCADE ON DELETE CASCADE;";
 
         $conn->exec($sql);
     }
