@@ -17,7 +17,7 @@ class ArticleQuery
      * @param int $id
      * @return string $query
      */
-    public function getById(int $id)
+    public function getById($id)
     {
         $query = $this->builder->select("title, slug, content")->from("articles")->where("id = $id");
         return $query->getResult();
@@ -27,7 +27,7 @@ class ArticleQuery
      * @param int $id
      * @return string $query
      */
-    public function getSlugById(int $id)
+    public function getSlugById($id)
     {
         $query = $this->builder->select("slug")->from("articles")->where("id = $id");
         return $query->getResult();
@@ -89,10 +89,10 @@ class ArticleQuery
 
         if(array_key_exists('active_comment', $data)){
 
-            $data['active_comment'] = 1;
+            $data['active_comment'] = '1';
 
         }else{
-            $data['active_comment'] = 0;
+            $data['active_comment'] = '0';
         }
 
         $query = $this->builder->insertInto('articles')->columns($data)->values($data)->save();
@@ -102,7 +102,7 @@ class ArticleQuery
     /**
      * @param array $data
      */
-    public function updateArticle(array $data, int $id)
+    public function updateArticle(array $data, $id)
     {
         $data['content']= str_replace( '&nbsp', '', html_entity_decode($data['content']));
         $categorieQuery = new CategoryQuery();
@@ -111,10 +111,10 @@ class ArticleQuery
 
         if(array_key_exists('active_comment', $data)){
 
-            $data['active_comment'] = 1;
+            $data['active_comment'] = '1';
 
         }else{
-            $data['active_comment'] = 0;
+            $data['active_comment'] = '0';
         }
 
         $query = $this->builder->update("articles")->set($data)->where("id = $id")->save();
