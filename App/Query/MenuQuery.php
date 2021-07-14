@@ -18,6 +18,16 @@ class MenuQuery
     /**
      * @return array $data
      */
+    public function getMenu($id)
+    {
+        $query = $this->builder->select("name, description")->from("menus")->where("id = $id");
+        return $query->getResult();
+    }
+
+
+    /**
+     * @return array $data
+     */
     public function getMenusName()
     {
         $query = $this->builder->select('name')->from("menus");

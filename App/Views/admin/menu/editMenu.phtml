@@ -8,6 +8,9 @@
 
         $id = $request->getBody();
         $stringId = implode("','",$id);
+
+        $menuQuery = new \App\Query\MenuQuery();
+        $menu = $menuQuery->getMenu($stringId);
         ?>
 
             <form class="container--fluid">
@@ -17,12 +20,12 @@
 
                 <div class="row">
                     <label for="name">Nom du menu</label>
-                    <input type="text" name="name">
+                    <input type="text" value="<?= $menu['name'] ?>" name="name">
                 </div>
 
                 <div class="row">
                     <label for="description">Description du menu</label>
-                    <textarea id="description" name="description"></textarea>
+                    <textarea id="description" name="description"><?= $menu['description'] ?></textarea>
                 </div>
 
                 <fieldset>
