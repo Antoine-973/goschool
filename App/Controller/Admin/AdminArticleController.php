@@ -9,6 +9,7 @@ use App\Model\ArticleModel;
 use App\Form\ArticleAddForm;
 use App\Form\ArticleEditForm;
 use App\Query\ArticleQuery;
+use App\Query\CommentQuery;
 use Core\Component\Validator;
 use Core\Util\PhpFileGenerator;
 
@@ -28,6 +29,8 @@ class AdminArticleController extends Controller {
 
     private $articleQuery;
 
+    private $commentQuery;
+
     public function __construct()
     {
         $this->request = new Request();
@@ -36,6 +39,7 @@ class AdminArticleController extends Controller {
         $this->articleAddForm = new ArticleAddForm();
         $this->articleEditForm = new ArticleEditForm();
         $this->articleQuery = new ArticleQuery();
+        $this->commentQuery = new CommentQuery();
         $this->validator = new Validator();
 
     }
@@ -143,6 +147,15 @@ class AdminArticleController extends Controller {
                 $this->render("admin/user/editArticle.phtml", ['errors' => $errors, 'editArticle'=>$articleEditForm]);
             }
         }
+    }
+
+    public function indexCommentsArticle()
+    {
+        $articleId = $this->request->getBody();
+        $id = array_shift($articleId);
+        $commentQuery = new CommentQuery();
+        $comments = $commentQuery->getCommentsByArticleId($id);
+        $this->render("admin/article/listComments.phtml", ['comments'=>$comments]); 
     }
 
     public function deleteArticle()
