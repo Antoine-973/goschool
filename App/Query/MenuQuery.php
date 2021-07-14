@@ -33,10 +33,24 @@ class MenuQuery
         return $query->getResult();
     }
 
+    public function getPositionByPosition($position)
+    {
+        $query = $this->builder->select('id')->from("menus")->where("position = $position");
+        return $query->getResult();
+    }
+
+    public function updatePositionToNull($data, $position)
+    {
+        $query = $this->builder->update('menus')->set($data)->where("position = $position")->save();
+        return $query;
+    }
+
+
+
     /**
      * @param int $id
      */
-    public function delete(int $id)
+    public function delete($id)
     {
         $query = $this->builder->delete()->from("menus")->where("id = $id")->save();
         return $query;
