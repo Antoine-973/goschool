@@ -2,7 +2,41 @@
     <div class="col-gutter-12">
         <h1>Ajout d'un Menu</h1>
 
-        <?= $addMenu; ?>
+        <?php
+        $verifTable = new \Core\Util\Table();
+
+        if (!empty($pages)){ ?>
+
+            <form class="container--fluid">
+                <div class="row">
+                    <label for="name">Nom du menu</label>
+                    <input type="text" name="name">
+                </div>
+
+                <div class="row">
+                    <label for="description">Description du menu</label>
+                    <textarea id="description" name="description"></textarea>
+                </div>
+
+                <fieldset>
+                    <legend>Choisissez les pages à ajouter au menu</legend>
+                    <?php if ($verifTable->is_multi($pages)){ ?>
+                        <?php foreach ($pages as $page) { ?>
+                            <input type="hidden" name="<?= $page['title'] ?>" value="0"><input type="checkbox" onclick="this.previousSibling.value=1-this.previousSibling.value" name="<?= $page['title'] ?>" value="<?= $page['id'] ?>"><?= $page['title'] ?><br>
+                        <?php } ?>
+                    <?php } else{ ?>
+                        <input type="checkbox" name="<?=$pages['title'] ?>" value="<?=$pages['id'] ?>"><?= $pages['title'] ?><br>
+                    <?php } ?>
+                    <br>
+                </fieldset>
+                <input class="btn-success btn" formmethod="post" type="submit" value="Créer le menu" />
+            </form>
+
+       <?php }else{ ?>
+            <p>Vous devez d'abord créer des pages avant de pouvoir créer des menus</p>
+            <a class="btn btn-info" href="/admin/page/add">Ajouter une nouvelle page</a>
+       <?php } ?>
+
 
     </div>
 </div>
