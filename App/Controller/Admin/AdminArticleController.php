@@ -9,6 +9,8 @@ use App\Model\ArticleModel;
 use App\Form\ArticleAddForm;
 use App\Form\ArticleEditForm;
 use App\Query\ArticleQuery;
+use App\Query\UserQuery;
+use App\Query\CommentQuery;
 use Core\Component\Validator;
 use Core\Util\PhpFileGenerator;
 
@@ -28,6 +30,8 @@ class AdminArticleController extends Controller {
 
     private $articleQuery;
 
+    private $commentQuery;
+
     public function __construct()
     {
         $this->request = new Request();
@@ -36,6 +40,8 @@ class AdminArticleController extends Controller {
         $this->articleAddForm = new ArticleAddForm();
         $this->articleEditForm = new ArticleEditForm();
         $this->articleQuery = new ArticleQuery();
+        $this->commentQuery = new CommentQuery();
+        $this->userQuery = new UserQuery();
         $this->validator = new Validator();
 
     }
@@ -182,6 +188,73 @@ class AdminArticleController extends Controller {
             }
         } else {
             $this->request->redirect('/admin/article/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+        }
+    }
+
+    public function indexCommentsArticle()
+    {
+        $articleId = $this->request->getBody();
+        $id = array_shift($articleId);
+        $commentQuery = new CommentQuery();
+        $comments = $commentQuery->getCommentsByArticleId($id);
+        $countComments = count($comments);
+
+        for($y = 0; $y < $countComments; $y++) {
+            $userId = $comments[$y]['user_id'];
+            $userQuery = new UserQuery();
+            $userEmail = $userQuery->getEmailById($userId);
+            $value = array_shift($userEmail);
+            $comments[$y]['user_id'] = $value;
+        }
+        $this->render("admin/article/listComments.phtml", ['comments'=>$comments]); 
+    }
+
+    public function publishCommentsArticle()
+    {
+        $id = $_GET['id'];
+        if($this->request->isGet()) {
+            $publishQuery = new CommentQuery();
+            $data = [];
+            $data['status'] = 'Publié';
+            if($publishQuery->updateComment($data, $id)) {
+                $this->request->redirect('/admin/articles')->with('success', 'L\'article a bien été supprimé');
+            } else {
+                $this->request->redirect('/admin/articles')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+            }
+        } else {
+            $this->request->redirect('/admin/articles')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+        }
+    }
+
+    public function nopublishCommentsArticle()
+    {
+        $id = $_GET['id'];
+        if($this->request->isGet()) {
+            $publishQuery = new CommentQuery();
+            $data = [];
+            $data['status'] = 'Non';
+            if($publishQuery->updateComment($data, $id)) {
+                $this->request->redirect('/admin/articles')->with('success', 'L\'article a bien été supprimé');
+            } else {
+                $this->request->redirect('/admin/articles')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+            }
+        } else {
+            $this->request->redirect('/admin/articles')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+        }
+    }
+
+    public function deleteCommentArticle()
+    {
+        $id = $_GET['id'];
+        if($this->request->isGet()) {
+            $deleteQuery = new CommentQuery();
+            if($deleteQuery->deleteComment($id)) {
+                $this->request->redirect('/admin/articles')->with('success', 'L\'article a bien été supprimé');
+            } else {
+                $this->request->redirect('/admin/articles')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+            }
+        } else {
+            $this->request->redirect('/admin/articles')->with('error', 'Une erreur c\'est produite veuillez réessayer');
         }
     }
 }

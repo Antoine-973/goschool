@@ -1,5 +1,5 @@
-<h1>Ajouter un commentaire</h1>
-<div class="col-gutter-12">
+<div class="add-form">
+    <h1>Ajouter un nouveau commentaire</h1>
     <?php if(isset($errors) && !empty($errors)): ?>
         <ul>
             <?php foreach($errors as $error): ?>
@@ -9,5 +9,5 @@
     <?php endif; ?>
 
     <?= $commentAdd; ?>
-    <div class="col-12 back-to-list">  <a href="/admin/comment/list" class="btn btn--infos btn--sm">Revenir à la liste</a></div>
 </div>
+<div class="back-to-list">  <a href="/admin/comments" class="btn btn--infos btn--sm">Revenir à la liste</a></div>

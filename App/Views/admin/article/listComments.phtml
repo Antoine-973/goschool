@@ -1,7 +1,6 @@
 <div class="content admin-comment--list">
     <div class="col-gutter-12">
-        <h1>Commentaires</h1>
-        <a href="/admin/comment/add" class="btn btn--infos btn--sm"><i class="fas fa-plus-circle"></i> Ajouter un commentaire</a>
+        <h1>Commentaires de l'article</h1>
         <?php $keys = array_keys($comments);?>
         <?php use Core\Util\Table; ?>
         <?php $verifTable = new Table() ?>
@@ -18,10 +17,10 @@
                 <th>Id</th>
                 <th>Titre</th>
                 <th>Message</th>
-                <th>Status</th>
                 <th>Publié à</th>
                 <th>Par</th>
-                <th>Modifier</th>
+                <th>Status</th>
+                <th>Afficher</th>
                 <th>Supprimer</th>
             </tr>
             </thead>
@@ -34,8 +33,14 @@
                             <?php foreach($comments[$keys[$i]] as $key => $value) { ?>
                                 <td><?php echo $value ?></td>
                             <?php } ?>
-                            <td><a href="/admin/comment/edit?id=<?php echo $comments[$i]['id'] ?>" class="btn btn--warning btn--sm"><i class="fas fa-edit"></i></a></td>
-                            <td><a href="javascript:confirmDelete('/admin/comment/delete/<?php echo $comments[$i]['id'] ?>')" class="btn btn--danger btn--sm"><i class="fas fa-trash-alt"></i></a></td>
+                            <td>
+                                <?php if($comments[$i]['status'] == 'Non') { ?>
+                                    <a href="comments/publish?id=<?php echo $comments[$i]['id'] ?>" class="btn btn--success btn--sm"><i class="fas fa-share-square"></i></a>
+                                <?php } else { ?>
+                                    <a href="comments/nopublish?id=<?php echo $comments[$i]['id'] ?>" class="btn btn--warning btn--sm"><i class="fas fa-times"></i></a>
+                                <?php } ?>
+                            </td>
+                            <td><a href="javascript:confirmDelete('comments/delete?id=<?php echo $comments[$i]['id'] ?>')" class="btn btn--danger btn--sm"><i class="fas fa-trash-alt"></i></a></td>
                         </tr>
                     <?php }
                 }
@@ -44,8 +49,14 @@
                         <?php foreach($comments as $value) { ?>
                             <td><?php echo $value ?></td>
                         <?php } ?>
-                        <td><a href="/admin/comment/edit?id=<?php echo $comments['id'] ?>" class="btn btn--warning btn--sm"><i class="fas fa-edit"></i></a></td>
-                        <td><a href="javascript:confirmDelete('/admin/comment/delete/<?php echo $comments['id'] ?>')" class="btn btn--danger btn--sm"><i class="fas fa-trash-alt"></i></a></td>
+                        <td>
+                                <?php if($comments[$i]['status'] == 'Non') { ?>
+                                    <a href="comments/publish?id=<?php echo $comments[$i]['id'] ?>" class="btn btn--success btn--sm"><i class="fas fa-share-square"></i></a>
+                                <?php } else { ?>
+                                    <a href="comments/nopublish?id=<?php echo $comments[$i]['id'] ?>" class="btn btn--warning btn--sm"><i class="fas fa-times"></i></a>
+                                <?php } ?>
+                            </td>
+                        <td><a href="javascript:confirmDelete('comments/delete?id=<?php echo $comments['id'] ?>')" class="btn btn--danger btn--sm"><i class="fas fa-trash-alt"></i></a></td>
                     </tr>
                 <?php } ?>
             <?php } ?>
@@ -56,10 +67,10 @@
                 <th>Id</th>
                 <th>Titre</th>
                 <th>Message</th>
-                <th>Status</th>
                 <th>Publié à</th>
                 <th>Par</th>
-                <th>Modifier</th>
+                <th>Status</th>
+                <th>Afficher</th>
                 <th>Supprimer</th>
             </tr>
             </tfoot>

@@ -32,6 +32,15 @@ class UserQuery
     }
 
     /**
+     * @return array $data
+     */
+    public function getUsersMail()
+    {
+        $query = $this->builder->select('email')->from("users");
+        return $query->getResult();
+    }
+
+    /**
      * @param int $id
      * @return string $query
      */
@@ -45,6 +54,11 @@ class UserQuery
 
     public function getIdByEmail($email){
         $query = $this->builder->select("id")->from("users")->where("email = $email");
+        return $query->getResult();
+    }
+
+    public function getEmailById($id){
+        $query = $this->builder->select("email")->from("users")->where("id = $id");
         return $query->getResult();
     }
 

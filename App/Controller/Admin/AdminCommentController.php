@@ -1,36 +1,55 @@
 <?php
 namespace App\Controller\Admin;
 
+use Core\Component\Validator;
+use Core\Http\Request;
+use Core\Controller;
 use App\Form\CommentAddForm;
 use App\Form\CommentEditForm;
 use App\Model\CommentModel;
-use Core\Component\Validator;
-use Core\Controller;
+use App\Model\UserModel;
 use App\Query\CommentQuery;
-use Core\Http\Request;
+use App\Query\UserQuery;
 
 class AdminCommentController extends Controller
 {
+    private $validator;
+
+    private $request;
 
     private $commentQuery;
-    private $request;
+
+    private $userQuery;
+
     private $commentModel;
-    private $validator;
+
+    private $userModel;
 
     public function __construct()
     {
-        $this->commentQuery = new CommentQuery();
+        $this->validator = new Validator();
         $this->request = new Request();
-        $this->commentModel = new CommentModel();
         $this->commentAddForm = new CommentAddForm();
         $this->commentEditForm = new CommentEditForm();
-        $this->validator = new Validator();
+        $this->commentQuery = new CommentQuery();
+        $this->userQuery = new UserQuery();
+        $this->commentModel = new CommentModel();
+        $this->userModel = new UserModel();
 
     }
 
     public function list()
     {
         $comments = $this->commentQuery->getComments();
+        $countComments = count($comments);
+
+        for($y = 0; $y < $countComments; $y++) {
+            $userId = $comments[$y]['user_id'];
+            $userQuery = new UserQuery();
+            $userEmail = $userQuery->getEmailById($userId);
+            $value = array_shift($userEmail);
+            $comments[$y]['user_id'] = $value;
+        }
         $this->render("admin/comment/listComment.phtml", ['comments'=>$comments]);
     }
 
@@ -58,9 +77,9 @@ class AdminCommentController extends Controller
                 }
             }
             else {
-                $form = new CategoryAddForm();
-                $categoryAddForm = $form->getForm();
-                $this->render("admin/article/addCategory.phtml", ['errors' => $errors, 'categoryAdd'=>$categoryAddForm]);
+                $form = new CommentAddForm();
+                $commentAddForm = $form->getForm();
+                $this->render("admin/comment/addComment.phtml", ['errors' => $errors, 'commentAdd'=>$commentAddForm]);
             }
         }
     }
