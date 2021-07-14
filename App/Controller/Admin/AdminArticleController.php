@@ -74,14 +74,14 @@ class AdminArticleController extends Controller {
 
                         $this->request->redirect('/admin/article/list')->with('success', 'L\'article a bien été crée');
                         if ($article->generateViewFile($data['title'],$data['content'],'articles')) {
-                            $this->request->redirect('/admin/articles')->with('success', 'L\'article a bien été publié');
+                            $this->request->redirect('/admin/article/list')->with('success', 'L\'article a bien été publié');
                         }
                         else{
-                            $this->request->redirect('/admin/articles')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                            $this->request->redirect('/admin/article/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                         }
                     }
                     else{
-                        $this->request->redirect('/admin/articles')->with('success', 'L\'article a bien été crée');
+                        $this->request->redirect('/admin/article/list')->with('success', 'L\'article a bien été crée');
                     }
                 }
                 else{
@@ -128,10 +128,10 @@ class AdminArticleController extends Controller {
                                 $article = new PhpFileGenerator();
 
                                 if ($article->generateViewFile($data['slug'],$data['content'],'articles')) {
-                                    $this->request->redirect('/admin/articles')->with('success', 'L\'article a bien été édité');
+                                    $this->request->redirect('/admin/article/list')->with('success', 'L\'article a bien été édité');
                                 }
                                 else{
-                                    $this->request->redirect('/admin/articles')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                                    $this->request->redirect('/admin/article/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                                 }
                             }
                         }
@@ -150,11 +150,11 @@ class AdminArticleController extends Controller {
                         if ($deleteOldView->deleteViewFile($slugInDb['slug'], 'articles')){
 
                         }
-                        $this->request->redirect('/admin/articles')->with('success', 'L\'article a bien été édité');
+                        $this->request->redirect('/admin/article/list')->with('success', 'L\'article a bien été édité');
                     }
                 }
                 else{
-                    $this->request->redirect('/admin/articles')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/article/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                 }
             }
             else{
@@ -188,73 +188,6 @@ class AdminArticleController extends Controller {
             }
         } else {
             $this->request->redirect('/admin/article/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
-        }
-    }
-
-    public function indexCommentsArticle()
-    {
-        $articleId = $this->request->getBody();
-        $id = array_shift($articleId);
-        $commentQuery = new CommentQuery();
-        $comments = $commentQuery->getCommentsByArticleId($id);
-        $countComments = count($comments);
-
-        for($y = 0; $y < $countComments; $y++) {
-            $userId = $comments[$y]['user_id'];
-            $userQuery = new UserQuery();
-            $userEmail = $userQuery->getEmailById($userId);
-            $value = array_shift($userEmail);
-            $comments[$y]['user_id'] = $value;
-        }
-        $this->render("admin/article/listComments.phtml", ['comments'=>$comments]); 
-    }
-
-    public function publishCommentsArticle()
-    {
-        $id = $_GET['id'];
-        if($this->request->isGet()) {
-            $publishQuery = new CommentQuery();
-            $data = [];
-            $data['status'] = 'Publié';
-            if($publishQuery->updateComment($data, $id)) {
-                $this->request->redirect('/admin/articles')->with('success', 'L\'article a bien été supprimé');
-            } else {
-                $this->request->redirect('/admin/articles')->with('error', 'Une erreur c\'est produite veuillez réessayer');
-            }
-        } else {
-            $this->request->redirect('/admin/articles')->with('error', 'Une erreur c\'est produite veuillez réessayer');
-        }
-    }
-
-    public function nopublishCommentsArticle()
-    {
-        $id = $_GET['id'];
-        if($this->request->isGet()) {
-            $publishQuery = new CommentQuery();
-            $data = [];
-            $data['status'] = 'Non';
-            if($publishQuery->updateComment($data, $id)) {
-                $this->request->redirect('/admin/articles')->with('success', 'L\'article a bien été supprimé');
-            } else {
-                $this->request->redirect('/admin/articles')->with('error', 'Une erreur c\'est produite veuillez réessayer');
-            }
-        } else {
-            $this->request->redirect('/admin/articles')->with('error', 'Une erreur c\'est produite veuillez réessayer');
-        }
-    }
-
-    public function deleteCommentArticle()
-    {
-        $id = $_GET['id'];
-        if($this->request->isGet()) {
-            $deleteQuery = new CommentQuery();
-            if($deleteQuery->deleteComment($id)) {
-                $this->request->redirect('/admin/articles')->with('success', 'L\'article a bien été supprimé');
-            } else {
-                $this->request->redirect('/admin/articles')->with('error', 'Une erreur c\'est produite veuillez réessayer');
-            }
-        } else {
-            $this->request->redirect('/admin/articles')->with('error', 'Une erreur c\'est produite veuillez réessayer');
         }
     }
 }

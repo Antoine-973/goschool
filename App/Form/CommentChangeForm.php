@@ -4,14 +4,14 @@ use Core\Interfaces\FormInterface;
 use Core\Facade\Form;
 
 
-class CommentAddForm
+class CommentChangeForm
 {
 
     public function getForm()
     {
-         $form = Form::create('/admin/comment/store')
+         $form = Form::create('/admin/comment/update/'.$stringId)
             ->textarea('message', 'textarea', ['min' => 3, 'max' => 280, 'required' => 'required'])
-            ->input('submit', 'submit', ['value' => 'Poster']);
+            ->input('submit', 'submit', ['value' => 'Modifier']);
         return $form->getForm();
     }
 

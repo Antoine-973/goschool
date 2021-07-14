@@ -10,8 +10,7 @@ class create_comments_table_migration
         $sql = "CREATE TABLE IF NOT EXISTS comments
         (
             `id`  BIGINT(20) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-            `title`  varchar(100) NOT NULL,
-            `message` TEXT NULL,
+            `message` TEXT NOT NULL,
             `status` varchar(20) DEFAULT 'En-attente' NOT NULL,
             `user_id` BIGINT(20) NULL,
             `article_id` BIGINT(20) NULL,

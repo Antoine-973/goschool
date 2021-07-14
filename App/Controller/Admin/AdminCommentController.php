@@ -10,6 +10,7 @@ use App\Model\CommentModel;
 use App\Model\UserModel;
 use App\Query\CommentQuery;
 use App\Query\UserQuery;
+use Core\Http\Session;
 
 class AdminCommentController extends Controller
 {
@@ -25,6 +26,8 @@ class AdminCommentController extends Controller
 
     private $userModel;
 
+    private $session;
+
     public function __construct()
     {
         $this->validator = new Validator();
@@ -35,21 +38,13 @@ class AdminCommentController extends Controller
         $this->userQuery = new UserQuery();
         $this->commentModel = new CommentModel();
         $this->userModel = new UserModel();
-
+        $this->session = new Session();
     }
 
     public function list()
     {
         $comments = $this->commentQuery->getComments();
-        $countComments = count($comments);
 
-        for($y = 0; $y < $countComments; $y++) {
-            $userId = $comments[$y]['user_id'];
-            $userQuery = new UserQuery();
-            $userEmail = $userQuery->getEmailById($userId);
-            $value = array_shift($userEmail);
-            $comments[$y]['user_id'] = $value;
-        }
         $this->render("admin/comment/listComment.phtml", ['comments'=>$comments]);
     }
 
@@ -67,10 +62,14 @@ class AdminCommentController extends Controller
             $data = $this->request->getBody();
             $errors = $this->validator->validate($this->commentModel, $data);
 
+            //TO CHANGE FOR DYNAMIC ARTICLE
+            $data['article_id'] = '1';
+            $data['user_id'] = $this->session->getSession('id');
+
             if(empty($errors)){
                 if($this->commentQuery->create($data))
                 {
-                    $this->request->redirect('/admin/comment/list')->with('success', 'La catégorie a bien été créee');
+                    $this->request->redirect('/admin/comment/list')->with('success', 'Le commentaire a bien été publié');
                 }
                 else{
                     $this->request->redirect('/admin/comment/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
@@ -110,7 +109,7 @@ class AdminCommentController extends Controller
                 $form = new CommentEditForm();
                 $commentEditForm = $form->getForm();
 
-                $this->render("admin/comment/editComment.phtml", ['errors' => $errors, 'categoryEdit'=>$commentEditForm]);
+                $this->render("admin/comment/editComment.phtml", ['errors' => $errors, 'commentEdit'=>$commentEditForm]);
             }
         }
     }
