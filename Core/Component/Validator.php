@@ -119,7 +119,7 @@ class Validator
 
     public function validateUrl($value, $name)
     {
-        $pattern = "/[^\/a-z0-9]/m";
+        $pattern = "/[^-\/a-z0-9]/m";
 
         if(!preg_match($pattern, $value)){
             return true;
