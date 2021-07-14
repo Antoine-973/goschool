@@ -55,13 +55,18 @@ class AdminPageController extends Controller {
             if (empty($errors)){
                 if($this->pageQuery->create($data))
                 {
-                    $page = new PhpFileGenerator();
+                    if ($data['status']=='Publié'){
+                        $page = new PhpFileGenerator();
 
-                    if ($page->generateViewFile($data['url'],$data['content'],'pages')){
-                        $this->request->redirect('/admin/pages')->with('success', 'La page a bien été créee');
+                        if ($page->generateViewFile($data['url'],$data['content'],'pages')){
+                            $this->request->redirect('/admin/pages')->with('success', 'La page a bien été publiée');
+                        }
+                        else{
+                            $this->request->redirect('/admin/pages')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                        }
                     }
                     else{
-                        $this->request->redirect('/admin/pages')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                        $this->request->redirect('/admin/pages')->with('success', 'La page a bien été créee');
                     }
                 }else{
                     $this->request->redirect('/admin/pages')->with('error', 'Une erreur c\'est produite veuillez réessayer');
@@ -92,15 +97,29 @@ class AdminPageController extends Controller {
             $errors = $this->validator->validate($this->pageModel, $dataToUpdate);
 
             if (empty($errors)) {
+
+
+
+                $deleteOldView = new PhpFileGenerator();
+                $page = new PhpFileGenerator();
                 $urlInDb = $this->pageQuery->getUrlById($id);
 
-                if ($urlInDb['url'] != $data['url']) {
-                    $deleteOldView = new PhpFileGenerator();
+                if ($this->pageQuery->updatePage($dataToUpdate, $id)) {
 
-                    if ($deleteOldView->deleteViewFile($urlInDb['url'], 'pages')) {
-                        if ($this->pageQuery->updatePage($dataToUpdate, $id)) {
-                            $page = new PhpFileGenerator();
+                    if ($dataToUpdate['status']=='Publié'){
+                        if ($urlInDb['url'] != $data['url']) {
 
+                            if ($deleteOldView->deleteViewFile($urlInDb['url'], 'pages')) {
+
+
+                                if ($page->generateViewFile($data['url'], $data['content'], 'pages')) {
+                                    $this->request->redirect('/admin/pages')->with('success', 'La page a bien été édité');
+                                } else {
+                                    $this->request->redirect('/admin/pages')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                                }
+                            }
+                        }
+                        else {
                             if ($page->generateViewFile($data['url'], $data['content'], 'pages')) {
                                 $this->request->redirect('/admin/pages')->with('success', 'La page a bien été édité');
                             } else {
@@ -108,16 +127,11 @@ class AdminPageController extends Controller {
                             }
                         }
                     }
-                }
-                else {
-                    if ($this->pageQuery->updatePage($dataToUpdate, $id)) {
-                        $page = new PhpFileGenerator();
+                    else {
+                        if ($deleteOldView->deleteViewFile($urlInDb['url'], 'pages')){
 
-                        if ($page->generateViewFile($data['url'], $data['content'], 'pages')) {
-                            $this->request->redirect('/admin/pages')->with('edited', 'La page a bien été édité');
-                        } else {
-                            $this->request->redirect('/admin/pages')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
                         }
+                        $this->request->redirect('/admin/pages')->with('success', 'La page a bien été édité');
                     }
                 }
             }
