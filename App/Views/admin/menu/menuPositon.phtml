@@ -1,0 +1,24 @@
+<div class="content admin-newsletter--list">
+    <div class="col-gutter-12">
+        <h1>Menus</h1>
+        <a href="/admin/menu/add">Créer un nouveau menu</a>
+        <a href="/admin/menu/position">Gérer les amplacements des menus</a>
+        <div class="row">
+            <?php
+
+            $menuQuery = new \App\Query\MenuQuery();
+
+            if (!empty($menuQuery->getMenusName()))
+            {?>
+                <div>
+                    <h2>Choisissez un menu à éditer</h2>
+                    <?= $positionMenu; ?>
+                </div>
+            <?php }
+            else{ ?>
+            <p>Vous devez d'abord créer un des menus avant de pouvoir choisir leurs emplacements dans le site. </p>
+            <a class="btn btn-info" href="/admin/menu/add">Ajouter un menu</a>
+            <?php } ?>
+        </div>
+    </div>
+</div>

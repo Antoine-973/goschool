@@ -21,15 +21,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>goSchool - Admin</title>
-    <link rel="stylesheet" type="text/css" href="/librairies/dist/main.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <script src="/librairies/dist/main.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="/librairies/webpack/node_modules/chart.js/dist/chart.js"></script>
     <link href='/librairies/webpack/node_modules/fullcalendar/main.css' rel='stylesheet' />
     <script src='/librairies/webpack/node_modules/fullcalendar/main.js'></script>
+    <link rel="stylesheet" type="text/css" href="/librairies/dist/main.css">
+    <script src="/librairies/dist/main.js"></script>
 </head>
 <body>
     <div class="container--fluid">
@@ -65,22 +65,29 @@
                             <a href="/admin/dashboard/index"><img src="/images/logo.png" alt=""></a>
                         </div>
                         <div class="admin-menu-links">
-                            <ul>
-                                <li><a href="/admin/dashboard/index"><i class="fas fa-tachometer-alt"></i>Tableau de bord</a></li>
-                                <li><a href="/admin/article/list"><i class="fas fa-pen"></i>  Articles</a></li>
-                                <li><a href="/admin/category/list"><i class="fas fa-book-open"></i>  Catégories</a></li>
-                                <li><a href="/admin/page/list"><i class="fas fa-copy"></i>  Pages</a></li>
-                                <li><a href="/admin/media/list"><i class="fas fa-photo-video"></i>  Médias</a></li>
-                                <li><a href="#"><i class="fas fa-brush"></i>  Apparence</a></li>
-                                <li><a href="/admin/user/list"><i class="fas fa-user"></i>  Utilisateurs</a></li>
-                                <li><a href="/admin/comment/list"><i class="fas fa-comment"></i>  Commentaires</a></li>
-                                <li><a href="#"><i class="far fa-calendar-alt"></i>  Planning</a></li>
-                                <li><a href="#"><i class="far fa-newspaper"></i>  Newsletters</a></li>
-                            </ul>
-                        </div>
-                        <div class="admin-menu-links parameters">
-                            <ul>
-                                <li><a href="/admin/param/index"><i class="fas fa-cog"></i> Paramètres</a></li>
+                            <ul class="sidebar-menu">
+                                <li class="sidebar-section"><a href="/admin"><i class="fas fa-tachometer-alt"></i>Tableau de bord</a></li>
+                                <li class="sidebar-section"><a href="/admin/articles"><i class="fas fa-pen"></i>  Articles</a></li>
+                                <li class="sidebar-section"><a href="/admin/categories"><i class="fas fa-book-open"></i>  Catégories</a></li>
+                                <li class="sidebar-section"><a href="/admin/pages"><i class="fas fa-copy"></i>  Pages</a></li>
+                                <li class="sidebar-section"><a href="/admin/medias"><i class="fas fa-photo-video"></i>  Médias</a></li>
+                                <ul class="sidebar-menu dropdown-main">
+                                    <li class="dropdown-section">
+                                    <a><i class="fas fa-brush"></i>  Apparence <i class="fa fa-caret-down"></i></a>
+                                        <ul class="dropdown-container dropdown-menu">
+                                            <li style="margin-top: 5px"><a href="/admin/themes"><i class="fas fa-columns"></i> Thèmes</a></li>
+                                            <li><a href="/admin/menus"><i class="fas fa-bars"></i> Menus</a></li>
+                                            <li><a href="/admin/personnalisation"><i class="fas fa-pencil-ruler"></i> Personnalisation</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <li class="sidebar-section"><a href="/admin/users"><i class="fas fa-user"></i>  Utilisateurs</a></li>
+                                <li class="sidebar-section"><a href="/admin/comments"><i class="fas fa-comment"></i>  Commentaires</a></li>
+                                <li class="sidebar-section"><a href="/admin/plannings"><i class="far fa-calendar-alt"></i>  Planning</a></li>
+                                <li class="sidebar-section"><a href="/admin/newsletters"><i class="far fa-newspaper"></i>  Newsletters</a></li>
+                                <ul class="parameters sidebar-menu">
+                                    <li class="sidebar-section"><a href="/admin/param"><i class="fas fa-cog"></i> Paramètres</a></li>
+                                </ul>
                             </ul>
                         </div>
                     </nav>

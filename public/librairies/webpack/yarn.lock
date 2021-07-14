@@ -1924,10 +1924,10 @@ chalk@^4.1.0, chalk@^4.1.1:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
 
-charenc@0.0.2:
-  version "0.0.2"
-  resolved "https://registry.npmjs.org/charenc/-/charenc-0.0.2.tgz"
-  integrity sha1-wKHS86cJLgN3S/qD8UwPxXkKhmc=
+"content-type@~1.0.4":
+  "integrity" "sha512-hIP3EEPs8tB9AT1L+NUqtwOAps4mk2Zob89MWXMHjHWg9milF/j4osnnQLXBCBFBk/tvIG/tUc9mOUJiPBhPXA=="
+  "resolved" "https://registry.npmjs.org/content-type/-/content-type-1.0.4.tgz"
+  "version" "1.0.4"
 
 chart.js@^3.4.0:
   version "3.4.0"
@@ -1992,7 +1992,8 @@ clean-css@^4.2.3:
   resolved "https://registry.npmjs.org/clean-css/-/clean-css-4.2.3.tgz"
   integrity sha512-VcMWDN54ZN/DS+g58HYL5/n4Zrqe8vHJpGA8KdgUXFU4fuP/aHNw8eld9SyEIyabIMJX/0RaY/fplOo5hYLSFA==
   dependencies:
-    source-map "~0.6.0"
+    "bn.js" "^4.1.0"
+    "elliptic" "^6.5.3"
 
 "create-ecdh@^4.0.0":
   "integrity" "sha512-mf+TCx8wWc9VpuxfP2ht0iSISLZnt0JgWlrOKZiNqyUZWnjIaCIVNQArMHnCZKfEYRg6IM7A+NeJoN8gf/Ws0A=="
@@ -4425,10 +4426,12 @@ p-timeout@^3.1.0:
   dependencies:
     p-finally "^1.0.0"
 
-p-try@^2.0.0:
-  version "2.2.0"
-  resolved "https://registry.npmjs.org/p-try/-/p-try-2.2.0.tgz"
-  integrity sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==
+"p-locate@^4.1.0":
+  "integrity" "sha512-R79ZZ/0wAxKGu3oYMlz8jy/kbhsNrS7SKZ7PxEHBgJ5+F2mtFW2fK2cOtBh1cHYkQsbzFV7I+EoRKe6Yt0oK7A=="
+  "resolved" "https://registry.npmjs.org/p-locate/-/p-locate-4.1.0.tgz"
+  "version" "4.1.0"
+  dependencies:
+    "p-limit" "^2.2.0"
 
 pako@~1.0.5:
   version "1.0.11"
@@ -4440,8 +4443,7 @@ param-case@^3.0.3:
   resolved "https://registry.npmjs.org/param-case/-/param-case-3.0.4.tgz"
   integrity sha512-RXlj7zCYokReqWpOPH9oYivUzLYZ5vAPIfEmCTNViosC78F8F0H9y7T7gG2M39ymgutxF5gcFEsyZQSph9Bp3A==
   dependencies:
-    dot-case "^3.0.4"
-    tslib "^2.0.3"
+    "aggregate-error" "^3.0.0"
 
 parent-module@^1.0.0:
   version "1.0.1"
@@ -4551,18 +4553,16 @@ postcss-calc@^8.0.0:
   resolved "https://registry.npmjs.org/postcss-calc/-/postcss-calc-8.0.0.tgz"
   integrity sha512-5NglwDrcbiy8XXfPM11F3HeC6hoT9W7GUH/Zi5U/p7u3Irv4rHhdDcIZwG0llHXV4ftsBjpfWMXAnXNl4lnt8g==
   dependencies:
-    postcss-selector-parser "^6.0.2"
-    postcss-value-parser "^4.0.2"
+    "find-up" "^4.0.0"
 
 postcss-colormin@^5.2.0:
   version "5.2.0"
   resolved "https://registry.npmjs.org/postcss-colormin/-/postcss-colormin-5.2.0.tgz"
   integrity sha512-+HC6GfWU3upe5/mqmxuqYZ9B2Wl4lcoUUNkoaX59nEWV4EtADCMiBqui111Bu8R8IvaZTmqmxrqOAqjbHIwXPw==
   dependencies:
-    browserslist "^4.16.6"
-    caniuse-api "^3.0.0"
-    colord "^2.0.1"
-    postcss-value-parser "^4.1.0"
+    "async" "^2.6.2"
+    "debug" "^3.1.1"
+    "mkdirp" "^0.5.5"
 
 postcss-convert-values@^5.0.1:
   version "5.0.1"
@@ -5411,12 +5411,18 @@ semver@^7.3.2, semver@^7.3.5:
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.3.5.tgz#0b621c879348d8998e4b0e4be94b3f12e6018ef7"
   integrity sha512-PoeGJYh8HK4BTO/a9Tf6ZG3veo/A7ZVsYrSA6J8ny9nb3B1VrpkuN+z9OE5wfE5p6H4LchYZsegiQgbJD94ZFQ==
   dependencies:
-    lru-cache "^6.0.0"
+    "accepts" "~1.3.4"
+    "batch" "0.6.1"
+    "debug" "2.6.9"
+    "escape-html" "~1.0.3"
+    "http-errors" "~1.6.2"
+    "mime-types" "~2.1.17"
+    "parseurl" "~1.3.2"
 
-send@0.17.1:
-  version "0.17.1"
-  resolved "https://registry.npmjs.org/send/-/send-0.17.1.tgz"
-  integrity sha512-BsVKsiGcQMFwT8UxypobUKyv7irCNRHk1T0G680vk88yf6LBByGcZJOTJCrTP2xVN6yI+XjPJcNuE3V4fT9sAg==
+"serve-static@1.14.1":
+  "integrity" "sha512-JMrvUwE54emCYWlTI+hGrGv5I8dEwmco/00EvkzIIsR7MqrHonbD9pO2MOfFnpFntl7ecpZs+3mW+XbQZu9QCg=="
+  "resolved" "https://registry.npmjs.org/serve-static/-/serve-static-1.14.1.tgz"
+  "version" "1.14.1"
   dependencies:
     debug "2.6.9"
     depd "~1.1.2"

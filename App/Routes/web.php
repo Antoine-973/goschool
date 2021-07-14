@@ -73,7 +73,18 @@ $route->get('/admin/comment/edit', ['controller' => 'AdminCommentController', 'm
 $route->post('/admin/comment/edit', ['controller' => 'AdminCommentController', 'method' => 'editComment']);
 $route->get('/admin/comment/delete', ['controller' => 'AdminCommentController', 'method' => 'deleteComment']);
 
-$route->get('/admin/apparence', ['controller' => 'AdminAppearanceController', 'method' => 'indexAppearance']);
+$route->get('/admin/themes', ['controller' => 'AdminThemeController', 'method' => 'indexTheme']);
+$route->get('/admin/menus', ['controller' => 'AdminMenuController', 'method' => 'menu']);
+$route->post('/admin/menus', ['controller' => 'AdminMenuController', 'method' => 'select']);
+$route->get('/admin/menu/add', ['controller' => 'AdminMenuController', 'method' => 'add']);
+$route->post('/admin/menu/add', ['controller' => 'AdminMenuController', 'method' => 'store']);
+$route->get('/admin/menu/edit', ['controller' => 'AdminMenuController', 'method' => 'edit']);
+$route->post('/admin/menu/edit', ['controller' => 'AdminMenuController', 'method' => 'update']);
+$route->get('/admin/menu/delete', ['controller' => 'AdminMenuController', 'method' => 'delete']);
+$route->get('/admin/menu/position', ['controller' => 'AdminMenuController', 'method' => 'position']);
+$route->post('/admin/menu/position', ['controller' => 'AdminMenuController', 'method' => 'postPosition']);
+
+$route->get('/admin/personnalisation', ['controller' => 'AdminCustomizationController', 'method' => 'indexCustomization']);
 
 $route->get('/admin/plannings', ['controller' => 'AdminPlanningController', 'method' => 'indexPlanning']);
 
