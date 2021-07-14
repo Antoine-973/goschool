@@ -8,7 +8,7 @@ class UserRegisterForm
     public function getForm()
     {
 
-        $form = Form::create('/admin/register')
+        $form = Form::create('/admin/auth/store')
                 ->input('firstname', 'text', ['value' => 'Prénom', 'min' => 4, 'max' => 55, 'required' => 'required'])
                 ->input('lastname', 'text', ['value' => 'Nom'])
                 ->input('email', 'email', ['value' => 'Addresse E-mail', 'min' => 4, 'max' => 55])

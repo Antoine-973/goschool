@@ -94,8 +94,8 @@ class AdminAuthController extends Controller{
                         if ($user['verified'] == '1'){
 
                             $selectIdQuery = new UserQuery();
-                            $this->session->setSession('user',$user);
-                            $user = $selectIdQuery->getIdbyEmail($data['email']);
+                            $idUser = $selectIdQuery->getIdbyEmail($data['email']);
+                            $this->session->setSession('id',$idUser['id']);
                             $this->request->redirect('/admin/dashboard/index')->with('success', 'Connecté avec succès');
                         }
                         else{
@@ -148,7 +148,7 @@ class AdminAuthController extends Controller{
                         );
 
                         $url = new Url();
-                        $generateUrl = $url->generateUrlWithParameters('/admin/verify', $urlParams);
+                        $generateUrl = $url->generateUrlWithParameters('/admin/auth/verify', $urlParams);
 
                         $email = new UserRegisterValidationEmail();
 

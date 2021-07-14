@@ -22,7 +22,7 @@ class Controller{
             $contentEditorLayout = $template->getContentEditorLayout();
             echo \str_replace('{{content}}', $viewContent, $contentEditorLayout);
         }
-        elseif (strpos($namespace[count($namespace)-1], 'Registration') !== false){
+        elseif (strpos($namespace[count($namespace)-1], 'AdminAuthController') !== false){
 
             $registrationLayout = $template->getRegistrationLayout();
             echo \str_replace('{{content}}', $viewContent, $registrationLayout);

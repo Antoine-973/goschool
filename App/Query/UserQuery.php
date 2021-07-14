@@ -24,6 +24,13 @@ class UserQuery
         return $query->getResult();
     }
 
+    public function getUsersByEmail($email)
+    {
+        $query = $this->builder->select("id, firstname, lastname, email, roles")->from("users")->where("email = $email");
+
+        return $query->getResult();
+    }
+
     /**
      * @param int $id
      * @return string $query

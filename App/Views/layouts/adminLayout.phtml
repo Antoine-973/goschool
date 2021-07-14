@@ -1,3 +1,19 @@
+<?php
+    use App\Query\UserQuery;
+    use Core\Http\Session;
+    use Core\Util\SessionHelper;
+
+    $sessionHelper = new SessionHelper();
+    $session = new Session();
+    $sessionHelper->redirectToLoginIfNotConnected();
+
+    $user = new UserQuery();
+    $memberResult = $user->getUserById($session->getSession('id'));
+    $firstname = $memberResult['firstname'];
+    $lastname = $memberResult['lastname'];
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -22,27 +38,10 @@
                 <div class="admin-topbar">
                     <div class="user-controls">
                         <div class="identity">
-                            <?php
-                            use App\Query\UserQuery;
-                            use Core\Http\Request;
-                            use Core\Http\Session;
-                            use Core\Util\SessionHelper;
-
-                            $sessionHelper = new SessionHelper();
-                            $session = new Session();
-                            $sessionHelper->redirectToLoginIfNotConnected();
-
-                            $user = new UserQuery();
-                            $memberResult = $user->getUserById($session->getSession('id'));
-                            $displayName = $memberResult['firstname'] . ' ' . $memberResult['lastname'];
-
-
-                            ?>
-
                             <ul>
                                 <?php
                                 if (isset($firstname)&& isset($lastname)){ ?>
-                                <li><a href="/admin/user/profil"><i class="fas fa-user">  <?= $firstname . ' ' . $lastname ?></i></a></li>
+                                <li><a href="/admin/user/profil"><i class="fas fa-user"><?= $firstname . $lastname ?></i></a></li>
                                 <?php }  ?></a></li>
                                 | <li><a href="/admin/auth/logout">Déconnexion</a></li>
                             </ul>

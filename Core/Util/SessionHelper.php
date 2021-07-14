@@ -28,7 +28,7 @@ class SessionHelper
     public function redirectToDashboardIfAlreadyLogged(){
         if($this->session->getSession('id')){
             $request = new Request();
-            $request->redirect('/admin')->with('success','Vous êtes déjà connecté !');
+            $request->redirect('/admin/dashboard/index')->with('success','Vous êtes déjà connecté !');
         }
         else{
 
