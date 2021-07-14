@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Form\SelectMenuForm;
+use App\Form\SelectMenuPositionForm;
 use App\Query\MenuQuery;
 use App\Query\PageQuery;
 use Core\Controller;
@@ -160,6 +161,47 @@ class AdminMenuController extends Controller
 
         $this->render("admin/menu/menuPositon.phtml", ['positionMenu' => $positionMenu]);
     }
+
+    public function postPosition(){
+
+        $data =$this->request->getBody();
+
+        foreach ($data as $position => $menu){
+
+            $resetMenuPositionQuery = new MenuQuery();
+
+            if ($menu != 'Aucun'){
+
+                if (!empty($resetMenuPositionQuery->getPositionByPosition($position))){
+                    $dataToUpdate = [
+                        'position' => NULL
+                    ];
+
+                    $resetMenuPositionQuery->updatePositionToNull($dataToUpdate, $position);
+                }
+
+                $menuPositionQuery = new MenuQuery();
+
+                $dataToUpdate = [
+                    'position' => $position
+                ];
+
+                $id = $menuPositionQuery->getMenuIdByName($menu)['id'];
+
+                if ($menuPositionQuery->update($dataToUpdate,$id)){
+                }
+            }
+            else{
+                if (!empty($resetMenuPositionQuery->getPositionByPosition($position))){
+                    $dataToUpdate = [
+                        'position' => NULL
+                    ];
+
+                    $resetMenuPositionQuery->updatePositionToNull($dataToUpdate, $position);
+                }
+            }
+        }
+        $this->request->redirect('/admin/menus')->with('success', 'Les positions des menus ont été modifié.');
     }
 
 
