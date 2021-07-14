@@ -29,7 +29,7 @@ class AdminMenuController extends Controller
         $this->pageQuery = new PageQuery();
     }
 
-    public function menu()
+    public function index()
     {
         $form = new SelectMenuForm();
         $selectMenuForm = $form->getForm();
@@ -81,9 +81,9 @@ class AdminMenuController extends Controller
                         $havePageQuery->create($pageToUpdate, $page_id);
                     }
                 }
-                $this->request->redirect('/admin/menus')->with('success', 'Le menu a bien été créer, vous pouvez maintenant choisir son emplacement dans le site.');
+                $this->request->redirect('/admin/menu/index')->with('success', 'Le menu a bien été créer, vous pouvez maintenant choisir son emplacement dans le site.');
             }else{
-                $this->request->redirect('/admin/menus')->with('error', 'Une erreur c\'est produite. Veuillez réessayer.');
+                $this->request->redirect('/admin/menu/index')->with('error', 'Une erreur c\'est produite. Veuillez réessayer.');
             }
         }
     }
@@ -130,10 +130,10 @@ class AdminMenuController extends Controller
                         }
                     }
                 }
-                $this->request->redirect('/admin/menus')->with('success', 'Le menu a bien été créer, vous pouvez maintenant choisir son emplacement dans le site.');
+                $this->request->redirect('/admin/menu/index')->with('success', 'Le menu a bien été créer, vous pouvez maintenant choisir son emplacement dans le site.');
             }
             else{
-                $this->request->redirect('/admin/menus')->with('error', 'Une erreur c\'est produite. Veuillez réessayer.');
+                $this->request->redirect('/admin/menu/index')->with('error', 'Une erreur c\'est produite. Veuillez réessayer.');
             }
         }
     }
@@ -146,12 +146,12 @@ class AdminMenuController extends Controller
             $deleteQuery = new MenuQuery();
 
             if($deleteQuery->delete($id)) {
-                $this->request->redirect('/admin/menus')->with('success', 'Le menu a bien été supprimé');
+                $this->request->redirect('/admin/menu/index')->with('success', 'Le menu a bien été supprimé');
             } else {
-                $this->request->redirect('/admin/menus')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                $this->request->redirect('/admin/menu/index')->with('error', 'Une erreur c\'est produite veuillez réessayer');
             }
         } else {
-            $this->request->redirect('/admin/menus')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+            $this->request->redirect('/admin/menu/index')->with('error', 'Une erreur c\'est produite veuillez réessayer');
         }
     }
 
@@ -201,7 +201,7 @@ class AdminMenuController extends Controller
                 }
             }
         }
-        $this->request->redirect('/admin/menus')->with('success', 'Les positions des menus ont été modifié.');
+        $this->request->redirect('/admin/menu/index')->with('success', 'Les positions des menus ont été modifié.');
     }
 
 

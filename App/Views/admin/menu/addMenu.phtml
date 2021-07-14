@@ -7,7 +7,7 @@
 
         if (!empty($pages)){ ?>
 
-            <form class="container--fluid">
+            <form class="container--fluid" action="store">
                 <div class="row">
                     <label for="name">Nom du menu</label>
                     <input type="text" name="name">
@@ -36,6 +36,8 @@
             <p>Vous devez d'abord créer des pages avant de pouvoir créer des menus</p>
             <a class="btn btn-info" href="/admin/page/add">Ajouter une nouvelle page</a>
        <?php } ?>
+
+        <div class="back-to-list">  <a href="/admin/menu/index" class="btn btn--infos btn--sm">Revenir à la liste</a></div>
 
 
     </div>

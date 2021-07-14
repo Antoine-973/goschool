@@ -25,7 +25,7 @@ class SelectMenuForm
             $menusName = $convertTable->multi_to_single($menusName);
         }
 
-        $form = Form::create('/admin/menus')
+        $form = Form::create('/admin/menu/select')
             ->select('name', 'Nom', ['id' => 'name', 'name' => 'name', 'options' => $menusName])
             ->input('submit', 'submit', ['value' => 'Editer']);
         return $form->getForm();

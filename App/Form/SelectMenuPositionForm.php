@@ -28,7 +28,7 @@ class SelectMenuPositionForm
         array_unshift($menusName , 'Aucun');
 
 
-        $form = Form::create('/admin/menu/position')
+        $form = Form::create('/admin/menu/postPosition')
             ->select('navbar', 'Navbar', ['id' => 'navbar', 'name' => 'navbar', 'options' => $menusName])
             ->select('footer', 'Footer', ['id' => 'footer', 'name' => 'footer', 'options' => $menusName])
             ->select('sidebar', 'Sidebar', ['id' => 'sidebar', 'name' => 'sidebar', 'options' => $menusName])

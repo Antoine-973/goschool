@@ -20,7 +20,7 @@ class AdminThemeController extends Controller
         $this->response = new Response();
     }
 
-    public function indexTheme()
+    public function index()
     {
         $this->render("admin/theme/theme.phtml");
     }

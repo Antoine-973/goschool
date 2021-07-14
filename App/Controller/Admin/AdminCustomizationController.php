@@ -20,7 +20,7 @@ class AdminCustomizationController extends Controller
         $this->response = new Response();
     }
 
-    public function indexCustomization()
+    public function index()
     {
         $this->render("admin/customization/customization.phtml");
     }

@@ -13,7 +13,7 @@
         $menu = $menuQuery->getMenu($stringId);
         ?>
 
-            <form class="container--fluid">
+            <form class="container--fluid" action="update">
                 <div class="row">
                     <input type="hidden" name="id" value="<?php echo $stringId; ?>">
                 </div>
@@ -43,5 +43,8 @@
             </form>
 
             <a href="/admin/menu/delete?id=<?php echo $stringId ?>">Supprimer</a>
+
+            <div class="back-to-list">  <a href="/admin/menu/index" class="btn btn--infos btn--sm">Revenir à la liste</a></div>
+
     </div>
 </div>

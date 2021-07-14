@@ -20,7 +20,7 @@ class AdminPlanningController extends Controller{
         $this->response = new Response();
     }
 
-    public function indexPlanning()
+    public function index()
     {
         $this->render("admin/planning/planning.phtml");
     }

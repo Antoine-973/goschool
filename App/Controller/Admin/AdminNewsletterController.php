@@ -19,7 +19,7 @@ class AdminNewsletterController extends Controller
         $this->response = new Response();
     }
 
-    public function indexNewsletter()
+    public function index()
     {
         $this->render("admin/newsletter/newsletter.phtml");
     }

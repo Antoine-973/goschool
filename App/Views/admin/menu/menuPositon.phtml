@@ -11,14 +11,18 @@
             if (!empty($menuQuery->getMenusName()))
             {?>
                 <div>
-                    <h2>Choisissez un menu à éditer</h2>
+                    <h2>Choisissez quels menus doivent appraitre dans les emplacements suivant :</h2>
                     <?= $positionMenu; ?>
                 </div>
             <?php }
             else{ ?>
-            <p>Vous devez d'abord créer un des menus avant de pouvoir choisir leurs emplacements dans le site. </p>
-            <a class="btn btn-info" href="/admin/menu/add">Ajouter un menu</a>
+                    <div>
+                        <p>Vous devez d'abord créer un des menus avant de pouvoir choisir leurs emplacements dans le site. </p>
+                        <a class="btn btn-info" href="/admin/menu/add">Ajouter un menu</a>
+                    </div>
             <?php } ?>
+
+            <div class="back-to-list"><a href="/admin/menu/index" class="btn btn--infos btn--sm">Revenir à la liste</a></div>
         </div>
     </div>
 </div>
