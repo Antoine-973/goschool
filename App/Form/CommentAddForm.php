@@ -28,7 +28,7 @@ class CommentAddForm
             ->textarea('message', 'textarea', ['min' => 3, 'max' => 280, 'required' => 'required'])
             ->select('article','Article',['id' => 'article', 'name' => 'article', 'options' => $articles])
             ->select('user','Utilisateur',['id' => 'user', 'name' => 'user', 'options' => $users])
-            ->select('status','Statut',['id' => 'status', 'name' => 'status', 'options' => ['Publié','Non publié']])
+            ->select('status','Statut',['id' => 'status', 'name' => 'status', 'options' => ['Publié','Non']])
             ->input('submit', 'submit', ['value' => 'Poster']);
         return $form->getForm();
     }

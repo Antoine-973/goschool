@@ -40,17 +40,17 @@ class AdminCommentController extends Controller
 
     public function indexListComment()
     {
-        $comments = $this->commentQuery->getComments(); // Récupération de tout les commentaires.
-        $countComments = count($comments); // Compter le nombre total de commentaire.
+        $comments = $this->commentQuery->getComments();
+        $countComments = count($comments);
 
-        for($y = 0; $y < $countComments; $y++) { // Change la valeur de user_id dans le tableau par le mail de l'user.
+        for($y = 0; $y < $countComments; $y++) {
             $userId = $comments[$y]['user_id'];
             $userQuery = new UserQuery();
             $userEmail = $userQuery->getEmailById($userId);
-            $value = array_shift($userEmail); // Dépile l'élément qu'on a obtenu de getEmailById.
+            $value = array_shift($userEmail);
             $comments[$y]['user_id'] = $value;
         }
-        $this->render("admin/comment/listComment.phtml", ['comments'=>$comments]); // Retourne à la view la liste de commentaire.
+        $this->render("admin/comment/listComment.phtml", ['comments'=>$comments]);
     }
 
     public function indexAddComment()

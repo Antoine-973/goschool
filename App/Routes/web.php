@@ -38,7 +38,9 @@ $route->get('/admin/article/edit', ['controller' => 'AdminArticleController', 'm
 $route->post('/admin/article/edit', ['controller' => 'AdminArticleController', 'method' => 'editArticle']);
 $route->get('/admin/article/delete', ['controller' => 'AdminArticleController', 'method' => 'deleteArticle']);
 $route->get('/admin/article/comments', ['controller' => 'AdminArticleController', 'method' => 'indexCommentsArticle']);
-$route->post('/admin/article/comments', ['controller' => 'AdminArticleController', 'method' => 'manageCommentsArticle']);
+$route->get('/admin/article/comments/publish', ['controller' => 'AdminArticleController', 'method' => 'publishCommentsArticle']);
+$route->get('/admin/article/comments/nopublish', ['controller' => 'AdminArticleController', 'method' => 'nopublishCommentsArticle']);
+$route->get('/admin/article/comments/delete', ['controller' => 'AdminArticleController', 'method' => 'deleteCommentArticle']);
 
 $route->get('/admin/categories', ['controller' => 'AdminCategoryController', 'method' => 'indexListCategory']);
 $route->get('/admin/categorie/add', ['controller' => 'AdminCategoryController', 'method' => 'indexAddCategory']);

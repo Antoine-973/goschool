@@ -24,7 +24,7 @@ class CommentQuery{
 
     public function getCommentsByArticleId(int $id)
     {
-        $query = $this->builder->select('id, title, message, status, created_at, user_id')->from("comments")->where("article_id = $id");
+        $query = $this->builder->select('id, title, message, created_at, user_id, status')->from("comments")->where("article_id = $id");
         return $query->getResult();
     }
 
