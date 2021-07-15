@@ -1,7 +1,8 @@
 <?php
-//@TODO get menu items from database and render
+use App\Query\CategoryQuery;
+$categoryQuery = new CategoryQuery();
+$categories = $categoryQuery->orderByDate();
 
-//exemple menu items
 $menuItem = [
     "Accueil" => "<a href='/accueil'>",
     "About" => "<a href='/about'>",
@@ -43,13 +44,17 @@ $menuCatItem = [
             <div class="col-3">
                 <h6>Catégories</h6>
                 <ul class="footer-links">
-                    <?php if($menuCatItem): ?>
-                        <?php foreach($menuCatItem as $name => $link): ?>
+                    <?php if($categories != null) { ?>
+                        <?php for($i = 0; $i < 5;$i++):?>
                             <li>
-                                <?php echo $link . $name . "</a>";?>
+                                <a href=''><?php echo $categories[$i]['name']?></a>
                             </li>
-                        <?php endforeach;?>
-                    <?php endif;?>
+                        <?php endfor;?>
+                    <?php }else{ ?>
+                        <li>
+                            <a href=''>Pas de catégorie.</a>
+                        </li>
+                    <?php } ?>
                 </ul>
             </div>
         </div>

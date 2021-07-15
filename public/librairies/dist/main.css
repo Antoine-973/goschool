@@ -1733,7 +1733,7 @@ body.admin-login .col-6.connexion-form .container-form .form-input input[type=su
   color: #363740;
 }
 .site-main--footer {
-  position: fixed;
+  position: relative;
   left: 0;
   bottom: 0;
   width: 100%;

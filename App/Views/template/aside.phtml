@@ -1,25 +1,10 @@
 <?php
 use App\Query\ArticleQuery;
-
+use App\Query\CommentQuery;
 $articleQuery = new ArticleQuery();
+$commentQuery = new CommentQuery();
 $articles = $articleQuery->orderByDate();
-$articleItem = [];
-$articleItem = $articles['title'];
-
-$eventItem = [
-    "Event 1" => "<a href=''>",
-    "Event 2" => "<a href=''>",
-    "Event 3" => "<a href=''>",
-    "Event 4" => "<a href=''>",
-];
-
-$commentItem = [
-    "Comment 1" => "<a href=''>",
-    "Comment 2" => "<a href=''>",
-    "Comment 3" => "<a href=''>",
-    "Comment 4" => "<a href=''>",
-];
-
+$comments = $commentQuery->orderByDate();
 ?>
 
 <aside id="aside" class="site-main--aside">
@@ -27,39 +12,37 @@ $commentItem = [
         <hr>
         <h5>Dernières actualités :</h6>
         <hr>
-        <h6>Evenements :</h6>
-        <ul>
-        <?php if($eventItem): ?>
-            <?php foreach($eventItem as $name => $link): ?>
-                <li>
-                    <?php echo $link . $name . "</a>";?>
-                </li>
-            <?php endforeach;?>
-        <?php endif;?>
-        </ul>
     </div>
     <div class="container">
         <h6>Articles :</h6>
         <ul>
-        <?php if($articleItem): ?>
-            <?php foreach($articleItem as $item):?>
+            <?php if($articles != null) { ?>
+                <?php for($y = 0; $y < 4;$y++):?>
+                    <li>
+                        <a href=''><?php echo $articles[$y]['title'].'<br>'.$articles[$y]['created_at'].'<br>' ?></a>
+                    </li>
+                <?php endfor;?>
+            <?php }else{ ?>
                 <li>
-                    <?php echo $item ;?>
+                    <a href=''>Pas d'article.</a>
                 </li>
-            <?php endforeach;?>
-        <?php endif;?>
+            <?php } ?>
         </ul>
     </div>
     <div class="container">
         <h6>Commentaires :</h6>
         <ul>
-        <?php if($commentItem): ?>
-            <?php foreach($commentItem as $name => $link): ?>
+            <?php if($comments != null) { ?>
+                <?php for($i = 0; $i < 4;$i++):?>
+                    <li>
+                        <a href=''><?php echo substr($comments[$i]['message'],0,45).'... <br>'.$comments[$i]['created_at'].'<br><br>' ?></a>
+                    </li>
+                <?php endfor;?>
+            <?php }else{ ?>
                 <li>
-                    <?php echo $link . $name . "</a>";?>
+                    <a href=''>Pas de commentaire.</a>
                 </li>
-            <?php endforeach;?>
-        <?php endif;?>
+            <?php } ?>
         </ul>
     </div>
     <div class="container">
