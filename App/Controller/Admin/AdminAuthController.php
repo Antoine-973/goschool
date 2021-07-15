@@ -342,6 +342,10 @@ class AdminAuthController extends Controller{
         }
     }
 
+    public function forbidden(){
+        $this->render("403.phtml");
+    }
+
     public function DBConnection($data)
     {/*
         (new DotEnv(dirname(dirname(dirname(__DIR__))) . '/.env'))->load();
