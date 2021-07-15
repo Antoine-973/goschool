@@ -80,8 +80,16 @@ class Request{
 
     public function redirect($route, $statusCode = 303)
     {
-       
-        header('Location: ' . $route, true, $statusCode);
+       if(!headers_sent()){
+        header('Location: ' . $route, true, $statusCode);exit;
+       }
+
+        return $this;
+    }
+
+    public function redirectToLast()
+    {
+        header('Location: ' . $_SERVER['HTTP_REFERER']);exit;
         return $this;
     }
 

@@ -8,6 +8,7 @@ use App\Model\UserModel;
 use App\Query\UserQuery;
 use App\Model\ArticleModel;
 use App\Query\ArticleQuery;
+use Core\Http\Session;
 
 class AdminDashboardController extends Controller{
 
@@ -22,6 +23,8 @@ class AdminDashboardController extends Controller{
     private $userModel;
 
     private $userQuery;
+
+    private $session;
 
     public function __construct()
     {
@@ -41,7 +44,17 @@ class AdminDashboardController extends Controller{
         $usersTeacher = $this->userQuery->getByRole('professeur');
         $teacherCount = count($usersTeacher);
 
-        $this->userQuery = new UserQuery();
+        $this->session = new Session();
+
+        $id = $this->session->getSession('user_id') ?? null;
+        $connectedUser = [];
+
+        if($id){
+            $userQuery = new UserQuery();
+           $connectedUser =  $userQuery->getUserById($id);
+        }
+
+        $userQuery = new UserQuery();
         $usersStudent = $this->userQuery->getByRole('eleve');
         $studentCount = count($usersStudent);
 

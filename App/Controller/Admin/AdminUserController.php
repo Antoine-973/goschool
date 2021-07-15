@@ -54,7 +54,7 @@ class AdminUserController extends Controller {
         if($this->request->isPost()){
 
             $data = $this->request->getBody();
-            $id = $this->session->getSession('id');
+            $id = $this->session->getSession('user_id');
 
             $errors = $this->validator->validate($this->userModel, $data);
 
@@ -78,7 +78,9 @@ class AdminUserController extends Controller {
 
     public function list()
     {
-        $users = $this->userQuery->getUsers();
+        $userQuery = new UserQuery();
+        $users = $userQuery->getUsers();
+
         $this->render("admin/user/listUser.phtml", ['users'=>$users]);
     }
 

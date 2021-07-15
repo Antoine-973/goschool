@@ -60,5 +60,15 @@ class Helper
 
     return $text;
     }
+    
+    public function view($view)
+    {
+        $helper = new Helper();
+
+        ob_start();
+        extract([ 'helper' => $helper]);
+        require dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR. "App" . DIRECTORY_SEPARATOR . "Views" . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $view);
+        echo ob_get_clean();
+    }
 
 }
