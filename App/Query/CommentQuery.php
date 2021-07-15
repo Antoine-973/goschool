@@ -18,7 +18,13 @@ class CommentQuery{
      */
     public function getComments()
     {
-        $query = $this->builder->select('id, title, message, status, created_at')->from("comments");
+        $query = $this->builder->select('comments.id, message, comments.status, users.email, articles.title, comments.created_at')->from("comments")->join('INNER', 'comments', 'article_id', 'articles', 'id')->join('INNER', 'comments', 'user_id', 'users', 'id');
+        return $query->getResult();
+    }
+
+    public function getCommentsByArticleId(int $id)
+    {
+        $query = $this->builder->select('id, title, message, created_at, user_id, status')->from("comments")->where("article_id = $id");
         return $query->getResult();
     }
 
@@ -28,7 +34,7 @@ class CommentQuery{
      */
     public function getById(int $id)
     {
-        $query = $this->builder->select("title, message, status")->from("comments")->where("id = $id");
+        $query = $this->builder->select("message, status")->from("comments")->where("id = $id");
         return $query->getResult();
     }
 

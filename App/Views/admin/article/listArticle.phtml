@@ -33,7 +33,7 @@
                                         <td><?php echo $value ?></td>
                                     <?php } ?>
                                     <td><a href="/admin/article/edit?id=<?php echo $articles[$i]['id'] ?>" class="btn btn--warning btn--sm"><i class="fas fa-edit"></i></a></td>
-                                    <td><a href="javascript:confirmDelete('/admin/article/delete?id=<?php echo $articles[$i]['id'] ?>')" class="btn btn--danger btn--sm"><i class="fas fa-trash-alt"></i></a></td>
+                                    <td><a href="javascript:confirmDelete('/admin/article/delete/<?php echo $articles[$i]['id'] ?>')" class="btn btn--danger btn--sm"><i class="fas fa-trash-alt"></i></a></td>
                                 </tr>
                             <?php }
                         }

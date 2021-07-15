@@ -1,6 +1,7 @@
 <div class="content admin-comment--list">
     <div class="col-gutter-12">
         <h1>Commentaires</h1>
+        <a href="/admin/comment/add" class="btn btn--infos btn--sm"><i class="fas fa-plus-circle"></i> Ajouter un commentaire</a>
         <?php $keys = array_keys($comments);?>
         <?php use Core\Util\Table; ?>
         <?php $verifTable = new Table() ?>
@@ -14,10 +15,11 @@
         <table id="comments_table" class="display dataTable">
             <thead>
             <tr>
-                <th>Id</th>
-                <th>Titre</th>
+                <th>Numéro</th>
                 <th>Message</th>
                 <th>Status</th>
+                <th>Publié par</th>
+                <th>Publié dans</th>
                 <th>Publié à</th>
                 <th>Modifier</th>
                 <th>Supprimer</th>
@@ -51,10 +53,11 @@
 
             <tfoot>
             <tr>
-                <th>Id</th>
-                <th>Titre</th>
+                <th>Numéro</th>
                 <th>Message</th>
                 <th>Status</th>
+                <th>Publié par</th>
+                <th>Publié dans</th>
                 <th>Publié à</th>
                 <th>Modifier</th>
                 <th>Supprimer</th>

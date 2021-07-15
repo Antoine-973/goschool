@@ -1,5 +1,5 @@
-<h1>Ajouter un commentaire</h1>
-<div class="col-gutter-12">
+<div class="add-form">
+    <h1>Ajouter un nouveau commentaire</h1>
     <?php if(isset($errors) && !empty($errors)): ?>
         <ul>
             <?php foreach($errors as $error): ?>
@@ -8,6 +8,14 @@
         </ul>
     <?php endif; ?>
 
-    <?= $commentAdd; ?>
-    <div class="col-12 back-to-list">  <a href="/admin/comment/list" class="btn btn--infos btn--sm">Revenir à la liste</a></div>
+    <?php $articleQuery = new \App\Query\ArticleQuery();
+    if (!empty($articleQuery->getArticles())){
+         echo $commentAdd;
+    }
+    else{ ?>
+        <p>Vous devez d'abord créer des articles avant de pouvoir poster des commentaires</p>
+        <a class="btn btn-info" href="/admin/article/add">Ajouter un nouvel article</a>
+    <?php } ?>
+
 </div>
+<div class="back-to-list">  <a href="/admin/comment/list" class="btn btn--infos btn--sm">Revenir à la liste</a></div>

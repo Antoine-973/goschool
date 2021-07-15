@@ -24,6 +24,22 @@ class UserQuery
         return $query->getResult();
     }
 
+    public function getUsersByEmail($email)
+    {
+        $query = $this->builder->select("id, firstname, lastname, email, roles")->from("users")->where("email = $email");
+
+        return $query->getResult();
+    }
+
+    /**
+     * @return array $data
+     */
+    public function getUsersMail()
+    {
+        $query = $this->builder->select('email')->from("users");
+        return $query->getResult();
+    }
+
     /**
      * @param int $id
      * @return string $query
@@ -42,12 +58,26 @@ class UserQuery
         return $query->getResult();
     }
 
+    public function getEmailById($id){
+        $query = $this->builder->select("email")->from("users")->where("id = $id");
+        return $query->getResult();
+    }
+
     /**
      * @param string $roles
      */
     public function getRole()
     {
         $query = $this->builder->select("DISTINCT roles")->from("users");
+        return $query->getResult();
+    }
+
+    /**
+     * @param string $roles
+     */
+    public function getRoleById($id)
+    {
+        $query = $this->builder->select("roles")->from("users")->where("id = $id");
         return $query->getResult();
     }
 

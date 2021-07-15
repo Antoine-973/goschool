@@ -20,7 +20,7 @@ class ArticleQuery
      * @param int $id
      * @return string $query
      */
-    public function getById(int $id)
+    public function getById($id)
     {
         $query = $this->builder->select("title, slug, content")->from("articles")->where("id = $id");
         return $query->getResult();
@@ -33,6 +33,15 @@ class ArticleQuery
     public function getSlugById($id)
     {
         $query = $this->builder->select("slug")->from("articles")->where("id = $id");
+        return $query->getResult();
+    }
+
+    /**
+     * @return array $data
+     */
+    public function getArticleIdBySlug(string $slug)
+    {
+        $query = $this->builder->select('id')->from("articles")->where("slug = $slug");
         return $query->getResult();
     }
 
@@ -83,19 +92,30 @@ class ArticleQuery
     }
 
     /**
+     * @return array $data
+     */
+    public function getArticlesSlug()
+    {
+        $query = $this->builder->select('slug')->from("articles");
+        return $query->getResult();
+    }
+
+    /**
      * @param array $data
      */
     public function create(array $data)
     {
         $data['slug']= $this->helper->slugify($data['title']);
         $data['content']= str_replace( '&nbsp', '', html_entity_decode($data['content']));
-        
+        $data['slug']= strtolower(str_replace(" ", "-", $data['title']));
+        $data['title']= ucfirst(strtolower($data['title']));
+
         if(array_key_exists('active_comment', $data)){
 
-            $data['active_comment'] = 1;
+            $data['active_comment'] = '1';
 
         }else{
-            $data['active_comment'] = 0;
+            $data['active_comment'] = '0';
         }
 
         $query = $this->builder->insertInto('articles')->columns($data)->values($data)->save();
@@ -123,6 +143,10 @@ class ArticleQuery
 
         }else{
             $data['active_comment'] = '0';
+        }
+
+        if (array_key_exists('title', $data)){
+            $data['title']= ucfirst(strtolower($data['title']));
         }
 
         $query = $this->builder->update("articles")->set($data)->where("id = $id")->save();

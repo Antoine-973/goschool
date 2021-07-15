@@ -1,15 +1,15 @@
 <?php
+
+
 namespace App\Controller\Admin;
+
 
 use Core\Controller;
 use Core\Http\Request;
-use Core\Http\Session;
 use Core\Http\Response;
-use Core\Component\Validator;
-use App\Form\ParamEditForm;
 
-class AdminAppearanceController extends Controller{
-
+class AdminThemeController extends Controller
+{
     private $request;
 
     private $response;
@@ -20,8 +20,8 @@ class AdminAppearanceController extends Controller{
         $this->response = new Response();
     }
 
-    public function indexAppearance()
+    public function index()
     {
-        $this->render("admin/appearance/appearance.phtml");
+        $this->render("admin/theme/theme.phtml");
     }
 }

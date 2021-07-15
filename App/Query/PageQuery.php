@@ -13,6 +13,36 @@ class PageQuery
 
     }
 
+
+    public function getId(){
+        $query = $this->builder->select("id")->from("pages");
+
+        return $query->getResult();
+    }
+
+    public function getIdByTitle(string $title){
+        $query = $this->builder->select("id")->from("pages")->where("title = $title");
+
+        return $query->getResult();
+    }
+
+    public function getTitle(){
+        $query = $this->builder->select("title")->from("pages");
+
+        return $query->getResult();
+    }
+
+    /**
+     * @return string $query
+     */
+    public function getTitleAndId()
+    {
+        $query = $this->builder->select("id, title")->from("pages");
+
+        return $query->getResult();
+    }
+
+
     /**
      * @return string $query
      */
@@ -84,6 +114,7 @@ class PageQuery
      */
     public function create(array $data)
     {
+        $data['title']= ucfirst(strtolower($data['title']));
         $data['content']= str_replace( '&nbsp', '', html_entity_decode($data['content']));
 
         $query = $this->builder->insertInto('pages')->columns($data)->values($data)->save();
@@ -95,7 +126,13 @@ class PageQuery
      */
     public function updatePage(array $data, int $id)
     {
-        $data['content']= str_replace( '&nbsp', '', html_entity_decode($data['content']));
+        if (array_key_exists('title', $data)){
+            $data['title']= ucfirst(strtolower($data['title']));
+        }
+
+        if (array_key_exists('content',$data)){
+            $data['content']= str_replace( '&nbsp', '', html_entity_decode($data['content']));
+        }
 
         $query = $this->builder->update('pages')->set($data)->where("id = $id")->save();
         return $query;

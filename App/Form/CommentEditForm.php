@@ -25,7 +25,6 @@ class CommentEditForm
         $data=$this->commentQuery->getById($stringId);
 
         $form = Form::create('/admin/comment/update/'.$stringId)
-            ->input('title', 'text', ['value' => 'Titre', 'min' => 4, 'max' => 55, 'text' => $data['title'], 'required' => 'required'])
             ->textarea('message', 'textarea', ['min' => 3, 'max' => 280, 'value' => $data['message'], 'required' => 'required'])
             ->select('status','Statut',['id' => 'status', 'name' => 'status', 'text' => $data['status'], 'options' => ['Approuvé','En-attente','Spam']])
             ->input('submit', 'submit', ['value' => 'Modifier']);

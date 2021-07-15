@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Controller\Admin;
 
 
@@ -7,7 +8,7 @@ use Core\Controller;
 use Core\Http\Request;
 use Core\Http\Response;
 
-class AdminNewsletterController extends Controller
+class AdminCustomizationController extends Controller
 {
     private $request;
 
@@ -21,6 +22,6 @@ class AdminNewsletterController extends Controller
 
     public function index()
     {
-        $this->render("admin/newsletter/newsletter.phtml");
+        $this->render("admin/customization/customization.phtml");
     }
 }
