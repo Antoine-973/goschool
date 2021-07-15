@@ -2,37 +2,18 @@
 namespace Core\Middleware;
 use App\Query\UserQuery;
 use Core\Http\Session;
+use Core\Http\Request;
+
 class AuthMiddleware {
-    
-    public static function check($path)
-    {
-        if(self::adminRoute($path)){
-
-            $userQuery = new UserQuery();
-            $session = new Session();
-
-            $userFromSession = $session->getMessage('user_id') ?? null;
-
-            if($userFromSession){
-
-                $user = $userQuery->getUserById($userFromSession['id']);
-    
-                if($user && $user['role'] = 'admin'){
-                    return true;
-                }
-            }
-    
-        }
-
-        return false;
-    }
 
     public static function adminRoute($path)
     {
         $arr = explode("/", $path);
 
         if(in_array('admin', $arr)){
-           if(\in_array('index', $arr) || \in_array('register', $arr)){
+            $params = \array_diff($arr, ['admin']);
+
+           if(\in_array('auth', $params)){
                return false;
            }else{
                return true;
@@ -42,22 +23,16 @@ class AuthMiddleware {
 
     public static function isAuth()
     {
-
-        $userQuery = new UserQuery();
         $session = new Session();
 
-        $userId = $session->getMessage('user_id') ?? null;
+        $request = new Request();
 
-        if($userId){
+        if (!$session->getSession('user_id')){
+            $request->redirect('/admin/auth/login');
+            exit;
+         }
 
-            $user = $userQuery->getUserById($userId);
-
-            if($user && $user['role'] = 'admin'){
-                return true;
-            }
-        }else{
-
-        }
+         return true;
     }
 
    

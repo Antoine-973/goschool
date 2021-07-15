@@ -16,43 +16,21 @@ class DynamicRouting {
         $action = $this->getAction($path);
         $params = $this->getParams($path);
 
-
-
         $admin_dir = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'App' . DIRECTORY_SEPARATOR . 'Controller' . DIRECTORY_SEPARATOR . 'Admin' .DIRECTORY_SEPARATOR; 
 
         $dir = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'App' . DIRECTORY_SEPARATOR . 'Controller' . DIRECTORY_SEPARATOR;
 
 
-        $adminfile = $admin_dir. $controller . '.php';
-
-        $sitefile = $dir. $controller . '.php';
-
-        if(\file_exists($adminfile)){
-            include_once($adminfile);
-            $class = "App\\Controller\\Admin\\" . $controller;
-            $controller = new $class();
-            
-            if($params){
-          
-                $controller->$action(implode(',', $params));
-                }else{
-                    $controller->$action();
-                }
-            }
-
-        if(\file_exists($sitefile)){
-            include_once($sitefile);
-
-            $class =  "App\\Controller\\" . $controller;
-            $controller = new $class();
-            if($params){
-          
-                $controller->$action(implode(',', $params));
-            }else{
-                $controller->$action();
-            }
+        if(AuthMiddleware::adminRoute($path)){
+          AuthMiddleware::isAuth();
         }
 
+        $adminfile = $admin_dir. $controller . '.php';
+        $sitefile = $dir. $controller . '.php';
+
+        $this->resolveAdmin($adminfile, $controller, $action, $params);
+        $this->resolveSite($sitefile, $controller, $action, $params);
+        
     }
 
 
@@ -104,6 +82,39 @@ class DynamicRouting {
             }
 
             return $params;
+        }
+    }
+
+    public function resolveAdmin($file, $controller, $action, $params)
+    {
+        if(\file_exists($file)){
+            include_once($file);
+            $class = "App\\Controller\\Admin\\" . $controller;
+            $controller = new $class();
+            
+            if($params){
+          
+                $controller->$action(implode(',', $params));
+                }else{
+                    $controller->$action();
+                }
+            }
+    }
+
+    public function resolveSite($file, $controller, $action, $params)
+    {
+
+        if(\file_exists($file)){
+            include_once($file);
+
+            $class =  "App\\Controller\\" . $controller;
+            $controller = new $class();
+            if($params){
+          
+                $controller->$action(implode(',', $params));
+            }else{
+                $controller->$action();
+            }
         }
     }
     

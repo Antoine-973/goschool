@@ -1,3 +1,18 @@
+<?php
+    include_once dirname(dirname(dirname(__DIR__))) . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "bootstrap.php";
+    $session = new Core\Http\Session();
+  $id = $helper->getFlashMessage('user_id') ?? null;
+  $connectedUser = [];
+
+  $id = $session->getSession('user_id');
+
+  if($id){
+      $userQuery = new App\Query\UserQuery();
+     $connectedUser =  $userQuery->getUserById($id);
+  }
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -23,7 +38,12 @@
                     <div class="user-controls">
                         <div class="identity">
                             <ul>
-                         
+                            
+                                <?php if($connectedUser):?>
+                                    <li>
+                                        <a href="/admin/user/profil"><i class="fas fa-user">  <?= $connectedUser['firstname'] . ' ' . $connectedUser['lastname'] ?></i></a>
+                                    </li>
+                                <?php endif;?>
                                 | <li><a href="/admin/auth/logout">Déconnexion</a></li>
                             </ul>
                         </div>

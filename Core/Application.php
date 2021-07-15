@@ -42,13 +42,6 @@ class Application{
     {
         $router =  new DynamicRouting();
 
-        $path = $this->request->getPath();
-
-        $helper = new Helper();
-
-        if(!AuthMiddleware::check($path)){
-            $helper->view('admin/registration/login.phtml');
-        }
         $router->dispatch();
     }
 

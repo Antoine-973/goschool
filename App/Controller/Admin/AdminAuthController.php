@@ -81,47 +81,40 @@ class AdminAuthController extends Controller{
     public function postLogin()
     {
         $hash = new Hash();
+        $selectIdQuery = new UserQuery();
+
         if($this->request->isPost()){
 
             $data = $this->request->getBody();
             $user = $this->userQuery->getByEmail($data['email']);
 
             if(!empty($data['email']) && !empty($data['password']) ){
-         
+           
                 if(!empty($user)){
+                    
                     if($hash->compareHash($data['password'], $user['password_hash'])){
-
+                        
                         if ($user['verified'] == '1'){
-
-                            $selectIdQuery = new UserQuery();
                             $this->session->setSession('user_id',$user['id']);
-                            $user = $selectIdQuery->getIdbyEmail($data['email']);
-                            $this->request->redirect('/admin/dashboard/index')->with('success', 'Connecté avec succès');
-                        }
-                        else{
-                            $this->request->redirect('/admin/auth/index')->with('error', 'Ce compte n\'a pas encore été validé. Veuillez vérifier vos emails.');
+                            $this->request->redirect('/')->with('success', 'Connecté avec succès');
+                          
                         }
                     }
-                    else{
-                        $this->request->redirect('/admin/auth/index')->with('error', 'Vos informations de connexion ne coreespondent pas. Veuillez recommencer');
-                    }
+          
                 }
-                else{
-                    $this->request->redirect('/admin/auth/index')->with('error', 'Impossible de trouver un compte goSchool associé à cet e-mail. Veuillez recommencer. ');
-                }
+       
             }
-            else{
-                $this->request->redirect('/admin/auth/index')->with('error', 'Le champ email et le champs mot de passe doivent être remplis.');
-            }
-
+           
         }
+
+        $this->request->redirectToLast();
     }
 
     public function logout()
     {
         session_destroy();
 
-        $this->request->redirect('/admin/auth/login')->with('success', 'Vous avez été déconnectez avec succès.');
+        $this->request->redirect('/')->with('success', 'Vous avez été déconnectez avec succès.');
     }
 
     public function store()
@@ -153,16 +146,16 @@ class AdminAuthController extends Controller{
                         $email = new UserRegisterValidationEmail();
 
                         if ($email->sendEmail($data['email'], $generateUrl)){
-                            $this->request->redirect('/admin/auth/login')->with('success', 'Votre compte a bien été créer, avant de vous connecter vous devez le vérifier en cliquant sur le lien reçu par email. ');
+                           $this->request->redirect('/')->with('success', 'Votre compte a bien été créer, avant de vous connecter vous devez le vérifier en cliquant sur le lien reçu par email. ');
                         }
                     }
                 }
                 else{
-                    $this->request->redirect('/admin/auth/register')->with('error', 'Un compte goSchool utilisant cette adresse email existe déjà.');
+                    $this->request->redirectToLast()->with('error', 'Un compte goSchool utilisant cette adresse email existe déjà.');
                 }
             }
             else{
-                $this->request->redirect('/admin/auth/register')->with('errors', $errors);
+                $this->request->redirectToLast()->with('errors', $errors);
             }
         }
     }
@@ -189,7 +182,7 @@ class AdminAuthController extends Controller{
             $verifiedValue = $verifiedQuery->getByEmailAndToken($dataFromRequest['email'], $dataFromRequest['token_verified']);
 
             if ($verifiedValue['verified'] == 1){
-                $this->request->redirect('/admin/auth/login')->with('error', 'Votre compte goSchool est déjà vérifié.');
+             $this->request->redirect('/')->with('error', 'Votre compte goSchool est déjà vérifié.');
             }
             else{
                 die('403 FORBIDDEN');
@@ -271,7 +264,7 @@ class AdminAuthController extends Controller{
 
             if (empty($selector) || empty($validator))
             {
-                $this->request->redirect('/admin/auth/login')->with('error', 'Impossible de valider votre requête. ');
+               // $this->request->redirect('/')->with('error', 'Impossible de valider votre requête. ');
             }
             else {
                 if (ctype_xdigit($selector) !== false && ctype_xdigit($validator) != false)
@@ -328,7 +321,7 @@ class AdminAuthController extends Controller{
                             if (!$userUpdateQuery->updatePassword($value, $tokenEmail)) {
                                 $this->request->redirect('/admin/auth/lostpassword')->with('error', 'Il y a eu une erreur, vous devez refaire une demande de réinitialisation de mot de passe.');
                             } else {
-                                $this->request->redirect('/admin/auth/login')->with('changePasswordSuccess', 'Votre demande de réinitialisation de mot de passe a bien été prise en compte. Veuillez vous connecter.');
+                                //$this->request->redirect('/')->with('changePasswordSuccess', 'Votre demande de réinitialisation de mot de passe a bien été prise en compte. Veuillez vous connecter.');
                             }
                         }
                     }
@@ -340,17 +333,5 @@ class AdminAuthController extends Controller{
                 $this->render("admin/registration/resetpassword.phtml", ['errors' => $errors, 'userResetPassword' => $userResetPassword]);
             }
         }
-    }
-
-    public function DBConnection($data)
-    {/*
-        (new DotEnv(dirname(dirname(dirname(__DIR__))) . '/.env'))->load();
-        if($data['db_user'] && $data['db_name'] && $data['db_host']){
-            putenv('DB_USER') = $data['db_user'];
-            putenv('DB_NAME') = $data['db_name'];
-            putenv('DB_HOTS') = $data['db_host'];
-            putenv('DB_PASSWORD') = $data['db_password'];
-        }
-        */
     }
 }
