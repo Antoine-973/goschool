@@ -1,26 +1,37 @@
 <?php
-//@TODO get menu items from database and render
+use App\Query\MenuQuery;
+use App\Query\HavePageQuery;
+use App\Query\PageQuery;
 
-//exemple menu items
-$menuItem = [
-    "Accueil" => "<a href='/accueil'>",
-    "About" => "<a href='/about'>",
-    "Products" => "<a href='/products'>",
-    "Contact" => "<a href='/contact'>",
-];
+$menuQuery = new MenuQuery();
+$menuId = $menuQuery->getIdByPosition('navbar');
+$id = implode($menuId);
+$havepageQuery = new HavePageQuery();
+$pagesId = $havepageQuery->getPagesIdByMenuId($id);
 ?>
 
 <header id="header" class="site-main--header">
     <div class="container">
         <nav class="site-main--nav">
             <ul>
-            <?php if($menuItem): ?>
-                <?php foreach($menuItem as $name => $link): ?>
+            <?php if($pagesId != null) {?>
+                <?php foreach($pagesId as $page) {
+                    $pageQuery = new PageQuery();
+                    $pageTitle = $pageQuery->getTitleById($page['page_id']);
+                    $title = implode($pageTitle);
+                    $pageQuery = new PageQuery();
+                    $pageUrl = $pageQuery->getUrlById($page['page_id']);
+                    $url = implode($pageUrl);
+                    ?>
                     <li>
-                        <?php echo $link . $name . "</a>";?>
+                        <a href='<?php echo $url ?>'><?php echo $title ?></a>
                     </li>
-                <?php endforeach;?>
-            <?php endif;?>
+                <?php } ?>
+            <?php }else{ ?>
+                <li>
+                    <a href='/'>Welcome</a>
+                </li>
+            <?php } ?>
             </ul>
         </nav>
     </div>

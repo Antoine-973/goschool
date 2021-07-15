@@ -26,6 +26,12 @@ class PageQuery
         return $query->getResult();
     }
 
+    public function getTitleById(int $id){
+        $query = $this->builder->select("title")->from("pages")->where("id = $id");
+
+        return $query->getResult();
+    }
+
     public function getTitle(){
         $query = $this->builder->select("title")->from("pages");
 
