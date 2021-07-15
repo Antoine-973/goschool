@@ -4,6 +4,7 @@ use App\Query\MenuQuery;
 use App\Query\HavePageQuery;
 use App\Query\PageQuery;
 
+$verifTable = new \Core\Util\Table();
 $categoryQuery = new CategoryQuery();
 $categories = $categoryQuery->orderByDate();
 $menuQuery = new MenuQuery();
@@ -18,21 +19,18 @@ $pagesId = $havepageQuery->getPagesIdByMenuId($id);
     <div class="container">
         <div class="row">
             <div class="col-6">
-                <h6>About</h6>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed beatae reprehenderit asperiores corporis aperiam quod, eligendi voluptatem, officiis veniam animi, itaque dolorem eveniet laborum possimus modi dolorum blanditiis. Esse, omnis.
-                </p>
-            </div>
-            <div class="col-3">
                 <h6>Menu</h6>
                 <ul class="footer-links">
-                    <?php if($pagesId != null) {?>
+                    <?php if($pagesId != null) {
+                        if ($verifTable->is_multi($pagesId)){
+                            $pagesId = $verifTable->multi_to_single($pagesId);
+                        }?>
                         <?php foreach($pagesId as $page) {
                             $pageQuery = new PageQuery();
-                            $pageTitle = $pageQuery->getTitleById($page['page_id']);
+                            $pageTitle = $pageQuery->getTitleById($page);
                             $title = implode($pageTitle);
                             $pageQuery = new PageQuery();
-                            $pageUrl = $pageQuery->getUrlById($page['page_id']);
+                            $pageUrl = $pageQuery->getUrlById($page);
                             $url = implode($pageUrl);
                             ?>
                             <li>
@@ -46,13 +44,13 @@ $pagesId = $havepageQuery->getPagesIdByMenuId($id);
                     <?php } ?>
                 </ul>
             </div>
-            <div class="col-3">
+            <div class="col-6">
                 <h6>Catégories</h6>
                 <ul class="footer-links">
                     <?php if($categories != null) { ?>
                         <?php for($i = 0; $i < 5;$i++):?>
                             <li>
-                                <a href=''><?php echo $categories[$i]['name']?></a>
+                                <a href='/<?php echo $categories[$i]['slug']?>'><?php echo $categories[$i]['name']?></a>
                             </li>
                         <?php endfor;?>
                     <?php }else{ ?>
@@ -67,18 +65,10 @@ $pagesId = $havepageQuery->getPagesIdByMenuId($id);
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-8">
+            <div class="col-12">
                 <p>
                     Copyright &copy; 2021 - Tous droits réservés par <a href="#">GoSchool</a>.
                 </p>
-            </div>
-
-            <div class="col-4">
-                <ul class="social">
-                    <li><a class="facebook" href="#"><i class="fab fa-facebook-f fa-lg"></i></a></li>
-                    <li><a class="twitter" href="#"><i class="fab fa-twitter fa-lg"></i></a></li>
-                    <li><a class="linkedin" href="#"><i class="fab fa-linkedin-in fa-lg"></i></a></li>   
-                </ul>
             </div>
         </div>
     </div>

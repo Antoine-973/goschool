@@ -3,6 +3,7 @@ use App\Query\MenuQuery;
 use App\Query\HavePageQuery;
 use App\Query\PageQuery;
 
+$verifTable = new \Core\Util\Table();
 $menuQuery = new MenuQuery();
 $menuId = $menuQuery->getIdByPosition('navbar');
 $id = implode($menuId);
@@ -14,13 +15,16 @@ $pagesId = $havepageQuery->getPagesIdByMenuId($id);
     <div class="container">
         <nav class="site-main--nav">
             <ul>
-                <?php if($pagesId != null) {?>
+                <?php if($pagesId != null) {
+                    if ($verifTable->is_multi($pagesId)){
+                        $pagesId = $verifTable->multi_to_single($pagesId);
+                    }?>
                     <?php foreach($pagesId as $page) {
                         $pageQuery = new PageQuery();
-                        $pageTitle = $pageQuery->getTitleById($page['page_id']);
+                        $pageTitle = $pageQuery->getTitleById($page);
                         $title = implode($pageTitle);
                         $pageQuery = new PageQuery();
-                        $pageUrl = $pageQuery->getUrlById($page['page_id']);
+                        $pageUrl = $pageQuery->getUrlById($page);
                         $url = implode($pageUrl);
                         ?>
                         <li>

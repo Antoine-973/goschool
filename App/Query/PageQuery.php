@@ -26,7 +26,7 @@ class PageQuery
         return $query->getResult();
     }
 
-    public function getTitleById(int $id){
+    public function getTitleById($id){
         $query = $this->builder->select("title")->from("pages")->where("id = $id");
 
         return $query->getResult();
@@ -73,7 +73,7 @@ class PageQuery
      * @param int $id
      * @return string $query
      */
-    public function getUrlById(int $id)
+    public function getUrlById($id)
     {
         $query = $this->builder->select("url")->from("pages")->where("id = $id");
         return $query->getResult();

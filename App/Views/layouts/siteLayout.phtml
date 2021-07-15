@@ -3,6 +3,12 @@ require_once dirname(dirname(dirname(__DIR__))) . DIRECTORY_SEPARATOR ."Core" . 
 
 $layout = new Core\Routing\Layout();
 
+$session = new Core\Http\Session();
+$id = $helper->getFlashMessage('user_id') ?? null;
+$connectedUser = [];
+
+$id = $session->getSession('user_id');
+
 ?>
 
 <!DOCTYPE html>
@@ -18,13 +24,63 @@ $layout = new Core\Routing\Layout();
     <script src="/librairies/dist/main.js"></script>
 </head>
 <body>
-<?php echo $layout->getMenu();?>
+    <div class="container--fluid">
 
-<?php echo $layout->getAside();?>
-<div class="site-main--content">
-    <?php echo $layout->getContent();?>
-</div>
+        <?php
 
-<?php echo $layout->getFooter();?>
+        if ($id) {
+            $userQuery = new App\Query\UserQuery();
+            $connectedUser = $userQuery->getUserById($id); ?>
+
+            <div class="row">
+                <div class="col-12">
+                    <div id="site-main--admin-navbar" class="site-main--admin-navbar">
+                        <div class="user-controls">
+                            <div class="identity">
+                                <ul>
+                                    <li><a href="/admin/dashboard/index"><i class="fas fa-home"></i>Accueil</a></li>            |
+                                    <li><a href="/admin/customization/index"><i class="fas fa-pencil-ruler"></i>Personnalisation</a></li>                   |
+                                    <li><a href="/admin/comment/list"><i class="fas fa-comment"></i></a></li>|
+                                    <li><a href="/admin/article/add"><i class="fas fa-plus"></i>Ajouter</a></li>
+                                </ul>
+                            </div>
+                            <div class="user-actions">
+                                <ul>
+                                    <?php if($connectedUser):?>
+                                        <li>
+                                            <a href="/admin/user/profil"><i class="fas fa-user">  <?= $connectedUser['firstname'] . ' ' . $connectedUser['lastname'] ?></i></a>
+                                        </li>|
+                                        <li><a href="/admin/auth/logout">Déconnexion</a></li>
+                                    <?php endif;?>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="javascript:void(0)" class="closebtn" onclick="myFunction()"><i class="fa fa-bars"></i></a>
+                </div>
+            </div>
+        <? } ?>
+
+        <?php echo $layout->getMenu();?>
+
+        <div class="site-main--content">
+
+            <?php echo $layout->getContent();?>
+        </div>
+
+        <?php echo $layout->getFooter();?>
+    </div>
+
+    <script>
+        function myFunction() {
+            var x = document.getElementById('site-main--admin-navbar');
+            if (x.style.display === 'none') {
+                x.style.display = 'block';
+            } else {
+                x.style.display = 'none';
+            }
+        }
+    </script>
+
 </body>
 </html>

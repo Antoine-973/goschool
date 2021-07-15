@@ -100,7 +100,7 @@ class CategoryQuery{
 
     public function orderByDate()
     {
-        $query = $this->builder->select('name, created_at')->from("categories")->orderBy('created_at','DESC');
+        $query = $this->builder->select('name, slug, created_at')->from("categories")->orderBy('created_at','DESC');
         return $query->getResult();
     }
 }

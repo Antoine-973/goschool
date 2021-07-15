@@ -118,9 +118,9 @@ class AdminArticleController extends Controller {
                 $slugInDb = $slugQuery->getSlugById($id);
                 $deleteOldView = new PhpFileGenerator();
 
-                if($updateArticleQuery->updateArticle($dataToUpdate, $id)) {
+                if($updateArticleQuery->updateArticle($data, $id)) {
 
-                    if ($dataToUpdate['status']=='Publié'){
+                    if ($data['status']=='Publié'){
 
                         if ($slugInDb['slug'] != $data['slug']) {
 
