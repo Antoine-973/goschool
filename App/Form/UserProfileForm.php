@@ -19,7 +19,7 @@ class UserProfileForm
 
     public function getForm()
     {
-        $id = $this->session->getSession('id');
+        $id = $this->session->getSession('user_id');
         $data=$this->userQuery->getUserById($id);
 
         $form = Form::create('/admin/user/updateProfile')
