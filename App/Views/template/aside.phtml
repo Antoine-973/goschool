@@ -1,13 +1,10 @@
 <?php
-//@TODO get menu items from database and render
+use App\Query\ArticleQuery;
 
-//exemple menu items
-$articleItem = [
-    "Article 1" => "<a href=''>",
-    "Article 2" => "<a href=''>",
-    "Article 3" => "<a href=''>",
-    "Article 4" => "<a href=''>",
-];
+$articleQuery = new ArticleQuery();
+$articles = $articleQuery->orderByDate();
+$articleItem = [];
+$articleItem = $articles['title'];
 
 $eventItem = [
     "Event 1" => "<a href=''>",
@@ -45,9 +42,9 @@ $commentItem = [
         <h6>Articles :</h6>
         <ul>
         <?php if($articleItem): ?>
-            <?php foreach($articleItem as $name => $link): ?>
+            <?php foreach($articleItem as $item):?>
                 <li>
-                    <?php echo $link . $name . "</a>";?>
+                    <?php echo $item ;?>
                 </li>
             <?php endforeach;?>
         <?php endif;?>

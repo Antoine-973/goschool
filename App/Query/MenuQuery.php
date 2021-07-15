@@ -49,6 +49,12 @@ class MenuQuery
         return $query->getResult();
     }
 
+    public function getIdByPosition($position)
+    {
+        $query = $this->builder->select('id')->from("menus")->where("position = $position");
+        return $query->getResult();
+    }
+
     public function updatePositionToNull($data, $position)
     {
         $query = $this->builder->update('menus')->set($data)->where("position = $position")->save();
