@@ -2,22 +2,17 @@
 namespace Core\Migration;
 use Core\Database\DB;
 
-class create_users_table_migration{
+class create_roles_table_migration{
     
     public function up()
     {
         $conn = DB::getConnection();
 
-        $sql = "CREATE TABLE IF NOT EXISTS users
+        $sql = "CREATE TABLE IF NOT EXISTS roles
         (
             `id`  BIGINT(20) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-            `firstname` VARCHAR(25) NOT NULL,
-            `lastname` VARCHAR(25) NOT NULL,
-            `email` VARCHAR(55) NOT NULL UNIQUE,
-            `password_hash` VARCHAR(255) NOT NULL,
-            `verified` BOOL DEFAULT 0,
-            `token_verified` VARCHAR(255),
-            `role_id` BIGINT(20) NOT NULL,
+            `name` VARCHAR(50) NOT NULL,
+            `level` INT(50) NOT NULL,
             `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP   
     ) ENGINE=INNODB CHARSET=`utf8`;";
