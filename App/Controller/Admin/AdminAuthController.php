@@ -96,7 +96,7 @@ class AdminAuthController extends Controller{
                         
                         if ($user['verified'] == '1'){
                             $this->session->setSession('user_id',$user['id']);
-                            $this->request->redirect('/')->with('success', 'Connecté avec succès');
+                            $this->request->redirect('/admin/dashboard/index')->with('success', 'Connecté avec succès');
                         }
                     }
           
@@ -113,7 +113,7 @@ class AdminAuthController extends Controller{
     {
         session_destroy();
 
-        $this->request->redirect('/')->with('success', 'Vous avez été déconnectez avec succès.');
+        $this->request->redirect('/admin/auth/login')->with('success', 'Vous avez été déconnectez avec succès.');
     }
 
     public function store()
