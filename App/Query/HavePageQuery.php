@@ -17,6 +17,12 @@ class HavePageQuery{
         return $query->getResult();
     }
 
+    public function getPagesIdByMenuId($menu_id)
+    {
+        $query = $this->builder->select('page_id')->from("havePage")->where("menu_id = $menu_id");
+        return $query->getResult();
+    }
+
     /**
      * @param array $data
      */

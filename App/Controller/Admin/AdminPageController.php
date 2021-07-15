@@ -103,9 +103,9 @@ class AdminPageController extends Controller {
                 $page = new PhpFileGenerator();
                 $urlInDb = $this->pageQuery->getUrlById($id);
 
-                if ($this->pageQuery->updatePage($dataToUpdate, $id)) {
+                if ($this->pageQuery->updatePage($data, $id)) {
 
-                    if ($dataToUpdate['status']=='Publié'){
+                    if ($data['status']=='Publié'){
                         if ($urlInDb['url'] != $data['url']) {
 
                             if ($deleteOldView->deleteViewFile($urlInDb['url'], 'pages')) {

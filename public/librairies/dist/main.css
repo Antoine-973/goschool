@@ -1479,14 +1479,14 @@ body {
   width: 100%;
 }
 
-.admin-topbar {
+.admin-topbar-backoffice {
   position: fixed;
   width: 85%;
   left: 15%;
   top: 0;
   z-index: 7;
 }
-.admin-topbar .user-controls {
+.admin-topbar-backoffice .user-controls {
   background-color: #363740;
   width: 40%;
   position: absolute;
@@ -1497,36 +1497,36 @@ body {
   flex-direction: row;
   justify-content: space-around;
 }
-.admin-topbar .user-controls i {
+.admin-topbar-backoffice .user-controls i {
   margin-right: 7px;
 }
-.admin-topbar .user-controls .identity {
+.admin-topbar-backoffice .user-controls .identity {
   display: flex;
   flex-direction: row;
   color: #fff;
 }
-.admin-topbar .user-controls .identity li {
+.admin-topbar-backoffice .user-controls .identity li {
   display: inline-block;
 }
-.admin-topbar .user-controls .identity a {
+.admin-topbar-backoffice .user-controls .identity a {
   color: white;
 }
-.admin-topbar .user-controls .identity a:hover {
+.admin-topbar-backoffice .user-controls .identity a:hover {
   color: #00A2AC;
 }
-.admin-topbar .user-controls .identity a:hover i {
+.admin-topbar-backoffice .user-controls .identity a:hover i {
   color: #00A2AC;
 }
-.admin-topbar .user-controls .user-actions ul {
+.admin-topbar-backoffice .user-controls .user-actions ul {
   margin: 0;
   padding: 0;
 }
-.admin-topbar .user-controls .user-actions ul li {
+.admin-topbar-backoffice .user-controls .user-actions ul li {
   display: inline-block;
   margin-right: 2px;
   margin-left: 2px;
 }
-.admin-topbar .user-controls .user-actions a:hover {
+.admin-topbar-backoffice .user-controls .user-actions a:hover {
   color: white;
 }
 
@@ -1838,4 +1838,72 @@ body.admin-login .col-6.connexion-form .container-form .form-input input[type=su
 }
 .site-main--footer .social a.linkedin:hover {
   background-color: #007bb6;
+}
+.site-main--admin-navbar {
+  display: flex;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 7;
+}
+.site-main--admin-navbar .user-controls {
+  background-color: #212121;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.site-main--admin-navbar .user-controls i {
+  margin-right: 7px;
+}
+.site-main--admin-navbar .user-controls .identity {
+  display: flex;
+  flex-direction: row;
+  margin-right: 70vh;
+  color: #fff;
+}
+.site-main--admin-navbar .user-controls .identity li {
+  margin-right: 2px;
+  margin-left: 2px;
+  display: inline-block;
+}
+.site-main--admin-navbar .user-controls .identity a {
+  color: white;
+}
+.site-main--admin-navbar .user-controls .identity a:hover {
+  color: #00A2AC;
+}
+.site-main--admin-navbar .user-controls .identity a:hover i {
+  color: #00A2AC;
+}
+.site-main--admin-navbar .user-controls .user-actions a {
+  color: white;
+}
+.site-main--admin-navbar .user-controls .user-actions ul {
+  margin: 0;
+  padding: 0;
+}
+.site-main--admin-navbar .user-controls .user-actions ul li {
+  display: inline-block;
+  margin-right: 2px;
+  margin-left: 2px;
+}
+.site-main--admin-navbar .user-controls .user-actions a:hover {
+  color: #00A2AC;
+}
+
+.closebtn {
+  position: fixed;
+  z-index: 8;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+.closebtn i {
+  color: #D3D3D3;
+}
+.closebtn i:hover {
+  color: white;
 }
