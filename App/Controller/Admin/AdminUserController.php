@@ -78,7 +78,9 @@ class AdminUserController extends Controller {
 
     public function list()
     {
-        $users = $this->userQuery->getUsers();
+        $userQuery = new UserQuery();
+        $users = $userQuery->getUsers();
+
         $this->render("admin/user/listUser.phtml", ['users'=>$users]);
     }
 
