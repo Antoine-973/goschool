@@ -10,15 +10,6 @@
     <script src="/librairies/src/js/vendor/ckeditor5/build/ckeditor.js"></script>
 </head>
 <body>
-
-<?php
-use Core\Util\SessionHelper;
-
-$sessionHelper = new SessionHelper();
-$sessionHelper->redirectToLoginIfNotConnected();
-
-?>
-
 <div class="container-fluid">
     <div class="contentEditor">
         {{content}}

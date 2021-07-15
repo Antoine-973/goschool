@@ -32,11 +32,6 @@ class DynamicRouting {
             $class = "App\\Controller\\Admin\\" . $controller;
             $controller = new $class();
             
-            if(!AuthMiddleware::check($path)){
-                $auth = new AdminAuthController();
-                $auth->index();die;
-            }
-
             if($params){
           
                 $controller->$action(implode(',', $params));
@@ -44,7 +39,6 @@ class DynamicRouting {
                     $controller->$action();
                 }
             }
-            
 
         if(\file_exists($sitefile)){
             include_once($sitefile);
