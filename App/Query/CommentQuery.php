@@ -65,4 +65,9 @@ class CommentQuery{
         return $query;
     }
 
+    public function orderByDate()
+    {
+        $query = $this->builder->select('message, created_at')->from("comments")->orderBy('created_at','DESC');
+        return $query->getResult();
+    }
 }

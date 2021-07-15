@@ -97,4 +97,10 @@ class CategoryQuery{
         $query = $this->builder->delete()->from('categories')->where("id = $id")->save();
         return $query;
     }
+
+    public function orderByDate()
+    {
+        $query = $this->builder->select('name, created_at')->from("categories")->orderBy('created_at','DESC');
+        return $query->getResult();
+    }
 }
