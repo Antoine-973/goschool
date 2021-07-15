@@ -97,7 +97,6 @@ class AdminAuthController extends Controller{
                         if ($user['verified'] == '1'){
                             $this->session->setSession('user_id',$user['id']);
                             $this->request->redirect('/')->with('success', 'Connecté avec succès');
-                          
                         }
                     }
           
@@ -141,7 +140,7 @@ class AdminAuthController extends Controller{
                         );
 
                         $url = new Url();
-                        $generateUrl = $url->generateUrlWithParameters('/admin/verify', $urlParams);
+                        $generateUrl = $url->generateUrlWithParameters('/admin/auth/verify', $urlParams);
 
                         $email = new UserRegisterValidationEmail();
 
