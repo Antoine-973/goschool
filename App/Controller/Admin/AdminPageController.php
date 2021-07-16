@@ -11,6 +11,7 @@ use App\Query\PageQuery;
 use Core\Component\Validator;
 use Core\Http\Session;
 use Core\Util\PhpFileGenerator;
+use Core\Util\RolePermission;
 
 class AdminPageController extends Controller {
 
@@ -57,10 +58,21 @@ class AdminPageController extends Controller {
 
     public function add()
     {
-        $form = new PageAddForm();
-        $pageAddForm = $form->getForm();
+        $session = new Session();
+        $id = $session->getSession('user_id');
 
-        $this->render("admin/page/addPage.phtml", ['pageAdd'=>$pageAddForm]);
+        $testPermission = new \Core\Util\RolePermission();
+
+        if ($id && $testPermission->has_permission($id,'crud_article') || $id && $testPermission->has_permission($id,'crud_self_article') ){
+            $form = new PageAddForm();
+            $pageAddForm = $form->getForm();
+
+            $this->render("admin/page/addPage.phtml", ['pageAdd'=>$pageAddForm]);
+        }
+        else{
+            $request = new \Core\Http\Request();
+            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour accéder à cette section du back office.');
+        }
     }
 
     public function store(){
