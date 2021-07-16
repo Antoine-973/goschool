@@ -40,18 +40,13 @@ class SessionHelper
 
     public function redirectToDashboardIfAlreadyLogged(){
 
-        $id = $this->session->getSession('id');
+        $id = $this->session->getSession('user_id');
+        $testPermission = new RolePermission();
 
-        if(!empty($id)){
-
-            $roleQuery = new UserQuery();
-            $role = $roleQuery->getRoleById($id)['roles'];
-
-            if ($role == 'admin' || $role == 'editeur' || $role == 'contributeur' || $role == 'auteur'){
+        if($id && $testPermission->has_permission($id,'access_back_office')){
                 $request = new Request();
                 $request->redirect('/admin/dashboard/index')->with('success','Vous êtes déjà connecté !');
             }
-        }
         else{
 
         }
