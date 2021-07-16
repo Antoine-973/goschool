@@ -5,6 +5,7 @@ use Core\Controller;
 use Core\Http\Request;
 use Core\Http\Response;
 use App\Form\MediaAddForm;
+use Core\Http\Session;
 
 class AdminMediaController extends Controller{
 
@@ -23,24 +24,35 @@ class AdminMediaController extends Controller{
 
     public function list()
     {
-        $repertoire='../images/';/* chemin du repertoire */
-        /* ouverture du dossier */
-        $chemin_fichiers = opendir($repertoire);
-        /* initialisation tableau des noms */
-        $name_fichiers= [];
-        while($fichier = readdir($chemin_fichiers))
-        {
-            if(!is_dir($fichier))
+        $session = new Session();
+        $id = $session->getSession('user_id');
+
+        $testPermission = new \Core\Util\RolePermission();
+
+        if ($id && $testPermission->has_permission($id,'add_medias') ){
+            $repertoire='../images/';/* chemin du repertoire */
+            /* ouverture du dossier */
+            $chemin_fichiers = opendir($repertoire);
+            /* initialisation tableau des noms */
+            $name_fichiers= [];
+            while($fichier = readdir($chemin_fichiers))
             {
-                array_push($name_fichiers, $fichier);/* ajout au tableau */
+                if(!is_dir($fichier))
+                {
+                    array_push($name_fichiers, $fichier);/* ajout au tableau */
+                }
             }
+            closedir();
+            /* nombre d'images récupérées */
+            $nb_total_img=count($name_fichiers);
+            //var_dump($name_fichiers);
+            $listMedias = $name_fichiers;
+            $this->render("admin/media/listMedia.phtml", ['listMedias'=>$listMedias, 'nb_total_img'=>$nb_total_img, 'repertoire'=>$repertoire]);
         }
-        closedir();
-        /* nombre d'images récupérées */
-        $nb_total_img=count($name_fichiers);
-        //var_dump($name_fichiers);
-        $listMedias = $name_fichiers;
-        $this->render("admin/media/listMedia.phtml", ['listMedias'=>$listMedias, 'nb_total_img'=>$nb_total_img, 'repertoire'=>$repertoire]);
+        else{
+            $request = new \Core\Http\Request();
+            $request->redirect('/admin/dashboard/index');
+        }
     }
 
     public function add()

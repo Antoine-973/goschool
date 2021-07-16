@@ -29,9 +29,19 @@ class AdminParamController extends Controller{
 
     public function index()
     {
-        $form = new ParamEditForm();
-        $paramEditForm = $form->getForm();
+        $session = new Session();
+        $id = $session->getSession('user_id');
 
-        $this->render("admin/parameters/param.phtml", ['paramEditForm'=>$paramEditForm]);
+        $testPermission = new \Core\Util\RolePermission();
+
+        if ($id && $testPermission->has_permission($id, 'change_parameters')) {
+            $form = new ParamEditForm();
+            $paramEditForm = $form->getForm();
+
+            $this->render("admin/parameters/param.phtml", ['paramEditForm'=>$paramEditForm]);
+        } else {
+            $request = new \Core\Http\Request();
+            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour accéder à cette section du back office.');
+        }
     }
 }

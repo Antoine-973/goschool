@@ -43,9 +43,23 @@ class AdminCommentController extends Controller
 
     public function list()
     {
-        $comments = $this->commentQuery->getComments();
 
-        $this->render("admin/comment/listComment.phtml", ['comments'=>$comments]);
+        $session = new Session();
+        $id = $session->getSession('user_id');
+
+        $testPermission = new \Core\Util\RolePermission();
+
+        if ($id && $testPermission->has_permission($id, 'approve_comment')) {
+            $comments = $this->commentQuery->getComments();
+
+            $this->render("admin/comment/listComment.phtml", ['comments'=>$comments]);
+        } else {
+            $request = new \Core\Http\Request();
+            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits necessaires pour accéder à cette section du back office.');
+        }
+
+
+
     }
 
     public function add(){

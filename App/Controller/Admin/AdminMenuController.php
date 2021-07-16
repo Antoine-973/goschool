@@ -10,6 +10,7 @@ use Core\Controller;
 use Core\Http\Request;
 use Core\Http\Response;
 use App\Query\HavePageQuery;
+use Core\Http\Session;
 
 class AdminMenuController extends Controller
 {
@@ -31,10 +32,20 @@ class AdminMenuController extends Controller
 
     public function index()
     {
-        $form = new SelectMenuForm();
-        $selectMenuForm = $form->getForm();
+        $session = new Session();
+        $id = $session->getSession('user_id');
 
-        $this->render("admin/menu/menu.phtml", ['selectMenu' => $selectMenuForm]);
+        $testPermission = new \Core\Util\RolePermission();
+
+        if ($id && $testPermission->has_permission($id, 'crud_menus')) {
+            $form = new SelectMenuForm();
+            $selectMenuForm = $form->getForm();
+
+            $this->render("admin/menu/menu.phtml", ['selectMenu' => $selectMenuForm]);
+        } else {
+            $request = new \Core\Http\Request();
+            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour accéder à cette section du back office.');
+        }
     }
 
     public function select(){

@@ -70,7 +70,8 @@ class seeder
                 ('access_medias_page', 'Accéder à la page médias dans le back office', 'Medias'), 
                 ('add_medias', 'Ajouter des médias dans le back office', 'Medias'),  
                 ('delete_medias', 'Supprimer des médias dans le back office', 'Medias'),      
-                ('delete_self_medias', 'Supprimer seulement ses médias dans le back office', 'Medias'),   
+                ('delete_self_medias', 'Supprimer seulement ses médias dans le back office', 'Medias'),
+                ('manage_newsletter', 'Gérer les newsletter du site', 'Newsletter'),  
                 ('delete_goschool','Détruire goSchool', 'Hack');
 
                 INSERT INTO havePermission(role_id, permission_id)
@@ -107,6 +108,7 @@ class seeder
                 ('1', '31'),
                 ('1', '32'),
                 ('1', '33'),
+                ('1', '34'),
                 ('2', '1'),
                 ('2', '2'),
                 ('2', '3'),
@@ -164,6 +166,7 @@ class seeder
                 ('3', '30'),
                 ('3', '31'),  
                 ('3', '32'),  
+                ('3', '33'),  
                 ('4', '1'),
                 ('4', '8'),
                 ('4', '9'),
@@ -178,6 +181,7 @@ class seeder
                 ('4', '30'),
                 ('4', '31'),       
                 ('4', '32'),       
+                ('4', '33'),       
                 ('5', '1'),
                 ('5', '8'),
                 ('5', '11'),

@@ -12,6 +12,7 @@ use App\Query\ArticleQuery;
 use App\Query\UserQuery;
 use App\Query\CommentQuery;
 use Core\Component\Validator;
+use Core\Http\Session;
 use Core\Util\PhpFileGenerator;
 
 class AdminArticleController extends Controller {
@@ -48,8 +49,19 @@ class AdminArticleController extends Controller {
 
     public function list()
     {
-        $articles = ($this->articleQuery->getArticles());
-        $this->render("admin/article/listArticle.phtml", ['articles'=>$articles]);
+        $session = new Session();
+        $id = $session->getSession('user_id');
+
+        $testPermission = new \Core\Util\RolePermission();
+
+        if ($id && $testPermission->has_permission($id,'crud_articles') || $id && $testPermission->has_permission($id,'crud_self_articles') ){
+            $articles = ($this->articleQuery->getArticles());
+            $this->render("admin/article/listArticle.phtml", ['articles'=>$articles]);
+        }
+        else{
+            $request = new \Core\Http\Request();
+            $request->redirect('/admin/dashboard/index');
+        }
     }
 
     public function add()

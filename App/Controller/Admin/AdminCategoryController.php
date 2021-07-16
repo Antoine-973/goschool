@@ -9,6 +9,7 @@ use Core\Component\Validator;
 use Core\Controller;
 use Core\Http\Request;
 use Core\Http\Response;
+use Core\Http\Session;
 
 class AdminCategoryController extends Controller {
 
@@ -40,8 +41,19 @@ class AdminCategoryController extends Controller {
     }
 
     public function list(){
-        $categories = ($this->categoryQuery->getCategories());
-        $this->render("admin/category/listCategory.phtml", ['categories'=>$categories]);
+
+        $session = new Session();
+        $id = $session->getSession('user_id');
+
+        $testPermission = new \Core\Util\RolePermission();
+
+        if ($id && $testPermission->has_permission($id, 'crud_categories')) {
+            $categories = ($this->categoryQuery->getCategories());
+            $this->render("admin/category/listCategory.phtml", ['categories'=>$categories]);
+        } else {
+            $request = new \Core\Http\Request();
+            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour accéder à cette section du back office.');
+        }
     }
 
     public function add(){

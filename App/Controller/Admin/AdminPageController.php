@@ -9,6 +9,7 @@ use Core\Http\Response;
 use App\Model\PageModel;
 use App\Query\PageQuery;
 use Core\Component\Validator;
+use Core\Http\Session;
 use Core\Util\PhpFileGenerator;
 
 class AdminPageController extends Controller {
@@ -35,8 +36,18 @@ class AdminPageController extends Controller {
 
     public function list()
     {
-        $pages = $this->pageQuery->getPages();
-        $this->render("admin/page/listPage.phtml", ['pages'=>$pages]);
+        $session = new Session();
+        $id = $session->getSession('user_id');
+
+        $testPermission = new \Core\Util\RolePermission();
+
+        if ($id && $testPermission->has_permission($id, 'crud_pages')) {
+            $pages = $this->pageQuery->getPages();
+            $this->render("admin/page/listPage.phtml", ['pages'=>$pages]);
+        } else {
+            $request = new \Core\Http\Request();
+            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour accéder à cette section du back office.');
+        }
     }
 
     public function add()

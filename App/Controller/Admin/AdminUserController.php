@@ -78,10 +78,20 @@ class AdminUserController extends Controller {
 
     public function list()
     {
-        $userQuery = new UserQuery();
-        $users = $userQuery->getUsers();
+        $session = new Session();
+        $id = $session->getSession('user_id');
 
-        $this->render("admin/user/listUser.phtml", ['users'=>$users]);
+        $testPermission = new \Core\Util\RolePermission();
+
+        if ($id && $testPermission->has_permission($id, 'crud_users')) {
+            $userQuery = new UserQuery();
+            $users = $userQuery->getUsers();
+
+            $this->render("admin/user/listUser.phtml", ['users'=>$users]);
+        } else {
+            $request = new \Core\Http\Request();
+            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour accéder à cette section du back office.');
+        }
     }
 
     public function add()

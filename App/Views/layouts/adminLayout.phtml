@@ -1,15 +1,27 @@
 <?php
     include_once dirname(dirname(dirname(__DIR__))) . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "bootstrap.php";
     $session = new Core\Http\Session();
-  $id = $helper->getFlashMessage('user_id') ?? null;
-  $connectedUser = [];
+    $id = $helper->getFlashMessage('user_id') ?? null;
+    $connectedUser = [];
 
-  $id = $session->getSession('user_id');
+    $id = $session->getSession('user_id');
 
-  if($id){
-      $userQuery = new App\Query\UserQuery();
-     $connectedUser =  $userQuery->getUserById($id);
-  }
+    if($id){
+        $userQuery = new App\Query\UserQuery();
+        $connectedUser =  $userQuery->getUserById($id);
+    }
+
+    $testPermission = new \Core\Util\RolePermission();
+
+    if ($testPermission->has_permission($id,'access_back_office')){
+
+    }
+    else{
+        $request = new \Core\Http\Request();
+        $request->redirect('/');
+    }
+
+
 
 ?>
 
@@ -68,10 +80,25 @@
                         <div class="admin-menu-links">
                             <ul class="sidebar-menu">
                                 <li class="sidebar-section"><a href="/admin/dashboard/index"><i class="fas fa-tachometer-alt"></i>Tableau de bord</a></li>
-                                <li class="sidebar-section"><a href="/admin/article/list"><i class="fas fa-pen"></i>  Articles</a></li>
+                                <?php if ($testPermission->has_permission($id,'access_articles_page')){ ?>
+                                    <li class="sidebar-section"><a href="/admin/article/list"><i class="fas fa-pen"></i>  Articles</a></li>
+                                <?php } ?>
+
+                                <?php if ($testPermission->has_permission($id,'access_categories_page')){ ?>
                                 <li class="sidebar-section"><a href="/admin/category/list"><i class="fas fa-book-open"></i>  Catégories</a></li>
+                                <?php } ?>
+
+                                <?php if ($testPermission->has_permission($id,'access_pages_page')){ ?>
                                 <li class="sidebar-section"><a href="/admin/page/list"><i class="fas fa-copy"></i>  Pages</a></li>
+                                <?php } ?>
+
+                                <?php if ($testPermission->has_permission($id,'access_medias_page')){ ?>
                                 <li class="sidebar-section"><a href="/admin/media/list"><i class="fas fa-photo-video"></i>  Médias</a></li>
+                                <?php } ?>
+
+                                <?php   $authorizations = ['access_menus_page','change_theme','customize_site'];
+
+                                if ($testPermission->has_permission($id,$authorizations)){ ?>
                                 <ul class="sidebar-menu dropdown-main">
                                     <li class="dropdown-section">
                                     <a><i class="fas fa-brush"></i>  Apparence <i class="fa fa-caret-down"></i></a>
@@ -82,13 +109,29 @@
                                         </ul>
                                     </li>
                                 </ul>
+                                <?php } ?>
+
+                                <?php if ($testPermission->has_permission($id,'access_users_page')){ ?>
                                 <li class="sidebar-section"><a href="/admin/user/list"><i class="fas fa-user"></i>  Utilisateurs</a></li>
+                                <?php } ?>
+
+                                <?php if ($testPermission->has_permission($id,'access_comments_page')){ ?>
                                 <li class="sidebar-section"><a href="/admin/comment/list"><i class="fas fa-comment"></i>  Commentaires</a></li>
+                                <?php } ?>
+
+                                <?php if ($testPermission->has_permission($id,'access_event_page')){ ?>
                                 <li class="sidebar-section"><a href="/admin/planning/index"><i class="far fa-calendar-alt"></i>  Planning</a></li>
+                                <?php } ?>
+
+                                <?php if ($testPermission->has_permission($id,'manage_newsletter')){ ?>
                                 <li class="sidebar-section"><a href="/admin/newsletter/index"><i class="far fa-newspaper"></i>  Newsletters</a></li>
+                                <?php } ?>
+
+                                <?php if ($testPermission->has_permission($id,'change_parameters')){ ?>
                                 <ul class="parameters sidebar-menu">
                                     <li class="sidebar-section"><a href="/admin/param/index"><i class="fas fa-cog"></i> Paramètres</a></li>
                                 </ul>
+                                <?php } ?>
                             </ul>
                         </div>
                     </nav>
