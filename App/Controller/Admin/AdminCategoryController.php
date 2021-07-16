@@ -47,7 +47,7 @@ class AdminCategoryController extends Controller {
 
         $testPermission = new \Core\Util\RolePermission();
 
-        if ($id && $testPermission->has_permission($id, 'crud_categories')) {
+        if ($id && $testPermission->has_permission($id, 'crud_categorie')) {
             $categories = ($this->categoryQuery->getCategories());
             $this->render("admin/category/listCategory.phtml", ['categories'=>$categories]);
         } else {

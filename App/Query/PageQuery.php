@@ -60,10 +60,19 @@ class PageQuery
     }
 
     /**
+     * @return array $data
+     */
+    public function getPagesByUser($userId)
+    {
+        $query = $this->builder->select('pages.id, title, users.email, status, pages.created_at')->from("pages")->join('INNER', 'pages', 'user_id', 'users', 'id')->where("user_id = $userId");
+        return $query->getResult();
+    }
+
+    /**
      * @param int $id
      * @return string $query
      */
-    public function getById(int $id)
+    public function getById($id)
     {
         $query = $this->builder->select("title, content, url")->from("pages")->where("id = $id");
         return $query->getResult();

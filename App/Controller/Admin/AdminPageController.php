@@ -41,10 +41,15 @@ class AdminPageController extends Controller {
 
         $testPermission = new \Core\Util\RolePermission();
 
-        if ($id && $testPermission->has_permission($id, 'crud_pages')) {
+        if ($id && $testPermission->has_permission($id, 'crud_page')) {
             $pages = $this->pageQuery->getPages();
             $this->render("admin/page/listPage.phtml", ['pages'=>$pages]);
-        } else {
+        }
+        elseif($id && $testPermission->has_permission($id,'crud_self_page')){
+            $pages = $this->pageQuery->getPagesByUser($id);
+            $this->render("admin/page/listPage.phtml", ['pages'=>$pages]);
+        }
+        else{
             $request = new \Core\Http\Request();
             $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour accéder à cette section du back office.');
         }

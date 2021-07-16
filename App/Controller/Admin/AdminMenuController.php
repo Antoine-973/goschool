@@ -37,7 +37,7 @@ class AdminMenuController extends Controller
 
         $testPermission = new \Core\Util\RolePermission();
 
-        if ($id && $testPermission->has_permission($id, 'crud_menus')) {
+        if ($id && $testPermission->has_permission($id, 'crud_menu')) {
             $form = new SelectMenuForm();
             $selectMenuForm = $form->getForm();
 

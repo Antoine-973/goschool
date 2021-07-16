@@ -18,7 +18,7 @@
     }
     else{
         $request = new \Core\Http\Request();
-        $request->redirect('/');
+        $request->redirect('/')->with('error','Vous n\'avez pas les droits nécessaires pour accéder à cette ressource.');
     }
 
 
@@ -80,50 +80,60 @@
                         <div class="admin-menu-links">
                             <ul class="sidebar-menu">
                                 <li class="sidebar-section"><a href="/admin/dashboard/index"><i class="fas fa-tachometer-alt"></i>Tableau de bord</a></li>
-                                <?php if ($testPermission->has_permission($id,'access_articles_page')){ ?>
+                                <?php if ($testPermission->has_permission($id,'crud_article') || $id && $testPermission->has_permission($id,'crud_self_article')){ ?>
                                     <li class="sidebar-section"><a href="/admin/article/list"><i class="fas fa-pen"></i>  Articles</a></li>
                                 <?php } ?>
 
-                                <?php if ($testPermission->has_permission($id,'access_categories_page')){ ?>
+                                <?php if ($testPermission->has_permission($id,'crud_categorie')){ ?>
                                 <li class="sidebar-section"><a href="/admin/category/list"><i class="fas fa-book-open"></i>  Catégories</a></li>
                                 <?php } ?>
 
-                                <?php if ($testPermission->has_permission($id,'access_pages_page')){ ?>
+                                <?php if ($testPermission->has_permission($id,'crud_page') || $id && $testPermission->has_permission($id,'crud_self_page')){ ?>
                                 <li class="sidebar-section"><a href="/admin/page/list"><i class="fas fa-copy"></i>  Pages</a></li>
                                 <?php } ?>
 
-                                <?php if ($testPermission->has_permission($id,'access_medias_page')){ ?>
+                                <?php if ($testPermission->has_permission($id,'crud_media') || $id && $testPermission->has_permission($id,'crud_self_media')){ ?>
                                 <li class="sidebar-section"><a href="/admin/media/list"><i class="fas fa-photo-video"></i>  Médias</a></li>
                                 <?php } ?>
 
-                                <?php   $authorizations = ['access_menus_page','change_theme','customize_site'];
-
-                                if ($testPermission->has_permission($id,$authorizations)){ ?>
+                                <?php
+                                if ($testPermission->has_permission($id,'crud_menu')){ ?>
                                 <ul class="sidebar-menu dropdown-main">
                                     <li class="dropdown-section">
                                     <a><i class="fas fa-brush"></i>  Apparence <i class="fa fa-caret-down"></i></a>
                                         <ul class="dropdown-container dropdown-menu">
+                                            <?php
+                                            if ($testPermission->has_permission($id,'change_theme')){ ?>
                                             <li style="margin-top: 5px"><a href="/admin/theme/index"><i class="fas fa-columns"></i> Thèmes</a></li>
+                                            <?php } ?>
+
+                                            <?php
+                                            if ($testPermission->has_permission($id,'crud_menu')){ ?>
                                             <li><a href="/admin/menu/index"><i class="fas fa-bars"></i> Menus</a></li>
+                                            <?php } ?>
+
+                                            <?php
+                                            if ($testPermission->has_permission($id,'customize_site')){ ?>
                                             <li><a href="/admin/customization/index"><i class="fas fa-pencil-ruler"></i> Personnalisation</a></li>
+                                            <?php } ?>
                                         </ul>
                                     </li>
                                 </ul>
                                 <?php } ?>
 
-                                <?php if ($testPermission->has_permission($id,'access_users_page')){ ?>
+                                <?php if ($testPermission->has_permission($id,'crud_users')){ ?>
                                 <li class="sidebar-section"><a href="/admin/user/list"><i class="fas fa-user"></i>  Utilisateurs</a></li>
                                 <?php } ?>
 
-                                <?php if ($testPermission->has_permission($id,'access_comments_page')){ ?>
+                                <?php if ($testPermission->has_permission($id,'crud_comments')){ ?>
                                 <li class="sidebar-section"><a href="/admin/comment/list"><i class="fas fa-comment"></i>  Commentaires</a></li>
                                 <?php } ?>
 
-                                <?php if ($testPermission->has_permission($id,'access_event_page')){ ?>
+                                <?php if ($testPermission->has_permission($id,'crud_event') || $id && $testPermission->has_permission($id,'crud_self_event')){ ?>
                                 <li class="sidebar-section"><a href="/admin/planning/index"><i class="far fa-calendar-alt"></i>  Planning</a></li>
                                 <?php } ?>
 
-                                <?php if ($testPermission->has_permission($id,'manage_newsletter')){ ?>
+                                <?php if ($testPermission->has_permission($id,'crud_newsletter') || $id && $testPermission->has_permission($id,'crud_self_newsletter')){ ?>
                                 <li class="sidebar-section"><a href="/admin/newsletter/index"><i class="far fa-newspaper"></i>  Newsletters</a></li>
                                 <?php } ?>
 

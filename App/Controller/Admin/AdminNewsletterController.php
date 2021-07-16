@@ -27,7 +27,7 @@ class AdminNewsletterController extends Controller
 
         $testPermission = new \Core\Util\RolePermission();
 
-        if ($id && $testPermission->has_permission($id, 'manage_newsletter')) {
+        if ($id && $testPermission->has_permission($id, 'crud_newsletter') || $id && $testPermission->has_permission($id,'crud_self_newsletter')) {
             $this->render("admin/newsletter/newsletter.phtml");
         } else {
             $request = new \Core\Http\Request();

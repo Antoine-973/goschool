@@ -16,7 +16,7 @@ class create_articles_table_migration
             `image` VARCHAR(255) NULL,
             `status` VARCHAR(55) NOT NULL DEFAULT 'unpublished',
             `active_comment` TINYINT NULL DEFAULT 0,
-            `user_id` BIGINT(20) NULL,
+            `user_id` BIGINT(20) NOT NULL,
             `categorie_id` BIGINT(20) DEFAULT '1',
             `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP

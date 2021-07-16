@@ -54,13 +54,18 @@ class AdminArticleController extends Controller {
 
         $testPermission = new \Core\Util\RolePermission();
 
-        if ($id && $testPermission->has_permission($id,'crud_articles') || $id && $testPermission->has_permission($id,'crud_self_articles') ){
+        if ($id && $testPermission->has_permission($id,'crud_article')){
             $articles = ($this->articleQuery->getArticles());
+            $this->render("admin/article/listArticle.phtml", ['articles'=>$articles]);
+        }
+        elseif($id && $testPermission->has_permission($id,'crud_self_article')){
+
+            $articles = $this->articleQuery->getArticlesByUser($id);
             $this->render("admin/article/listArticle.phtml", ['articles'=>$articles]);
         }
         else{
             $request = new \Core\Http\Request();
-            $request->redirect('/admin/dashboard/index');
+            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour accéder à cette section du back office.');
         }
     }
 

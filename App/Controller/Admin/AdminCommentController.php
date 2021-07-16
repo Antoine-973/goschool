@@ -49,7 +49,7 @@ class AdminCommentController extends Controller
 
         $testPermission = new \Core\Util\RolePermission();
 
-        if ($id && $testPermission->has_permission($id, 'approve_comment')) {
+        if ($id && $testPermission->has_permission($id, 'crud_comment')) {
             $comments = $this->commentQuery->getComments();
 
             $this->render("admin/comment/listComment.phtml", ['comments'=>$comments]);

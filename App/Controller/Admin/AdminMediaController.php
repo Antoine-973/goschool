@@ -29,7 +29,7 @@ class AdminMediaController extends Controller{
 
         $testPermission = new \Core\Util\RolePermission();
 
-        if ($id && $testPermission->has_permission($id,'add_medias') ){
+        if ($id && $testPermission->has_permission($id,'crud_media') || $id && $testPermission->has_permission($id,'crud_self_media') ){
             $repertoire='../images/';/* chemin du repertoire */
             /* ouverture du dossier */
             $chemin_fichiers = opendir($repertoire);
@@ -51,7 +51,7 @@ class AdminMediaController extends Controller{
         }
         else{
             $request = new \Core\Http\Request();
-            $request->redirect('/admin/dashboard/index');
+            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour accéder à cette section du back office.');
         }
     }
 
