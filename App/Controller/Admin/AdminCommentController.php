@@ -102,11 +102,17 @@ class AdminCommentController extends Controller
     }
 
     public function edit(){
+        $session = new Session();
+        $id = $session->getSession('user_id');
 
-        $form = new CommentEditform();
-        $commentEditForm = $form->getForm();
+        $testPermission = new \Core\Util\RolePermission();
 
-        $this->render("admin/comment/editComment.phtml", ['commentEdit'=>$commentEditForm]);
+        if ($id && $testPermission->has_permission($id, 'crud_comment')) {
+            $form = new CommentEditform();
+            $commentEditForm = $form->getForm();
+
+            $this->render("admin/comment/editComment.phtml", ['commentEdit'=>$commentEditForm]);
+        }
     }
 
     public function update($id)
