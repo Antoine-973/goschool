@@ -64,6 +64,15 @@ class Layout {
         ";
     }
 
+    public function getArticles()
+    {
+        $footerFile = $this->getTemplateFolder() . "articles.phtml";
+
+        \ob_start();
+        include $this->getTemplateFolder() . "articles.phtml";
+        return \ob_get_clean();
+    }
+
     protected function getTemplateFolder()
     {
         return dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "App" .DIRECTORY_SEPARATOR . "Views" .DIRECTORY_SEPARATOR . "template" .DIRECTORY_SEPARATOR;

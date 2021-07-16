@@ -62,9 +62,10 @@ $id = $session->getSession('user_id');
         <?php } ?>
 
         <?php echo $layout->getMenu();?>
-
+        <?php echo $layout->getAside();?>
         <div class="container--fluid site-main--content">
             <?php echo $layout->getContent();?>
+            <?php echo $layout->getArticles();?>
         </div>
 
         <?php echo $layout->getFooter();?>

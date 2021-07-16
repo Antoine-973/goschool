@@ -1,8 +1,6 @@
 <?php
-use App\Query\ArticleQuery;
-use App\Query\CommentQuery;
-$articleQuery = new ArticleQuery();
-$commentQuery = new CommentQuery();
+$articleQuery = new App\Query\ArticleQuery();
+$commentQuery = new App\Query\CommentQuery();
 $articles = $articleQuery->orderByDate();
 $comments = $commentQuery->orderByDate();
 ?>

@@ -1,0 +1,36 @@
+<?php
+$articleQuery = new App\Query\ArticleQuery();
+$articles = $articleQuery->orderByDate();
+$countArticles = count($articles);
+?>
+
+<div class="container--fluid row site-main--content--articles">
+    <?php if($articles != null) { ?>
+        <?php $i=0; ?>
+        <?php while($i < $countArticles) { ?>
+            <?php $i++; ?>
+            <div class="col-3">
+                <a href="#" class="data-card">
+                    <h5><?php echo $articles[$i]['title'].$i ?></h5>
+                    <?php if(is_null($articles[$i]['categorie_id'])) { ?>
+                        <h6>#PasDeCatégorie</h6>
+                    <?php }else{ ?>
+                        <h6><?php echo $articles[$i]['categorie_id'] ?></h6>
+                    <?php } ?>
+                    <p>
+                        Aefzefhzemiofmzeifzeifizefzef fmize fiozef zefzieo fhoizef zeofihzeio hfizzhv zfze fze<br><br>
+                        <?php echo $articles[$i]['created_at'] ?>
+                    </p>
+                    <span class="link-text">
+                    Voir l'article
+                    <i class="fas fa-arrow-right"></i>
+                    </span>
+                </a>
+            </div>
+        <?php } ?>
+    <?php }else{ ?>
+        <div class="col-3">
+            <h6>Il n'y a pas encore d'article</h6>
+        </div>
+    <?php } ?>
+</div>
