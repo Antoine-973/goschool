@@ -7,12 +7,7 @@ class seeder
     public function up(){
         $conn = DB::getConnection();
 
-        $sql = "INSERT INTO pages (title, url, content, status)
-                VALUE('Sample Page', '/sample-page', '<h1>Page d\'exemple</h1><p>Ceci est une page d\'exemple. C\'est différent d\'un article car elle restera au même endroit et apparaîtra dans la navigation de votre site. La plupart des gens commencent par une page À propos qui les présente aux visiteurs potentiels du site.</p>', 'Publié');
-                
-                INSERT INTO articles (title, slug, content, status)
-                VALUE('Hello World', 'hello-world', '<h1>Hello World !</h1><p>Bienvenue sur GoSchool. Ceci est ton premier article. Edite le ou supprime le, puis commence à créer !</p>','Publié');
-                
+        $sql = "               
                 INSERT INTO categories (name, slug, categorie_parent)
                 VALUES('Non-classé', 'non-classé', NULL),
                        ('Esgi','esgi', NULL),
@@ -34,45 +29,49 @@ class seeder
                        ('Sécurité-Informatique','sécurité-informatique','Spécialisation'),
                        ('Management-Système-Information','management-système-information','Spécialisation');
 
-                INSERT INTO roles(name, level)
+                INSERT INTO roles(role, level)
                 VALUES('Big-Brother', '1'),
                 ('Administrateur', '2'),
                 ('Éditeur', '3'),
                 ('Auteur', '4'),
-                ('Vie Scolaire', '5'),
+                ('Vie-Scolaire', '5'),
                 ('Professeur', '6'),
                 ('Abonné', '7');
 
-                INSERT INTO permissions(autorisation, catégorie)
-                VALUES('Acceder au back office', 'Générales'),
-                ('Voir les listes utilisateurs', 'Utilisateurs'),
-                ('Create/Update/Delete des utilisateurs', 'Utilisateurs'),
-                ('Voir les listes pages', 'Pages'),
-                ('Create/Update/Delete des pages', 'Pages'),
-                ('Approuvé des pages', 'Pages'),
-                ('Create/Update/Delete ses propres pages', 'Pages'),
-                ('Voir les listes articles', 'Articles'),
-                ('Create/Update/Delete des articles', 'Articles'),
-                ('Approuvé des articles', 'Articles'),
-                ('Create/Update/Delete ses propres articles', 'Articles'),                       
-                ('Accéder à la gestion des commentaires', 'Commentaires'),
-                ('Approuvé des commentaires', 'Commentaires'),
-                ('Create/Update/Delete ses propres commentaires', 'Commentaires'),
-                ('Voir la gestion des roles', 'Roles'),
-                ('Create/Update/Delete des permissions', 'Roles'),
-                ('Voir les listes menus', 'Menus'),
-                ('Create/Update/Delete des menus', 'Menus'),
-                ('Changer les positions des menus', 'Menus'),
-                ('Voir la liste des catégories', 'Catégories'),
-                ('Create/Update/Delete des catégories', 'Catégories'),
-                ('Voir la liste des évènements', 'Évènemenents'),
-                ('Create/Update/Delete des évènements', 'Évènemenents'),
-                ('Approuvé des évènements', 'Évènemenents'),
-                ('Create/Update/Delete ses propres évènements', 'Évènemenents'),       
-                ('Changer le theme du site', 'Themes'),
-                ('Personnaliser le site', 'Personnalisation'),
-                ('Changer les paramètres du site', 'Paramètres'),
-                ('Détruire goSchool', 'Hack');
+                INSERT INTO permissions(authorization,description, catégorie)
+                VALUES('access_back_office','Acceder au back office', 'Générales'),
+                ('access_users_page','Accéder à la page utilisateurs du back office', 'Utilisateurs'),
+                ('crud_users', 'Create/Update/Delete des utilisateurs', 'Utilisateurs'),
+                ('access_pages_page','Accéder à la page pages du back office', 'Pages'),
+                ('crud_pages', 'Create/Update/Delete des pages', 'Pages'),
+                ('approve_page', 'Approuvé des pages', 'Pages'),
+                ('crud_self_pages','Create/Update/Delete ses propres pages', 'Pages'),
+                ('access_articles_page','Accéder à la page articles du back office', 'Articles'),
+                ('crud_articles', 'Create/Update/Delete des articles', 'Articles'),
+                ('approve_articles','Approuvé des articles', 'Articles'),
+                ('crud_self_articles','Create/Update/Delete de ses propres articles', 'Articles'),                       
+                ('access_comments_page', 'Accéder à la page commentaires du back office', 'Commentaires'),
+                ('approve_comment', 'Approuvé des commentaires', 'Commentaires'),
+                ('crud_self_comment', 'Create/Update/Delete ses propres commentaires', 'Commentaires'),
+                ('access_roles_page', 'Voir la gestion des roles', 'Roles'),
+                ('change_roles_permission', 'Create/Update/Delete des permissions', 'Roles'),
+                ('access_menus_page', 'Accéder à la page des menus du back office', 'Menus'),
+                ('crud_menus', 'Create/Update/Delete des menus', 'Menus'),
+                ('change_menus_position', 'Changer les positions des menus', 'Menus'),
+                ('access_categories_page', 'Accéeder à la pages des catégories du back office', 'Catégories'),
+                ('crud_categories', 'Create/Update/Delete des catégories', 'Catégories'),
+                ('access_event_page', 'Accéeder à la pages des évènements du back office', 'Évènemenents'),
+                ('crud_event', 'Create/Update/Delete des évènements', 'Évènemenents'),
+                ('approve_event', 'Approuvé des évènements', 'Évènemenents'),
+                ('crud_self_event', 'Create/Update/Delete ses propres évènements', 'Évènemenents'),       
+                ('change_theme', 'Changer le theme du site', 'Themes'),
+                ('customize_site', 'Personnaliser le site', 'Personnalisation'),
+                ('change_parameters', 'Changer les paramètres du site', 'Paramètres'),
+                ('access_medias_page', 'Accéder à la page médias dans le back office', 'Medias'), 
+                ('add_medias', 'Ajouter des médias dans le back office', 'Medias'),  
+                ('delete_medias', 'Supprimer des médias dans le back office', 'Medias'),      
+                ('delete_self_medias', 'Supprimer seulement ses médias dans le back office', 'Medias'),   
+                ('delete_goschool','Détruire goSchool', 'Hack');
 
                 INSERT INTO havePermission(role_id, permission_id)
                 VALUES('1', '1'),
@@ -104,6 +103,10 @@ class seeder
                 ('1', '27'),
                 ('1', '28'),
                 ('1', '29'),
+                ('1', '30'),
+                ('1', '31'),
+                ('1', '32'),
+                ('1', '33'),
                 ('2', '1'),
                 ('2', '2'),
                 ('2', '3'),
@@ -131,7 +134,11 @@ class seeder
                 ('2', '25'),
                 ('2', '26'),
                 ('2', '27'),
-                ('2', '28'), 
+                ('2', '28'),
+                ('2', '29'),       
+                ('2', '30'),
+                ('2', '31'),       
+                ('2', '32'),       
                 ('3', '1'),
                 ('3', '4'),
                 ('3', '5'),
@@ -143,6 +150,7 @@ class seeder
                 ('3', '11'),
                 ('3', '12'),
                 ('3', '13'),
+                ('3', '14'),       
                 ('3', '17'),
                 ('3', '18'),
                 ('3', '19'),
@@ -151,7 +159,11 @@ class seeder
                 ('3', '22'),
                 ('3', '23'),
                 ('3', '24'),
-                ('3', '25'),     
+                ('3', '25'),
+                ('3', '29'),
+                ('3', '30'),
+                ('3', '31'),  
+                ('3', '32'),  
                 ('4', '1'),
                 ('4', '8'),
                 ('4', '9'),
@@ -161,20 +173,31 @@ class seeder
                 ('4', '22'),
                 ('4', '23'),
                 ('4', '24'),
-                ('4', '25'),    
+                ('4', '25'),
+                ('4', '29'),
+                ('4', '30'),
+                ('4', '31'),       
+                ('4', '32'),       
                 ('5', '1'),
                 ('5', '8'),
                 ('5', '11'),
+                ('5', '12'),
+                ('5', '13'),       
                 ('5', '14'),
                 ('5', '22'),
-                ('5', '25'),    
+                ('5', '25'),
+                ('5', '29'),
+                ('5', '30'),
+                ('5', '32'),       
                 ('6', '1'),
                 ('6', '8'),
                 ('6', '11'),
                 ('6', '14'),
-                ('6', '20'),
                 ('6', '22'),
-                ('6', '25'),     
+                ('6', '25'),
+                ('6', '29'),
+                ('6', '30'),
+                ('6', '32'),        
                 ('7', '14');       
                        
                 INSERT INTO users(firstname, lastname, email, password_hash, role_id, verified)
@@ -188,6 +211,12 @@ class seeder
                 ('Tony', 'Vaucelle', 'tony.vaucelle@referencement.seo', '".password_hash('#Tony1234', PASSWORD_BCRYPT)."', '4','1'),
                 ('Yves', 'Skrzypczyk', 'yves.skrzypczyk@yopmail.com', '".password_hash('#MonNomDeFamilleEstUnMotDePasse1', PASSWORD_BCRYPT)."', '1','1'),
                 ('Junior', 'Skrzypczyk', 'junior.skrzypczyk@myges.fr', '".password_hash('#MonNomDeFamilleEstUnMotDePasse2', PASSWORD_BCRYPT)."', '7','1');
+
+                INSERT INTO pages (title, url, content, status, user_id)
+                VALUE('Sample Page', '/sample-page', '<h1>Page d\'exemple</h1><p>Ceci est une page d\'exemple. C\'est différent d\'un article car elle restera au même endroit et apparaîtra dans la navigation de votre site. La plupart des gens commencent par une page À propos qui les présente aux visiteurs potentiels du site.</p>', 'Publié', '1');
+                
+                INSERT INTO articles (title, slug, content, status, user_id)
+                VALUE('Hello World', 'hello-world', '<h1>Hello World !</h1><p>Bienvenue sur GoSchool. Ceci est ton premier article. Edite le ou supprime le, puis commence à créer !</p>','Publié', '1');
 
                 INSERT INTO comments (message, status, user_id, article_id)
                 VALUES('Bonjour ceci est un commentaire de test. Pour commencer à modérer, éditer et supprimer des commentaires, veuillez visiter l\'écran Commentaires dans le tableau de bord. ', 'Approuvé', '1', '1'),

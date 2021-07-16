@@ -17,7 +17,7 @@ class create_users_table_migration{
             `password_hash` VARCHAR(255) NOT NULL,
             `verified` BOOL DEFAULT 0,
             `token_verified` VARCHAR(255),
-            `role_id` BIGINT(20) NOT NULL,
+            `role_id` BIGINT(20) NOT NULL DEFAULT '7',
             `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP   
     ) ENGINE=INNODB CHARSET=`utf8`;";

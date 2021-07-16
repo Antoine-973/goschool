@@ -11,7 +11,7 @@ class create_roles_table_migration{
         $sql = "CREATE TABLE IF NOT EXISTS roles
         (
             `id`  BIGINT(20) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-            `name` VARCHAR(50) NOT NULL,
+            `role` VARCHAR(50) NOT NULL,
             `level` INT(50) NOT NULL,
             `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP   

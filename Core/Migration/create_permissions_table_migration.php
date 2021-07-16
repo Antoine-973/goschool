@@ -11,7 +11,8 @@ class create_permissions_table_migration{
         $sql = "CREATE TABLE IF NOT EXISTS permissions
         (
             `id`  BIGINT(20) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-            `autorisation` VARCHAR(50) NOT NULL,
+            `authorization` VARCHAR(50) NOT NULL,
+            `description` VARCHAR(400) NOT NULL,
             `catégorie` VARCHAR(50) NULL,
             `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP    
