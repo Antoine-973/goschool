@@ -83,6 +83,9 @@ class AdminArticleController extends Controller {
             $data = $this->request->getBody();
             $errors = $this->validator->validate($this->articleModel, $data);
 
+            $session = new Session();
+            $data['user_id'] = $session->getSession('user_id');
+
             if(empty($errors)){
                 if($this->articleQuery->create($data))
                 {
