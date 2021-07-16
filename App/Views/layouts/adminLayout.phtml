@@ -121,11 +121,11 @@
                                 </ul>
                                 <?php } ?>
 
-                                <?php if ($testPermission->has_permission($id,'crud_users')){ ?>
+                                <?php if ($testPermission->has_permission($id,'crud_user')){ ?>
                                 <li class="sidebar-section"><a href="/admin/user/list"><i class="fas fa-user"></i>  Utilisateurs</a></li>
                                 <?php } ?>
 
-                                <?php if ($testPermission->has_permission($id,'crud_comments')){ ?>
+                                <?php if ($testPermission->has_permission($id,'crud_comment')){ ?>
                                 <li class="sidebar-section"><a href="/admin/comment/list"><i class="fas fa-comment"></i>  Commentaires</a></li>
                                 <?php } ?>
 
