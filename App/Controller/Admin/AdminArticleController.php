@@ -210,23 +210,29 @@ class AdminArticleController extends Controller {
 
     public function delete($id)
     {
- 
         if($this->request->isGet()) {
 
-            $slug = $this->articleQuery->getSlugById($id)['slug'];
-            $deleteQuery = new ArticleQuery();
+            $checkPermission = new RolePermission();
 
-            if($deleteQuery->deleteArticle($id)) {
+            if ($checkPermission->canEditOrDelete($id,'article')){
+                $slug = $this->articleQuery->getSlugById($id)['slug'];
+                $deleteQuery = new ArticleQuery();
 
-                $deleteView = new PhpFileGenerator();
+                if($deleteQuery->deleteArticle($id)) {
 
-                if ($deleteView->deleteViewFile($slug,'articles')){
-                    $this->request->redirect('/admin/article/list')->with('success', 'L\'article a bien été supprimé');
-                }else {
+                    $deleteView = new PhpFileGenerator();
+
+                    if ($deleteView->deleteViewFile($slug,'articles')){
+                        $this->request->redirect('/admin/article/list')->with('success', 'L\'article a bien été supprimé');
+                    }else {
+                        $this->request->redirect('/admin/article/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                    }
+                } else {
                     $this->request->redirect('/admin/article/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                 }
-            } else {
-                $this->request->redirect('/admin/article/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+            }
+            else{
+                $this->request->redirect('/admin/article/list')->with('error', 'Vous n\'avez pas les droits nécessaire pour supprimer cet article.');
             }
         } else {
             $this->request->redirect('/admin/article/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
