@@ -130,10 +130,20 @@ class AdminArticleController extends Controller {
 
     public function edit()
     {
-        $form = new ArticleEditForm();
-        $editArticle = $form->getForm();
-        $id = $this->request->getBody();
-        $this->render("admin/article/editArticle.phtml", ['editArticle'=>$editArticle]);
+        if($this->request->isGet()) {
+
+            $articleId = $this->request->getBody()['id'];
+
+            $checkPermission = new RolePermission();
+
+            if ($checkPermission->canEditOrDelete($articleId, 'article')) {
+                $form = new ArticleEditForm();
+                $editArticle = $form->getForm();
+                $this->render("admin/article/editArticle.phtml", ['editArticle' => $editArticle]);
+            } else {
+                $this->request->redirect('/admin/article/list')->with('error', 'Vous n\'avez pas les droits nécessaire pour modifier cet article.');
+            }
+        }
     }
 
     public function update($id)

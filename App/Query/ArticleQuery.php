@@ -103,6 +103,15 @@ class ArticleQuery
     /**
      * @return array $data
      */
+    public function getAuthor($articleId)
+    {
+        $query = $this->builder->select('user_id')->from("articles")->where("id = $articleId");
+        return $query->getResult();
+    }
+
+    /**
+     * @return array $data
+     */
     public function getArticlesSlug()
     {
         $query = $this->builder->select('slug')->from("articles");
