@@ -141,10 +141,18 @@ class AdminCommentController extends Controller
     public function delete($id)
     {
         if($this->request->isGet()) {
-            if($this->commentQuery->deleteComment($id)) {
-                $this->request->redirect('/admin/comment/list')->with('success', 'Le commentaires a bien été supprimé');
-            } else {
-                $this->request->redirect('/admin/comment/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+
+            $session = new Session();
+            $user_id = $session->getSession('user_id');
+
+            $testPermission = new \Core\Util\RolePermission();
+
+            if ($user_id && $testPermission->has_permission($user_id, 'crud_comment')) {
+                if($this->commentQuery->deleteComment($id)) {
+                    $this->request->redirect('/admin/comment/list')->with('success', 'Le commentaires a bien été supprimé');
+                } else {
+                    $this->request->redirect('/admin/comment/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                }
             }
         }
     }
