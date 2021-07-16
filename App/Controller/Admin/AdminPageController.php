@@ -114,10 +114,21 @@ class AdminPageController extends Controller {
 
     public function edit()
     {
-        $form = new PageEditForm();
-        $pageEditForm = $form->getForm();
+        if($this->request->isGet()) {
 
-        $this->render("admin/page/editPage.phtml", ['pageEdit'=>$pageEditForm]);
+            $articleId = $this->request->getBody()['id'];
+
+            $checkPermission = new RolePermission();
+
+            if ($checkPermission->canEditOrDelete($articleId, 'page')) {
+                $form = new PageEditForm();
+                $pageEditForm = $form->getForm();
+
+                $this->render("admin/page/editPage.phtml", ['pageEdit'=>$pageEditForm]);
+            } else {
+                $this->request->redirect('/admin/page/list')->with('error', 'Vous n\'avez pas les droits nécessaire pour modifier cette page.');
+            }
+        }
     }
 
     public function update($id)

@@ -69,6 +69,15 @@ class PageQuery
     }
 
     /**
+     * @return array $data
+     */
+    public function getAuthor($pageId)
+    {
+        $query = $this->builder->select('user_id')->from("pages")->where("id = $pageId");
+        return $query->getResult();
+    }
+
+    /**
      * @param int $id
      * @return string $query
      */
