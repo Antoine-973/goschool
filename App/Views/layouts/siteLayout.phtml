@@ -59,12 +59,11 @@ $id = $session->getSession('user_id');
                     <a href="javascript:void(0)" class="closebtn" onclick="myFunction()"><i class="fa fa-bars"></i></a>
                 </div>
             </div>
-        <? } ?>
+        <?php } ?>
 
         <?php echo $layout->getMenu();?>
 
-        <div class="site-main--content">
-
+        <div class="container--fluid site-main--content">
             <?php echo $layout->getContent();?>
         </div>
 

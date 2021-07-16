@@ -41,7 +41,6 @@ class Layout {
             $pageFile = $this->getPageFolder() . "home_page.phtml";
         }else{
             $pageFile = $this->getPageFolder() . strtolower(trim($request->getPath(), "/")) . "_page.phtml";
-            echo $pageFile;die;
 
         }
 
