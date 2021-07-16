@@ -14,6 +14,7 @@ use App\Query\CommentQuery;
 use Core\Component\Validator;
 use Core\Http\Session;
 use Core\Util\PhpFileGenerator;
+use Core\Util\RolePermission;
 
 class AdminArticleController extends Controller {
 
@@ -71,10 +72,21 @@ class AdminArticleController extends Controller {
 
     public function add()
     {
-        $form = new ArticleAddForm();
-        $articleAddForm = $form->getForm();
-        
-        $this->render("admin/article/addArticle.phtml", ['articleAdd'=>$articleAddForm]);
+        $session = new Session();
+        $id = $session->getSession('user_id');
+
+        $testPermission = new \Core\Util\RolePermission();
+
+        if ($id && $testPermission->has_permission($id,'crud_article') || $id && $testPermission->has_permission($id,'crud_self_article') ){
+            $form = new ArticleAddForm();
+            $articleAddForm = $form->getForm();
+
+            $this->render("admin/article/addArticle.phtml", ['articleAdd'=>$articleAddForm]);
+        }
+        else{
+            $request = new \Core\Http\Request();
+            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour accéder à cette section du back office.');
+        }
     }
 
     public function store()
