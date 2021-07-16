@@ -33,7 +33,7 @@
                                     <td><?php echo $value ?></td>
                                 <?php } ?>
                                 <td><a href="/admin/page/edit?id=<?php echo $pages[$i]['id'] ?>" class="btn btn--warning btn--sm"><i class="fas fa-edit"></i></a></td>
-                                <td><a href="javascript:confirmDelete('/admin/page/delete?id=<?php echo $pages[$i]['id'] ?>')" class="btn btn--danger btn--sm"><i class="fas fa-trash-alt"></i></a></td>
+                                <td><a href="javascript:confirmDelete('/admin/page/delete/<?php echo $pages[$i]['id'] ?>')" class="btn btn--danger btn--sm"><i class="fas fa-trash-alt"></i></a></td>
                             </tr>
                         <?php }
                     }
@@ -43,7 +43,7 @@
                                 <td><?php echo $value ?></td>
                             <?php } ?>
                             <td><a href="/admin/page/edit?id=<?php echo $pages['id'] ?>" class="btn btn--warning btn--sm"><i class="fas fa-edit"></i></a></td>
-                            <td><a href="javascript:confirmDelete('/admin/page/delete?id=<?php echo $pages['id'] ?>')" class="btn btn--danger btn--sm"><i class="fas fa-trash-alt"></i></a></td>
+                            <td><a href="javascript:confirmDelete('/admin/page/delete/<?php echo $pages['id'] ?>')" class="btn btn--danger btn--sm"><i class="fas fa-trash-alt"></i></a></td>
                         </tr>
                     <?php } ?>
                 <?php } ?>

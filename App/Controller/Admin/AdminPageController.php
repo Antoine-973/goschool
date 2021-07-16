@@ -182,25 +182,30 @@ class AdminPageController extends Controller {
         }
     }
 
-    public function delete()
+    public function delete($id)
     {
-        $id = $_GET['id'];
         if($this->request->isGet()) {
 
-            $url = $this->pageQuery->getUrlById($id)['url'];
-            $deleteQuery = new PageQuery();
+            $checkPermission = new RolePermission();
 
-            if($deleteQuery->delete($id)) {
+            if ($checkPermission->canEditOrDelete($id, 'page')) {
+                $url = $this->pageQuery->getUrlById($id)['url'];
+                $deleteQuery = new PageQuery();
 
-                $deleteView = new PhpFileGenerator();
+                if($deleteQuery->delete($id)) {
 
-                if ($deleteView->deleteViewFile($url,'pages')){
-                    $this->request->redirect('/admin/page/list')->with('success', 'La page a bien été supprimé');
-                }else {
+                    $deleteView = new PhpFileGenerator();
+
+                    if ($deleteView->deleteViewFile($url,'pages')){
+                        $this->request->redirect('/admin/page/list')->with('success', 'La page a bien été supprimé');
+                    }else {
+                        $this->request->redirect('/admin/page/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                    }
+                } else {
                     $this->request->redirect('/admin/page/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                 }
             } else {
-                $this->request->redirect('/admin/page/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                $this->request->redirect('/admin/page/list')->with('error', 'Vous n\'avez pas les droits nécessaire pour supprimer cette page.');
             }
         }
     }
