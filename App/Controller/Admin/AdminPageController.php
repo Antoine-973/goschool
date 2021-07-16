@@ -63,7 +63,7 @@ class AdminPageController extends Controller {
 
         $testPermission = new \Core\Util\RolePermission();
 
-        if ($id && $testPermission->has_permission($id,'crud_article') || $id && $testPermission->has_permission($id,'crud_self_article') ){
+        if ($id && $testPermission->has_permission($id,'crud_page') || $id && $testPermission->has_permission($id,'crud_self_page') ){
             $form = new PageAddForm();
             $pageAddForm = $form->getForm();
 
@@ -116,11 +116,11 @@ class AdminPageController extends Controller {
     {
         if($this->request->isGet()) {
 
-            $articleId = $this->request->getBody()['id'];
+            $pageId = $this->request->getBody()['id'];
 
             $checkPermission = new RolePermission();
 
-            if ($checkPermission->canEditOrDelete($articleId, 'page')) {
+            if ($checkPermission->canEditOrDelete($pageId, 'page')) {
                 $form = new PageEditForm();
                 $pageEditForm = $form->getForm();
 
