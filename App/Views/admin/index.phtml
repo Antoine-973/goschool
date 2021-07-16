@@ -1,4 +1,9 @@
 <h1 class="section-title">Tableau de bord</h1>
+    <?php if(($message = $helper->getFlashMessage('error'))):?>
+        <p><?php echo $message;?></p>
+    <?php elseif(($message = $helper->getFlashMessage('success'))):?>
+        <p> <?php echo $message;?></p>
+    <?php endif;?>
     <div class="content admin--index">
         <div class="row">
             <div class="col-gutter-2">
