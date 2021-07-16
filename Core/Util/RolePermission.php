@@ -1,10 +1,13 @@
 <?php
 namespace Core\Util;
 
+use App\Query\ArticleQuery;
 use App\Query\HavePermissionQuery;
+use App\Query\PageQuery;
 use App\Query\PermissionQuery;
 use App\Query\RoleQuery;
 use App\Query\UserQuery;
+use Core\Http\Session;
 
 class RolePermission{
 
@@ -31,6 +34,39 @@ class RolePermission{
 
         }else{
             if (in_array($authorization,$permissionOfRole)){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+    }
+
+    public function canEditOrDelete($articleId, $typeOfContent){
+
+        $session = new Session();
+        $id = $session->getSession('user_id');
+
+
+        if ($this->has_permission($id,'crud_'.$typeOfContent)){
+            return true;
+        }
+        elseif($typeOfContent == 'page'){
+
+            $pageQuery = new PageQuery();
+
+            if ($id == $pageQuery->getAuthor($articleId)['user_id']){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        elseif ($typeOfContent == 'article'){
+
+            $articleQuery = new ArticleQuery();
+
+            if ($id == $articleQuery->getAuthor($articleId)['user_id']){
                 return true;
             }
             else{
