@@ -21,7 +21,8 @@
         $request->redirect('/')->with('error','Vous n\'avez pas les droits nécessaires pour accéder à cette ressource.');
     }
 
-
+    $paramQuery = new \App\Query\ParamQuery();
+    $siteName = $paramQuery->getSiteName()['site_name'];
 
 ?>
 
@@ -62,7 +63,7 @@
                         <div class="user-actions">
                             <ul>
                                 <li><a href="/admin/article/add"><i class="fas fa-plus"></i>Ajouter</a></li>
-                                <li><a href="/">Voir le site</a></li>
+                                <li><a href="/">Voir <?php if ($siteName) echo $siteName; ?></a></li>
                             </ul>
                         </div>
                     </div>

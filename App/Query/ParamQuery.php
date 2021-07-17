@@ -21,6 +21,13 @@ class ParamQuery{
         $query = $this->builder->select('id, site_name, url, visible, default_role, name_role, description, lang, save, update, created_at')->from("parameters");
         return $query->getResult();
     }
+
+    public function getSiteName()
+    {
+        $query = $this->builder->select('site_name')->from("parameters");
+        return $query->getResult();
+    }
+
     /**
      * @param array $data
      */
