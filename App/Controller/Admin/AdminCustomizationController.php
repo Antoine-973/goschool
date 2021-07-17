@@ -7,6 +7,7 @@ namespace App\Controller\Admin;
 use Core\Controller;
 use Core\Http\Request;
 use Core\Http\Response;
+use Core\Http\Session;
 
 class AdminCustomizationController extends Controller
 {
@@ -22,6 +23,17 @@ class AdminCustomizationController extends Controller
 
     public function index()
     {
-        $this->render("admin/customization/customization.phtml");
+        $session = new Session();
+        $id = $session->getSession('user_id');
+
+        $testPermission = new \Core\Util\RolePermission();
+
+        if ($id && $testPermission->has_permission($id,'customize_site') ){
+            $this->render("admin/customization/customization.phtml");
+        }
+        else{
+            $request = new \Core\Http\Request();
+            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits necessaires pour accéder à cette section du back office.');
+        }
     }
 }

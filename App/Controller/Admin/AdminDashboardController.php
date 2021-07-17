@@ -41,7 +41,7 @@ class AdminDashboardController extends Controller{
         $users = $this->userQuery->orderByDateRegister();
 
         $this->userQuery = new UserQuery();
-        $usersTeacher = $this->userQuery->getByRole('professeur');
+        $usersTeacher = $this->userQuery->getByRole('Professeur');
         $teacherCount = count($usersTeacher);
 
         $this->session = new Session();
@@ -55,7 +55,7 @@ class AdminDashboardController extends Controller{
         }
 
         $userQuery = new UserQuery();
-        $usersStudent = $this->userQuery->getByRole('eleve');
+        $usersStudent = $this->userQuery->getByRole('Abonné');
         $studentCount = count($usersStudent);
 
         $articles = $this->articleQuery->orderByDate();

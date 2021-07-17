@@ -22,6 +22,16 @@ class AdminPlanningController extends Controller{
 
     public function index()
     {
-        $this->render("admin/planning/planning.phtml");
+        $session = new Session();
+        $id = $session->getSession('user_id');
+
+        $testPermission = new \Core\Util\RolePermission();
+
+        if ($id && $testPermission->has_permission($id, 'crud_event') || $id && $testPermission->has_permission($id,'crud_self_event')) {
+            $this->render("admin/planning/planning.phtml");
+        } else {
+            $request = new \Core\Http\Request();
+            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour accéder à cette section du back office.');
+        }
     }
 }

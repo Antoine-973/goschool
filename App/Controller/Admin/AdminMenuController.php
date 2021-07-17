@@ -10,6 +10,7 @@ use Core\Controller;
 use Core\Http\Request;
 use Core\Http\Response;
 use App\Query\HavePageQuery;
+use Core\Http\Session;
 
 class AdminMenuController extends Controller
 {
@@ -31,10 +32,20 @@ class AdminMenuController extends Controller
 
     public function index()
     {
-        $form = new SelectMenuForm();
-        $selectMenuForm = $form->getForm();
+        $session = new Session();
+        $id = $session->getSession('user_id');
 
-        $this->render("admin/menu/menu.phtml", ['selectMenu' => $selectMenuForm]);
+        $testPermission = new \Core\Util\RolePermission();
+
+        if ($id && $testPermission->has_permission($id, 'crud_menu')) {
+            $form = new SelectMenuForm();
+            $selectMenuForm = $form->getForm();
+
+            $this->render("admin/menu/menu.phtml", ['selectMenu' => $selectMenuForm]);
+        } else {
+            $request = new \Core\Http\Request();
+            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour accéder à cette section du back office.');
+        }
     }
 
     public function select(){
@@ -50,10 +61,19 @@ class AdminMenuController extends Controller
     }
 
     public function add(){
+        $session = new Session();
+        $id = $session->getSession('user_id');
 
-        $pages = $this->pageQuery->getTitleAndId();
+        $testPermission = new \Core\Util\RolePermission();
 
-        $this->render("admin/menu/addMenu.phtml", ['pages'=>$pages]);
+        if ($id && $testPermission->has_permission($id, 'crud_menu')) {
+            $pages = $this->pageQuery->getTitleAndId();
+
+            $this->render("admin/menu/addMenu.phtml", ['pages'=>$pages]);
+        }else {
+            $request = new \Core\Http\Request();
+            $request->redirect('/admin/menu/index')->with('error','Vous n\'avez pas les droits nécessaires pour ajouter des menus.');
+        }
     }
 
     public function store(){
@@ -89,10 +109,19 @@ class AdminMenuController extends Controller
     }
 
     public function edit(){
+        $session = new Session();
+        $id = $session->getSession('user_id');
 
-        $pages = $this->pageQuery->getTitleAndId();
+        $testPermission = new \Core\Util\RolePermission();
 
-        $this->render("admin/menu/editMenu.phtml", ['pages'=>$pages]);
+        if ($id && $testPermission->has_permission($id, 'crud_menu')) {
+            $pages = $this->pageQuery->getTitleAndId();
+
+            $this->render("admin/menu/editMenu.phtml", ['pages'=>$pages]);
+        }else {
+            $request = new \Core\Http\Request();
+            $request->redirect('/admin/menu/index')->with('error','Vous n\'avez pas les droits nécessaires pour ajouter des menus.');
+        }
     }
 
     public function update(){
@@ -138,28 +167,44 @@ class AdminMenuController extends Controller
         }
     }
 
-    public function delete()
+    public function delete($id)
     {
-        $id = $_GET['id'];
         if($this->request->isGet()) {
+            $session = new Session();
+            $user_id = $session->getSession('user_id');
 
-            $deleteQuery = new MenuQuery();
+            $testPermission = new \Core\Util\RolePermission();
 
-            if($deleteQuery->delete($id)) {
-                $this->request->redirect('/admin/menu/index')->with('success', 'Le menu a bien été supprimé');
-            } else {
-                $this->request->redirect('/admin/menu/index')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+            if ($user_id && $testPermission->has_permission($user_id, 'crud_menu')) {
+                $deleteQuery = new MenuQuery();
+
+                if($deleteQuery->delete($id)) {
+                    $this->request->redirect('/admin/menu/index')->with('success', 'Le menu a bien été supprimé');
+                } else {
+                    $this->request->redirect('/admin/menu/index')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                }
+            }else {
+                $request = new \Core\Http\Request();
+                $request->redirect('/admin/menu/index')->with('error','Vous n\'avez pas les droits nécessaires pour supprimer des menus.');
             }
-        } else {
-            $this->request->redirect('/admin/menu/index')->with('error', 'Une erreur c\'est produite veuillez réessayer');
         }
     }
 
     public function position(){
-        $form = new SelectMenuPositionForm();
-        $positionMenu = $form->getForm();
+        $session = new Session();
+        $user_id = $session->getSession('user_id');
 
-        $this->render("admin/menu/menuPositon.phtml", ['positionMenu' => $positionMenu]);
+        $testPermission = new \Core\Util\RolePermission();
+
+        if ($user_id && $testPermission->has_permission($user_id, 'change_menu_position')) {
+            $form = new SelectMenuPositionForm();
+            $positionMenu = $form->getForm();
+
+            $this->render("admin/menu/menuPositon.phtml", ['positionMenu' => $positionMenu]);
+        }else {
+            $request = new \Core\Http\Request();
+            $request->redirect('/admin/menu/index')->with('error','Vous n\'avez pas les droits nécessaires pour supprimer des menus.');
+        }
     }
 
     public function postPosition(){

@@ -28,7 +28,9 @@ $id = $session->getSession('user_id');
 
         <?php
 
-        if ($id) {
+        $testPermission = new \Core\Util\RolePermission();
+
+        if ($id && $testPermission->has_permission($id, 'access_back_office')) {
             $userQuery = new App\Query\UserQuery();
             $connectedUser = $userQuery->getUserById($id); ?>
 
@@ -38,9 +40,13 @@ $id = $session->getSession('user_id');
                         <div class="user-controls">
                             <div class="identity">
                                 <ul>
-                                    <li><a href="/admin/dashboard/index"><i class="fas fa-home"></i>Accueil</a></li>            |
-                                    <li><a href="/admin/customization/index"><i class="fas fa-pencil-ruler"></i>Personnalisation</a></li>                   |
-                                    <li><a href="/admin/comment/list"><i class="fas fa-comment"></i></a></li>|
+                                    <li><a href="/admin/dashboard/index"><i class="fas fa-home"></i>Accueil</a></li>
+                                    <?php if ($id && $testPermission->has_permission($id, 'customize_site')) { ?> |
+                                    <li><a href="/admin/customization/index"><i class="fas fa-pencil-ruler"></i>Personnalisation</a></li>
+                                    <?php }?>
+                                    <?php if ($id && $testPermission->has_permission($id, 'approve_comment')) { ?> |
+                                    <li><a href="/admin/comment/list"><i class="fas fa-comment"></i></a></li>
+                                    <?php }?>|
                                     <li><a href="/admin/article/add"><i class="fas fa-plus"></i>Ajouter</a></li>
                                 </ul>
                             </div>

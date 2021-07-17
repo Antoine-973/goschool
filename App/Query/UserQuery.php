@@ -19,7 +19,7 @@ class UserQuery
      */
     public function getUsers()
     {
-        $query = $this->builder->select("id, firstname, lastname, email, roles")->from("users");
+        $query = $this->builder->select("users.id, firstname, lastname, email, roles.role")->from("users")->join('INNER', 'users', 'role_id', 'roles', 'id');
         
         return $query->getResult();
     }
@@ -47,7 +47,7 @@ class UserQuery
     public function getUserById($id)
     {
   
-        $query = $this->builder->select("id, firstname, lastname, email, roles")->from("users")->where("id = $id");
+        $query = $this->builder->select("users.id, firstname, lastname, email, roles.role")->from("users")->join('INNER', 'users', 'role_id', 'roles', 'id')->where("users.id = $id");
     
         return $query->getResult();
     
@@ -77,7 +77,16 @@ class UserQuery
      */
     public function getRoleById($id)
     {
-        $query = $this->builder->select("roles")->from("users")->where("id = $id");
+        $query = $this->builder->select("roles.role")->from("users")->join('INNER', 'users', 'role_id', 'roles', 'id')->where("users.id = $id");
+        return $query->getResult();
+    }
+
+    /**
+     * @param string $roles
+     */
+    public function getRoleIdById($id)
+    {
+        $query = $this->builder->select("roles.id")->from("users")->join('INNER', 'users', 'role_id', 'roles', 'id')->where("users.id = $id");
         return $query->getResult();
     }
 
@@ -86,7 +95,7 @@ class UserQuery
      */
     public function getByRole(string $roles)
     {
-        $query = $this->builder->select("*")->from("users")->where("roles = $roles");
+        $query = $this->builder->select("users.id")->from("users")->join('INNER', 'users', 'role_id', 'roles', 'id')->where("roles.role = $roles");
         return $query->getResult();
     
     }
@@ -195,6 +204,14 @@ class UserQuery
             unset($data["password"]); 
             unset($data["passwordConfirm"]);
 
+            if (array_key_exists('role', $data)){
+                $roleQuery = new RoleQuery();
+                $role_id = $roleQuery->getIdbyName($data['role'])['id'];
+
+                $data['role_id'] = $role_id;
+                unset($data['role']);
+            }
+
             $token_verified = [ 'token_verified' => md5( rand(0,1000) )];
             $finalData = $data + $token_verified;
 
@@ -275,7 +292,7 @@ class UserQuery
      */
     public function orderByDateRegister()
     {
-        $query = $this->builder->select("firstname, lastname, roles, created_at")->from("users")->orderBy('created_at', 'DESC');
+        $query = $this->builder->select("firstname, lastname, roles.role, users.created_at")->from("users")->join('INNER', 'users', 'role_id', 'roles', 'id')->orderBy('users.created_at', 'DESC');
         return $query->getResult();
     }
 }

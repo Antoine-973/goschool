@@ -61,10 +61,10 @@ class AdminUserController extends Controller {
             if(empty($errors)){
                 if($this->userQuery->update($data, $id))
                 {
-                    $this->request->redirect('/admin/user/list')->with('edited', 'Votre profil a bien été modifié');
+                    $this->request->redirect('/admin/user/list')->with('success', 'Votre profil a bien été modifié');
                 }
                 else{
-                    $this->request->redirect('/admin/user/list')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/user/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                 }
             }
             else{
@@ -78,18 +78,38 @@ class AdminUserController extends Controller {
 
     public function list()
     {
-        $userQuery = new UserQuery();
-        $users = $userQuery->getUsers();
+        $session = new Session();
+        $id = $session->getSession('user_id');
 
-        $this->render("admin/user/listUser.phtml", ['users'=>$users]);
+        $testPermission = new \Core\Util\RolePermission();
+
+        if ($id && $testPermission->has_permission($id, 'crud_user')) {
+            $userQuery = new UserQuery();
+            $users = $userQuery->getUsers();
+
+            $this->render("admin/user/listUser.phtml", ['users'=>$users]);
+        } else {
+            $request = new \Core\Http\Request();
+            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour accéder à cette section du back office.');
+        }
     }
 
     public function add()
     {
-        $form = new UserAddForm();
-        $userAddForm = $form->getForm();
+        $session = new Session();
+        $user_id = $session->getSession('user_id');
 
-        $this->render("admin/user/addUser.phtml", ['userAdd'=>$userAddForm]);
+        $testPermission = new \Core\Util\RolePermission();
+
+        if ($user_id && $testPermission->has_permission($user_id, 'crud_user')) {
+            $form = new UserAddForm();
+            $userAddForm = $form->getForm();
+
+            $this->render("admin/user/addUser.phtml", ['userAdd'=>$userAddForm]);
+        } else {
+            $request = new \Core\Http\Request();
+            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour ajouter des utilisateurs.');
+        }
     }
 
     public function store()
@@ -120,11 +140,20 @@ class AdminUserController extends Controller {
 
     public function edit()
     {
-        $form = new UserEditForm();
-        $editUser = $form->getForm();
-        $id = $this->request->getBody();
+        $session = new Session();
+        $user_id = $session->getSession('user_id');
 
-        $this->render("admin/user/editUser.phtml", ['editUser'=>$editUser]);
+        $testPermission = new \Core\Util\RolePermission();
+
+        if ($user_id && $testPermission->has_permission($user_id, 'crud_user')) {
+            $form = new UserEditForm();
+            $editUser = $form->getForm();
+
+            $this->render("admin/user/editUser.phtml", ['editUser'=>$editUser]);
+        } else {
+            $request = new \Core\Http\Request();
+            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour éditer cet utilisateur.');
+        }
     }
 
     public function update($id)
@@ -152,25 +181,27 @@ class AdminUserController extends Controller {
         }
     }
 
-    public function indexDeleteUser()
-    {
-        $id = $_GET['id'];
-        $firstname = $this->userQuery->getFirstname();
-        $lastname = $this->userQuery->getLastname();
-        $this->render("admin/user/deleteUser.phtml");
-    }
-
     public function delete($id)
     {
         if($this->request->isGet()) {
-            if($this->session->getSession('id') != $id){
-                if($this->userQuery->delete($id)) {
-                    $this->request->redirect('/admin/user/list')->with('deleted', 'L\'utilisateur a bien été supprimé');
-                } else {
-                    $this->request->redirect('/admin/user/list')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+            $session = new Session();
+            $user_id = $session->getSession('user_id');
+
+            $testPermission = new \Core\Util\RolePermission();
+
+            if ($user_id && $testPermission->has_permission($user_id, 'crud_user')) {
+                if($this->session->getSession('id') != $id){
+                    if($this->userQuery->delete($id)) {
+                        $this->request->redirect('/admin/user/list')->with('success', 'L\'utilisateur a bien été supprimé');
+                    } else {
+                        $this->request->redirect('/admin/user/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                    }
+                }else {
+                    $this->request->redirect('/admin/user/list')->with('error', 'Impossible de supprimer votre propre compte.');
                 }
-            }else {
-                $this->request->redirect('/admin/user/list')->with('failed', 'Impossible de supprimer votre propre compte.');
+            } else {
+                $request = new \Core\Http\Request();
+                $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour supprimer cet utilisateur.');
             }
         }
     }

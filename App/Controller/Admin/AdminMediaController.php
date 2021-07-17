@@ -5,6 +5,7 @@ use Core\Controller;
 use Core\Http\Request;
 use Core\Http\Response;
 use App\Form\MediaAddForm;
+use Core\Http\Session;
 
 class AdminMediaController extends Controller{
 
@@ -23,33 +24,55 @@ class AdminMediaController extends Controller{
 
     public function list()
     {
-        $repertoire='../images/';/* chemin du repertoire */
-        /* ouverture du dossier */
-        $chemin_fichiers = opendir($repertoire);
-        /* initialisation tableau des noms */
-        $name_fichiers= [];
-        while($fichier = readdir($chemin_fichiers))
-        {
-            if(!is_dir($fichier))
+        $session = new Session();
+        $id = $session->getSession('user_id');
+
+        $testPermission = new \Core\Util\RolePermission();
+
+        if ($id && $testPermission->has_permission($id,'crud_media') || $id && $testPermission->has_permission($id,'crud_self_media') ){
+            $repertoire='../images/';/* chemin du repertoire */
+            /* ouverture du dossier */
+            $chemin_fichiers = opendir($repertoire);
+            /* initialisation tableau des noms */
+            $name_fichiers= [];
+            while($fichier = readdir($chemin_fichiers))
             {
-                array_push($name_fichiers, $fichier);/* ajout au tableau */
+                if(!is_dir($fichier))
+                {
+                    array_push($name_fichiers, $fichier);/* ajout au tableau */
+                }
             }
+            closedir();
+            /* nombre d'images récupérées */
+            $nb_total_img=count($name_fichiers);
+            //var_dump($name_fichiers);
+            $listMedias = $name_fichiers;
+            $this->render("admin/media/listMedia.phtml", ['listMedias'=>$listMedias, 'nb_total_img'=>$nb_total_img, 'repertoire'=>$repertoire]);
         }
-        closedir();
-        /* nombre d'images récupérées */
-        $nb_total_img=count($name_fichiers);
-        //var_dump($name_fichiers);
-        $listMedias = $name_fichiers;
-        $this->render("admin/media/listMedia.phtml", ['listMedias'=>$listMedias, 'nb_total_img'=>$nb_total_img, 'repertoire'=>$repertoire]);
+        else{
+            $request = new \Core\Http\Request();
+            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour accéder à cette section du back office.');
+        }
     }
 
     public function add()
     {
-        $form = new MediaAddForm();
-        $mediaAddForm = $form->getForm();
+        $session = new Session();
+        $id = $session->getSession('user_id');
 
-        $this->render("admin/media/addMedia.phtml", ['mediaAddForm'=>$mediaAddForm]);
+        $testPermission = new \Core\Util\RolePermission();
+
+        if ($id && $testPermission->has_permission($id,'crud_media') || $id && $testPermission->has_permission($id,'crud_self_media') ){
+            $form = new MediaAddForm();
+            $mediaAddForm = $form->getForm();
+
+            $this->render("admin/media/addMedia.phtml", ['mediaAddForm'=>$mediaAddForm]);
+        }else{
+            $request = new \Core\Http\Request();
+            $request->redirect('/admin/media/list')->with('error','Vous n\'avez pas les droits nécessaires pour ajouter des médias.');
+        }
     }
+
 
     public function store()
     {
@@ -75,15 +98,28 @@ class AdminMediaController extends Controller{
 
     public function delete()
     {
-        $image = $_GET['name'];
-        $open = opendir("../images");
         if($this->request->isGet()) {
-            unlink("../images/".$image);
-            closedir($open);
-            $this->request->redirect('/admin/media/list');
-        } else {
-            closedir($open);
-            $this->request->redirect('/admin/media/list');
+            $session = new Session();
+            $id = $session->getSession('user_id');
+
+            $testPermission = new \Core\Util\RolePermission();
+
+            if ($id && $testPermission->has_permission($id,'crud_media')){
+                $image = $_GET['name'];
+                $open = opendir("../images");
+                if($this->request->isGet()) {
+                    unlink("../images/".$image);
+                    closedir($open);
+                    $this->request->redirect('/admin/media/list');
+                } else {
+                    closedir($open);
+                    $this->request->redirect('/admin/media/list');
+                }
+            }
+            else{
+                $request = new \Core\Http\Request();
+                $request->redirect('/admin/media/list')->with('error','Vous n\'avez pas les droits nécessaires pour supprimer des médias.');
+            }
         }
     }
 }
