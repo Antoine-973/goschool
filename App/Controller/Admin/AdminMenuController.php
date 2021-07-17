@@ -109,10 +109,19 @@ class AdminMenuController extends Controller
     }
 
     public function edit(){
+        $session = new Session();
+        $id = $session->getSession('user_id');
 
-        $pages = $this->pageQuery->getTitleAndId();
+        $testPermission = new \Core\Util\RolePermission();
 
-        $this->render("admin/menu/editMenu.phtml", ['pages'=>$pages]);
+        if ($id && $testPermission->has_permission($id, 'crud_menu')) {
+            $pages = $this->pageQuery->getTitleAndId();
+
+            $this->render("admin/menu/editMenu.phtml", ['pages'=>$pages]);
+        }else {
+            $request = new \Core\Http\Request();
+            $request->redirect('/admin/menu/index')->with('error','Vous n\'avez pas les droits nécessaires pour ajouter des menus.');
+        }
     }
 
     public function update(){
