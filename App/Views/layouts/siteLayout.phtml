@@ -68,10 +68,18 @@ $id = $session->getSession('user_id');
         <?php } ?>
 
         <?php echo $layout->getMenu();?>
-        <?php echo $layout->getAside();?>
-        <div class="container--fluid site-main--content">
-            <?php echo $layout->getContent();?>
-            <?php echo $layout->getArticles();?>
+
+        <div class="site-main--content">
+            <div class="row">
+                <div class="col-gutter-12">
+                    <?php echo $layout->getContent();?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-gutter-12">
+                    <?php echo $layout->getArticles();?>
+                </div>
+            </div>
         </div>
 
         <?php echo $layout->getFooter();?>

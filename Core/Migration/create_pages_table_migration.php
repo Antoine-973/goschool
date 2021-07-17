@@ -14,7 +14,7 @@ class create_pages_table_migration
             `url` VARCHAR(255) NULL UNIQUE,
             `image` VARCHAR(255) NULL,
             `content` TEXT NULL,
-            `status` VARCHAR(55) NOT NULL DEFAULT 'unpublished',
+            `status` VARCHAR(55) NOT NULL DEFAULT 'Brouillon',
             `user_id` BIGINT(20) NOT NULL,
             `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP

@@ -1735,15 +1735,15 @@ body.admin-login .col-6.connexion-form .container-form .form-input input[type=su
   color: #00A2AC;
 }
 .site-main--content {
-  margin-right: 15%;
-  text-align: center;
   padding-bottom: 2.5rem;
+  text-align: center;
 }
 .site-main--content h1, .site-main--content h2, .site-main--content h3, .site-main--content h4, .site-main--content h5, .site-main--content h6 {
   font-family: "Roboto", sans-serif;
   color: #363740;
 }
 .site-main--content--articles {
+  color: #363740;
   display: flex;
   border: 0.75em solid #F9F9F9;
   padding: 2em;
@@ -1760,7 +1760,6 @@ body.admin-login .col-6.connexion-form .container-form .form-input input[type=su
   text-decoration: none;
   background: #F9F9F9;
   margin: 1em;
-  padding: 2.75em 2.5em;
   box-shadow: 0 1.5em 2.5em -0.5em rgba(0, 0, 0, 0.1);
   transition: transform 0.45s ease, #F9F9F9 0.45s ease;
 }
@@ -1785,8 +1784,7 @@ body.admin-login .col-6.connexion-form .container-form .form-input input[type=su
   transition: color 0.45s ease;
 }
 .site-main--content--articles .data-card p {
-  opacity: 0;
-  color: #F9F9F9;
+  color: #363740;
   font-weight: 600;
   line-height: 1.8;
   margin: 0 0 1.25em;
@@ -1801,6 +1799,7 @@ body.admin-login .col-6.connexion-form .container-form .form-input input[type=su
   line-height: 1.2;
   margin: auto 0 0;
   transition: color 0.45s ease;
+  margin-bottom: 3%;
 }
 .site-main--content--articles .data-card .link-text svg {
   margin-left: 0.5em;
@@ -1808,31 +1807,6 @@ body.admin-login .col-6.connexion-form .container-form .form-input input[type=su
 }
 .site-main--content--articles .data-card .link-text svg path {
   transition: fill 0.45s ease;
-}
-.site-main--content--articles .data-card:hover {
-  background: #00A2AC;
-  transform: scale(1.02);
-}
-.site-main--content--articles .data-card:hover h5 {
-  color: #F9F9F9;
-  border-bottom-color: #00A2AC;
-}
-.site-main--content--articles .data-card:hover h6 {
-  color: #F9F9F9;
-}
-.site-main--content--articles .data-card:hover p {
-  opacity: 1;
-  transform: none;
-}
-.site-main--content--articles .data-card:hover .link-text {
-  color: #F9F9F9;
-}
-.site-main--content--articles .data-card:hover .link-text svg {
-  -webkit-animation: point 1.25s infinite alternate;
-          animation: point 1.25s infinite alternate;
-}
-.site-main--content--articles .data-card:hover .link-text svg path {
-  fill: #F9F9F9;
 }
 @-webkit-keyframes point {
   0% {

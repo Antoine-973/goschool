@@ -112,21 +112,19 @@
                     <h4>Les 3 derniers articles.</h4>
                     <ul>
                         <?php if ($articles != null && $verifTable->is_multi($articles)) { ?>
-                            <?php for($i = 0; $i < 3;$i++) { ?>
+                            <?php for($i = 0; $i < count($articles);$i++) { ?>
                                 <li>
                                         <?php echo $articles[$i]['title'] ?><br>
                                         <?php echo $articles[$i]['created_at'] ?><br><br>
                                 </li>
                             <?php } ?>
                         <?php } 
-                        elseif (!$verifTable->is_multi($articles)) { ?>
-                            <?php for($i = 0; $i < 3;$i++) { ?>
+                        elseif ($articles != null && !$verifTable->is_multi($articles)) { ?>
                                 <li>
-                                        <?php echo $articles[$i]['title'] ?><br>
-                                        <?php echo $articles[$i]['created_at'] ?><br><br>
+                                        <?php echo $articles['title'] ?><br>
+                                        <?php echo $articles['created_at'] ?><br><br>
                                 </li>
-                            <?php } ?>
-                        <?php }
+                            <?php }
                         else { ?>
                             <li>Il n'y a pas encore d'article.<br>
                             <a href="/admin/article/add" class="btn btn--sm"><i class="fas fa-plus-circle"></i> Ajouter </a></li>
