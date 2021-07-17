@@ -181,14 +181,6 @@ class AdminUserController extends Controller {
         }
     }
 
-    public function indexDeleteUser()
-    {
-        $id = $_GET['id'];
-        $firstname = $this->userQuery->getFirstname();
-        $lastname = $this->userQuery->getLastname();
-        $this->render("admin/user/deleteUser.phtml");
-    }
-
     public function delete($id)
     {
         if($this->request->isGet()) {
