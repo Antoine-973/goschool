@@ -184,14 +184,24 @@ class AdminUserController extends Controller {
     public function delete($id)
     {
         if($this->request->isGet()) {
-            if($this->session->getSession('id') != $id){
-                if($this->userQuery->delete($id)) {
-                    $this->request->redirect('/admin/user/list')->with('deleted', 'L\'utilisateur a bien été supprimé');
-                } else {
-                    $this->request->redirect('/admin/user/list')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+            $session = new Session();
+            $user_id = $session->getSession('user_id');
+
+            $testPermission = new \Core\Util\RolePermission();
+
+            if ($user_id && $testPermission->has_permission($user_id, 'crud_user')) {
+                if($this->session->getSession('id') != $id){
+                    if($this->userQuery->delete($id)) {
+                        $this->request->redirect('/admin/user/list')->with('success', 'L\'utilisateur a bien été supprimé');
+                    } else {
+                        $this->request->redirect('/admin/user/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                    }
+                }else {
+                    $this->request->redirect('/admin/user/list')->with('error', 'Impossible de supprimer votre propre compte.');
                 }
-            }else {
-                $this->request->redirect('/admin/user/list')->with('failed', 'Impossible de supprimer votre propre compte.');
+            } else {
+                $request = new \Core\Http\Request();
+                $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour supprimer cet utilisateur.');
             }
         }
     }
