@@ -139,13 +139,21 @@ class AdminCategoryController extends Controller {
     public function delete($id)
     {
         if($this->request->isGet()) {
-            if($this->categoryQuery->deleteCategory($id)) {
-                $this->request->redirect('/admin/category/list')->with('success', 'La catégorie a bien été supprimé');
+            $session = new Session();
+            $user_id = $session->getSession('user_id');
+
+            $testPermission = new \Core\Util\RolePermission();
+
+            if ($user_id && $testPermission->has_permission($user_id, 'crud_categorie')) {
+                if($this->categoryQuery->deleteCategory($id)) {
+                    $this->request->redirect('/admin/category/list')->with('success', 'La catégorie a bien été supprimé');
+                } else {
+                    $this->request->redirect('/admin/category/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                }
             } else {
-                $this->request->redirect('/admin/category/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                $request = new \Core\Http\Request();
+                $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour supprimer cette catégorie.');
             }
-        } else {
-            $this->request->redirect('/admin/category/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
         }
     }
 
