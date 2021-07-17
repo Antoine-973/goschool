@@ -97,11 +97,20 @@ class AdminCategoryController extends Controller {
     }
 
     public function edit(){
+        $session = new Session();
+        $user_id = $session->getSession('user_id');
 
-        $form = new CategoryEditform();
-        $categoryEditForm = $form->getForm();
+        $testPermission = new \Core\Util\RolePermission();
 
-        $this->render("admin/category/editCategory.phtml", ['categoryEdit'=>$categoryEditForm]);
+        if ($user_id && $testPermission->has_permission($user_id, 'crud_categorie')) {
+            $form = new CategoryEditform();
+            $categoryEditForm = $form->getForm();
+
+            $this->render("admin/category/editCategory.phtml", ['categoryEdit'=>$categoryEditForm]);
+        } else {
+            $request = new \Core\Http\Request();
+            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour éditer cette catégorie.');
+        }
     }
 
     public function update($id)
