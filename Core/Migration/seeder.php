@@ -8,6 +8,9 @@ class seeder
         $conn = DB::getConnection();
 
         $sql = "               
+                INSERT INTO parameters (site_name)
+                VALUE('Esgi');
+                
                 INSERT INTO categories (name, slug, categorie_parent)
                 VALUES('Non-classé', 'non-classé', NULL),
                        ('Esgi','esgi', NULL),
