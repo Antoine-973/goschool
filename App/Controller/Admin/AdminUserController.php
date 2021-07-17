@@ -61,10 +61,10 @@ class AdminUserController extends Controller {
             if(empty($errors)){
                 if($this->userQuery->update($data, $id))
                 {
-                    $this->request->redirect('/admin/user/list')->with('edited', 'Votre profil a bien été modifié');
+                    $this->request->redirect('/admin/user/list')->with('success', 'Votre profil a bien été modifié');
                 }
                 else{
-                    $this->request->redirect('/admin/user/list')->with('failed', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/user/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                 }
             }
             else{
