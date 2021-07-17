@@ -158,8 +158,8 @@ class seeder
                 INSERT INTO pages (title, url, content, status, user_id)
                 VALUE('Sample Page', '/sample-page', '<h1>Page d\'exemple</h1><p>Ceci est une page d\'exemple. C\'est différent d\'un article car elle restera au même endroit et apparaîtra dans la navigation de votre site. La plupart des gens commencent par une page À propos qui les présente aux visiteurs potentiels du site.</p>', 'Publié', '1');
                 
-                INSERT INTO articles (title, slug, content, status, user_id)
-                VALUE('Hello World', 'hello-world', '<h1>Hello World !</h1><p>Bienvenue sur GoSchool. Ceci est ton premier article. Edite le ou supprime le, puis commence à créer !</p>','Publié', '1');
+                INSERT INTO articles (title, slug, description, content, status, user_id)
+                VALUE('Hello World', 'hello-world', 'Bienvenue sur GoSchool. Ceci est ton premier article. Edite le ou supprime le, puis commence à créer !', '<h1>Hello World !</h1><p>Bienvenue sur GoSchool. Ceci est ton premier article. Edite le ou supprime le, puis commence à créer !</p>','Publié', '1');
 
                 INSERT INTO comments (message, status, user_id, article_id)
                 VALUES('Bonjour ceci est un commentaire de test. Pour commencer à modérer, éditer et supprimer des commentaires, veuillez visiter l\'écran Commentaires dans le tableau de bord. ', 'Approuvé', '1', '1'),

@@ -173,7 +173,7 @@ class ArticleQuery
 
     public function orderByDate()
     {
-        $query = $this->builder->select('title, created_at')->from("articles")->orderBy('created_at','DESC');
+        $query = $this->builder->select('title, articles.slug, articles.description, categories.name, articles.created_at')->from("articles")->join('INNER', 'articles', 'categorie_id', 'categories', 'id')->orderBy('created_at','DESC');
         return $query->getResult();
     }
 }

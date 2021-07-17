@@ -1,16 +1,11 @@
 <?php
-use App\Query\CategoryQuery;
-use App\Query\MenuQuery;
-use App\Query\HavePageQuery;
-use App\Query\PageQuery;
-
 $verifTable = new \Core\Util\Table();
-$categoryQuery = new CategoryQuery();
+$categoryQuery = new App\Query\CategoryQuery();
 $categories = $categoryQuery->orderByDate();
-$menuQuery = new MenuQuery();
+$menuQuery = new App\Query\MenuQuery();
 $menuId = $menuQuery->getIdByPosition('footer');
 $id = implode($menuId);
-$havepageQuery = new HavePageQuery();
+$havepageQuery = new App\Query\HavePageQuery();
 $pagesId = $havepageQuery->getPagesIdByMenuId($id);
 
 ?>
@@ -32,10 +27,10 @@ $pagesId = $havepageQuery->getPagesIdByMenuId($id);
                             $pagesId = $verifTable->multi_to_single($pagesId);
                         }?>
                         <?php foreach($pagesId as $page) {
-                            $pageQuery = new PageQuery();
+                            $pageQuery = new App\Query\PageQuery();
                             $pageTitle = $pageQuery->getTitleById($page);
                             $title = implode($pageTitle);
-                            $pageQuery = new PageQuery();
+                            $pageQuery = new App\Query\PageQuery();
                             $pageUrl = $pageQuery->getUrlById($page);
                             $url = implode($pageUrl);
                             ?>
