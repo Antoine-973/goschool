@@ -29,7 +29,7 @@ class PhpFileGenerator{
             $urlToName = $this->clearUrl($viewName);
             $cleanName = $urlToName . '_page.phtml';
 
-            $cleanContent = str_replace( '&nbsp', '', html_entity_decode($viewContent));
+            $cleanContent = str_replace('&#39;', '\'', str_replace( '&nbsp', '', html_entity_decode($viewContent)));
             $indentContent = htmLawed($cleanContent, array('tidy'=>4));
 
             return file_put_contents("../App/Views/site/".$postType."/".$cleanName, str_replace( '&', '&amp;', html_entity_decode($indentContent)));
@@ -38,7 +38,7 @@ class PhpFileGenerator{
             $titleToName = str_replace(" ", "-", $viewName);
             $cleanName = strtolower($titleToName) . '_article.phtml';
 
-            $cleanContent = str_replace( '&nbsp', '', html_entity_decode($viewContent));
+            $cleanContent = str_replace('&#39;', '\'', str_replace( '&nbsp', '', html_entity_decode($viewContent)));
             $indentContent = htmLawed($cleanContent, array('tidy'=>4));
 
             return file_put_contents("../App/Views/site/".$postType."/".$cleanName, $indentContent);
