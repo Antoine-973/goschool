@@ -140,11 +140,20 @@ class AdminUserController extends Controller {
 
     public function edit()
     {
-        $form = new UserEditForm();
-        $editUser = $form->getForm();
-        $id = $this->request->getBody();
+        $session = new Session();
+        $user_id = $session->getSession('user_id');
 
-        $this->render("admin/user/editUser.phtml", ['editUser'=>$editUser]);
+        $testPermission = new \Core\Util\RolePermission();
+
+        if ($user_id && $testPermission->has_permission($user_id, 'crud_user')) {
+            $form = new UserEditForm();
+            $editUser = $form->getForm();
+
+            $this->render("admin/user/editUser.phtml", ['editUser'=>$editUser]);
+        } else {
+            $request = new \Core\Http\Request();
+            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour éditer cet utilisateur.');
+        }
     }
 
     public function update($id)
