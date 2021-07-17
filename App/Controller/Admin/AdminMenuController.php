@@ -167,20 +167,26 @@ class AdminMenuController extends Controller
         }
     }
 
-    public function delete()
+    public function delete($id)
     {
-        $id = $_GET['id'];
         if($this->request->isGet()) {
+            $session = new Session();
+            $user_id = $session->getSession('user_id');
 
-            $deleteQuery = new MenuQuery();
+            $testPermission = new \Core\Util\RolePermission();
 
-            if($deleteQuery->delete($id)) {
-                $this->request->redirect('/admin/menu/index')->with('success', 'Le menu a bien été supprimé');
-            } else {
-                $this->request->redirect('/admin/menu/index')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+            if ($user_id && $testPermission->has_permission($user_id, 'crud_menu')) {
+                $deleteQuery = new MenuQuery();
+
+                if($deleteQuery->delete($id)) {
+                    $this->request->redirect('/admin/menu/index')->with('success', 'Le menu a bien été supprimé');
+                } else {
+                    $this->request->redirect('/admin/menu/index')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                }
+            }else {
+                $request = new \Core\Http\Request();
+                $request->redirect('/admin/menu/index')->with('error','Vous n\'avez pas les droits nécessaires pour supprimer des menus.');
             }
-        } else {
-            $this->request->redirect('/admin/menu/index')->with('error', 'Une erreur c\'est produite veuillez réessayer');
         }
     }
 
