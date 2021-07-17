@@ -191,10 +191,20 @@ class AdminMenuController extends Controller
     }
 
     public function position(){
-        $form = new SelectMenuPositionForm();
-        $positionMenu = $form->getForm();
+        $session = new Session();
+        $user_id = $session->getSession('user_id');
 
-        $this->render("admin/menu/menuPositon.phtml", ['positionMenu' => $positionMenu]);
+        $testPermission = new \Core\Util\RolePermission();
+
+        if ($user_id && $testPermission->has_permission($user_id, 'change_menu_position')) {
+            $form = new SelectMenuPositionForm();
+            $positionMenu = $form->getForm();
+
+            $this->render("admin/menu/menuPositon.phtml", ['positionMenu' => $positionMenu]);
+        }else {
+            $request = new \Core\Http\Request();
+            $request->redirect('/admin/menu/index')->with('error','Vous n\'avez pas les droits nécessaires pour supprimer des menus.');
+        }
     }
 
     public function postPosition(){
