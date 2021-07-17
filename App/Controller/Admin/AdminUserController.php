@@ -83,7 +83,7 @@ class AdminUserController extends Controller {
 
         $testPermission = new \Core\Util\RolePermission();
 
-        if ($id && $testPermission->has_permission($id, 'crud_users')) {
+        if ($id && $testPermission->has_permission($id, 'crud_user')) {
             $userQuery = new UserQuery();
             $users = $userQuery->getUsers();
 
@@ -96,10 +96,20 @@ class AdminUserController extends Controller {
 
     public function add()
     {
-        $form = new UserAddForm();
-        $userAddForm = $form->getForm();
+        $session = new Session();
+        $user_id = $session->getSession('user_id');
 
-        $this->render("admin/user/addUser.phtml", ['userAdd'=>$userAddForm]);
+        $testPermission = new \Core\Util\RolePermission();
+
+        if ($user_id && $testPermission->has_permission($user_id, 'crud_user')) {
+            $form = new UserAddForm();
+            $userAddForm = $form->getForm();
+
+            $this->render("admin/user/addUser.phtml", ['userAdd'=>$userAddForm]);
+        } else {
+            $request = new \Core\Http\Request();
+            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour ajouter des utilisateurs.');
+        }
     }
 
     public function store()
