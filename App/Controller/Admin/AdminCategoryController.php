@@ -43,11 +43,11 @@ class AdminCategoryController extends Controller {
     public function list(){
 
         $session = new Session();
-        $id = $session->getSession('user_id');
+        $user_id = $session->getSession('user_id');
 
         $testPermission = new \Core\Util\RolePermission();
 
-        if ($id && $testPermission->has_permission($id, 'crud_categorie')) {
+        if ($user_id && $testPermission->has_permission($user_id, 'crud_categorie')) {
             $categories = ($this->categoryQuery->getCategories());
             $this->render("admin/category/listCategory.phtml", ['categories'=>$categories]);
         } else {
@@ -57,11 +57,20 @@ class AdminCategoryController extends Controller {
     }
 
     public function add(){
+        $session = new Session();
+        $user_id = $session->getSession('user_id');
 
-        $form = new CategoryAddForm();
-        $categoryAddForm = $form->getForm();
+        $testPermission = new \Core\Util\RolePermission();
 
-        $this->render("admin/category/addCategory.phtml", ['categoryAdd'=>$categoryAddForm]);
+        if ($user_id && $testPermission->has_permission($user_id, 'crud_categorie')) {
+            $form = new CategoryAddForm();
+            $categoryAddForm = $form->getForm();
+
+            $this->render("admin/category/addCategory.phtml", ['categoryAdd'=>$categoryAddForm]);
+        } else {
+            $request = new \Core\Http\Request();
+            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour ajouter des catégories.');
+        }
     }
 
     public function store()
