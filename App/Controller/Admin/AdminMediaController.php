@@ -57,11 +57,22 @@ class AdminMediaController extends Controller{
 
     public function add()
     {
-        $form = new MediaAddForm();
-        $mediaAddForm = $form->getForm();
+        $session = new Session();
+        $id = $session->getSession('user_id');
 
-        $this->render("admin/media/addMedia.phtml", ['mediaAddForm'=>$mediaAddForm]);
+        $testPermission = new \Core\Util\RolePermission();
+
+        if ($id && $testPermission->has_permission($id,'crud_media') || $id && $testPermission->has_permission($id,'crud_self_media') ){
+            $form = new MediaAddForm();
+            $mediaAddForm = $form->getForm();
+
+            $this->render("admin/media/addMedia.phtml", ['mediaAddForm'=>$mediaAddForm]);
+        }else{
+            $request = new \Core\Http\Request();
+            $request->redirect('/admin/media/list')->with('error','Vous n\'avez pas les droits nécessaires pour ajouter des médias.');
+        }
     }
+
 
     public function store()
     {
