@@ -98,15 +98,28 @@ class AdminMediaController extends Controller{
 
     public function delete()
     {
-        $image = $_GET['name'];
-        $open = opendir("../images");
         if($this->request->isGet()) {
-            unlink("../images/".$image);
-            closedir($open);
-            $this->request->redirect('/admin/media/list');
-        } else {
-            closedir($open);
-            $this->request->redirect('/admin/media/list');
+            $session = new Session();
+            $id = $session->getSession('user_id');
+
+            $testPermission = new \Core\Util\RolePermission();
+
+            if ($id && $testPermission->has_permission($id,'crud_media')){
+                $image = $_GET['name'];
+                $open = opendir("../images");
+                if($this->request->isGet()) {
+                    unlink("../images/".$image);
+                    closedir($open);
+                    $this->request->redirect('/admin/media/list');
+                } else {
+                    closedir($open);
+                    $this->request->redirect('/admin/media/list');
+                }
+            }
+            else{
+                $request = new \Core\Http\Request();
+                $request->redirect('/admin/media/list')->with('error','Vous n\'avez pas les droits nécessaires pour supprimer des médias.');
+            }
         }
     }
 }
