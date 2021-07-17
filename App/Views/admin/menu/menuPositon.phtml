@@ -2,7 +2,7 @@
     <div class="col-gutter-12">
         <h1>Menus</h1>
         <a href="/admin/menu/add">Créer un nouveau menu</a>
-        <a href="/admin/menu/position">Gérer les amplacements des menus</a>
+        <a href="/admin/menu/position">Gérer les emplacements des menus</a>
         <div class="row">
             <?php
 
@@ -11,13 +11,13 @@
             if (!empty($menuQuery->getMenusName()))
             {?>
                 <div>
-                    <h2>Choisissez quels menus doivent appraitre dans les emplacements suivant :</h2>
+                    <h2>Choisissez les menus qui doivent appraitrent dans les emplacements suivant :</h2>
                     <?= $positionMenu; ?>
                 </div>
             <?php }
             else{ ?>
                     <div>
-                        <p>Vous devez d'abord créer un des menus avant de pouvoir choisir leurs emplacements dans le site. </p>
+                        <p>Vous devez d'abord créer des menus avant de pouvoir choisir leurs emplacements dans le site. </p>
                         <a class="btn btn-info" href="/admin/menu/add">Ajouter un menu</a>
                     </div>
             <?php } ?>
