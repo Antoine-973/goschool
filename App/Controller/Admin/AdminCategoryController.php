@@ -9,6 +9,7 @@ use Core\Component\Validator;
 use Core\Controller;
 use Core\Http\Request;
 use Core\Http\Response;
+use Core\Http\Session;
 
 class AdminCategoryController extends Controller {
 
@@ -40,16 +41,36 @@ class AdminCategoryController extends Controller {
     }
 
     public function list(){
-        $categories = ($this->categoryQuery->getCategories());
-        $this->render("admin/category/listCategory.phtml", ['categories'=>$categories]);
+
+        $session = new Session();
+        $user_id = $session->getSession('user_id');
+
+        $testPermission = new \Core\Util\RolePermission();
+
+        if ($user_id && $testPermission->has_permission($user_id, 'crud_categorie')) {
+            $categories = ($this->categoryQuery->getCategories());
+            $this->render("admin/category/listCategory.phtml", ['categories'=>$categories]);
+        } else {
+            $request = new \Core\Http\Request();
+            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour accéder à cette section du back office.');
+        }
     }
 
     public function add(){
+        $session = new Session();
+        $user_id = $session->getSession('user_id');
 
-        $form = new CategoryAddForm();
-        $categoryAddForm = $form->getForm();
+        $testPermission = new \Core\Util\RolePermission();
 
-        $this->render("admin/category/addCategory.phtml", ['categoryAdd'=>$categoryAddForm]);
+        if ($user_id && $testPermission->has_permission($user_id, 'crud_categorie')) {
+            $form = new CategoryAddForm();
+            $categoryAddForm = $form->getForm();
+
+            $this->render("admin/category/addCategory.phtml", ['categoryAdd'=>$categoryAddForm]);
+        } else {
+            $request = new \Core\Http\Request();
+            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour ajouter des catégories.');
+        }
     }
 
     public function store()
@@ -76,11 +97,20 @@ class AdminCategoryController extends Controller {
     }
 
     public function edit(){
+        $session = new Session();
+        $user_id = $session->getSession('user_id');
 
-        $form = new CategoryEditform();
-        $categoryEditForm = $form->getForm();
+        $testPermission = new \Core\Util\RolePermission();
 
-        $this->render("admin/category/editCategory.phtml", ['categoryEdit'=>$categoryEditForm]);
+        if ($user_id && $testPermission->has_permission($user_id, 'crud_categorie')) {
+            $form = new CategoryEditform();
+            $categoryEditForm = $form->getForm();
+
+            $this->render("admin/category/editCategory.phtml", ['categoryEdit'=>$categoryEditForm]);
+        } else {
+            $request = new \Core\Http\Request();
+            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour éditer cette catégorie.');
+        }
     }
 
     public function update($id)
@@ -109,13 +139,21 @@ class AdminCategoryController extends Controller {
     public function delete($id)
     {
         if($this->request->isGet()) {
-            if($this->categoryQuery->deleteCategory($id)) {
-                $this->request->redirect('/admin/category/list')->with('success', 'La catégorie a bien été supprimé');
+            $session = new Session();
+            $user_id = $session->getSession('user_id');
+
+            $testPermission = new \Core\Util\RolePermission();
+
+            if ($user_id && $testPermission->has_permission($user_id, 'crud_categorie')) {
+                if($this->categoryQuery->deleteCategory($id)) {
+                    $this->request->redirect('/admin/category/list')->with('success', 'La catégorie a bien été supprimé');
+                } else {
+                    $this->request->redirect('/admin/category/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                }
             } else {
-                $this->request->redirect('/admin/category/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                $request = new \Core\Http\Request();
+                $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour supprimer cette catégorie.');
             }
-        } else {
-            $this->request->redirect('/admin/category/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
         }
     }
 

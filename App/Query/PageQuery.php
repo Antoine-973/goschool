@@ -54,8 +54,26 @@ class PageQuery
      */
     public function getPages()
     {
-        $query = $this->builder->select("id, title, status, updated_at")->from("pages");
+        $query = $this->builder->select("pages.id, title, users.email, status, pages.created_at")->from("pages")->join('INNER', 'pages', 'user_id', 'users', 'id');
 
+        return $query->getResult();
+    }
+
+    /**
+     * @return array $data
+     */
+    public function getPagesByUser($userId)
+    {
+        $query = $this->builder->select('pages.id, title, users.email, status, pages.created_at')->from("pages")->join('INNER', 'pages', 'user_id', 'users', 'id')->where("user_id = $userId");
+        return $query->getResult();
+    }
+
+    /**
+     * @return array $data
+     */
+    public function getAuthor($pageId)
+    {
+        $query = $this->builder->select('user_id')->from("pages")->where("id = $pageId");
         return $query->getResult();
     }
 
@@ -63,7 +81,7 @@ class PageQuery
      * @param int $id
      * @return string $query
      */
-    public function getById(int $id)
+    public function getById($id)
     {
         $query = $this->builder->select("title, content, url")->from("pages")->where("id = $id");
         return $query->getResult();
@@ -121,7 +139,7 @@ class PageQuery
     public function create(array $data)
     {
         $data['title']= ucfirst(strtolower($data['title']));
-        $data['content']= str_replace( '&nbsp', '', html_entity_decode($data['content']));
+        $data['content']= str_replace('&#39;', '\'', str_replace( '&nbsp', '', html_entity_decode($data['content'])));
 
         $query = $this->builder->insertInto('pages')->columns($data)->values($data)->save();
         return $query;

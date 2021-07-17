@@ -1,4 +1,19 @@
-<h1>Profil</h1>
+<?php
+$session = new Core\Http\Session();
+$id = $helper->getFlashMessage('user_id') ?? null;
+$connectedUser = [];
+
+$id = $session->getSession('user_id');
+
+if($id){
+    $userQuery = new App\Query\UserQuery();
+    $connectedUser =  $userQuery->getUserById($id);
+}
+
+?>
+
+
+<h1><?= $connectedUser['role'] . ' ' . $connectedUser['firstname'] . ' ' . $connectedUser['lastname'] ?></h1>
 <div class="col-gutter-12">
     <?php if(isset($errors) && !empty($errors)): ?>
         <ul>

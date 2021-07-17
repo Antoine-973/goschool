@@ -43,17 +43,35 @@ class AdminCommentController extends Controller
 
     public function list()
     {
-        $comments = $this->commentQuery->getComments();
 
-        $this->render("admin/comment/listComment.phtml", ['comments'=>$comments]);
+        $session = new Session();
+        $id = $session->getSession('user_id');
+
+        $testPermission = new \Core\Util\RolePermission();
+
+        if ($id && $testPermission->has_permission($id, 'crud_comment')) {
+            $comments = $this->commentQuery->getComments();
+            $this->render("admin/comment/listComment.phtml", ['comments'=>$comments]);
+        } else {
+            $request = new \Core\Http\Request();
+            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits necessaires pour accéder à cette section du back office.');
+        }
+
     }
 
     public function add(){
+        $session = new Session();
+        $id = $session->getSession('user_id');
 
-        $form = new CommentAddForm();
-        $commentAddForm = $form->getForm();
+        $testPermission = new \Core\Util\RolePermission();
 
-        $this->render("admin/comment/addComment.phtml", ['commentAdd'=>$commentAddForm]);
+        if ($id && $testPermission->has_permission($id, 'crud_self_comment') || $id && $testPermission->has_permission($id, 'crud_comment') ) {
+
+            $form = new CommentAddForm();
+            $commentAddForm = $form->getForm();
+
+            $this->render("admin/comment/addComment.phtml", ['commentAdd' => $commentAddForm]);
+        }
     }
 
     public function store()
@@ -64,7 +82,7 @@ class AdminCommentController extends Controller
 
             //TO CHANGE FOR DYNAMIC ARTICLE
             $data['article_id'] = '1';
-            $data['user_id'] = $this->session->getSession('id');
+            $data['user_id'] = $this->session->getSession('user_id');
 
             if(empty($errors)){
                 if($this->commentQuery->create($data))
@@ -84,11 +102,17 @@ class AdminCommentController extends Controller
     }
 
     public function edit(){
+        $session = new Session();
+        $id = $session->getSession('user_id');
 
-        $form = new CommentEditform();
-        $commentEditForm = $form->getForm();
+        $testPermission = new \Core\Util\RolePermission();
 
-        $this->render("admin/comment/editComment.phtml", ['commentEdit'=>$commentEditForm]);
+        if ($id && $testPermission->has_permission($id, 'crud_comment')) {
+            $form = new CommentEditform();
+            $commentEditForm = $form->getForm();
+
+            $this->render("admin/comment/editComment.phtml", ['commentEdit'=>$commentEditForm]);
+        }
     }
 
     public function update($id)
@@ -117,10 +141,18 @@ class AdminCommentController extends Controller
     public function delete($id)
     {
         if($this->request->isGet()) {
-            if($this->commentQuery->deleteComment($id)) {
-                $this->request->redirect('/admin/comment/list')->with('success', 'Le commentaires a bien été supprimé');
-            } else {
-                $this->request->redirect('/admin/comment/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+
+            $session = new Session();
+            $user_id = $session->getSession('user_id');
+
+            $testPermission = new \Core\Util\RolePermission();
+
+            if ($user_id && $testPermission->has_permission($user_id, 'crud_comment')) {
+                if($this->commentQuery->deleteComment($id)) {
+                    $this->request->redirect('/admin/comment/list')->with('success', 'Le commentaires a bien été supprimé');
+                } else {
+                    $this->request->redirect('/admin/comment/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                }
             }
         }
     }

@@ -1,4 +1,9 @@
 <h1 class="section-title">Tableau de bord</h1>
+    <?php if(($message = $helper->getFlashMessage('error'))):?>
+        <p><?php echo $message;?></p>
+    <?php elseif(($message = $helper->getFlashMessage('success'))):?>
+        <p> <?php echo $message;?></p>
+    <?php endif;?>
     <div class="content admin--index">
         <div class="row">
             <div class="col-gutter-2">
@@ -81,7 +86,7 @@
                         <?php if ($users != null && $verifTable->is_multi($users)) { ?>
                             <?php for($y = 0; $y < 3;$y++) { ?>
                                 <li>
-                                        <?php echo $users[$y]['lastname'] ?> <?php echo $users[$y]['firstname'] ?> <?php echo $users[$y]['roles'] ?><br>
+                                        <?php echo $users[$y]['lastname'] ?> <?php echo $users[$y]['firstname'] ?> <?php echo $users[$y]['role'] ?><br>
                                         <?php echo $users[$y]['created_at'] ?><br><br>
                                 </li>
                             <?php } ?>
@@ -89,7 +94,7 @@
                         elseif (!$verifTable->is_multi($users)) { ?>
                             <?php for($y = 0; $y < 3;$y++) { ?>
                                 <li>
-                                        <?php echo $users[$y]['lastname'] ?> <?php echo $users[$y]['firstname'] ?> <?php echo $users[$y]['roles'] ?><br>
+                                        <?php echo $users[$y]['lastname'] ?> <?php echo $users[$y]['firstname'] ?> <?php echo $users[$y]['role'] ?><br>
                                         <?php echo $users[$y]['created_at'] ?><br><br>
                                 </li>
                             <?php } ?>
@@ -115,7 +120,7 @@
                             <?php } ?>
                         <?php } 
                         elseif (!$verifTable->is_multi($articles)) { ?>
-                            <?php for($i = 1; $i < 4;$i++) { ?>
+                            <?php for($i = 0; $i < 3;$i++) { ?>
                                 <li>
                                         <?php echo $articles[$i]['title'] ?><br>
                                         <?php echo $articles[$i]['created_at'] ?><br><br>

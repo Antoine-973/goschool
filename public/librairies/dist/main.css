@@ -1657,6 +1657,12 @@ body.admin-login .col-6.connexion-form .container-form .form-input input[type=su
   padding: 10px;
 }
 
+.site-body {
+  position: relative;
+  height: 100%;
+  padding-bottom: 14rem;
+}
+
 .site-main body, .site-main html {
   scroll-behavior: smooth;
 }
@@ -1731,6 +1737,7 @@ body.admin-login .col-6.connexion-form .container-form .form-input input[type=su
 .site-main--content {
   margin-right: 15%;
   text-align: center;
+  padding-bottom: 2.5rem;
 }
 .site-main--content h1, .site-main--content h2, .site-main--content h3, .site-main--content h4, .site-main--content h5, .site-main--content h6 {
   font-family: "Roboto", sans-serif;
@@ -1844,12 +1851,13 @@ body.admin-login .col-6.connexion-form .container-form .form-input input[type=su
   }
 }
 .site-main--footer {
-  position: relative;
-  left: 0;
+  position: absolute;
   bottom: 0;
+  left: 0;
+  right: 0;
   width: 100%;
+  padding-top: 1%;
   background-color: #363740;
-  padding: 45px 0 20px;
   font-size: 1em;
   line-height: 15px;
   color: #6c757d;

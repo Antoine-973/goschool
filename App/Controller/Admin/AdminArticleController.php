@@ -12,7 +12,9 @@ use App\Query\ArticleQuery;
 use App\Query\UserQuery;
 use App\Query\CommentQuery;
 use Core\Component\Validator;
+use Core\Http\Session;
 use Core\Util\PhpFileGenerator;
+use Core\Util\RolePermission;
 
 class AdminArticleController extends Controller {
 
@@ -48,16 +50,43 @@ class AdminArticleController extends Controller {
 
     public function list()
     {
-        $articles = ($this->articleQuery->getArticles());
-        $this->render("admin/article/listArticle.phtml", ['articles'=>$articles]);
+        $session = new Session();
+        $id = $session->getSession('user_id');
+
+        $testPermission = new \Core\Util\RolePermission();
+
+        if ($id && $testPermission->has_permission($id,'crud_article')){
+            $articles = ($this->articleQuery->getArticles());
+            $this->render("admin/article/listArticle.phtml", ['articles'=>$articles]);
+        }
+        elseif($id && $testPermission->has_permission($id,'crud_self_article')){
+
+            $articles = $this->articleQuery->getArticlesByUser($id);
+            $this->render("admin/article/listArticle.phtml", ['articles'=>$articles]);
+        }
+        else{
+            $request = new \Core\Http\Request();
+            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour accéder à cette section du back office.');
+        }
     }
 
     public function add()
     {
-        $form = new ArticleAddForm();
-        $articleAddForm = $form->getForm();
-        
-        $this->render("admin/article/addArticle.phtml", ['articleAdd'=>$articleAddForm]);
+        $session = new Session();
+        $id = $session->getSession('user_id');
+
+        $testPermission = new \Core\Util\RolePermission();
+
+        if ($id && $testPermission->has_permission($id,'crud_article') || $id && $testPermission->has_permission($id,'crud_self_article') ){
+            $form = new ArticleAddForm();
+            $articleAddForm = $form->getForm();
+
+            $this->render("admin/article/addArticle.phtml", ['articleAdd'=>$articleAddForm]);
+        }
+        else{
+            $request = new \Core\Http\Request();
+            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour accéder à cette section du back office.');
+        }
     }
 
     public function store()
@@ -65,6 +94,9 @@ class AdminArticleController extends Controller {
         if($this->request->isPost()) {
             $data = $this->request->getBody();
             $errors = $this->validator->validate($this->articleModel, $data);
+
+            $session = new Session();
+            $data['user_id'] = $session->getSession('user_id');
 
             if(empty($errors)){
                 if($this->articleQuery->create($data))
@@ -98,10 +130,20 @@ class AdminArticleController extends Controller {
 
     public function edit()
     {
-        $form = new ArticleEditForm();
-        $editArticle = $form->getForm();
-        $id = $this->request->getBody();
-        $this->render("admin/article/editArticle.phtml", ['editArticle'=>$editArticle]);
+        if($this->request->isGet()) {
+
+            $articleId = $this->request->getBody()['id'];
+
+            $checkPermission = new RolePermission();
+
+            if ($checkPermission->canEditOrDelete($articleId, 'article')) {
+                $form = new ArticleEditForm();
+                $editArticle = $form->getForm();
+                $this->render("admin/article/editArticle.phtml", ['editArticle' => $editArticle]);
+            } else {
+                $this->request->redirect('/admin/article/list')->with('error', 'Vous n\'avez pas les droits nécessaire pour modifier cet article.');
+            }
+        }
     }
 
     public function update($id)
@@ -168,23 +210,29 @@ class AdminArticleController extends Controller {
 
     public function delete($id)
     {
- 
         if($this->request->isGet()) {
 
-            $slug = $this->articleQuery->getSlugById($id)['slug'];
-            $deleteQuery = new ArticleQuery();
+            $checkPermission = new RolePermission();
 
-            if($deleteQuery->deleteArticle($id)) {
+            if ($checkPermission->canEditOrDelete($id,'article')){
+                $slug = $this->articleQuery->getSlugById($id)['slug'];
+                $deleteQuery = new ArticleQuery();
 
-                $deleteView = new PhpFileGenerator();
+                if($deleteQuery->deleteArticle($id)) {
 
-                if ($deleteView->deleteViewFile($slug,'articles')){
-                    $this->request->redirect('/admin/article/list')->with('success', 'L\'article a bien été supprimé');
-                }else {
+                    $deleteView = new PhpFileGenerator();
+
+                    if ($deleteView->deleteViewFile($slug,'articles')){
+                        $this->request->redirect('/admin/article/list')->with('success', 'L\'article a bien été supprimé');
+                    }else {
+                        $this->request->redirect('/admin/article/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                    }
+                } else {
                     $this->request->redirect('/admin/article/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                 }
-            } else {
-                $this->request->redirect('/admin/article/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+            }
+            else{
+                $this->request->redirect('/admin/article/list')->with('error', 'Vous n\'avez pas les droits nécessaire pour supprimer cet article.');
             }
         } else {
             $this->request->redirect('/admin/article/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');

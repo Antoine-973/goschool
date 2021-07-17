@@ -87,7 +87,25 @@ class ArticleQuery
      */
     public function getArticles()
     {
-        $query = $this->builder->select('id, title, status, updated_at')->from("articles");
+        $query = $this->builder->select('articles.id, title, categories.name, users.email, status, articles.created_at')->from("articles")->join('INNER', 'articles', 'categorie_id', 'categories', 'id')->join('INNER', 'articles', 'user_id', 'users', 'id');
+        return $query->getResult();
+    }
+
+    /**
+     * @return array $data
+     */
+    public function getArticlesByUser($userId)
+    {
+        $query = $this->builder->select('articles.id, title, categories.name, users.email, status, articles.created_at')->from("articles")->join('INNER', 'articles', 'categorie_id', 'categories', 'id')->join('INNER', 'articles', 'user_id', 'users', 'id')->where("user_id = $userId");
+        return $query->getResult();
+    }
+
+    /**
+     * @return array $data
+     */
+    public function getAuthor($articleId)
+    {
+        $query = $this->builder->select('user_id')->from("articles")->where("id = $articleId");
         return $query->getResult();
     }
 
@@ -106,7 +124,7 @@ class ArticleQuery
     public function create(array $data)
     {
         $data['slug']= $this->helper->slugify($data['title']);
-        $data['content']= str_replace( '&nbsp', '', html_entity_decode($data['content']));
+        $data['content']= str_replace('&#39;', '\'', str_replace( '&nbsp', '', html_entity_decode($data['content'])));
         $data['slug']= strtolower(str_replace(" ", "-", $data['title']));
         $data['title']= ucfirst(strtolower($data['title']));
 
