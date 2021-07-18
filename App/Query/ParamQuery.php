@@ -2,6 +2,7 @@
 namespace App\Query;
 
 use Core\Database\QueryBuilder;
+use Core\Util\Hash;
 
 class ParamQuery{
 
@@ -18,7 +19,7 @@ class ParamQuery{
      */
     public function getParam()
     {
-        $query = $this->builder->select('id, site_name, url, visible, default_role, name_role, description, lang, save, update, created_at')->from("parameters");
+        $query = $this->builder->select('site_name, url, visible, default_role, default_article_category, mail_host, mail_port, mail_login, mail_password, default_home_page, post_show_count, tag_line, description, lang')->from("parameters");
         return $query->getResult();
     }
 
@@ -33,6 +34,16 @@ class ParamQuery{
      */
     public function updateParam(array $data, int $id)
     {
+        $roleQuery = new RoleQuery();
+        $categoryQuery = new CategoryQuery();
+        $pageQuery = new PageQuery();
+        $hash = new Hash();
+
+        $data['default_role'] = $roleQuery->getIdbyName($data['default_role'])['id'];
+        $data['default_article_category'] = $categoryQuery->getCategoriesIdByName($data['default_article_category'])['id'];
+        $data['default_home_page'] = $pageQuery->getPageIdByTitle($data['default_home_page'])['id'];
+        $data['mail_password'] = $hash->passwordHash($data['mail_password']);
+
         $query = $this->builder->update("parameters")->set($data)->where("id = $id")->save();
         return $query;
     }
