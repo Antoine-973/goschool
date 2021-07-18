@@ -48,6 +48,15 @@ class PageQuery
         return $query->getResult();
     }
 
+    /**
+     * @return array $data
+     */
+    public function getPageIdByTitle(string $title)
+    {
+        $query = $this->builder->select('id')->from("categories")->where("title = $title");
+        return $query->getResult();
+    }
+
 
     /**
      * @return string $query
