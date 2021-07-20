@@ -1,39 +1,37 @@
 <?php
 $articleQuery = new App\Query\ArticleQuery();
 $articles = $articleQuery->orderByDate();
-$countArticles = count($articles);
 $verifTable = new \Core\Util\Table()
 ?>
 
 <div class="site-main--content--articles">
-    <?php if ($articles != null && $verifTable->is_multi($articles)) { ?>
-        <?php for($i = 0; $i < count($articles);$i++) { ?>
+    <?php if ($articles && $verifTable->is_multi($articles)) { ?>
+        <?php foreach($articles as $article) { ?>
             <div class="col-3">
-                <a href="/article/<?php echo $articles[$i]['slug'] ?>" class="data-card">
-                    <h5><?php echo $articles[$i]['title'] ?></h5>
-                    <?php if(is_null($articles[$i]['name'])) { ?>
+                <a href="/article/<?php echo $article['slug'] ?>" class="data-card">
+                    <h5><?php echo $article['title'] ?></h5>
+                    <?php if($article['name']) { ?>
                         <h6>Pas de catégorie</h6>
                     <?php }else{ ?>
-                        <h6><?php echo $articles[$i]['name'] ?></h6>
+                        <h6><?php echo $article['name'] ?></h6>
                     <?php } ?>
                     <p>
-                        <?php if(is_null($articles[$i]['description'])) { ?>
-                        Pas de description
+                        <?php if($article['description']) { ?>
+                            Pas de description
                         <?php }else{ ?>
-                        <?php echo $articles[$i]['description'] ?>
+                            <?php echo $article['description'] ?>
                         <?php } ?>
                         <br><br>
-                        <?php echo $articles[$i]['created_at'] ?>
+                        <?php echo $article['created_at'] ?>
                     </p>
                     <span class="link-text">
-                    Voir l'article
-                    <i class="fas fa-arrow-right"></i>
+                        Voir l'article
+                        <i class="fas fa-arrow-right"></i>
                     </span>
                 </a>
             </div>
         <?php } ?>
-    <?php }
-    elseif ($articles != null && !$verifTable->is_multi($articles)) { ?>
+    <?php } elseif ($articles && !$verifTable->is_multi($articles)) { ?>
             <div class="col-3">
                 <a href="/article/<?php echo $articles['slug'] ?>" class="data-card">
                     <h5><?php echo $articles['title'] ?></h5>
@@ -43,7 +41,7 @@ $verifTable = new \Core\Util\Table()
                         <h6><?php echo $articles['name'] ?></h6>
                     <?php } ?>
                     <p>
-                        <?php if(is_null($articles['description'])) { ?>
+                        <?php if($articles['description']) { ?>
                             Pas de description
                         <?php }else{ ?>
                             <?php echo $articles['description'] ?>
@@ -57,21 +55,11 @@ $verifTable = new \Core\Util\Table()
                     </span>
                 </a>
             </div>
-        <?php }
-    else { ?>
-        <li>Il n'y a pas encore d'article.<br>
-            <a href="/admin/article/add" class="btn btn--sm"><i class="fas fa-plus-circle"></i> Ajouter </a></li>
-    <?php } ?>
-
-    <?php if($articles != null) { ?>
-        <?php $i=0; ?>
-        <?php while($i < $countArticles) { ?>
-            <?php $i++; ?>
-
-        <?php } ?>
-    <?php }else{ ?>
-        <div class="col-3">
-            <h6>Il n'y a pas encore d'article</h6>
-        </div>
-    <?php } ?>
+        <?php } else { ?>
+            <li>
+                <div class="col-3">
+                    <h6>Il n'y a pas encore d'article</h6>
+                    <a href="/admin/article/add" class="btn btn--sm"><i class="fas fa-plus-circle"></i> Ajouter </a></li>
+                </div>
+         <?php } ?>
 </div>
