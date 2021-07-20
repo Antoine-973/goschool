@@ -8,14 +8,14 @@
         <div class="row">
             <div class="col-gutter-2">
                 <div class="row">
-                    <div class="col-2">
+                    <div class="col-12">
                         <table class="count-table shadow shadow--none">
                             <thead>
                             <tr>
                                 <th colspan="1">Admin</th>
                                 <th colspan="1">Editeur</th>
                                 <th colspan="1">Auteur</th>
-                                <th colspan="1">Vie scolaire</th>
+                                <th colspan="1">Vie-Scolaire</th>
                                 <th colspan="1">Professeurs</th>
                                 <th colspan="1">Eleves</th>
                             </tr>
@@ -92,18 +92,18 @@
                     <?php $verifTable = new \Core\Util\Table() ?>
                     <ul>
                         <?php if ($users != null && $verifTable->is_multi($users)) { ?>
-                            <?php for($y = 0; $y < 3;$y++) { ?>
+                            <?php foreach($users as $user) { ?>
                                 <li>
-                                        <?php echo $users[$y]['lastname'] ?> <?php echo $users[$y]['firstname'] ?> <?php echo $users[$y]['role'] ?><br>
-                                        <?php echo $users[$y]['created_at'] ?><br><br>
+                                        <?php echo $user['lastname'] ?> <?php echo $user['firstname'] ?> <?php echo $user['role'] ?><br>
+                                        <?php echo $user['created_at'] ?><br><br>
                                 </li>
                             <?php } ?>
                         <?php }
                         elseif (!$verifTable->is_multi($users)) { ?>
-                            <?php for($y = 0; $y < 3;$y++) { ?>
+                            <?php foreach($users as $user) { ?>
                                 <li>
-                                        <?php echo $users[$y]['lastname'] ?> <?php echo $users[$y]['firstname'] ?> <?php echo $users[$y]['role'] ?><br>
-                                        <?php echo $users[$y]['created_at'] ?><br><br>
+                                        <?php echo $user['lastname'] ?> <?php echo $user['firstname'] ?> <?php echo $user['role'] ?><br>
+                                        <?php echo $user['created_at'] ?><br><br>
                                 </li>
                             <?php } ?>
                         <?php }
