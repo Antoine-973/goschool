@@ -1,5 +1,6 @@
 <?php
 namespace App\Form;
+use Core\Http\Session;
 use Core\Interfaces\FormInterface;
 use Core\Facade\Form;
 
@@ -9,14 +10,26 @@ class ArticleAddForm
 
     public function getForm()
     {
+        $session = new Session();
+        $id = $session->getMessage('user_id');
 
-        $form = Form::create('/admin/article/add')
+        $testPermission = new \Core\Util\RolePermission();
+
+        if ($id && $testPermission->has_permission($id,'crud_article')){
+            $options = ['Publié','Brouillon','À-Valider'];
+        }
+        elseif($id && $testPermission->has_permission($id,'crud_self_article')){
+            $options = ['Brouillon','À-Valider'];
+        }
+
+
+        $form = Form::create('/admin/article/store')
                 ->input('title', 'text', ['value' => 'Titre', 'min' => 4, 'max' => 55, 'required' => 'required'])
-                ->textarea('content', 'textarea', ['required' => 'required', 'max' => 400])
-                ->input('tag', 'text', ['value' => 'Tag'])
+                ->select('status','Statut',['id' => 'status', 'name' => 'status', 'options' => $options])
+                ->input('active_comment', 'checkbox', ['value' => 'Commentaire activé'])
+                ->textarea('content', 'textarea')
                 ->input('submit', 'submit', ['value' => 'Ajouter']);
         return $form->getForm();
     }
 
-   
 }

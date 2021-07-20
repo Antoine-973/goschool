@@ -1,0 +1,166 @@
+<?php
+    $convertTable = new \Core\Util\Table();
+
+    $roleQuery = new \App\Query\RoleQuery();
+    $roles = $convertTable->multi_to_single($roleQuery->getRoles());
+    unset($roles['0']);
+
+    $categoryQuery = new \App\Query\CategoryQuery();
+    $categoriesName = $categoryQuery->getCategoriesName();
+    $categories = $convertTable->multi_to_single($categoriesName);
+
+    $pageQuery = new \App\Query\PageQuery();
+    $pagesName = $pageQuery->getTitle();
+    $pages = $convertTable->multi_to_single($pagesName);
+
+    $parametersQuery = new \App\Query\ParamQuery();
+    $parameters = $parametersQuery->getParam('1');
+?>
+
+<h1>Paramètres</h1>
+<div class="content admin-parameters">
+            <div class="row">
+                <div class="col-gutter-12">
+                    <form class="container--fluid" action="update">
+                        <h2>Général</h2>
+                        <div class="row">
+                            <input type="hidden" name="id" value="1">
+                        </div>
+
+                        <div class="row">
+                            <label for="name">Nom du site </label>
+                            <input type="text" value="<?= $parameters['site_name'] ?>" name="name">
+                        </div>
+                        <br>
+                        <div class="row">
+                            <label for="description">Description du site </label>
+                            <textarea id="description" name="description"><?= $parameters['description'] ?></textarea>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <label for="url">Url du site </label>
+                            <input type="text" value="<?= $parameters['url'] ?>" name="url">
+                        </div>
+                        <br>
+                        <div class="row">
+                            <p>Choissisez la visibilité de votre site </p>
+                            <label for="visible">Privé</label>
+                            <input type="radio" id="visible" name="visible" value="0" <?php echo ($parameters['visible']== '0') ?  "checked" : "" ;  ?>>
+
+                            <label for="visible">Public</label>
+                            <input type="radio" id="visible" name="visible" value="1" <?php echo ($parameters['visible']== '1') ?  "checked" : "" ;  ?>>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <label for="default_role">Role par défaut des nouveaux utilisateurs </label>
+                            <select name="default_role" id="default_role">
+                            <?php foreach ($roles as $role){ ?>
+                                <?php if ($parameters['default_role'] == $role){ ?>
+                                    <option value="<?= $role ?>" selected><?= $role ?></option>
+                                <?php } else{ ?>
+                                    <option value="<?= $role ?>"><?= $role ?></option>
+                                <?php } ?>
+                            <?php } ?>
+                            </select>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <p>Choissisez la langue de GoSchool</p>
+                            <label for="lang">Français</label>
+                            <input type="radio" id="lang" name="lang" value="fr" <?php echo ($parameters['visible']== 'fr') ?  "checked" : "" ;  ?>>
+
+                            <label for="visible">Anglais</label>
+                            <input type="radio" id="lang" name="lang" value="uk" <?php echo ($parameters['visible']== 'uk') ?  "checked" : "" ;  ?>>
+
+                            <label for="visible">Espagnol</label>
+                            <input type="radio" id="lang" name="lang" value="es" <?php echo ($parameters['visible']== 'es') ?  "checked" : "" ;  ?>>
+
+                            <label for="visible">Allemand</label>
+                            <input type="radio" id="lang" name="lang" value="de" <?php echo ($parameters['visible']== 'de') ?  "checked" : "" ;  ?>>
+                        </div>
+                        <h2>Édition</h2>
+                        <div class="row">
+                            <label for="default_article_category">Catégorie par défaut des nouveaux articles </label>
+                            <select name="default_article_category" id="default_article_category">
+                                <?php foreach ($categories as $category){ ?>
+                                    <?php if ($parameters['default_article_category'] == $category){ ?>
+                                        <option value="<?= $category ?>" selected><?= $category ?></option>
+                                    <?php } else{ ?>
+                                        <option value="<?= $category ?>"><?= $category ?></option>
+                                    <?php } ?>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <label for="mail_host">Serveur de mail </label>
+                            <input type="text" id="mail_host" value="<?= $parameters['mail_host'] ?>" name="mail_host">
+                        </div>
+                        <br>
+                        <div class="row">
+                            <label for="mail_port">Port </label>
+                            <input type="text" id="mail_port" value="<?= $parameters['mail_port'] ?>" name="mail_port">
+                        </div>
+                        <br>
+                        <div class="row">
+                            <label for="mail_login">Identifiant de connexion </label>
+                            <input type="mail_login" id="mail_login" value="<?= $parameters['mail_login'] ?>" name="mail_login">
+                        </div>
+                        <br>
+                        <div class="row">
+                            <label for="mail_password">Mot de passe </label>
+                            <input type="password" id="mail_password"  name="mail_password">
+                        </div>
+                        <br>
+                        <h2>Affichage</h2>
+                        <div class="row">
+                            <label for="default_home_page">Page d'accueil du site</label>
+                            <select name="default_home_page" id="default_home_page">
+                                <option value="Page d'accueil GoSchool par défaut">Page d'accueil GoSchool par défaut</option>
+                                <?php foreach ($pages as $page){ ?>
+                                    <?php if ($parameters['default_home_page'] == $page){ ?>
+                                        <option value="<?= $page ?>" selected><?= $page ?></option>
+                                    <?php } else{ ?>
+                                        <option value="<?= $page ?>"><?= $page ?></option>
+                                    <?php } ?>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <label for="post_show_count">Nombre d'articles affiché par page</label>
+                            <input id="post_show_count" name="post_show_count" value="<?= $parameters['post_show_count'] ?>" type="number">
+                        </div>
+                        <br>
+
+
+                        <input class="btn-success btn" formmethod="post" type="submit" value="Enregistrer les paramètres" />
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+            <div class="col-gutter-12">
+            <h2>Mises à jour de GoSchool</h2>
+            <div class="row">
+                <div class="col-gutter-12">
+                    <p>
+                        Dernière vérification le JJ/MM/AAAA à HH:MM. <a href="#" class="btn btn--primary btn--sm">Vérifier</a>
+                    </p>
+                    <p>
+                        <B>Vous avez la dernière version 0.2 de GoSchool. Les prochaines mises à jours seront appliqués automatiquement.</B>
+                    </p>
+                    <p>
+                        SI vous voulez réinstaller la version 0.1 ultérieure, vous pouvez le faire ici : <a href="#" class="btn btn--primary btn--sm">Réinstaller</a>
+                    </p>
+                    <p>
+                        <B>Nouvelles fonctionnalités de la version 0.2 :</B>
+                        <li>Ajouter des vidéos</li>
+                        <li>Thème sombre</li>
+                        <li>Sauvegarde automatique</li>
+                        <li>Nouveau design</li>
+                    </p>
+                </div>
+            </div>
+            </div>
+            </div>
+</div>

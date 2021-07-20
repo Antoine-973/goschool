@@ -1,0 +1,25 @@
+<div class="content admin-register">
+    <h1>Inscription</h1>
+    <div class="container">
+        <div class="container col-6">
+
+            <?php if(($message = $helper->getFlashMessage('error'))):?>
+                <p><?php echo $message;?></p>
+            <?php elseif(($message = $helper->getFlashMessage('success'))):?>
+                <p> <?php echo $message;?></p>
+            <?php endif;?>
+
+            <?php if(isset($errors) && !empty($errors)): ?>
+                <ul>
+                <?php foreach($errors as $error): ?>
+                    <li><?php echo $error;?></li>
+                <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
+            <div class="user-register">
+                <?= $userRegister; ?>
+            </div>
+            <a href="/admin/auth/login">Déjà inscrit(e) ? S’identifier</a>
+        </div>
+    </div>
+</div>

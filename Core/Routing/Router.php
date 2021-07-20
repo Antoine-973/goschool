@@ -53,33 +53,6 @@ use Core\Controller;
         exit(self::resolveCallBack($callback, $path));
     
         
-     }
-
-    protected function methodHasParamters($controller, $method){
-
-        $reflexion  = new \ReflectionMethod($controller, $method);
-        $params = $reflexion->getParameters();
-
-        return !empty($params) ? true : false;
-
-    }
-
-    protected static function envFileExists()
-    {
-        $envFile = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . ".env";
-
-        if(file_exists($envFile)){
-            return true;
-        }
-        return false;
-    }
-
-    protected static function resolveCallBack($callback = false, $path = null)
-    {
-     
-        if($callback === false){
-            return;
-        }
 
         $controller_class = "App\\Controller\\" . $callback['controller'];
         $method = $callback['method'];

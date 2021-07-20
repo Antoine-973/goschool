@@ -13,15 +13,97 @@ class PageQuery
 
     }
 
+
+    public function getId(){
+        $query = $this->builder->select("id")->from("pages");
+
+        return $query->getResult();
+    }
+
+    public function getIdByTitle(string $title){
+        $query = $this->builder->select("id")->from("pages")->where("title = $title");
+
+        return $query->getResult();
+    }
+
+    public function getTitleById($id){
+        $query = $this->builder->select("title")->from("pages")->where("id = $id");
+
+        return $query->getResult();
+    }
+
+    public function getTitle(){
+        $query = $this->builder->select("title")->from("pages");
+
+        return $query->getResult();
+    }
+
+    /**
+     * @return string $query
+     */
+    public function getTitleAndId()
+    {
+        $query = $this->builder->select("id, title")->from("pages");
+
+        return $query->getResult();
+    }
+
+    /**
+     * @return array $data
+     */
+    public function getPageIdByTitle(string $title)
+    {
+        $query = $this->builder->select('id')->from("categories")->where("title = $title");
+        return $query->getResult();
+    }
+
+
+    /**
+     * @return string $query
+     */
+    public function getPages()
+    {
+        $query = $this->builder->select("pages.id, title, users.email, status, pages.created_at")->from("pages")->join('INNER', 'pages', 'user_id', 'users', 'id');
+
+        return $query->getResult();
+    }
+
+    /**
+     * @return array $data
+     */
+    public function getPagesByUser($userId)
+    {
+        $query = $this->builder->select('pages.id, title, users.email, status, pages.created_at')->from("pages")->join('INNER', 'pages', 'user_id', 'users', 'id')->where("user_id = $userId");
+        return $query->getResult();
+    }
+
+    /**
+     * @return array $data
+     */
+    public function getAuthor($pageId)
+    {
+        $query = $this->builder->select('user_id')->from("pages")->where("id = $pageId");
+        return $query->getResult();
+    }
+
     /**
      * @param int $id
      * @return string $query
      */
-    public function getById(int $id)
+    public function getById($id)
     {
-        $query = $this->builder->select("*")->from("pages")->where("id = $id");
-        return $query->getQuery();
-    
+        $query = $this->builder->select("title, content, url")->from("pages")->where("id = $id");
+        return $query->getResult();
+    }
+
+    /**
+     * @param int $id
+     * @return string $query
+     */
+    public function getUrlById($id)
+    {
+        $query = $this->builder->select("url")->from("pages")->where("id = $id");
+        return $query->getResult();
     }
 
     /**
@@ -56,7 +138,8 @@ class PageQuery
      */
     public function delete(int $id)
     {
-        $query = $this->builder->delete()->from("pages")->where("id = $id");
+        $query = $this->builder->delete()->from("pages")->where("id = $id")->save();
+        return $query;
     }
 
     /**
@@ -64,7 +147,11 @@ class PageQuery
      */
     public function create(array $data)
     {
-        $query = $this->builder->insert('pages')->value($data);
+        $data['title']= ucfirst(strtolower($data['title']));
+        $data['content']= str_replace('&#39;', '\'', str_replace( '&nbsp', '', html_entity_decode($data['content'])));
+
+        $query = $this->builder->insertInto('pages')->columns($data)->values($data)->save();
+        return $query;
     }
 
     /**
@@ -72,6 +159,15 @@ class PageQuery
      */
     public function updatePage(array $data, int $id)
     {
-        $query = $this->builder->update('pages')->set("data = $data")->where("id = $id");
+        if (array_key_exists('title', $data)){
+            $data['title']= ucfirst(strtolower($data['title']));
+        }
+
+        if (array_key_exists('content',$data)){
+            $data['content']= str_replace( '&nbsp', '', html_entity_decode($data['content']));
+        }
+
+        $query = $this->builder->update('pages')->set($data)->where("id = $id")->save();
+        return $query;
     }
 }

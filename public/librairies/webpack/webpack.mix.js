@@ -15,9 +15,9 @@ mix.setPublicPath('../dist');
 
  mix.babel([
   //'../src/js/vendor/lazysizes/lazysizes.min.js',
-  '../src/js/vendor/jquery/jquery-3.5.1.min.js',
+  //'../src/js/vendor/jquery/jquery-3.5.1.min.js',
   //'../src/js/vendor/flickity/flickity.pkgd.min.js',
-  '../src/js/components/carrousel.js',
+  //'../src/js/components/carrousel.js',
   '../src/js/main.js'
  ], '../dist/main.js');
 
@@ -32,9 +32,8 @@ module.exports = {
 };
 
 
-
 // Full API
-//mix.js("../src/js/main.js", "../dist/main.js");
+mix.js("../src/js/main.js", "../dist/main.js");
 // mix.react(src, output); <-- Identical to mix.js(), but registers React Babel compilation.
 // mix.preact(src, output); <-- Identical to mix.js(), but registers Preact compilation.
 // mix.coffee(src, output); <-- Identical to mix.js(), but registers CoffeeScript compilation.

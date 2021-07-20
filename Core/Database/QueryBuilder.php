@@ -2,6 +2,7 @@
 namespace Core\Database;
 use Core\Database\DB;
 use Core\Util\Hash;
+use Core\Util\Table;
 class QueryBuilder{
 
     private $fields;
@@ -15,6 +16,8 @@ class QueryBuilder{
     private $query;
 
     private $column;
+
+    private $sort;
 
     private $values;
 
@@ -36,7 +39,7 @@ class QueryBuilder{
             $this->condition[] = $field . " = " . "'$value'";
         }
     
-        $this->query .= ' WHERE ' . implode(', AND', $this->condition) . ";";
+        $this->query .= ' WHERE ' . implode(' AND ', $this->condition) . ";";
         return $this;
     }
 
@@ -51,8 +54,10 @@ class QueryBuilder{
         return $this;
     }
 
-    public function join(): QueryBuilder
+    public function join($jointType, $table, $primaryKeyTable1, $tableToJoin, $primaryKeyTable2): QueryBuilder
     {
+        $this->query .= ' ' . strtoupper($jointType) . ' JOIN ' . $tableToJoin . ' ON ' . $table . '.' . $primaryKeyTable1 . ' = ' . $tableToJoin . '.' . $primaryKeyTable2;
+
         return $this;
     }
 
@@ -74,7 +79,35 @@ class QueryBuilder{
 
             $stmt = $pdo->prepare($this->query);
             $stmt->execute();
-            return $stmt->fetch(DB::FETCH_ASSOC);
+            $result = [];
+
+            $count = 0;
+
+            while(($row = $stmt->fetch(DB::FETCH_ASSOC))) {
+
+                $count+=1;
+
+                if ($count > 1){
+                    if($row != null) {
+                        $multiDimentionalArray[] = $row;
+                    }
+                }
+
+                else{
+                    if($row != null) {
+                        $result = $row;
+                        $multiDimentionalArray[] = $result;
+                    }
+                    }
+                }
+
+            if ($count > 1){
+                return $multiDimentionalArray;
+            }
+            else{
+                return $result;
+            }
+
         }catch(\PDOException $e){
             echo $e->getMessage();
         }
@@ -89,10 +122,11 @@ class QueryBuilder{
             
             $stmt= $pdo->prepare($this->query);
             $stmt->execute($values);
+
+            return true;
         }catch(\PDOException $e){
             echo $e->getMessage();
         }
-        return $this->data;
     }
 
 
@@ -184,4 +218,11 @@ class QueryBuilder{
 
     }
 
+    public function orderBy($sortName, $orderName = 'ASC')
+    {
+        $this->order = $orderName;
+        $this->sort = $sortName;
+        $this->query .= ' ORDER BY '. $this->sort.' '.$this->order;
+        return $this;
+    }
 }

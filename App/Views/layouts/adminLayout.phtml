@@ -1,58 +1,168 @@
+<?php
+    include_once dirname(dirname(dirname(__DIR__))) . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "bootstrap.php";
+    $session = new Core\Http\Session();
+    $id = $helper->getFlashMessage('user_id') ?? null;
+    $connectedUser = [];
+
+    $id = $session->getSession('user_id');
+
+    if($id){
+        $userQuery = new App\Query\UserQuery();
+        $connectedUser =  $userQuery->getUserById($id);
+    }
+
+    $testPermission = new \Core\Util\RolePermission();
+
+    if ($testPermission->has_permission($id,'access_back_office')){
+
+    }
+    else{
+        $request = new \Core\Http\Request();
+        $request->redirect('/')->with('error','Vous n\'avez pas les droits nécessaires pour accéder à cette ressource.');
+    }
+
+    $paramQuery = new \App\Query\ParamQuery();
+    $siteName = $paramQuery->getSiteName()['site_name'];
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>admin</title>
+    <title>goSchool - Admin</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/librairies/webpack/node_modules/chart.js/dist/chart.js"></script>
+    <link href='/librairies/webpack/node_modules/fullcalendar/main.css' rel='stylesheet' />
+    <script src='/librairies/webpack/node_modules/fullcalendar/main.js'></script>
     <link rel="stylesheet" type="text/css" href="/librairies/dist/main.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     <script src="/librairies/dist/main.js"></script>
 </head>
 <body>
-    <div class="admin-sidebar">
-        <nav class="admin-main--menu">
-            <div class="logo">
-                <a href="#"><img src="/images/logo.png" alt=""></a>
-            </div>
-            <div class="dashboard-home">
-                <a href="#"><i class="fas fa-tachometer-alt"></i>Tableau de bord</a>
-            </div>
-            <div class="admin-menu-links">
-                <ul>
-                <li><a href="#">Pages</a></li>
-                <li><a href="#">Articles</a></li>
-                <li><a href="#">Catégories</a></li>
-                <li><a href="#">Planning</a></li>
-                <li><a href="#">Newsletters</a></li>
-                </ul>
-            </div>
-            <div class="parameters">
-            <a href="#"><i class="fad fa-badge-dollar"></i>Paramètres</a>
-            </div>
-        </nav>
-
-    </div>
-    <div class="admin-topbar">
-        <div class="user-controls">
-            <div class="identity">
-                <div class="img">
-
+    <div class="container--fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="admin-topbar-backoffice">
+                    <div class="user-controls">
+                        <div class="identity">
+                            <ul>
+                            
+                                <?php if($connectedUser):?>
+                                    <li>
+                                        <a href="/admin/user/profil"><i class="fas fa-user">  <?= $connectedUser['firstname'] . ' ' . $connectedUser['lastname'] ?></i></a>
+                                    </li>
+                                <?php endif;?>
+                                | <li><a href="/admin/auth/logout">Déconnexion</a></li>
+                            </ul>
+                        </div>
+                        <div class="user-actions">
+                            <ul>
+                                <li><a href="/admin/article/add"><i class="fas fa-plus"></i>Ajouter</a></li>
+                                <li><a href="/">Voir <?php if ($siteName) echo $siteName; ?></a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <p class="fullname">Christian Mohindo</p>
             </div>
-            <div class="user-actions">
-                <ul>
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="#">Déconnexion</a></li>
-                </ul>
-            </div>  
         </div>
-    </div>
-    <div class="admin-main--content">
-        {{content}}
-    </div>
 
-    <footer class="admin-main--footer"><h2>Footer</h2></footer>
+        <div class="row">
+            <div class="col-4">
+                <div class="admin-sidebar">
+                    <nav class="admin-main--menu">
+                        <div class="logo">
+                            <a href="/admin/dashboard/index"><img src="/images/logo.png" alt=""></a>
+                        </div>
+                        <div class="admin-menu-links">
+                            <ul class="sidebar-menu">
+                                <li class="sidebar-section"><a href="/admin/dashboard/index"><i class="fas fa-tachometer-alt"></i>Tableau de bord</a></li>
+                                <?php if ($testPermission->has_permission($id,'crud_article') || $id && $testPermission->has_permission($id,'crud_self_article')){ ?>
+                                    <li class="sidebar-section"><a href="/admin/article/list"><i class="fas fa-pen"></i>  Articles</a></li>
+                                <?php } ?>
+
+                                <?php if ($testPermission->has_permission($id,'crud_categorie')){ ?>
+                                <li class="sidebar-section"><a href="/admin/category/list"><i class="fas fa-book-open"></i>  Catégories</a></li>
+                                <?php } ?>
+
+                                <?php if ($testPermission->has_permission($id,'crud_page') || $id && $testPermission->has_permission($id,'crud_self_page')){ ?>
+                                <li class="sidebar-section"><a href="/admin/page/list"><i class="fas fa-copy"></i>  Pages</a></li>
+                                <?php } ?>
+
+                                <?php if ($testPermission->has_permission($id,'crud_media') || $id && $testPermission->has_permission($id,'crud_self_media')){ ?>
+                                <li class="sidebar-section"><a href="/admin/media/list"><i class="fas fa-photo-video"></i>  Médias</a></li>
+                                <?php } ?>
+
+                                <?php
+                                if ($testPermission->has_permission($id,'crud_menu')){ ?>
+                                <ul class="sidebar-menu dropdown-main">
+                                    <li class="dropdown-section">
+                                    <a><i class="fas fa-brush"></i>  Apparence <i class="fa fa-caret-down"></i></a>
+                                        <ul class="dropdown-container dropdown-menu">
+                                            <?php
+                                            if ($testPermission->has_permission($id,'change_theme')){ ?>
+                                            <li style="margin-top: 5px"><a href="/admin/theme/index"><i class="fas fa-columns"></i> Thèmes</a></li>
+                                            <?php } ?>
+
+                                            <?php
+                                            if ($testPermission->has_permission($id,'crud_menu')){ ?>
+                                            <li><a href="/admin/menu/index"><i class="fas fa-bars"></i> Menus</a></li>
+                                            <?php } ?>
+
+                                            <?php
+                                            if ($testPermission->has_permission($id,'customize_site')){ ?>
+                                            <li><a href="/admin/customization/index"><i class="fas fa-pencil-ruler"></i> Personnalisation</a></li>
+                                            <?php } ?>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <?php } ?>
+
+                                <?php if ($testPermission->has_permission($id,'crud_user')){ ?>
+                                <li class="sidebar-section"><a href="/admin/user/list"><i class="fas fa-user"></i>  Utilisateurs</a></li>
+                                <?php } ?>
+
+                                <?php if ($testPermission->has_permission($id,'crud_comment')){ ?>
+                                <li class="sidebar-section"><a href="/admin/comment/list"><i class="fas fa-comment"></i>  Commentaires</a></li>
+                                <?php } ?>
+
+                                <?php if ($testPermission->has_permission($id,'crud_event') || $id && $testPermission->has_permission($id,'crud_self_event')){ ?>
+                                <li class="sidebar-section"><a href="/admin/planning/index"><i class="far fa-calendar-alt"></i>  Planning</a></li>
+                                <?php } ?>
+
+                                <?php if ($testPermission->has_permission($id,'crud_newsletter') || $id && $testPermission->has_permission($id,'crud_self_newsletter')){ ?>
+                                <li class="sidebar-section"><a href="/admin/newsletter/index"><i class="far fa-newspaper"></i>  Newsletters</a></li>
+                                <?php } ?>
+
+                                <?php if ($testPermission->has_permission($id,'change_parameters')){ ?>
+                                <ul class="parameters sidebar-menu">
+                                    <li class="sidebar-section"><a href="/admin/parameters/index"><i class="fas fa-cog"></i> Paramètres</a></li>
+                                </ul>
+                                <?php } ?>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="col-8">
+                <div class="admin-main--content">
+                        {{content}}
+                </div>
+            </div>
+        </div>
+
+    </div>
 </body>
+<script>
+function confirmDelete(delArticle){
+    if (confirm("Voulez vous vraiment supprimer ?")) {
+        document.location = delArticle;
+    }
+}
+</script>
 </html>

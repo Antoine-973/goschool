@@ -12,7 +12,7 @@ use Core\Database\DB;
 use Core\Util\Email;
 use Core\Http\Redirect;
 
-$app = new Application($routes);
+$app = new Application();
 $app->run();
 
 //runInstall($envFile);

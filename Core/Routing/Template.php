@@ -28,6 +28,24 @@ class Template
         return \ob_get_clean();
     }
 
+    public function getRegistrationLayout()
+    {
+        $data['helper'] = $this->helper;
+        \ob_start();
+        extract($data, EXTR_SKIP);
+        include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR. "App" . DIRECTORY_SEPARATOR . "Views" . DIRECTORY_SEPARATOR . "layouts" .  DIRECTORY_SEPARATOR . "registrationLayout.phtml";
+        return \ob_get_clean();
+    }
+
+    public function getContentEditorLayout()
+    {
+        $data['helper'] = $this->helper;
+        \ob_start();
+        extract($data, EXTR_SKIP);
+        include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR. "App" . DIRECTORY_SEPARATOR . "Views" . DIRECTORY_SEPARATOR . "layouts" .  DIRECTORY_SEPARATOR . "contentEditorLayout.phtml";
+        return \ob_get_clean();
+    }
+
 
     public function getView($view, $data = [])
     {

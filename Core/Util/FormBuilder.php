@@ -7,27 +7,27 @@ class FormBuilder{
 
     public  function create(string $action, array $params = [])
     {
-        $this->form[] =  "<form action=$action".
-            ($params['method']) ? "method=". $params['method'] : 'POST' 
-            . "enctype='multipart/form-data'"
-            .($params['id']) ? "id=".$params['id']: ''
-            .($params['name']) ? "name=" .$params['name']: ''
-            .($params['class']) ? "class=" .$params['class']: '' . ">";
+        $this->form[] = "<form action=$action" .
+        ($params['method']) ? "method=" . $params['method'] : ('POST'
+        . "enctype='multipart/form-data'"
+        . ($params['id']) ? "id=" . $params['id'] : (''
+        . ($params['name']) ? "name=" . $params['name'] : (''
+        . ($params['class']) ? "class=" . $params['class'] : '' . ">")));
         
     }
 
     public function inputType(array $params)
     {
-        $tag =  "<input type=" .$params['type']
-                .isset($params['id'])? "id=" . $params['id']: ''
-                ."name=" . $params['name']
-                .$params['required']? $params['required']: ''
-                .isset($params['minLength']) ? "minLength=". $params['minLength'] : ''
-                .isset($params['maxLength']) ? "maxLength=". $params['maxLength'] : ''
-                .isset($params['class']) ? "class=". $params['class'] : ''
-                .isset($params['placeholder']) ? "placeholder=". $params['placeholder'] : ''
-                .isset($params['value']) ? "value=". $params['value'] : ''
-                . "/>";
+        $tag = "<input type=" . $params['type']
+        . isset($params['id']) ? "id=" . $params['id'] : (''
+        . "name=" . $params['name']
+        . $params['required'] ? $params['required'] : (''
+        . isset($params['minLength']) ? "minLength=" . $params['minLength'] : (''
+        . isset($params['maxLength']) ? "maxLength=" . $params['maxLength'] : (''
+        . isset($params['class']) ? "class=" . $params['class'] : (''
+        . isset($params['placeholder']) ? "placeholder=" . $params['placeholder'] : (''
+        . isset($params['value']) ? "value=" . $params['value'] : ''
+            . "/>"))))));
         echo $tag;die;
         $this->form[] = $tag;
     }

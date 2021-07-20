@@ -15,15 +15,79 @@ class UserQuery
     }
 
     /**
+     * @return string $query
+     */
+    public function getUsers()
+    {
+        $query = $this->builder->select("users.id, firstname, lastname, email, roles.role")->from("users")->join('INNER', 'users', 'role_id', 'roles', 'id');
+        
+        return $query->getResult();
+    }
+
+    public function getUsersByEmail($email)
+    {
+        $query = $this->builder->select("id, firstname, lastname, email, roles")->from("users")->where("email = $email");
+
+        return $query->getResult();
+    }
+
+    /**
+     * @return array $data
+     */
+    public function getUsersMail()
+    {
+        $query = $this->builder->select('email')->from("users");
+        return $query->getResult();
+    }
+
+    /**
      * @param int $id
      * @return string $query
      */
-    public function getById(int $id)
+    public function getUserById($id)
     {
-        $query = $this->builder->select("*")->from("users")->where("id = $id");
+  
+        $query = $this->builder->select("users.id, firstname, lastname, email, roles.role")->from("users")->join('INNER', 'users', 'role_id', 'roles', 'id')->where("users.id = $id");
     
         return $query->getResult();
     
+    }
+
+    public function getIdByEmail($email){
+        $query = $this->builder->select("id")->from("users")->where("email = $email");
+        return $query->getResult();
+    }
+
+    public function getEmailById($id){
+        $query = $this->builder->select("email")->from("users")->where("id = $id");
+        return $query->getResult();
+    }
+
+    /**
+     * @param string $roles
+     */
+    public function getRole()
+    {
+        $query = $this->builder->select("DISTINCT roles")->from("users");
+        return $query->getResult();
+    }
+
+    /**
+     * @param string $roles
+     */
+    public function getRoleById($id)
+    {
+        $query = $this->builder->select("roles.role")->from("users")->join('INNER', 'users', 'role_id', 'roles', 'id')->where("users.id = $id");
+        return $query->getResult();
+    }
+
+    /**
+     * @param string $roles
+     */
+    public function getRoleIdById($id)
+    {
+        $query = $this->builder->select("roles.id")->from("users")->join('INNER', 'users', 'role_id', 'roles', 'id')->where("users.id = $id");
+        return $query->getResult();
     }
 
     /**
@@ -31,8 +95,8 @@ class UserQuery
      */
     public function getByRole(string $roles)
     {
-        $query = $this->builder->select("*")->from("users")->where("roles = $roles");
-        return $query->getQuery();
+        $query = $this->builder->select("users.id")->from("users")->join('INNER', 'users', 'role_id', 'roles', 'id')->where("roles.role = $roles");
+        return $query->getResult();
     
     }
 
@@ -52,6 +116,48 @@ class UserQuery
     public function getEmail(string $email)
     {
         $query = $this->builder->select("email")->from("users")->where("email = $email");
+
+        return $query->getResult();
+    }
+
+    /**
+     * @param string $email
+     */
+    public function getVerified(string $email)
+    {
+        $query = $this->builder->select("verified")->from("users")->where("email = $email");
+
+        return $query->getResult();
+    }
+
+    /**
+     * @param string $email
+     */
+    public function getTokenVerified(string $email)
+    {
+        $query = $this->builder->select("token_verified")->from("users")->where("email = $email");
+
+        return $query->getResult();
+    }
+
+    /**
+     * @param string $email,
+     * @param string $token_verified
+     */
+    public function getByEmailAndToken(string $email, string $token_verified)
+    {
+        $query = $this->builder->select("email, token_verified, verified")->from("users")->where("email = $email", "token_verified = $token_verified");
+
+        return $query->getResult();
+    }
+
+    /**
+     * @param string $email,
+     * @param string $token_verified
+     */
+    public function getByEmailTokenVerified(string $email, string $token_verified)
+    {
+        $query = $this->builder->select("email, token_verified, verified")->from("users")->where("email = $email", "token_verified = $token_verified", "verified = 0");
 
         return $query->getResult();
     }
@@ -79,8 +185,8 @@ class UserQuery
      */
     public function delete(int $id)
     {
-        $query = $this->builder->delete()->from("users")->where("id = $id");
-        return $query->getQuery();
+        $query = $this->builder->delete()->from("users")->where("id = $id")->save();
+        return $query;
     }
 
     /**
@@ -98,7 +204,18 @@ class UserQuery
             unset($data["password"]); 
             unset($data["passwordConfirm"]);
 
-            $query = $this->builder->insertInto("users")->columns($data)->values($data)->save();
+            if (array_key_exists('role', $data)){
+                $roleQuery = new RoleQuery();
+                $role_id = $roleQuery->getIdbyName($data['role'])['id'];
+
+                $data['role_id'] = $role_id;
+                unset($data['role']);
+            }
+
+            $token_verified = [ 'token_verified' => md5( rand(0,1000) )];
+            $finalData = $data + $token_verified;
+
+            $query = $this->builder->insertInto("users")->columns($finalData)->values($finalData)->save();
             return $query;
         }
         
@@ -109,8 +226,19 @@ class UserQuery
      */
     public function update(array $data, int $id)
     {
-        $query = $this->builder->update("users")->set($data)->where("id = $id");
-        return $query;
+        $hash = new Hash();
+
+        if(array_key_exists('password', $data) && array_key_exists('passwordConfirm', $data)){
+
+            $data['password_hash'] = $hash->passwordHash($data['password']);
+
+            unset($data["password"]);
+            unset($data["passwordConfirm"]);
+
+
+            $query = $this->builder->update("users")->set($data)->where("id = $id")->save();
+            return $query;
+        }
     }
 
     /**
@@ -118,7 +246,16 @@ class UserQuery
      */
     public function updatePassword(array $data, string $email)
     {
-        $query = $this->builder->update("users")->set($data)->where("email = $email");
+        $query = $this->builder->update("users")->set($data)->where("email = $email")->save();
+        return $query;
+    }
+
+    /**
+     * @param array $data
+     */
+    public function updateVerified(array $data, string $email, string $tokenVerified)
+    {
+        $query = $this->builder->update("users")->set($data)->where("email = $email", "token_verified = $tokenVerified")->save();
         return $query;
     }
 
@@ -153,9 +290,9 @@ class UserQuery
     /**
      * @param int $created_at
      */
-    public function orderByCreationDate(string $created_at)
+    public function orderByDateRegister()
     {
-        $query = $this->builder->select("*")->from("users")->orderBy("created_at", "ASC");
-        return $query->getQuery();
+        $query = $this->builder->select("firstname, lastname, roles.role, users.created_at")->from("users")->join('INNER', 'users', 'role_id', 'roles', 'id')->orderBy('users.created_at', 'DESC');
+        return $query->getResult();
     }
 }

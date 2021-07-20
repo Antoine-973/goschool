@@ -1,0 +1,45 @@
+<div class="content admin-media--list">
+    <div class="col-gutter-12">
+        <h1>Médias</h1>
+        <a href="/admin/media/add" class="btn btn--infos btn--sm"><i class="fas fa-plus-circle"></i> Ajouter une image</a>
+
+        <?php if(($message = $helper->getFlashMessage('success'))):?>
+            <p><?php echo $message;?></p>
+        <?php elseif(($message = $helper->getFlashMessage('error'))):?>
+            <p> <?php echo $message;?></p>
+        <?php endif;?>
+
+        <table id="medias_table" class="display dataTable">
+            <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Image</th>
+                    <th>Supprimer</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <?php for($i = 0; $i < $nb_total_img; $i++) { ?>
+                    <tr>
+                        <td><?php echo $listMedias[$i] ?></td>
+                        <td><a href=""><img src="<?php echo $repertoire ?><?php echo $listMedias[$i] ?>" alt="<?php echo $listMedias[$i] ?>" class="img img--thumbnail"></a></td>
+                        <td><a href="javascript:confirmDelete('/admin/media/delete?name=<?php echo $listMedias[$i] ?>')" class="btn btn--danger btn--sm"><i class="fas fa-trash-alt"></i></a></td>
+                    <tr>
+                    <?php } ?>
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <th>Titre</th>
+                    <th>Image</th>
+                    <th>Supprimer</th>
+                <tr>
+            </tfoot>
+        </table>
+        <script>
+            $(document).ready(function() {
+                $('#medias_table').DataTable();
+            } );
+        </script>
+    </div>
+</div>

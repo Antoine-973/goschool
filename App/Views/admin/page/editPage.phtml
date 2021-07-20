@@ -1,0 +1,13 @@
+<div class="add-form">
+    <h1>Éditer la page</h1>
+    <?php if(isset($errors) && !empty($errors)): ?>
+        <ul>
+            <?php foreach($errors as $error): ?>
+                <li><?php echo $error;?></li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+
+    <?= $pageEdit; ?>
+</div>
+<div class="back-to-list">  <a href="/admin/page/list" class="btn btn--infos btn--sm">Revenir à la liste</a></div>

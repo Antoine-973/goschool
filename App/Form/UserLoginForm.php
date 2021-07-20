@@ -10,9 +10,9 @@ class UserLoginForm
     public function getForm()
     {
 
-        $form = Form::create('/admin/login')
-                ->input('email', 'email', ['value' => 'Email'])
-                ->input('password', 'password', ['value' => 'Mot de passe'])
+        $form = Form::create('/admin/auth/postLogin')
+                ->input('email', 'email', ['value' => 'Email', 'min' => 4, 'max' => 55])
+                ->input('password', 'password', ['value' => 'Mot de passe', 'max' => 30])
                 ->input('submit', 'submit', ['value' => 'Connexion']);
         return $form->getForm();
     }

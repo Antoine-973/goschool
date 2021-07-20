@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>goSchool - Admin</title>
+    <link rel="stylesheet" type="text/css" href="/librairies/dist/main.css">
+    <script src="/librairies/dist/main.js"></script>
+    <script src="/librairies/src/js/vendor/ckeditor5/build/ckeditor.js"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="contentEditor">
+        {{content}}
+    </div>
+</div>
+
+<script>
+    const watchdog = new CKSource.EditorWatchdog();
+
+    window.watchdog = watchdog;
+
+    watchdog.setCreator((element, config) => {
+        return CKSource.Editor
+            .create(element, config)
+            .then(editor => {
+
+
+                return editor;
+            })
+    });
+
+    watchdog.setDestructor(editor => {
+
+
+        return editor.destroy();
+    });
+
+    watchdog.on('error', handleError);
+
+    watchdog
+        .create(document.querySelector('#content'), {
+
+            toolbar: {
+                items: [
+                    'heading',
+                    '|',
+                    'pageBreak',
+                    'alignment',
+                    'restrictedEditingException',
+                    'bold',
+                    'italic',
+                    'fontFamily',
+                    'fontSize',
+                    'fontColor',
+                    'fontBackgroundColor',
+                    'underline',
+                    'highlight',
+                    'horizontalLine',
+                    'bulletedList',
+                    'numberedList',
+                    '|',
+                    'outdent',
+                    'indent',
+                    '|',
+                    'link',
+                    'imageUpload',
+                    'imageInsert',
+                    '|',
+                    'specialCharacters',
+                    'blockQuote',
+                    'code',
+                    'codeBlock',
+                    'htmlEmbed',
+                    'insertTable',
+                    'mediaEmbed',
+                    'findAndReplace',
+                    'undo',
+                    'redo'
+                ]
+            },
+            language: 'fr',
+            image: {
+                toolbar: [
+                    'imageTextAlternative',
+                    'imageStyle:full',
+                    'imageStyle:side'
+                ]
+            },
+            table: {
+                contentToolbar: [
+                    'tableColumn',
+                    'tableRow',
+                    'mergeTableCells',
+                    'tableCellProperties',
+                    'tableProperties'
+                ]
+            },
+            licenseKey: '',
+
+
+        })
+        .catch(handleError);
+
+    function handleError(error) {
+        console.error('Oops, something went wrong!');
+        console.error('Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:');
+        console.warn('Build id: japdqregr4pi-x3cuspnt9v32');
+        console.error(error);
+
+    }
+</script>
+
+</body>
+</html>

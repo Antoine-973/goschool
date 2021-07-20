@@ -1,0 +1,54 @@
+<?php
+$articleQuery = new App\Query\ArticleQuery();
+$commentQuery = new App\Query\CommentQuery();
+$articles = $articleQuery->orderByDate();
+$comments = $commentQuery->orderByDate();
+?>
+
+<aside id="aside" class="site-main--aside">
+    <div class="container">
+        <hr>
+        <h5>Dernières actualités :</h6>
+        <hr>
+    </div>
+    <div class="container">
+        <h6>Articles :</h6>
+        <ul>
+            <?php if($articles != null) { ?>
+                <?php for($y = 0; $y < 4;$y++):?>
+                    <li>
+                        <a href=''><?php echo $articles[$y]['title'].'<br>'.$articles[$y]['created_at'].'<br>' ?></a>
+                    </li>
+                <?php endfor;?>
+            <?php }else{ ?>
+                <li>
+                    <a href=''>Pas d'article.</a>
+                </li>
+            <?php } ?>
+        </ul>
+    </div>
+    <div class="container">
+        <h6>Commentaires :</h6>
+        <ul>
+            <?php if($comments != null) { ?>
+                <?php for($i = 0; $i < 4;$i++):?>
+                    <li>
+                        <a href=''><?php echo substr($comments[$i]['message'],0,45).'... <br>'.$comments[$i]['created_at'].'<br><br>' ?></a>
+                    </li>
+                <?php endfor;?>
+            <?php }else{ ?>
+                <li>
+                    <a href=''>Pas de commentaire.</a>
+                </li>
+            <?php } ?>
+        </ul>
+    </div>
+    <div class="container">
+        <hr>
+        <h5>Rechercher sur le site</h5>
+        <hr>
+        <input type="search" id="site-search" name="q" aria-label="Search through site content">
+        <br><br>
+        <a href="#" class="btn btn--info btn--sm">Rechercher</a>
+    </div>
+</aside>

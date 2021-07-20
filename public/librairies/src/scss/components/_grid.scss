@@ -1,42 +1,67 @@
-$col-nb: 12;
-$container-width: 100%;
-$gutter-width:30px;
-$sm-width:576;
-$md-width:768;
-$lg-width:992;
-$xl-width:1200;
+$grid__bp-sm: 576;
+$grid__bp-md: 768;
+$grid__bp-lg: 992;
+$grid__bp-xl: 1200;
+$grid__cols: 12;
+$gutter_width:30px;
 
 $map-grid-props: (
-        '-xs':0,
-        '-sm': $sm-width,
-        '-md': $md-width,
-        '-lg': $lg-width,
-        '-xl': $xl-width
+        '': 0,
+        '-sm': $grid__bp-sm,
+        '-md': $grid__bp-md,
+        '-lg': $grid__bp-lg,
+        '-xl': $grid__bp-xl
 );
 
-@mixin create-mq($breakpoint) {
+@mixin create-mq($breakpoint, $min-or-max) {
     @if($breakpoint == 0) {
         @content;
     } @else {
-        @media screen and (min-width: $breakpoint *1px) {
+        @media screen and (#{$min-or-max}-width: $breakpoint *1px) {
             @content;
         }
     }
 }
 
-@mixin create-col-classes($modifier, $col-nb, $breakpoint) {
-    @include create-mq($breakpoint) {
-        @for $i from 1 through $col-nb {
-            .col-#{$i} {
-                flex-basis: (100 / ($col-nb / $i) ) * 1%;
-                padding: 0 calc($gutter-width/2) ;
+@mixin create-col-classes($modifier, $grid-cols, $breakpoint) {
+    @include create-mq($breakpoint, 'max') {
+        &#{$modifier}-offset-0 {
+            margin-left: 0;
+        }
+        @for $i from 1 through $grid-cols {
+            &#{$modifier}-#{$i} {
+                flex-basis: (100 / ($grid-cols / $i) ) * 1%;
+            }
+            &#{$modifier}-offset-#{$i} {
+                flex-basis: (100 / ($grid-cols / $i) ) * 1%;
+                margin-left: (100 / ($grid-cols / $i) ) * 1%;
+            }
+            &#{$modifier}-gutter-#{$i}{
+                flex-basis: (100 / ($grid-cols / $i) ) * 1%;
+                padding: 0 ($gutter-width / 2) ;
             }
         }
     }
 }
 
+@each $modifier , $breakpoint in $map-grid-props {
+    @if($modifier == '') {
+        $modifier: '-xs';
+    }
+    @include create-mq($breakpoint - 1, 'max') {
+        .hidden#{$modifier}-down {
+            display: none !important;
+        }
+    }
+    @include create-mq($breakpoint, 'min') {
+        .hidden#{$modifier}-up {
+            display: none !important;
+        }
+    }
+}
+
 .container {
-    max-width: $xl-width * 1px;
+    max-width: $grid__bp-md * 1px;
     margin: 0 auto;
     &--fluid {
         margin: 0;
@@ -44,15 +69,16 @@ $map-grid-props: (
     }
 }
 
-@each $modifier , $breakpoint in $map-grid-props {
-    @include create-col-classes($modifier, $col-nb, $breakpoint);
-}
-
-.row {
+.row{
     display: flex;
-    flex-wrap: wrap;
+    position: relative;
+    //flex-wrap: wrap;
     width: 100%;
-    //margin: 0 calc(#{$gutter-width}/-2);
+    margin-left: 0px;
 }
 
-
+.col{
+    @each $modifier , $breakpoint in $map-grid-props {
+        @include create-col-classes($modifier, $grid__cols, $breakpoint);
+    }
+}

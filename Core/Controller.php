@@ -6,17 +6,33 @@ use Core\Util\Helper;
 
 class Controller{
 
+    private $middlewares = [];
+
     public function render($view, $data = [])
     {
-
         $template = new Template();
         $viewContent = $template->getView($view, $data);
+        $namespace = explode('\\', get_called_class());
 
-        if(strpos(get_called_class(), 'Admin') !== false){
+        if (strpos($namespace[count($namespace)-1], 'Article') !== false && stripos(debug_backtrace()[1]['function'], 'Add' ) !== false || strpos($namespace[count($namespace)-1], 'Article') !== false && (stripos(debug_backtrace()[1]['function'], 'Edit' ) ) !== false ){
+            $contentEditorLayout = $template->getContentEditorLayout();
+            echo \str_replace('{{content}}', $viewContent, $contentEditorLayout);
+        }
+        elseif(strpos($namespace[count($namespace)-1], 'Page') !== false && stripos(debug_backtrace()[1]['function'], 'Add' ) !== false || strpos($namespace[count($namespace)-1], 'Page') !== false && stripos(debug_backtrace()[1]['function'], 'Edit' ) !== false){
+            $contentEditorLayout = $template->getContentEditorLayout();
+            echo \str_replace('{{content}}', $viewContent, $contentEditorLayout);
+        }
+        elseif (strpos($namespace[count($namespace)-1], 'AdminAuthController') !== false){
+
+            $registrationLayout = $template->getRegistrationLayout();
+            echo \str_replace('{{content}}', $viewContent, $registrationLayout);
+        }
+        elseif(strpos($namespace[count($namespace)-1], 'Admin') !== false){
+
             $adminLayout = $template->getAdminLayout();
             echo \str_replace('{{content}}', $viewContent, $adminLayout);
-        }else{
-            
+        }
+        else{
             $siteLayout = $template->getSiteLayout();
             echo \str_replace('{{content}}', $viewContent, $siteLayout);
         }
@@ -45,6 +61,11 @@ class Controller{
         extract([ 'helper' => $helper]);
         require dirname(__DIR__) . DIRECTORY_SEPARATOR. "App" . DIRECTORY_SEPARATOR . "Views" . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $view);
         echo ob_get_clean();
+    }
+
+    public function registerMiddleware($middleware)
+    {
+        $this->middlewares[] = $middleware;
     }
 
 

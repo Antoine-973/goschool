@@ -1,0 +1,16 @@
+<div class="content admin-article--add">
+        <h1>Ajouter un utilisateur</h1>
+        <div class="col-gutter-12">
+
+
+    <?php if(isset($errors) && !empty($errors)): ?>
+        <ul>
+            <?php foreach($errors as $error): ?>
+                <li><?php echo $error;?></li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+
+    <?= $userAdd; ?>
+    <a href="/admin/user/list" class="btn btn--infos btn--sm">Revenir à la liste</a>
+</div>

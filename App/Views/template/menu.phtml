@@ -1,0 +1,38 @@
+<?php
+$verifTable = new \Core\Util\Table();
+$menuQuery = new App\Query\MenuQuery();
+$menuId = $menuQuery->getIdByPosition('navbar');
+$id = implode($menuId);
+$havepageQuery = new App\Query\HavePageQuery();
+$pagesId = $havepageQuery->getPagesIdByMenuId($id);
+?>
+
+<header id="header" class="site-main--header">
+    <div class="container">
+        <nav class="site-main--nav">
+            <ul>
+                <?php if($pagesId != null) {
+                    if ($verifTable->is_multi($pagesId)){
+                        $pagesId = $verifTable->multi_to_single($pagesId);
+                    }?>
+                    <?php foreach($pagesId as $page) {
+                        $pageQuery = new App\Query\PageQuery();
+                        $pageTitle = $pageQuery->getTitleById($page);
+                        $title = implode($pageTitle);
+                        $pageQuery = new App\Query\PageQuery();
+                        $pageUrl = $pageQuery->getUrlById($page);
+                        $url = implode($pageUrl);
+                        ?>
+                        <li>
+                            <a href='<?php echo $url ?>'><?php echo $title ?></a>
+                        </li>
+                    <?php } ?>
+                <?php }else{ ?>
+                    <li>
+                        <a href='/'>Welcome</a>
+                    </li>
+                <?php } ?>
+            </ul>
+        </nav>
+    </div>
+</header>

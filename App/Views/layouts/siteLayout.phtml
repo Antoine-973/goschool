@@ -1,3 +1,16 @@
+<?php
+require_once dirname(dirname(dirname(__DIR__))) . DIRECTORY_SEPARATOR ."Core" . DIRECTORY_SEPARATOR . "bootstrap.php";
+
+$layout = new Core\Routing\Layout();
+
+$session = new Core\Http\Session();
+$id = $helper->getFlashMessage('user_id') ?? null;
+$connectedUser = [];
+
+$id = $session->getMessage('user_id');
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -7,17 +20,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Site</title>
     <link rel="stylesheet" type="text/css" href="/librairies/dist/main.css">
-    <link rel="stylesheet" type="text/css" href="/librairies/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="/librairies/dist/main.js"></script>
 </head>
-<body>
-<nav class="site-main--menu"></nav>
-<header class="site-main--header"><h2>Header</h2></header>
+<body class="site-body">
+    <div class="container--fluid">
 
-<div class="site-main--content">
-    {{content}}
-</div>
+        <?php
 
-<footer class="site-main--footer"><h2>Footer</h2></footer>
+        $testPermission = new \Core\Util\RolePermission();
+
+        if ($id && $testPermission->has_permission($id, 'access_back_office')) {
+            $userQuery = new App\Query\UserQuery();
+            $connectedUser = $userQuery->getUserById($id); ?>
+
+            <div class="row">
+                <div class="col-12">
+                    <div id="site-main--admin-navbar" class="site-main--admin-navbar">
+                        <div class="user-controls">
+                            <div class="identity">
+                                <ul>
+                                    <li><a href="/admin/dashboard/index"><i class="fas fa-home"></i>Accueil</a></li>
+                                    <?php if ($id && $testPermission->has_permission($id, 'customize_site')) { ?> |
+                                    <li><a href="/admin/customization/index"><i class="fas fa-pencil-ruler"></i>Personnalisation</a></li>
+                                    <?php }?>
+                                    <?php if ($id && $testPermission->has_permission($id, 'approve_comment')) { ?> |
+                                    <li><a href="/admin/comment/list"><i class="fas fa-comment"></i></a></li>
+                                    <?php }?>|
+                                    <li><a href="/admin/article/add"><i class="fas fa-plus"></i>Ajouter</a></li>
+                                </ul>
+                            </div>
+                            <div class="user-actions">
+                                <ul>
+                                    <?php if($connectedUser):?>
+                                        <li>
+                                            <a href="/admin/user/profil"><i class="fas fa-user">  <?= $connectedUser['firstname'] . ' ' . $connectedUser['lastname'] ?></i></a>
+                                        </li>|
+                                        <li><a href="/admin/auth/logout">Déconnexion</a></li>
+                                    <?php endif;?>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="javascript:void(0)" class="closebtn" onclick="myFunction()"><i class="fa fa-bars"></i></a>
+                </div>
+            </div>
+        <?php } ?>
+
+        <?php echo $layout->getMenu();?>
+
+        <div class="site-main--content">
+            <div class="row">
+                <div class="col-gutter-12">
+                    <?php echo $layout->getContent();?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-gutter-12">
+                    <?php echo $layout->getArticles();?>
+                </div>
+            </div>
+        </div>
+
+        <?php echo $layout->getFooter();?>
+    </div>
+
+    <script>
+        function myFunction() {
+            var x = document.getElementById('site-main--admin-navbar');
+            if (x.style.display === 'none') {
+                x.style.display = 'block';
+            } else {
+                x.style.display = 'none';
+            }
+        }
+    </script>
+
 </body>
 </html>

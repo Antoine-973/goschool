@@ -1,0 +1,50 @@
+<div class="content admin-newsletter--list">
+    <div class="col-gutter-12">
+        <h1>Edition du Menu</h1>
+
+        <?php
+        $verifTable = new \Core\Util\Table();
+        $request = new \Core\Http\Request();
+
+        $id = $request->getBody();
+        $stringId = implode("','",$id);
+
+        $menuQuery = new \App\Query\MenuQuery();
+        $menu = $menuQuery->getMenu($stringId);
+        ?>
+
+            <form class="container--fluid" action="update">
+                <div class="row">
+                    <input type="hidden" name="id" value="<?php echo $stringId; ?>">
+                </div>
+
+                <div class="row">
+                    <label for="name">Nom du menu</label>
+                    <input type="text" value="<?= $menu['name'] ?>" name="name">
+                </div>
+
+                <div class="row">
+                    <label for="description">Description du menu</label>
+                    <textarea id="description" name="description"><?= $menu['description'] ?></textarea>
+                </div>
+
+                <fieldset>
+                    <legend>Choisissez les pages à ajouter au menu</legend>
+                    <?php if ($verifTable->is_multi($pages)){ ?>
+                        <?php foreach ($pages as $page) { ?>
+                            <input type="hidden" name="<?= $page['title'] ?>" value="0"><input type="checkbox" onclick="this.previousSibling.value=1-this.previousSibling.value" name="<?= $page['title'] ?>" value="<?= $page['id'] ?>"><?= $page['title'] ?><br>
+                        <?php } ?>
+                    <?php } else{ ?>
+                        <input type="checkbox" name="<?=$pages['id'] ?>" value="<?=$pages['id'] ?>"><?= $pages['title'] ?><br>
+                    <?php } ?>
+                    <br>
+                </fieldset>
+                <input class="btn-success btn" formmethod="post" type="submit" value="Éditer le menu" />
+            </form>
+
+            <a href="/admin/menu/delete/<?php echo $stringId ?>">Supprimer</a>
+
+            <div class="back-to-list">  <a href="/admin/menu/index" class="btn btn--infos btn--sm">Revenir à la liste</a></div>
+
+    </div>
+</div>

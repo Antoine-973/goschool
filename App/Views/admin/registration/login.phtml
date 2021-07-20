@@ -1,0 +1,18 @@
+<div class="content admin-login">
+    <h1>Connexion</h1>
+            <div class="content formContainer--form white">
+
+                <?php if(($message = $helper->getFlashMessage('error'))):?>
+                    <p><?php echo $message;?></p>
+                <?php elseif(($message = $helper->getFlashMessage('success'))):?>
+                    <p> <?php echo $message;?></p>
+                <?php endif;?>
+
+                <?php echo $userLogin; ?>
+            </div>
+
+        <div class="content formContainer--contact white">
+            <a href="/admin/auth/lostpassword">Mot de passe oublié ?</a><br>
+            <a href="/admin/auth/register">Vous n'avez pas encore de compte ? Inscrivez vous ! </a></button>
+        </div>
+</div>
