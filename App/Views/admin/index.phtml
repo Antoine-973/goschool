@@ -91,7 +91,7 @@
                     <h4>Les 3 derniers inscrit.</h4>
                     <?php $verifTable = new \Core\Util\Table() ?>
                     <ul>
-                        <?php if ($users != null && $verifTable->is_multi($users)) { ?>
+                        <?php if ($users && $verifTable->is_multi($users)) { ?>
                             <?php foreach($users as $user) { ?>
                                 <li>
                                         <?php echo $user['lastname'] ?> <?php echo $user['firstname'] ?> <?php echo $user['role'] ?><br>
@@ -116,8 +116,8 @@
                 <div class="shadow shadow--none">
                     <h4>Les 3 derniers articles.</h4>
                     <ul>
-                        <?php if ($articles != null && $verifTable->is_multi($articles)) { ?>
-                            <?php foreach($articles as $key=>$value) { ?>
+                        <?php if ($articles && $verifTable->is_multi($articles)) { ?>
+                            <?php foreach($articles as $article) { ?>
                                 <li>
                                     <?php echo $article['title'] ?><br>
                                     <?php echo $article['created_at'] ?><br><br>
