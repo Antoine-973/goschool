@@ -9,32 +9,27 @@ class DynamicRouting {
 
     public function dispatch()
     {
+
+            $request = new Request();
+            $path = trim($request->getPath(), '/');
+
+            $controller = $this->getController($path);
+            $action = $this->getAction($path);
+            $params = $this->getParams($path);
+
+            $admin_dir = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'App' . DIRECTORY_SEPARATOR . 'Controller' . DIRECTORY_SEPARATOR . 'Admin' .DIRECTORY_SEPARATOR; 
+
+            $dir = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'App' . DIRECTORY_SEPARATOR . 'Controller' . DIRECTORY_SEPARATOR;
+
+
+            if(AuthMiddleware::adminRoute($path)){
+                AuthMiddleware::isAuth();
+            }
+            $adminfile = $admin_dir. $controller . '.php';
+            $sitefile = $dir. $controller . '.php';
         
-        $request = new Request();
-        $path = trim($request->getPath(), '/');
-
-        $controller = $this->getController($path);
-        $action = $this->getAction($path);
-        $params = $this->getParams($path);
-
-        $admin_dir = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'App' . DIRECTORY_SEPARATOR . 'Controller' . DIRECTORY_SEPARATOR . 'Admin' .DIRECTORY_SEPARATOR; 
-
-        $dir = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'App' . DIRECTORY_SEPARATOR . 'Controller' . DIRECTORY_SEPARATOR;
-
-
-        if(AuthMiddleware::adminRoute($path)){
-          AuthMiddleware::isAuth();
-        }
-
-        if(!InstallMiddleware::checkInstallation()){
-            InstallMiddleware::install();
-        }
-
-        $adminfile = $admin_dir. $controller . '.php';
-        $sitefile = $dir. $controller . '.php';
-
-        $this->resolveAdmin($adminfile, $controller, $action, $params);
-        $this->resolveSite($sitefile, $controller, $action, $params);
+            $this->resolveAdmin($adminfile, $controller, $action, $params);
+            $this->resolveSite($sitefile, $controller, $action, $params);
         
     }
 

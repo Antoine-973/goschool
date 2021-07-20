@@ -11,6 +11,7 @@ use Core\Http\Request;
 use Core\Database\DB;
 use Core\Routing\DynamicRouting;
 use Core\Middleware\AuthMiddleware;
+use Core\Middleware\InstallMiddleware;
 use Core\Util\Helper;
 class Application{
     
