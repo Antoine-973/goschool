@@ -7,6 +7,8 @@ $menuId = $menuQuery->getIdByPosition('footer');
 $id = implode($menuId);
 $havepageQuery = new App\Query\HavePageQuery();
 $pagesId = $havepageQuery->getPagesIdByMenuId($id);
+$paramQuery = new App\Query\ParamQuery();
+$haveSocial = $paramQuery->getSocials();
 
 ?>
 
@@ -70,6 +72,22 @@ $pagesId = $havepageQuery->getPagesIdByMenuId($id);
                 <p>
                     Copyright &copy; 2021 - Tous droits réservés par <a href="#">GoSchool</a>.
                 </p>
+            </div>
+            <div class="col-4">
+                <ul class="social">
+                    <?php if($haveSocial['twitter']) : ?>
+                        <li><a class="twitter" href="#"><i class="fab fa-twitter fa-lg"></i></a></li>
+                    <?php endif; ?>
+                    <?php if($haveSocial['facebook']) : ?>
+                        <li><a class="facebook" href="#"><i class="fab fa-facebook-f fa-lg"></i></a></li>
+                    <?php endif; ?>
+                    <?php if($haveSocial['instagram']) : ?>
+                        <li><a class="instagram" href="#"><i class="fab fa-instagram fa-lg"></i></a></li>
+                    <?php endif; ?>
+                    <?php if($haveSocial['linkedin']) : ?>
+                        <li><a class="linkedin" href="#"><i class="fab fa-linkedin-in fa-lg"></i></a></li>
+                    <?php endif; ?>  
+                </ul>
             </div>
         </div>
     </div>

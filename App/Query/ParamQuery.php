@@ -48,4 +48,13 @@ class ParamQuery{
         return $query;
     }
 
+    /**
+     * @return array $data
+     */
+    public function getSocials()
+    {
+        $query = $this->builder->select('twitter,facebook,linkedin,instagram')->from("parameters");
+        return $query->getResult();
+    }
+
 }

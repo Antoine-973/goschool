@@ -1933,6 +1933,9 @@ body.admin-login .col-6.connexion-form .container-form .form-input input[type=su
 .site-main--footer .social a.linkedin:hover {
   background-color: #007bb6;
 }
+.site-main--footer .social a.instagram:hover {
+  background-color: #E1306C;
+}
 .site-main--admin-navbar {
   display: flex;
   position: fixed;
