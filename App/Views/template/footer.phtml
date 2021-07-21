@@ -76,16 +76,16 @@ $haveSocial = $paramQuery->getSocials();
             <div class="col-4">
                 <ul class="social">
                     <?php if($haveSocial['twitter']) : ?>
-                        <li><a class="twitter" href="#"><i class="fab fa-twitter fa-lg"></i></a></li>
+                        <li><a class="twitter" href="<?php echo $haveSocial['twitter'] ?>"><i class="fab fa-twitter fa-lg"></i></a></li>
                     <?php endif; ?>
                     <?php if($haveSocial['facebook']) : ?>
-                        <li><a class="facebook" href="#"><i class="fab fa-facebook-f fa-lg"></i></a></li>
+                        <li><a class="<?php echo $haveSocial['facebook'] ?>" href="#"><i class="fab fa-facebook-f fa-lg"></i></a></li>
                     <?php endif; ?>
                     <?php if($haveSocial['instagram']) : ?>
-                        <li><a class="instagram" href="#"><i class="fab fa-instagram fa-lg"></i></a></li>
+                        <li><a class="instagram" href="<?php echo $haveSocial['instagram'] ?>"><i class="fab fa-instagram fa-lg"></i></a></li>
                     <?php endif; ?>
                     <?php if($haveSocial['linkedin']) : ?>
-                        <li><a class="linkedin" href="#"><i class="fab fa-linkedin-in fa-lg"></i></a></li>
+                        <li><a class="linkedin" href="<?php echo $haveSocial['linkedin'] ?>"><i class="fab fa-linkedin-in fa-lg"></i></a></li>
                     <?php endif; ?>  
                 </ul>
             </div>
