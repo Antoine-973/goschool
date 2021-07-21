@@ -4,6 +4,8 @@ public/librairies/dist/main.css
 public/librairies/dist/main.js
 public/librairies/webpack/node_modules/
 
+#SITE CONTENT
+App/Views/site
 
 #CKEditor
 *.po
