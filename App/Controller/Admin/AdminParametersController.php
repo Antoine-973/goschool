@@ -1,14 +1,12 @@
 <?php
 namespace App\Controller\Admin;
 
-use App\Form\ParametersEditForm;
 use App\Query\ParamQuery;
 use Core\Controller;
 use Core\Http\Request;
 use Core\Http\Session;
 use Core\Http\Response;
 use Core\Component\Validator;
-use App\Form\ParamEditForm;
 
 class AdminParametersController extends Controller{
 
@@ -20,15 +18,12 @@ class AdminParametersController extends Controller{
 
     private $session;
 
-    private $paramEditForm;
-
     private $paramQuery;
 
     public function __construct()
     {
         $this->request = new Request();
         $this->response = new Response();
-        $this->paramEditForm = new ParametersEditForm();
         $this->paramQuery = new ParamQuery();
     }
 
