@@ -292,7 +292,7 @@ class UserQuery
      */
     public function orderByDateRegister()
     {
-        $query = $this->builder->select("firstname, lastname, roles.role, users.created_at")->from("users")->join('INNER', 'users', 'role_id', 'roles', 'id')->orderBy('users.created_at', 'DESC');
+        $query = $this->builder->select("firstname, lastname, roles.role, users.created_at")->from("users")->join('INNER', 'users', 'role_id', 'roles', 'id')->orderBy('users.created_at', 'DESC')->limit(3);
         return $query->getResult();
     }
 }

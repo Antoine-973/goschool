@@ -19,6 +19,8 @@ class QueryBuilder{
 
     private $sort;
 
+    private $limitNumber;
+
     private $values;
 
     private $data = [];
@@ -223,6 +225,13 @@ class QueryBuilder{
         $this->order = $orderName;
         $this->sort = $sortName;
         $this->query .= ' ORDER BY '. $this->sort.' '.$this->order;
+        return $this;
+    }
+
+    public function limit($limit)
+    {
+        $this->limitNumber = $limit;
+        $this->query .= ' LIMIT  '. $this->limitNumber;
         return $this;
     }
 }
