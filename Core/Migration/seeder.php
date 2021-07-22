@@ -161,6 +161,9 @@ class seeder
                 INSERT INTO articles (title, slug, description, content, status, user_id)
                 VALUE('Hello World', 'hello-world', 'Bienvenue sur GoSchool. Ceci est ton premier article. Edite le ou supprime le, puis commence à créer !', '<h1>Hello World !</h1><p>Bienvenue sur GoSchool. Ceci est ton premier article. Edite le ou supprime le, puis commence à créer !</p>','Publié', '1');
 
+                INSERT INTO customs (id)
+                VALUE ('1');
+
                 INSERT INTO comments (message, status, user_id, article_id)
                 VALUES('Bonjour ceci est un commentaire de test. Pour commencer à modérer, éditer et supprimer des commentaires, veuillez visiter l\'écran Commentaires dans le tableau de bord. ', 'Approuvé', '1', '1'),
                        ('Bienvenue sur goschool !','Approuvé', '2', '1'),

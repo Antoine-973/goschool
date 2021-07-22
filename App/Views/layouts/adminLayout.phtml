@@ -37,6 +37,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script type="text/javascript" src="/librairies/webpack/node_modules/chart.js/dist/chart.js"></script>
     <link href='/librairies/webpack/node_modules/fullcalendar/main.css' rel='stylesheet' />
     <script src='/librairies/webpack/node_modules/fullcalendar/main.js'></script>
@@ -102,7 +103,7 @@
                                 <ul class="sidebar-menu dropdown-main">
                                     <li class="dropdown-section">
                                     <a><i class="fas fa-brush"></i>  Apparence <i class="fa fa-caret-down"></i></a>
-                                        <ul class="dropdown-container dropdown-menu">
+                                        <ul class="dropdvalueown-container dropdown-menu">
                                             <?php
                                             if ($testPermission->has_permission($id,'change_theme')){ ?>
                                             <li style="margin-top: 5px"><a href="/admin/theme/index"><i class="fas fa-columns"></i> Thèmes</a></li>
@@ -164,5 +165,28 @@ function confirmDelete(delArticle){
         document.location = delArticle;
     }
 }
+</script>
+<script>
+    function changecolor()
+    {
+        document.getElementById("txtcolorchange").style.color=document.getElementById("colorpick").value;
+    }
+
+    var rangeslider = document.getElementById("myrange");
+    var spantxt = document.getElementById("displayfontsize");
+    spantxt.innerHTML=rangeslider.value;
+    rangeslider.oninput = function()
+    {
+        spantxt.innerHTML=this.value;
+    }
+
+    $(document).ready(function()
+    {
+        $('input').on('input', function()
+        {
+            var txtchange=$(this).val();
+            $('p').css('font-size',txtchange+'em')
+        });
+    });
 </script>
 </html>

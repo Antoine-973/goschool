@@ -9,6 +9,17 @@ $connectedUser = [];
 
 $id = $session->getSession('user_id');
 
+$h1_size = 2.5;
+$h2_size = 2;
+$h3_size = 1.88;
+$h4_size = 1.5;
+$p_size = 1;
+
+$h1_color = "363740";
+$h2_color = "363740";
+$h3_color = "363740";
+$h4_color = "363740";
+$p_color = "363740";
 ?>
 
 <!DOCTYPE html>
@@ -19,6 +30,7 @@ $id = $session->getSession('user_id');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Site</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/librairies/dist/main.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="/librairies/dist/main.js"></script>
@@ -94,6 +106,24 @@ $id = $session->getSession('user_id');
                 x.style.display = 'none';
             }
         }
+    </script>
+    <script>
+        var h1_size = "<?= $h1_size ?>em";
+        var h2_size = "<?= $h2_size ?>em";
+        var h3_size = "<?= $h3_size ?>em";
+        var h4_size = "<?= $h4_size ?>em";
+        var p_size = "<?= $p_size ?>em";
+        var h1_color = "#<?= $h1_color ?>";
+        var h2_color  = "#<?= $h2_color ?>";
+        var h3_color  = "#<?= $h3_color ?>";
+        var h4_color  = "#<?= $h4_color ?>";
+        var p_color  = "#<?= $p_color ?>";
+
+        $('h1').css({ 'font-size' : h1_size, 'color' : h1_color, });
+        $('h2').css({ 'font-size' : h2_size, 'color' : h2_color,});
+        $('h3').css({ 'font-size' : h3_size, 'color' : h3_color,});
+        $('h4').css({ 'font-size' : h4_size, 'color' : h4_color,});
+        $('p').css({ 'font-size' : p_size, 'color' : p_color,});
     </script>
 
 </body>
