@@ -9,17 +9,10 @@ $connectedUser = [];
 
 $id = $session->getSession('user_id');
 
-$h1_size = 2.5;
-$h2_size = 2;
-$h3_size = 1.88;
-$h4_size = 1.5;
-$p_size = 1;
-
-$h1_color = "363740";
-$h2_color = "363740";
-$h3_color = "363740";
-$h4_color = "363740";
-$p_color = "363740";
+$customQuery = new App\Query\CustomQuery();
+$customs = $customQuery->getCustom();
+$h1_size = $customs['h1_size'];$h2_size = $customs['h2_size'];$h3_size = $customs['h3_size'];$h4_size = $customs['h4_size'];$p_size = $customs['p_size'];
+$h1_color = $customs['h1_color'];$h2_color = $customs['h2_color'];$h3_color = $customs['h3_color'];$h4_color = $customs['h4_color'];$p_color = $customs['p_color'];
 ?>
 
 <!DOCTYPE html>
@@ -119,11 +112,11 @@ $p_color = "363740";
         var h4_color  = "#<?= $h4_color ?>";
         var p_color  = "#<?= $p_color ?>";
 
-        $('h1').css({ 'font-size' : h1_size, 'color' : h1_color, });
-        $('h2').css({ 'font-size' : h2_size, 'color' : h2_color,});
-        $('h3').css({ 'font-size' : h3_size, 'color' : h3_color,});
-        $('h4').css({ 'font-size' : h4_size, 'color' : h4_color,});
-        $('p').css({ 'font-size' : p_size, 'color' : p_color,});
+        $('.site-main--content h1').css({ 'font-size' : h1_size, 'color' : h1_color, });
+        $('.site-main--content h2').css({ 'font-size' : h2_size, 'color' : h2_color,});
+        $('.site-main--content h3').css({ 'font-size' : h3_size, 'color' : h3_color,});
+        $('.site-main--content h4').css({ 'font-size' : h4_size, 'color' : h4_color,});
+        $('.site-main--content p').css({ 'font-size' : p_size, 'color' : p_color,});
     </script>
 
 </body>

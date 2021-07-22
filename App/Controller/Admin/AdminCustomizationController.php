@@ -3,11 +3,11 @@
 
 namespace App\Controller\Admin;
 
-
 use Core\Controller;
 use Core\Http\Request;
 use Core\Http\Response;
 use Core\Http\Session;
+use App\Query\CustomQuery;
 
 class AdminCustomizationController extends Controller
 {
@@ -15,10 +15,13 @@ class AdminCustomizationController extends Controller
 
     private $response;
 
+    private $customQuery;
+
     public function __construct()
     {
         $this->request = new Request();
         $this->response = new Response();
+        $this->customQuery = new CustomQuery();
     }
 
     public function index()
@@ -26,10 +29,12 @@ class AdminCustomizationController extends Controller
         $session = new Session();
         $id = $session->getSession('user_id');
 
+        $customQuery = new CustomQuery();
+        $customs = $customQuery->getCustom();
         $testPermission = new \Core\Util\RolePermission();
 
         if ($id && $testPermission->has_permission($id,'customize_site') ){
-            $this->render("admin/customization/customization.phtml");
+            $this->render("admin/customization/customization.phtml", ['customs'=>$customs]);
         }
         else{
             $request = new \Core\Http\Request();
