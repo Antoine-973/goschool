@@ -1,40 +1,46 @@
 <div class="content admin-newsletter--list">
     <div class="col-gutter-12">
         <h1>Personnalisation</h1>
-        <div class="container-fluid">
+        <form class="container-fluid" action="update">
             <div class="row">
-                <div class="col-6">
-                    Taille du titre h1:<br>
-                    <input type="range" id="myrange" max="3" step="0.1" min="0.1" value="0.1"/> <span id="displayfontsize"></span> em<br>
-                    Changer la couleur : <input type="color" id="colorpick"/>
-                    <input type="button" value="Valider" onclick="changecolor()"/><br><br>
+                <div class="col-gutter-3">
+                    <h6>Taille des en-têtes:</h6>
+                    <input type="range" id="h1_range" max="5" step="0.01" min="0.1" value="<?= $customs['h1_size'] ?>" onchange="updateH1Input(this.value);"/>
+                    <input type="text" id="h1_size" value="<?= $customs['h1_size'] ?>"></input>
+                    <h6>Couleur des en-têtes:</h6>
+                    <input type="color" id="colorpick"/>
+                    <input type="button" value="Valider" onclick="changecolor()"/>
                 </div>
-                <div class="col-6">
-                    <p id="txtcolorchange">Title</p>
+                <div class="col-gutter-3">
+                    <h6>Taille des Titres 1:</h6>
+                    <input type="range" id="h2_range" max="5" step="0.01" min="0.1" value="<?= $customs['h2_size'] ?>" onchange="updateH2Input(this.value);"/>
+                    <input type="text" id="h2_size" value="<?= $customs['h2_size'] ?>"></input>
+                    <h6>Couleur des Titres 1:</h6>
+                    <input type="color" id="colorpick"/>
+                    <input type="button" value="Valider" onclick="changecolor()"/>
+                </div>
+                <div class="col-gutter-3">
+                    <h6>Taille des Titres 2:</h6>
+                    <input type="range" id="h3_range" max="5" step="0.01" min="0.1" value="<?= $customs['h3_size'] ?>" onchange="updateH3Input(this.value);"/>
+                    <input type="text" id="h3_size" value="<?= $customs['h3_size'] ?>"></input>
+                    <h6>Couleur des Titres 2:</h6>
+                    <input type="color" id="colorpick"/>
+                    <input type="button" value="Valider" onclick="changecolor()"/>
+                </div>
+                <div class="col-gutter-3">
+                    <h6>Taille des Titres 3:</h6>
+                    <input type="range" id="h4_range" max="5" step="0.01" min="0.1" value="<?= $customs['h4_size'] ?>" onchange="updateH4Input(this.value);"/>
+                    <input type="text" id="h4_size" value="<?= $customs['h4_size'] ?>"></input>
+                    <h6>Couleur des Titres 3:</h6>
+                    <input type="color" id="colorpick"/>
+                    <input type="button" value="Valider" onclick="changecolor()"/>
                 </div>
             </div>
+            <br><br>
             <div class="row">
-                <div class="col-6">
-                    Taille du titre h1:<br>
-                    <input type="range" id="myrange" max="3" step="0.1" min="0.1" value="0.1"/> <span id="displayfontsize"></span> em<br>
-                    Changer la couleur : <input type="color" id="colorpick"/>
-                    <input type="button" value="Valider" onclick="changecolor()"/><br><br>
-                </div>
-                <div class="col-6">
-                    <p id="txtcolorchange">Title</p>
-                </div>
+                <input class="btn-success btn" formmethod="post" type="submit" value="Valider la configuration" />
             </div>
-            <div class="row">
-                <div class="col-6">
-                    Taille du titre h1:<br>
-                    <input type="range" id="myrange" max="3" step="0.1" min="0.1" value="0.1"/> <span id="displayfontsize"></span> em<br>
-                    Changer la couleur : <input type="color" id="colorpick"/>
-                    <input type="button" value="Valider" onclick="changecolor()"/><br><br>
-                </div>
-                <div class="col-6">
-                    <p id="txtcolorchange">Title</p>
-                </div>
-            </div>
-        </div>
+        </form>
     </div>
 </div>
+
