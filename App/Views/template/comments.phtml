@@ -12,6 +12,7 @@ if ($arr[1] == 'article'){
     $session = new Core\Http\Session();
     $id = $session->getSession('user_id') ?? null;
     $connectedUser = [];
+    $testPermission = new \Core\Util\RolePermission();
 
 ?>
 
@@ -19,7 +20,8 @@ if ($arr[1] == 'article'){
     <section>
         <div class="container--fluid">
             <div class="row">
-                <div class="col-gutter-6">
+                <div class="<?php if ($id && $testPermission->has_permission($id, 'crud_self_comment') || $id && $testPermission->has_permission($id, 'crud_comment') ) { ?>
+                col-gutter-6  <?php } else{ ?> col-gutter-12 <?php } ?> ">
                     <h2>Commentaires</h2>
                     <h4><?= count($comments) ?> commentaires</h4>
                     <div id="comment-list-box">
@@ -37,7 +39,7 @@ if ($arr[1] == 'article'){
                         <?php }} ?>
                     </div>
                 </div>
-                <?php ?>
+                <?php if ($id && $testPermission->has_permission($id, 'crud_self_comment') || $id && $testPermission->has_permission($id, 'crud_comment') ) { ?>
                 <div class="col-gutter-6">
                     <form>
                         <div class="row">
@@ -55,6 +57,7 @@ if ($arr[1] == 'article'){
                         </div>
                     </form>
                 </div>
+                <?php } ?>
             </div>
         </div>
     </section>
