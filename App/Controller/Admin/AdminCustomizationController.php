@@ -45,6 +45,11 @@ class AdminCustomizationController extends Controller
     public function update(){
         if ($this->request->isPost()){
             $data =$this->request->getBody();
+            $data['h1_color'] = trim($data['h1_color'],'#');
+            $data['h2_color'] = trim($data['h2_color'],'#');
+            $data['h3_color'] = trim($data['h3_color'],'#');
+            $data['h4_color'] = trim($data['h4_color'],'#');
+            $data['p_color'] = trim($data['p_color'],'#');
             $idCustom = $data['id'];
             $customQuery = new CustomQuery();
             if($this->customQuery->update($data, $idCustom)){
