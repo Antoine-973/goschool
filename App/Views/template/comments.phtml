@@ -1,0 +1,85 @@
+<?php
+$request = new \Core\Http\Request();
+$path = $request->getPath();
+$arr = explode('/', $path);
+
+if ($arr[1] == 'article'){
+    $slug=$arr[2];
+
+    $commentQuery = new App\Query\CommentQuery;
+    $comments = $commentQuery->getCommentsBySlug($slug);
+
+    $session = new Core\Http\Session();
+    $id = $session->getSession('user_id') ?? null;
+    $connectedUser = [];
+
+?>
+
+
+    <section>
+        <div class="container--fluid">
+            <div class="row">
+                <div class="col-gutter-6">
+                    <h2>Commentaires</h2>
+                    <h4><?= count($comments) ?> commentaires</h4>
+                    <div id="comment-list-box">
+                        <?php if(!empty($comments)) { foreach($comments as $k=>$v) { ?>
+                            <div class="message-box" id="message_<?php echo $comments[$k]["id"];?>">
+                                <div class="message-content">
+                                    <h5> <?= $comments[$k]["fullname"] ?> </h5>
+                                    <span><?= $comments[$k]["created_at"] ?></span>
+                                    <br>
+                                    <?php echo $comments[$k]["message"]; ?>
+                                    <a href="">Edit</a>
+                                    <a href="">Delete</a>
+                                </div>
+                            </div>
+                        <?php }} ?>
+                    </div>
+                </div>
+                <?php ?>
+                <div class="col-gutter-6">
+                    <form>
+                        <div class="row">
+                            <div class="col-12">
+                                <h4>Laissez un commentaire</h4>
+                                <input type="hidden" name="slug" value="<?= $slug ?>">
+                                <label for="message">Message</label> <textarea name="message" id="message" cols="80" rows="10"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <input type="submit" value="Poster votre commentaire">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+    <div id="frmAdd">
+        <form id="commentAddForm" method="post" action="storeComment">
+            <div class="row">
+                <div class="col-12">
+
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+
+<?php } ?>

@@ -85,6 +85,13 @@ class Layout {
         return \ob_get_clean();
     }
 
+    public function getComments()
+    {
+        \ob_start();
+        include $this->getTemplateFolder() . "comments.phtml";
+        return \ob_get_clean();
+    }
+
     protected function getTemplateFolder()
     {
         return dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "App" .DIRECTORY_SEPARATOR . "Views" .DIRECTORY_SEPARATOR . "template" .DIRECTORY_SEPARATOR;

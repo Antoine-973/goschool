@@ -79,6 +79,11 @@ $id = $session->getSession('user_id') ?? null;
                     <?php echo $layout->getArticles();?>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-gutter-12">
+                    <?php echo $layout->getComments();?>
+                </div>
+            </div>
         </div>
 
         <?php echo $layout->getFooter();?>
