@@ -36,14 +36,19 @@ class Layout {
         $request = new Request();
 
         $pageFile = "";
+        $arr = explode('/', $request->getPath());
 
         if($request->getPath() == "/"){
             $pageFile = $this->getPageFolder() . "home_page.phtml";
-        }else{
-            $pageFile = $this->getPageFolder() . strtolower(trim($request->getPath(), "/")) . "_page.phtml";
-
         }
-
+        elseif (count($arr) == 3){
+            if ($arr['1'] == 'article'){
+                $pageFile = $this->getArticleFolder() . $arr[2] . "_article.phtml";
+            }
+        }
+        else{
+            $pageFile = $this->getPageFolder() . strtolower(trim($request->getPath(), "/")) . "_page.phtml";
+        }
 
         if(\file_exists($pageFile)){
         \ob_start();
@@ -91,6 +96,9 @@ class Layout {
         return dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "App" .DIRECTORY_SEPARATOR . "Views" .DIRECTORY_SEPARATOR . "site" .DIRECTORY_SEPARATOR . "pages" . DIRECTORY_SEPARATOR;
     }
 
-
+    protected function getArticleFolder()
+    {
+        return dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "App" .DIRECTORY_SEPARATOR . "Views" .DIRECTORY_SEPARATOR . "site" .DIRECTORY_SEPARATOR . "articles" . DIRECTORY_SEPARATOR;
+    }
 
 }
