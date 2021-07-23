@@ -15,8 +15,6 @@
             margin: 0;
             list-style: none;
             li{
-                float: left;
-                margin-left: 25px;
                 font-size: 1.3em;
                 a{
                     text-decoration: none;
@@ -86,17 +84,13 @@
         &--articles {
             color: $primary;
             display: flex;
-            border: .75em solid $light-white;
             padding: 2em;
-            align-items: center;
             justify-content: center;
             .data-card {
                 display: flex;
                 flex-direction: column;
                 max-width: 20.75em;
                 min-height: 20.75em;
-                overflow: hidden;
-                border-radius: .5em;
                 text-decoration: none;
                 background: $light-white;
                 margin: 1em;
