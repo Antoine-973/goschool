@@ -20,4 +20,13 @@ class CustomQuery{
         $query = $this->builder->select('*')->from("customs");
         return $query->getResult();
     }
+
+    /**
+     * @param array $data
+     */
+    public function update($data, $id)
+    {
+        $query = $this->builder->update('customs')->set($data)->where("id = $id")->save();
+        return $query;
+    }
 }

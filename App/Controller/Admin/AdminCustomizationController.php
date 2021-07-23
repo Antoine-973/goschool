@@ -45,17 +45,14 @@ class AdminCustomizationController extends Controller
     public function update(){
         if ($this->request->isPost()){
             $data =$this->request->getBody();
-
-            $customData = array_slice($data,1, 2);
-            $pageToAddToMenu = array_slice($data, 3);
-
             $idCustom = $data['id'];
             $customQuery = new CustomQuery();
-            if($this->customQuery->update($customData, $idCustom)){
+            if($this->customQuery->update($data, $idCustom)){
                 $this->request->redirect('/admin/customization/index')->with('success', 'La customisation a bien été ajoutée.');
             }
             else{
-                $this->request->redirect('/admin/customization/index')->with('error', 'Une erreur c\'est produite. Veuillez réessayer.');
+                echo "no";die;
+                //$this->request->redirect('/admin/customization/index')->with('error', 'Une erreur c\'est produite. Veuillez réessayer.');
             }
         }
     }
