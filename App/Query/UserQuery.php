@@ -47,7 +47,7 @@ class UserQuery
     public function getUserById($id)
     {
   
-        $query = $this->builder->select("users.id, firstname, lastname, email, roles.role")->from("users")->join('INNER', 'users', 'role_id', 'roles', 'id')->where("users.id = $id");
+        $query = $this->builder->select("users.id, firstname, lastname, fullname, email, roles.role")->from("users")->join('INNER', 'users', 'role_id', 'roles', 'id')->where("users.id = $id");
     
         return $query->getResult();
     

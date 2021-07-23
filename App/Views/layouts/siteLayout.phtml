@@ -4,10 +4,9 @@ require_once dirname(dirname(dirname(__DIR__))) . DIRECTORY_SEPARATOR ."Core" . 
 $layout = new Core\Routing\Layout();
 
 $session = new Core\Http\Session();
-$id = $helper->getFlashMessage('user_id') ?? null;
 $connectedUser = [];
 
-$id = $session->getSession('user_id');
+$id = $session->getSession('user_id') ?? null;
 
 ?>
 
@@ -54,7 +53,7 @@ $id = $session->getSession('user_id');
                                 <ul>
                                     <?php if($connectedUser):?>
                                         <li>
-                                            <a href="/admin/user/profil"><i class="fas fa-user">  <?= $connectedUser['firstname'] . ' ' . $connectedUser['lastname'] ?></i></a>
+                                            <a href="/admin/user/profil"><i class="fas fa-user">  <?= $connectedUser['fullname'] ?></i></a>
                                         </li>|
                                         <li><a href="/admin/auth/logout">Déconnexion</a></li>
                                     <?php endif;?>

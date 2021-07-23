@@ -143,17 +143,17 @@ class seeder
                 ('6', '23'),    
                 ('7', '11');       
                        
-                INSERT INTO users(firstname, lastname, email, password_hash, role_id, verified)
-                VALUES('Test', 'Test', 'test@goschool.fr', '".password_hash('#Test1234', PASSWORD_BCRYPT)."', '2','1'),
-                ('Antoine', 'Saunier', 'asaunier@goschool.fr', '".password_hash('#Test1234', PASSWORD_BCRYPT)."', '2','1'),
-                ('Christian', 'Mohindo', 'cmohindo@goschool.fr', '".password_hash('#Test1234', PASSWORD_BCRYPT)."', '2','1'),
-                ('Calvin', 'Inthasakubol', 'cinthasakubol@goschool.fr', '".password_hash('#Test1234', PASSWORD_BCRYPT)."', '2','1'),
-                ('John', 'Doe', 'john.doe@anonymous.ru', '".password_hash('#John1234', PASSWORD_BCRYPT)."', '3','1'),
-                ('Jane', 'Doe', 'jane.doe@anonymous.ru', '".password_hash('#Jane1234', PASSWORD_BCRYPT)."', '5','1'),
-                ('Gael', 'Coat', 'gael.coat@cpassorciertechnologierecrute.fr', '".password_hash('#Gael1234', PASSWORD_BCRYPT)."', '6','1'),
-                ('Tony', 'Vaucelle', 'tony.vaucelle@referencement.seo', '".password_hash('#Tony1234', PASSWORD_BCRYPT)."', '4','1'),
-                ('Yves', 'Skrzypczyk', 'yves.skrzypczyk@yopmail.com', '".password_hash('#MonNomDeFamilleEstUnMotDePasse1', PASSWORD_BCRYPT)."', '1','1'),
-                ('Junior', 'Skrzypczyk', 'junior.skrzypczyk@myges.fr', '".password_hash('#MonNomDeFamilleEstUnMotDePasse2', PASSWORD_BCRYPT)."', '7','1');
+                INSERT INTO users(firstname, lastname, fullname, email, password_hash, role_id, verified)
+                VALUES('Test', 'Test', 'Test Test', 'test@goschool.fr', '".password_hash('#Test1234', PASSWORD_BCRYPT)."', '2','1'),
+                ('Antoine', 'Saunier', 'Antoine Saunier', 'asaunier@goschool.fr', '".password_hash('#Test1234', PASSWORD_BCRYPT)."', '2','1'),
+                ('Christian', 'Mohindo', 'Christian Mohindo', 'cmohindo@goschool.fr', '".password_hash('#Test1234', PASSWORD_BCRYPT)."', '2','1'),
+                ('Calvin', 'Inthasakubol', 'Calvin Inthasakubol', 'cinthasakubol@goschool.fr', '".password_hash('#Test1234', PASSWORD_BCRYPT)."', '2','1'),
+                ('John', 'Doe', 'John Doe', 'john.doe@anonymous.ru', '".password_hash('#John1234', PASSWORD_BCRYPT)."', '3','1'),
+                ('Jane', 'Doe', 'Jane Doe', 'jane.doe@anonymous.ru', '".password_hash('#Jane1234', PASSWORD_BCRYPT)."', '5','1'),
+                ('Gael', 'Coat', 'Gael Coat', 'gael.coat@cpassorciertechnologierecrute.fr', '".password_hash('#Gael1234', PASSWORD_BCRYPT)."', '6','1'),
+                ('Tony', 'Vaucelle', 'Tony Vaucelle', 'tony.vaucelle@referencement.seo', '".password_hash('#Tony1234', PASSWORD_BCRYPT)."', '4','1'),
+                ('Yves', 'Skrzypczyk', 'Yves Skrzypczyk', 'yves.skrzypczyk@yopmail.com', '".password_hash('#MonNomDeFamilleEstUnMotDePasse1', PASSWORD_BCRYPT)."', '1','1'),
+                ('Alois', 'Marcellin', 'Alois Marcellin', 'alois.marcellin@myges.fr', '".password_hash('#ViveSorcierTechnologie1234', PASSWORD_BCRYPT)."', '7','1');
 
                 INSERT INTO pages (title, url, content, status, user_id)
                 VALUE('Sample Page', '/sample-page', '<h1>Page d\'exemple</h1><p>Ceci est une page d\'exemple. C\'est différent d\'un article car elle restera au même endroit et apparaîtra dans la navigation de votre site. La plupart des gens commencent par une page À propos qui les présente aux visiteurs potentiels du site.</p>', 'Publié', '1');
@@ -171,7 +171,7 @@ class seeder
                        ('Sinon vous saviez que j\'adore la méthode agile, Laravel mais aussi et surtout Quentin Tarantino ?', 'Approuvé', '7', '1'),
                        ('Je suis désolé de vous le dire mais le SEO de votre site est à chier, voici le lien de google Ads : https://ads.google.com/intl/fr_fr/home/', 'Approuvé', '8', '1'),
                        ('N\'hésitez pas à cliquer sur ce lien pour optimiser votre SEO gratuitement et automatiquement d\'un simple clic : https://amzn.to/3ivi4lE', 'Approuvé', '8', '1'),
-                       ('Bonjour Gael, je suis élève à l\'ESGI et je suis intéréssé par votre offre, n\'hésitez pas à me contacter à cette adresse email : junior.skrzypczyk@myges.fr ou celle là si vous avez du mal à déchiffrer mon nom : jsk@gmail.com', 'Approuvé', '10', '1'),
+                       ('Bonjour Gael, je suis élève à l\'ESGI et je suis intéréssé par votre offre, n\'hésitez pas à me contacter à cette adresse email : alois.marcellin@myges.fr', 'Approuvé', '10', '1'),
                        ('L\'easter egg de goschool est impossible à trouver sans indice o_o, j\'ai tout essayé !', 'Approuvé', '5', '1');";
 
         $conn->exec($sql);

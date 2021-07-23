@@ -13,6 +13,7 @@ class create_users_table_migration{
             `id`  BIGINT(20) PRIMARY KEY NOT NULL AUTO_INCREMENT,
             `firstname` VARCHAR(25) NOT NULL,
             `lastname` VARCHAR(25) NOT NULL,
+            `fullname` VARCHAR(55) NOT NULL,
             `email` VARCHAR(55) NOT NULL UNIQUE,
             `password_hash` VARCHAR(255) NOT NULL,
             `verified` BOOL DEFAULT 0,

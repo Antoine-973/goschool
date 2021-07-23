@@ -54,7 +54,7 @@
                             
                                 <?php if($connectedUser):?>
                                     <li>
-                                        <a href="/admin/user/profil"><i class="fas fa-user">  <?= $connectedUser['firstname'] . ' ' . $connectedUser['lastname'] ?></i></a>
+                                        <a href="/admin/user/profil"><i class="fas fa-user">  <?= $connectedUser['fullname']  ?></i></a>
                                     </li>
                                 <?php endif;?>
                                 | <li><a href="/admin/auth/logout">Déconnexion</a></li>
