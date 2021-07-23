@@ -41,4 +41,22 @@ class AdminCustomizationController extends Controller
             $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits necessaires pour accéder à cette section du back office.');
         }
     }
+
+    public function update(){
+        if ($this->request->isPost()){
+            $data =$this->request->getBody();
+
+            $customData = array_slice($data,1, 2);
+            $pageToAddToMenu = array_slice($data, 3);
+
+            $idCustom = $data['id'];
+            $customQuery = new CustomQuery();
+            if($this->customQuery->update($customData, $idCustom)){
+                $this->request->redirect('/admin/customization/index')->with('success', 'La customisation a bien été ajoutée.');
+            }
+            else{
+                $this->request->redirect('/admin/customization/index')->with('error', 'Une erreur c\'est produite. Veuillez réessayer.');
+            }
+        }
+    }
 }
