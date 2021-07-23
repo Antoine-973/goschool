@@ -50,6 +50,12 @@ class AdminCustomizationController extends Controller
             $data['h3_color'] = trim($data['h3_color'],'#');
             $data['h4_color'] = trim($data['h4_color'],'#');
             $data['p_color'] = trim($data['p_color'],'#');
+            $data['nav_bg_color'] = trim($data['nav_bg_color'],'#');
+            $data['menu_color'] = trim($data['menu_color'],'#');
+            $data['foot_bg_color'] = trim($data['foot_bg_color'],'#');
+            $data['foot_color'] = trim($data['foot_color'],'#');
+            $data['asi_bg_color'] = trim($data['asi_bg_color'],'#');
+            $data['asi_p_color'] = trim($data['asi_p_color'],'#');
             $idCustom = $data['id'];
             $customQuery = new CustomQuery();
             if($this->customQuery->update($data, $idCustom)){

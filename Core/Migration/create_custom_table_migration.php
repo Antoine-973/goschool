@@ -21,6 +21,12 @@ class create_custom_table_migration
             `h4_color` VARCHAR(25) NOT NULL DEFAULT '363740',
             `p_color` VARCHAR(25) NOT NULL DEFAULT '363740',
             `police` VARCHAR(55) NOT NULL DEFAULT 'Police',
+            `nav_bg_color` VARCHAR(25) NOT NULL DEFAULT '363740',
+            `menu_color` VARCHAR(25) NOT NULL DEFAULT 'ced4da',
+            `foot_bg_color` VARCHAR(25) NOT NULL DEFAULT '363740',
+            `foot_color` VARCHAR(25) NOT NULL DEFAULT '6c757d',
+            `asi_bg_color` VARCHAR(25) NOT NULL DEFAULT '363740',
+            `asi_p_color` VARCHAR(25) NOT NULL DEFAULT 'ced4da',
             `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         ) ENGINE=INNODB CHARSET=`utf8`;";

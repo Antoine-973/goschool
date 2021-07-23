@@ -13,6 +13,7 @@ $customQuery = new App\Query\CustomQuery();
 $customs = $customQuery->getCustom();
 $h1_size = $customs['h1_size'];$h2_size = $customs['h2_size'];$h3_size = $customs['h3_size'];$h4_size = $customs['h4_size'];$p_size = $customs['p_size'];
 $h1_color = $customs['h1_color'];$h2_color = $customs['h2_color'];$h3_color = $customs['h3_color'];$h4_color = $customs['h4_color'];$p_color = $customs['p_color'];
+$nav_bg_color = $customs['nav_bg_color'];$menu_color = $customs['menu_color'];$foot_bg_color = $customs['foot_bg_color'];$foot_color = $customs['foot_color'];$asi_bg_color = $customs['asi_bg_color'];$asi_p_color = $customs['asi_p_color'];
 $font = $customs['police'];
 ?>
 
@@ -74,7 +75,7 @@ $font = $customs['police'];
         <?php } ?>
 
         <?php echo $layout->getMenu();?>
-
+        <?php echo $layout->getAside();?>
         <div class="site-main--content">
             <div class="row">
                 <div class="col-gutter-12">
@@ -113,6 +114,12 @@ $font = $customs['police'];
         var h4_color  = "#<?= $h4_color ?>";
         var p_color  = "#<?= $p_color ?>";
         var font_family = "<?= $police ?>";
+        var nav_bg_color = "#<?= $nav_bg_color ?>";
+        var menu_color = "#<?= $menu_color ?>";
+        var foot_bg_color = "#<?= $foot_bg_color ?>";
+        var foot_color = "#<?= $foot_color ?>";
+        var asi_bg_color = "#<?= $asi_bg_color ?>";
+        var asi_p_color = "#<?= $asi_p_color ?>";
 
         $('.site-main--content h1').css({ 'font-size' : h1_size, 'color' : h1_color, });
         $('.site-main--content h2').css({ 'font-size' : h2_size, 'color' : h2_color,});
@@ -120,6 +127,15 @@ $font = $customs['police'];
         $('.site-main--content h4').css({ 'font-size' : h4_size, 'color' : h4_color,});
         $('.site-main--content p').css({ 'font-size' : p_size, 'color' : p_color,});
         $('body').css({ 'font-family' : font_family,});
+        $('.site-main--header').css({ 'background' : nav_bg_color, });
+        $('.site-main--nav ul li a').css({ 'color' : menu_color, });
+        $('.site-main--footer h6').css({ 'color' : menu_color, });
+        $('.site-main--aside h6').css({ 'color' : menu_color, });
+        $('.site-main--aside h5').css({ 'color' : menu_color, });
+        $('.site-main--footer').css({ 'background' : foot_bg_color, });
+        $('.site-main--footer').css({ 'color' : foot_color, });
+        $('.site-main--aside').css({ 'background' : asi_bg_color, });
+        $('.site-main--aside a').css({ 'color' : asi_p_color, });
     </script>
 
 </body>

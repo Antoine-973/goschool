@@ -3,6 +3,7 @@
         <h1>Personnalisation</h1>
         <form class="container-fluid" action="update">
         <input type="hidden" name="id" value="<?= $customs['id'] ?>">
+        <h3>Taille et couleur du content</h3>
             <div class="row">
                 <div class="col-gutter-4">
                     <div class="shadow shadow--none">
@@ -63,7 +64,36 @@
                     </div>
                 </div>
             </div>
-            <br><br>
+            <h3>Couleur de la navbar, du footer et de l'aside</h3>
+            <div class="row">
+                <div class="col-gutter-4">
+                    <div class="shadow shadow--none">
+                        <h6>Couleur du background de la navbar:</h6>
+                        <input type="color" name="nav_bg_color" id="nav_bg_color" value="#<?= $customs['nav_bg_color'] ?>"/>
+                        <h6>Couleur des lettres des menus:</h6>
+                        <input type="color" name="menu_color" id="menu_color" value="#<?= $customs['menu_color'] ?>"/>
+                        <br><br>
+                    </div>
+                </div>
+                <div class="col-gutter-4">
+                    <div class="shadow shadow--none">
+                        <h6>Couleur du background du footer:</h6>
+                        <input type="color" name="foot_bg_color" id="foot_bg_color" value="#<?= $customs['foot_bg_color'] ?>"/>
+                        <h6>Couleur des lettres du footer:</h6>
+                        <input type="color" name="foot_color" id="foot_color" value="#<?= $customs['foot_color'] ?>"/>
+                        <br><br>
+                    </div>
+                </div>
+                <div class="col-gutter-4">
+                    <div class="shadow shadow--none">
+                        <h6>Couleur du background du aside:</h6>
+                        <input type="color" name="asi_bg_color" id="asi_bg_color" value="#<?= $customs['asi_bg_color'] ?>"/>
+                        <h6>Couleur des lettres de l'aside:</h6>
+                        <input type="color" name="asi_p_color" id="asi_p_color" value="#<?= $customs['asi_p_color'] ?>"/>
+                        <br><br>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <input class="btn-success btn" formmethod="post" type="submit" value="Valider la configuration" />
             </div>
