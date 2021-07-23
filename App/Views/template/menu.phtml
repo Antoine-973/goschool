@@ -1,10 +1,9 @@
 <?php
 $verifTable = new \Core\Util\Table();
 $menuQuery = new App\Query\MenuQuery();
-$menuId = $menuQuery->getIdByPosition('navbar');
-$id = implode($menuId);
+$menuId = $menuQuery->getIdByPosition('navbar')['id'];
 $havepageQuery = new App\Query\HavePageQuery();
-$pagesId = $havepageQuery->getPagesIdByMenuId($id);
+$pagesId = $havepageQuery->getPagesIdByMenuId($menuId);
 ?>
 
 <header id="header" class="site-main--header">
@@ -12,7 +11,7 @@ $pagesId = $havepageQuery->getPagesIdByMenuId($id);
         <nav class="site-main--nav">
             <ul>
                 <?php if($pagesId != null) {
-                    if ($verifTable->is_multi($pagesId)){
+                    if (is_array($pagesId) && $verifTable->is_multi($pagesId)){
                         $pagesId = $verifTable->multi_to_single($pagesId);
                     }?>
                     <?php foreach($pagesId as $page) {

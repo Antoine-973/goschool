@@ -77,6 +77,10 @@ class MenuQuery
      */
     public function create(array $data)
     {
+        if (strpos($data['name'], ' ') !== false) {
+            $data['name'] = str_replace(' ', '-', $data['name']);
+        }
+
         $query = $this->builder->insertInto('menus')->columns($data)->values($data)->save();
         return $query;
     }
@@ -86,6 +90,10 @@ class MenuQuery
      */
     public function update($data, $id)
     {
+        if (strpos($data['name'], ' ') !== false) {
+            $data['name'] = str_replace(' ', '-', $data['name']);
+        }
+
         $query = $this->builder->update('menus')->set($data)->where("id = $id")->save();
         return $query;
     }
