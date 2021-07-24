@@ -59,6 +59,12 @@ class ArticleQuery
 
         return $query->getResult();
     }
+
+    public function getDescriptionBySlug($slug){
+        $query = $this->builder->select("description")->from("articles")->where("slug = $slug");
+
+        return $query->getResult();
+    }
     
     /**
      * @param string $tag

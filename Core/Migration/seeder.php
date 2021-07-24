@@ -163,11 +163,11 @@ class seeder
                 ('Yves', 'Skrzypczyk', 'Yves Skrzypczyk', 'yves.skrzypczyk@yopmail.com', '".password_hash('#MonNomDeFamilleEstUnMotDePasse1', PASSWORD_BCRYPT)."', '1','1'),
                 ('Alois', 'Marcellin', 'Alois Marcellin', 'alois.marcellin@myges.fr', '".password_hash('#ViveSorcierTechnologie1234', PASSWORD_BCRYPT)."', '7','1');
 
-                INSERT INTO pages (title, url, content, status, user_id)
-                VALUE('Sample Page', '/sample-page', '<h1>Page d\'exemple</h1><p>Ceci est une page d\'exemple. C\'est différent d\'un article car elle restera au même endroit et apparaîtra dans la navigation de votre site. La plupart des gens commencent par une page À propos qui les présente aux visiteurs potentiels du site.</p>', 'Publié', '1');
+                INSERT INTO pages (title, url, description, content, status, user_id)
+                VALUE('Sample Page', '/sample-page', 'Une page d\'exemple créer par GoSchool.', '<h1>Page d\'exemple</h1><p>Ceci est une page d\'exemple. C\'est différent d\'un article car elle restera au même endroit et apparaîtra dans la navigation de votre site. La plupart des gens commencent par une page À propos qui les présente aux visiteurs potentiels du site.</p>', 'Publié', '1');
                 
                 INSERT INTO articles (title, slug, description, content, status, user_id)
-                VALUE('Hello World', 'hello-world', 'Bienvenue sur GoSchool. Ceci est ton premier article. Edite le ou supprime le, puis commence à créer !', '<h1>Hello World !</h1><p>Bienvenue sur GoSchool. Ceci est ton premier article. Edite le ou supprime le, puis commence à créer !</p>','Publié', '1');
+                VALUE('Hello World', 'hello-world', 'Hello World ! Ceci est le premier article du site !', '<h1>Hello World !</h1><p>Bienvenue sur GoSchool. Ceci est ton premier article. Edite le ou supprime le, puis commence à créer !</p>','Publié', '1');
 
                 INSERT INTO customs (id)
                 VALUE ('1');

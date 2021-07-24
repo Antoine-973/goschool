@@ -44,6 +44,12 @@ class PageQuery
         return $query->getResult();
     }
 
+    public function getDescriptionByUrl($url){
+        $query = $this->builder->select("description")->from("pages")->where("url = $url");
+
+        return $query->getResult();
+    }
+
     /**
      * @return string $query
      */
