@@ -14,6 +14,35 @@ $h1_size = $customs['h1_size'];$h2_size = $customs['h2_size'];$h3_size = $custom
 $h1_color = $customs['h1_color'];$h2_color = $customs['h2_color'];$h3_color = $customs['h3_color'];$h4_color = $customs['h4_color'];$p_color = $customs['p_color'];
 $nav_bg_color = $customs['nav_bg_color'];$menu_color = $customs['menu_color'];$foot_bg_color = $customs['foot_bg_color'];$foot_color = $customs['foot_color'];$asi_bg_color = $customs['asi_bg_color'];$asi_p_color = $customs['asi_p_color'];
 $font = $customs['police'];
+
+$paramQuery = new \App\Query\ParamQuery();
+$siteName = $paramQuery->getSiteName()['site_name'];
+
+$request = new \Core\Http\Request();
+$path = $request->getPath();
+$arr = explode('/', $path);
+
+if ($arr[1] == 'article') {
+    $slug = $arr[2];
+    $articleQuery = new \App\Query\ArticleQuery();
+    $title = $articleQuery->getTitleBySlug($slug)['title'];
+
+    $getDescriptionQuery = new \App\Query\ArticleQuery();
+    $description = $getDescriptionQuery->getDescriptionBySlug($slug)['description'];
+}else{
+    $url = $arr[1];
+    if (empty($url)){
+        $title = 'Accueil';
+    }
+    else{
+        $pageQuery = new \App\Query\PageQuery();
+        $title = $pageQuery->getTitleByUrl("/".$url)['title'];
+        $getDescriptionQuery = new \App\Query\PageQuery();
+        $description = $getDescriptionQuery->getDescriptionByUrl($url)['description'];
+    }
+}
+$title =  $title . ' | ' . $siteName;
+
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +52,8 @@ $font = $customs['police'];
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site</title>
+    <meta name="description" content="<?= $description ?>">
+    <title><?= $title ?></title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/librairies/dist/main.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">

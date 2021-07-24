@@ -12,7 +12,7 @@ class create_articles_table_migration
             `id`  BIGINT(20) PRIMARY KEY NOT NULL AUTO_INCREMENT,
             `title` VARCHAR(50) NOT NULL UNIQUE,
             `slug` VARCHAR(50) NOT NULL UNIQUE,
-            `description` VARCHAR(400) NULL,
+            `description` VARCHAR(160) NULL,
             `content` TEXT NULL,
             `image` VARCHAR(255) NULL,
             `status` VARCHAR(30) NOT NULL DEFAULT 'Brouillon',
