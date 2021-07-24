@@ -1,5 +1,103 @@
 <div class="content admin-newsletter--list">
     <div class="col-gutter-12">
         <h1>Personnalisation</h1>
+        <form class="container-fluid" action="update">
+        <input type="hidden" name="id" value="<?= $customs['id'] ?>">
+        <h3>Taille et couleur du content</h3>
+            <div class="row">
+                <div class="col-gutter-4">
+                    <div class="shadow shadow--none">
+                        <h6>Taille des en-têtes:</h6>
+                        <input type="range" id="h1_range" max="5" step="0.01" min="0.1" value="<?= $customs['h1_size'] ?>" onchange="updateH1Input(this.value);"/>
+                        <input type="text" name="h1_size" id="h1_size" value="<?= $customs['h1_size'] ?>"> em</input>
+                        <h6>Couleur des en-têtes:</h6>
+                        <input type="color" name="h1_color" id="h1_color" value="#<?= $customs['h1_color'] ?>"/>
+                        <br><br>
+                    </div>
+                </div>
+                <div class="col-gutter-4">
+                    <div class="shadow shadow--none">
+                        <h6>Taille des Titres 1:</h6>
+                        <input type="range" id="h2_range" max="5" step="0.01" min="0.1" value="<?= $customs['h2_size'] ?>" onchange="updateH2Input(this.value);"/>
+                        <input type="text" name="h2_size" id="h2_size" value="<?= $customs['h2_size'] ?>"> em</input>
+                        <h6>Couleur des Titres 1:</h6>
+                        <input type="color" name="h2_color" id="h2_color" value="#<?= $customs['h2_color'] ?>"/>
+                        <br><br>
+                    </div>
+                </div>
+                <div class="col-gutter-4">
+                    <div class="shadow shadow--none">
+                        <h6>Taille des Titres 2:</h6>
+                        <input type="range" id="h3_range" max="5" step="0.01" min="0.1" value="<?= $customs['h3_size'] ?>" onchange="updateH3Input(this.value);"/>
+                        <input type="text" name="h3_size" id="h3_size" value="<?= $customs['h3_size'] ?>"> em</input>
+                        <h6>Couleur des Titres 2:</h6>
+                        <input type="color" name="h3_color" id="h3_color" value="#<?= $customs['h3_color'] ?>"/>
+                        <br><br>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-gutter-4">
+                    <div class="shadow shadow--none">
+                        <h6>Taille des Titres 3:</h6>
+                        <input type="range" id="h4_range" max="5" step="0.01" min="0.1" value="<?= $customs['h4_size'] ?>" onchange="updateH4Input(this.value);"/>
+                        <input type="text" name="h4_size" id="h4_size" value="<?= $customs['h4_size'] ?>"> em</input>
+                        <h6>Couleur des Titres 3:</h6>
+                        <input type="color" name="h4_color" id="h4_color" value="#<?= $customs['h4_color'] ?>"/>
+                        <br><br>
+                    </div>
+                </div>
+                <div class="col-gutter-4">
+                    <div class="shadow shadow--none">
+                        <h6>Taille des paragraphes:</h6>
+                        <input type="range" id="p_range" max="5" step="0.01" min="0.1" value="<?= $customs['p_size'] ?>" onchange="updatePInput(this.value);"/>
+                        <input type="text" name="p_size" id="p_size" value="<?= $customs['p_size'] ?>"> em</input>
+                        <h6>Couleur des paragraphes:</h6>
+                        <input type="color" name="p_color" id="p_color" value="#<?= $customs['p_color'] ?>"/>
+                        <br><br>
+                    </div>
+                </div>
+                <div class="col-gutter-4">
+                    <div class="shadow shadow--none">
+                        <h6>Police d'écriture:</h6>
+                        <br><br>
+                    </div>
+                </div>
+            </div>
+            <h3>Couleur de la navbar, du footer et de l'aside</h3>
+            <div class="row">
+                <div class="col-gutter-4">
+                    <div class="shadow shadow--none">
+                        <h6>Couleur du background de la navbar:</h6>
+                        <input type="color" name="nav_bg_color" id="nav_bg_color" value="#<?= $customs['nav_bg_color'] ?>"/>
+                        <h6>Couleur des lettres des menus:</h6>
+                        <input type="color" name="menu_color" id="menu_color" value="#<?= $customs['menu_color'] ?>"/>
+                        <br><br>
+                    </div>
+                </div>
+                <div class="col-gutter-4">
+                    <div class="shadow shadow--none">
+                        <h6>Couleur du background du footer:</h6>
+                        <input type="color" name="foot_bg_color" id="foot_bg_color" value="#<?= $customs['foot_bg_color'] ?>"/>
+                        <h6>Couleur des lettres du footer:</h6>
+                        <input type="color" name="foot_color" id="foot_color" value="#<?= $customs['foot_color'] ?>"/>
+                        <br><br>
+                    </div>
+                </div>
+                <div class="col-gutter-4">
+                    <div class="shadow shadow--none">
+                        <h6>Couleur du background du aside:</h6>
+                        <input type="color" name="asi_bg_color" id="asi_bg_color" value="#<?= $customs['asi_bg_color'] ?>"/>
+                        <h6>Couleur des lettres de l'aside:</h6>
+                        <input type="color" name="asi_p_color" id="asi_p_color" value="#<?= $customs['asi_p_color'] ?>"/>
+                        <br><br>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <input class="btn-success btn" formmethod="post" type="submit" value="Valider la configuration" />
+            </div>
+        </form>
     </div>
 </div>
+
