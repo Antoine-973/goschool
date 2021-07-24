@@ -42,11 +42,13 @@ class DynamicRouting {
         if(count($arr) >= 2){
             if($arr[0] == 'admin'){
                 $action =  $arr[2];
-            }else{
+            }elseif($arr[0] == 'article'){
+                $action =  $arr[0];
+            }
+            else{
                 $action =  $arr[1];
             }
         }
-
         return $action;
     }
 
@@ -60,7 +62,7 @@ class DynamicRouting {
             if($arr[0] == 'admin'){
                 $controller =  'Admin' . ucfirst($arr[1]) . 'Controller';
             }else{
-                $controller = ucfirst($arr[0]) . 'Controller';
+                $controller = 'HomeController';
             }
         }
 
@@ -103,14 +105,12 @@ class DynamicRouting {
 
     public function resolveSite($file, $controller, $action, $params)
     {
-
         if(\file_exists($file)){
             include_once($file);
 
             $class =  "App\\Controller\\" . $controller;
             $controller = new $class();
             if($params){
-          
                 $controller->$action(implode(',', $params));
             }else{
                 $controller->$action();

@@ -133,7 +133,8 @@ class AdminMenuController extends Controller
 
             $idMenu = $data['id'];
 
-            if($this->menuQuery->update($menuData, $idMenu)){
+            $updateMenuQuery = new MenuQuery();
+            if($updateMenuQuery->update($menuData, $idMenu)){
                 foreach ($pageToAddToMenu as $titre => $page_id){
 
                     $pageToUpdate = [
@@ -146,7 +147,12 @@ class AdminMenuController extends Controller
 
                     if ($page_id == '0'){
 
-                        $pageToUpdate['page_id'] = $pageQuery->getIdByTitle($titre)['id'];
+                        if (strpos($titre, '_') !== false) {
+                            $titre = str_replace('_', ' ', $titre);
+                        }
+
+                        $pageId = $pageQuery->getIdByTitle($titre)['id'];
+                        $pageToUpdate['page_id'] = $pageId;
 
                         if (!empty($havePageQuery->getById($pageToUpdate['menu_id'], $pageToUpdate['page_id']))){
                             $deleteHavePage = new HavePageQuery();
@@ -154,8 +160,10 @@ class AdminMenuController extends Controller
                         }
                     }
                     else{
-                        if (empty($havePageQuery->getById($pageToUpdate['menu_id'], $pageToUpdate['page_id']))){
-                            $havePageQuery->create($pageToUpdate);
+                        $getIdQuery = new HavePageQuery();
+                        if (empty($getIdQuery->getById($pageToUpdate['menu_id'], $pageToUpdate['page_id']))){
+                            $createQuery = new HavePageQuery();
+                            $createQuery->create($pageToUpdate);
                         }
                     }
                 }
@@ -213,14 +221,16 @@ class AdminMenuController extends Controller
 
         foreach ($data as $position => $menu){
 
-            $resetMenuPositionQuery = new MenuQuery();
-
             if ($menu != 'Aucun'){
 
-                if (!empty($resetMenuPositionQuery->getPositionByPosition($position))){
+                $getPosition = new MenuQuery();
+
+                if (!empty($getPosition->getPositionByPosition($position))){
                     $dataToUpdate = [
                         'position' => NULL
                     ];
+
+                    $resetMenuPositionQuery = new MenuQuery();
 
                     $resetMenuPositionQuery->updatePositionToNull($dataToUpdate, $position);
                 }
@@ -233,16 +243,23 @@ class AdminMenuController extends Controller
 
                 $id = $menuPositionQuery->getMenuIdByName($menu)['id'];
 
-                if ($menuPositionQuery->update($dataToUpdate,$id)){
-                }
+                $menuUpdateQuery = new MenuQuery();
+                $menuUpdateQuery->update($dataToUpdate,$id);
             }
             else{
-                if (!empty($resetMenuPositionQuery->getPositionByPosition($position))){
+
+                $getMenuId = new MenuQuery();
+
+                $idMenu = $getMenuId->getPositionByPosition($position);
+
+                if (!empty($idMenu)){
+
                     $dataToUpdate = [
                         'position' => NULL
                     ];
 
-                    $resetMenuPositionQuery->updatePositionToNull($dataToUpdate, $position);
+                    $updateMenuQuery = new MenuQuery();
+                    $updateMenuQuery->updatePositionToNull($dataToUpdate, $position);
                 }
             }
         }

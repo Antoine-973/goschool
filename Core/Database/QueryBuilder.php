@@ -41,7 +41,7 @@ class QueryBuilder{
             $this->condition[] = $field . " = " . "'$value'";
         }
     
-        $this->query .= ' WHERE ' . implode(' AND ', $this->condition) . ";";
+        $this->query .= ' WHERE ' . implode(' AND ', $this->condition) ;
         return $this;
     }
 
@@ -69,7 +69,7 @@ class QueryBuilder{
      */
     public function getQuery() : string
     {
-        return $this->query;
+        return $this->query . ';';
     }
 
     public function getResult()
@@ -79,7 +79,7 @@ class QueryBuilder{
             $db = new DB();
             $pdo = $db::getConnection();
 
-            $stmt = $pdo->prepare($this->query);
+            $stmt = $pdo->prepare($this->query . ';');
             $stmt->execute();
             $result = [];
 

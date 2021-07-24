@@ -7,7 +7,7 @@ $verifTable = new \Core\Util\Table()
 <div class="site-main--content--articles">
     <?php if ($articles && $verifTable->is_multi($articles)) { ?>
         <?php foreach($articles as $article) { ?>
-            <div class="col-3">
+            <div class="col-gutter-3">
                 <a href="/article/<?php echo $article['slug'] ?>" class="data-card">
                     <h5><?php echo $article['title'] ?></h5>
                     <?php if($article['name']) { ?>

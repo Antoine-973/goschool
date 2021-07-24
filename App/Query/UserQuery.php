@@ -47,7 +47,7 @@ class UserQuery
     public function getUserById($id)
     {
   
-        $query = $this->builder->select("users.id, firstname, lastname, email, roles.role")->from("users")->join('INNER', 'users', 'role_id', 'roles', 'id')->where("users.id = $id");
+        $query = $this->builder->select("users.id, firstname, lastname, fullname, email, roles.role")->from("users")->join('INNER', 'users', 'role_id', 'roles', 'id')->where("users.id = $id");
     
         return $query->getResult();
     
@@ -212,6 +212,7 @@ class UserQuery
                 unset($data['role']);
             }
 
+            $data['fullname'] = $data['firstname'] . ' ' . $data['lastname'];
             $token_verified = [ 'token_verified' => md5( rand(0,1000) )];
             $finalData = $data + $token_verified;
 
@@ -234,6 +235,7 @@ class UserQuery
 
             unset($data["password"]);
             unset($data["passwordConfirm"]);
+            $data['fullname'] = $data['firstname'] . ' ' . $data['lastname'];
 
 
             $query = $this->builder->update("users")->set($data)->where("id = $id")->save();

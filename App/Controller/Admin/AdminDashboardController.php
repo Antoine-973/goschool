@@ -52,33 +52,43 @@ class AdminDashboardController extends Controller{
            $connectedUser =  $userQuery->getUserById($id);
         }
 
-        $this->userQuery = new UserQuery();
-        $usersTeacher = $this->userQuery->getByRole('Professeur');
+        $userQuery = new UserQuery();
+        $usersTeacher = $userQuery->getByRole('Professeur');
         $teacherCount = count($usersTeacher);
         $userQuery = new UserQuery();
-        $usersStudent = $this->userQuery->getByRole('Abonné');
-        $studentCount = count($usersStudent);
+        $usersStudent = $userQuery->getByRole('Abonné');
+        $subscribersCount = count($usersStudent);
         $userQuery = new UserQuery();
-        $usersAdmin = $this->userQuery->getByRole('Administrateur');
+        $usersAdmin = $userQuery->getByRole('Administrateur');
         $adminCount = count($usersAdmin);
         $userQuery = new UserQuery();
-        $usersEdit = $this->userQuery->getByRole('Éditeur');
+        $usersEdit = $userQuery->getByRole('Éditeur');
         $editCount = count($usersEdit);
         $userQuery = new UserQuery();
-        $usersAutor = $this->userQuery->getByRole('Auteur');
+        $usersAutor = $userQuery->getByRole('Auteur');
         $autorCount = count($usersAutor);
         $userQuery = new UserQuery();
-        $usersSchool = $this->userQuery->getByRole('Vie-Scolaire');
+        $usersSchool = $userQuery->getByRole('Vie-Scolaire');
+        $studentEditorCount = count($usersSchool);
+        $userQuery = new UserQuery();
+        $usersSchool = $userQuery->getByRole('Élève-Rédacteur');
         $schoolCount = count($usersSchool);
+        $userQuery = new UserQuery();
+        $getUserByRole = $userQuery->getByRole('Élève');
+        $studentCount = count($usersSchool);
+        $userQuery = new UserQuery();
+        $usersSchool = $userQuery->getByRole('Vie-Scolaire');
         $this->render('admin/index.phtml', [
             'articles'=>$articles, 
             'users'=>$users,
-            'teacherCount'=>$teacherCount,
-            'studentCount'=>$studentCount,
             'editCount'=>$editCount,
             'adminCount'=>$adminCount,
             'autorCount'=>$autorCount,
             'schoolCount'=>$schoolCount,
+            'teacherCount'=>$teacherCount,
+            'studentEditorCount'=>$studentEditorCount,
+            'studentCount'=>$studentCount,
+            'subscribersCount'=>$subscribersCount,
 
         ]);
     }
