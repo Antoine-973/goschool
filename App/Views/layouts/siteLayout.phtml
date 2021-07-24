@@ -15,6 +15,9 @@ $h1_color = $customs['h1_color'];$h2_color = $customs['h2_color'];$h3_color = $c
 $nav_bg_color = $customs['nav_bg_color'];$menu_color = $customs['menu_color'];$foot_bg_color = $customs['foot_bg_color'];$foot_color = $customs['foot_color'];$asi_bg_color = $customs['asi_bg_color'];$asi_p_color = $customs['asi_p_color'];
 $font = $customs['police'];
 
+$paramQuery = new \App\Query\ParamQuery();
+$siteName = $paramQuery->getSiteName()['site_name'];
+
 $request = new \Core\Http\Request();
 $path = $request->getPath();
 $arr = explode('/', $path);
@@ -25,9 +28,16 @@ if ($arr[1] == 'article') {
     $title = $articleQuery->getTitleBySlug($slug)['title'];
 }else{
     $url = $arr[1];
-    $pageQuery = new \App\Query\PageQuery();
-    $title = $pageQuery->getTitleByUrl("/".$url)['title'];
+    if (empty($url)){
+        $title = 'Accueil';
+    }
+    else{
+        $pageQuery = new \App\Query\PageQuery();
+        $title = $pageQuery->getTitleByUrl("/".$url)['title'];
+    }
 }
+$title =  $title . ' | ' . $siteName;
+
 ?>
 
 <!DOCTYPE html>
