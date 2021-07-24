@@ -14,9 +14,12 @@ if ($arr[1] == 'article'){
     $connectedUser = [];
     $testPermission = new \Core\Util\RolePermission();
 
+    $commentIsActive = new \App\Query\ArticleQuery();
+    $activeComment = $commentIsActive->getActiveCommentBySlug($slug)['active_comment'];
+
 ?>
 
-
+    <?php if ($activeComment == '1') { ?>
     <section>
         <div class="container--fluid">
             <div class="row">
@@ -61,28 +64,6 @@ if ($arr[1] == 'article'){
             </div>
         </div>
     </section>
-
-
-
-
-
-    <div id="frmAdd">
-        <form id="commentAddForm" method="post" action="storeComment">
-            <div class="row">
-                <div class="col-12">
-
-
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-12">
-
-                </div>
-            </div>
-        </form>
-    </div>
-
-
+<?php } ?>
 
 <?php } ?>

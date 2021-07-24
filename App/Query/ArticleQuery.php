@@ -118,6 +118,11 @@ class ArticleQuery
         return $query->getResult();
     }
 
+    public function getActiveCommentBySlug($slug){
+        $query = $this->builder->select('active_comment')->from("articles")->where("slug = $slug");
+        return $query->getResult();
+    }
+
     /**
      * @param array $data
      */
