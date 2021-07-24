@@ -1,9 +1,12 @@
 <?php
 $verifTable = new \Core\Util\Table();
 $menuQuery = new App\Query\MenuQuery();
-$menuId = $menuQuery->getIdByPosition('navbar')['id'];
-$havepageQuery = new App\Query\HavePageQuery();
-$pagesId = $havepageQuery->getPagesIdByMenuId($menuId);
+$pagesId = NULL;
+if ($menuQuery->getIdByPosition('navbar')){
+    $menuId = $menuQuery->getIdByPosition('navbar');
+    $havepageQuery = new App\Query\HavePageQuery();
+    $pagesId = $havepageQuery->getPagesIdByMenuId($menuId['id']);
+}
 ?>
 
 <header id="header" class="site-main--header">
@@ -28,7 +31,7 @@ $pagesId = $havepageQuery->getPagesIdByMenuId($menuId);
                     <?php } ?>
                 <?php }else{ ?>
                     <li>
-                        <a href='/'>Welcome</a>
+                        <a href='/'>Accueil</a>
                     </li>
                 <?php } ?>
             </ul>
