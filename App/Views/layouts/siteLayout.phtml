@@ -12,7 +12,7 @@ $customQuery = new App\Query\CustomQuery();
 $customs = $customQuery->getCustom();
 $h1_size = $customs['h1_size'];$h2_size = $customs['h2_size'];$h3_size = $customs['h3_size'];$h4_size = $customs['h4_size'];$p_size = $customs['p_size'];
 $h1_color = $customs['h1_color'];$h2_color = $customs['h2_color'];$h3_color = $customs['h3_color'];$h4_color = $customs['h4_color'];$p_color = $customs['p_color'];
-$nav_bg_color = $customs['nav_bg_color'];$menu_color = $customs['menu_color'];$foot_bg_color = $customs['foot_bg_color'];$foot_color = $customs['foot_color'];$asi_bg_color = $customs['asi_bg_color'];$asi_p_color = $customs['asi_p_color'];
+$nav_bg_color = $customs['nav_bg_color'];$menu_color = $customs['menu_color'];$foot_bg_color = $customs['foot_bg_color'];$foot_color = $customs['foot_color'];$side_bg_color = $customs['side_bg_color'];$side_color = $customs['side_color'];
 $font = $customs['police'];
 
 $paramQuery = new \App\Query\ParamQuery();
@@ -151,8 +151,8 @@ $title =  $title . ' | ' . $siteName;
         var menu_color = "#<?= $menu_color ?>";
         var foot_bg_color = "#<?= $foot_bg_color ?>";
         var foot_color = "#<?= $foot_color ?>";
-        var asi_bg_color = "#<?= $asi_bg_color ?>";
-        var asi_p_color = "#<?= $asi_p_color ?>";
+        var side_bg_color = "#<?= $side_bg_color ?>";
+        var side_color = "#<?= $side_p_color ?>";
 
         $('.site-main--content h1').css({ 'font-size' : h1_size, 'color' : h1_color, });
         $('.site-main--content h2').css({ 'font-size' : h2_size, 'color' : h2_color,});
@@ -167,8 +167,8 @@ $title =  $title . ' | ' . $siteName;
         $('.site-main--aside h5').css({ 'color' : menu_color, });
         $('.site-main--footer').css({ 'background' : foot_bg_color, });
         $('.site-main--footer').css({ 'color' : foot_color, });
-        $('.site-main--aside').css({ 'background' : asi_bg_color, });
-        $('.site-main--aside a').css({ 'color' : asi_p_color, });
+        $('.site-main--aside').css({ 'background' : side_bg_color, });
+        $('.site-main--aside a').css({ 'color' : side_color, });
     </script>
 
 </body>

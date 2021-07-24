@@ -3,6 +3,7 @@ $verifTable = new \Core\Util\Table();
 $menuQuery = new App\Query\MenuQuery();
 $pagesId = NULL;
 if ($menuQuery->getIdByPosition('navbar')){
+    $menuQuery = new \App\Query\MenuQuery();
     $menuId = $menuQuery->getIdByPosition('navbar');
     $havepageQuery = new App\Query\HavePageQuery();
     $pagesId = $havepageQuery->getPagesIdByMenuId($menuId['id']);

@@ -139,7 +139,7 @@ class QueryBuilder{
         }else{
             $this->table = "$table AS $alias";
         }
-        $this->query .= ' UPDATE ' . $this->table;
+        $this->query .= 'UPDATE ' . $this->table;
         
         return $this;
     }
@@ -148,12 +148,12 @@ class QueryBuilder{
     {
         $this->fields = \func_get_args();
         $rowStr = "";
-        $lastElement = end($data);
+        $lastElement = array_key_last($data);
         foreach($data as $row => $value){
             if($row == 'id'){
                 continue;
             }
-            elseif ($value == $lastElement)
+            elseif ($row == $lastElement)
             {
                 $rowStr .= $row . ' = ' . "'$value' ";
             }
