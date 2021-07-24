@@ -81,6 +81,16 @@ class PageQuery
     }
 
     /**
+     * @return string $query
+     */
+    public function getPagesSitemap()
+    {
+        $query = $this->builder->select("url, updated_at")->from("pages");
+
+        return $query->getResult();
+    }
+
+    /**
      * @return array $data
      */
     public function getPagesByUser($userId)
