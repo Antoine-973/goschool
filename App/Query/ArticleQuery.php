@@ -178,7 +178,7 @@ class ArticleQuery
 
     public function orderByDate()
     {
-        $query = $this->builder->select('title, articles.slug, articles.description, categories.name, articles.created_at')->from("articles")->join('INNER', 'articles', 'categorie_id', 'categories', 'id')->orderBy('created_at','DESC')->limit(3);
+        $query = $this->builder->select('title, articles.slug, articles.description, categories.name, articles.created_at')->from("articles")->join('INNER', 'articles', 'categorie_id', 'categories', 'id')->where("status = Publié")->orderBy('created_at','DESC')->limit(3);
         return $query->getResult();
     }
 }
