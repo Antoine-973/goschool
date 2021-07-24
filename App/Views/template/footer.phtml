@@ -9,6 +9,8 @@ $havepageQuery = new App\Query\HavePageQuery();
 $pagesId = $havepageQuery->getPagesIdByMenuId($id);
 $paramQuery = new App\Query\ParamQuery();
 $haveSocial = $paramQuery->getSocials();
+$paramQuery = new App\Query\ParamQuery();
+$description = $paramQuery->getDescription()['description'];
 
 ?>
 
@@ -18,7 +20,7 @@ $haveSocial = $paramQuery->getSocials();
             <div class="col-6">
                     <h6>About</h6>
                     <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed beatae reprehenderit asperiores corporis aperiam quod, eligendi voluptatem, officiis veniam animi, itaque dolorem eveniet laborum possimus modi dolorum blanditiis. Esse, omnis.
+                        <?= !is_null($description) ? $description : "Un site crée et propulsé par GoSchool" ; ?>
                     </p>
             </div>
             <div class="col-3">

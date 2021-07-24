@@ -29,6 +29,12 @@ class ParamQuery{
         return $query->getResult();
     }
 
+    public function getDescription()
+    {
+        $query = $this->builder->select('description')->from("parameters");
+        return $query->getResult();
+    }
+
     /**
      * @param array $data
      */
