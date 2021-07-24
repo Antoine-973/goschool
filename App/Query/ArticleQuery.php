@@ -53,6 +53,12 @@ class ArticleQuery
         $query = $this->builder->select("*")->from("articles")->where("title = $title");
         return $query->getResult();
     }
+
+    public function getTitleBySlug($slug){
+        $query = $this->builder->select("title")->from("articles")->where("slug = $slug");
+
+        return $query->getResult();
+    }
     
     /**
      * @param string $tag
