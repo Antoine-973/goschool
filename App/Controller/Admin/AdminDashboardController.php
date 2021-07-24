@@ -57,7 +57,7 @@ class AdminDashboardController extends Controller{
         $teacherCount = count($usersTeacher);
         $userQuery = new UserQuery();
         $usersStudent = $userQuery->getByRole('Abonné');
-        $studentCount = count($usersStudent);
+        $subscribersCount = count($usersStudent);
         $userQuery = new UserQuery();
         $usersAdmin = $userQuery->getByRole('Administrateur');
         $adminCount = count($usersAdmin);
@@ -69,16 +69,26 @@ class AdminDashboardController extends Controller{
         $autorCount = count($usersAutor);
         $userQuery = new UserQuery();
         $usersSchool = $userQuery->getByRole('Vie-Scolaire');
+        $studentEditorCount = count($usersSchool);
+        $userQuery = new UserQuery();
+        $usersSchool = $userQuery->getByRole('Élève-Rédacteur');
         $schoolCount = count($usersSchool);
+        $userQuery = new UserQuery();
+        $getUserByRole = $userQuery->getByRole('Élève');
+        $studentCount = count($usersSchool);
+        $userQuery = new UserQuery();
+        $usersSchool = $userQuery->getByRole('Vie-Scolaire');
         $this->render('admin/index.phtml', [
             'articles'=>$articles, 
             'users'=>$users,
-            'teacherCount'=>$teacherCount,
-            'studentCount'=>$studentCount,
             'editCount'=>$editCount,
             'adminCount'=>$adminCount,
             'autorCount'=>$autorCount,
             'schoolCount'=>$schoolCount,
+            'teacherCount'=>$teacherCount,
+            'studentEditorCount'=>$studentEditorCount,
+            'studentCount'=>$studentCount,
+            'subscribersCount'=>$subscribersCount,
 
         ]);
     }

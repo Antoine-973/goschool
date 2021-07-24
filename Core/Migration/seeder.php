@@ -39,7 +39,9 @@ class seeder
                 ('Auteur', '4'),
                 ('Vie-Scolaire', '5'),
                 ('Professeur', '6'),
-                ('Abonné', '7');
+                ('Élève-Rédacteur', '7'),
+                ('Élève', '8'),
+                ('Abonné', '9');
 
                 INSERT INTO permissions(authorization,description, catégorie)
                 VALUES('access_back_office','Acceder au back office', 'Générales'), 
@@ -140,8 +142,14 @@ class seeder
                 ('6', '8'),
                 ('6', '11'),
                 ('6', '18'),
-                ('6', '23'),    
-                ('7', '11');       
+                ('6', '23'),
+                ('7', '1'),
+                ('7', '8'),
+                ('7', '11'),
+                ('7', '18'),
+                ('7', '23'),   
+                ('8', '11'),
+                ('9', '11');
                        
                 INSERT INTO users(firstname, lastname, fullname, email, password_hash, role_id, verified)
                 VALUES('Test', 'Test', 'Test Test', 'test@goschool.fr', '".password_hash('#Test1234', PASSWORD_BCRYPT)."', '2','1'),
