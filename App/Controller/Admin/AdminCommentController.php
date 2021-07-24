@@ -59,47 +59,7 @@ class AdminCommentController extends Controller
 
     }
 
-    public function add(){
-        $session = new Session();
-        $id = $session->getSession('user_id');
 
-        $testPermission = new \Core\Util\RolePermission();
-
-        if ($id && $testPermission->has_permission($id, 'crud_self_comment') || $id && $testPermission->has_permission($id, 'crud_comment') ) {
-
-            $form = new CommentAddForm();
-            $commentAddForm = $form->getForm();
-
-            $this->render("admin/comment/addComment.phtml", ['commentAdd' => $commentAddForm]);
-        }
-    }
-
-    public function store()
-    {
-        if($this->request->isPost()) {
-            $data = $this->request->getBody();
-            $errors = $this->validator->validate($this->commentModel, $data);
-
-            //TO CHANGE FOR DYNAMIC ARTICLE
-            $data['article_id'] = '1';
-            $data['user_id'] = $this->session->getSession('user_id');
-
-            if(empty($errors)){
-                if($this->commentQuery->create($data))
-                {
-                    $this->request->redirect('/admin/comment/list')->with('success', 'Le commentaire a bien été publié');
-                }
-                else{
-                    $this->request->redirect('/admin/comment/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
-                }
-            }
-            else {
-                $form = new CommentAddForm();
-                $commentAddForm = $form->getForm();
-                $this->render("admin/comment/addComment.phtml", ['errors' => $errors, 'commentAdd'=>$commentAddForm]);
-            }
-        }
-    }
 
     public function edit(){
         $session = new Session();

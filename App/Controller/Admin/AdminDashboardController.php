@@ -52,23 +52,23 @@ class AdminDashboardController extends Controller{
            $connectedUser =  $userQuery->getUserById($id);
         }
 
-        $this->userQuery = new UserQuery();
-        $usersTeacher = $this->userQuery->getByRole('Professeur');
+        $userQuery = new UserQuery();
+        $usersTeacher = $userQuery->getByRole('Professeur');
         $teacherCount = count($usersTeacher);
         $userQuery = new UserQuery();
-        $usersStudent = $this->userQuery->getByRole('Abonné');
+        $usersStudent = $userQuery->getByRole('Abonné');
         $studentCount = count($usersStudent);
         $userQuery = new UserQuery();
-        $usersAdmin = $this->userQuery->getByRole('Administrateur');
+        $usersAdmin = $userQuery->getByRole('Administrateur');
         $adminCount = count($usersAdmin);
         $userQuery = new UserQuery();
-        $usersEdit = $this->userQuery->getByRole('Éditeur');
+        $usersEdit = $userQuery->getByRole('Éditeur');
         $editCount = count($usersEdit);
         $userQuery = new UserQuery();
-        $usersAutor = $this->userQuery->getByRole('Auteur');
+        $usersAutor = $userQuery->getByRole('Auteur');
         $autorCount = count($usersAutor);
         $userQuery = new UserQuery();
-        $usersSchool = $this->userQuery->getByRole('Vie-Scolaire');
+        $usersSchool = $userQuery->getByRole('Vie-Scolaire');
         $schoolCount = count($usersSchool);
         $this->render('admin/index.phtml', [
             'articles'=>$articles, 

@@ -24,7 +24,13 @@ class CommentQuery{
 
     public function getCommentsByArticleId(int $id)
     {
-        $query = $this->builder->select('id, title, message, created_at, user_id, status')->from("comments")->where("article_id = $id");
+        $query = $this->builder->select('message, created_at, users.email, status')->from("comments")->join('INNER', 'comments', 'article_id', 'articles', 'id')->join('INNER', 'comments', 'user_id', 'users', 'id')->where("article_id = $id");
+        return $query->getResult();
+    }
+
+    public function getCommentsBySlug($slug)
+    {
+        $query = $this->builder->select('comments.id, message, comments.created_at, users.fullname')->from("comments")->join('INNER', 'comments', 'article_id', 'articles', 'id')->join('INNER', 'comments', 'user_id', 'users', 'id')->where("articles.slug = $slug")->orderBy('comments.created_at','ASC');
         return $query->getResult();
     }
 

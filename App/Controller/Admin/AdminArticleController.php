@@ -104,7 +104,6 @@ class AdminArticleController extends Controller {
                     if ($data['status']=='Publié'){
                         $article = new PhpFileGenerator();
 
-                        $this->request->redirect('/admin/article/list')->with('success', 'L\'article a bien été crée');
                         if ($article->generateViewFile($data['title'],$data['content'],'articles')) {
                             $this->request->redirect('/admin/article/list')->with('success', 'L\'article a bien été publié');
                         }
