@@ -58,13 +58,11 @@ class AdminCustomizationController extends Controller
             $data['side_color'] = trim($data['side_color'],'#');
             $idCustom = $data['id'];
             $customQuery = new CustomQuery();
-            //var_dump($this->customQuery->update($data, $idCustom));die;
-            if($this->customQuery->update($data, $idCustom)){
+            if($customQuery->update($data,$idCustom)){
                 $this->request->redirect('/admin/customization/index')->with('success', 'La customisation a bien été ajoutée.');
             }
             else{
-                echo "no";die;
-                //$this->request->redirect('/admin/customization/index')->with('error', 'Une erreur c\'est produite. Veuillez réessayer.');
+                $this->request->redirect('/admin/customization/index')->with('error', 'Une erreur c\'est produite. Veuillez réessayer.');
             }
         }
     }
