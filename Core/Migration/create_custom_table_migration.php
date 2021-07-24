@@ -27,6 +27,7 @@ class create_custom_table_migration
             `foot_color` VARCHAR(25) NOT NULL DEFAULT '6c757d',
             `side_bg_color` VARCHAR(25) NOT NULL DEFAULT '363740',
             `side_color` VARCHAR(25) NOT NULL DEFAULT 'ced4da',
+            `back_color` VARCHAR(25) NOT NULL DEFAULT 'f3f3f3',
             `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         ) ENGINE=INNODB CHARSET=`utf8`;";

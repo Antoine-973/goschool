@@ -56,6 +56,7 @@ class AdminCustomizationController extends Controller
             $data['foot_color'] = trim($data['foot_color'],'#');
             $data['side_bg_color'] = trim($data['side_bg_color'],'#');
             $data['side_color'] = trim($data['side_color'],'#');
+            $data['back_color'] = trim($data['back_color'],'#');
             $idCustom = $data['id'];
             $customQuery = new CustomQuery();
             if($customQuery->update($data,$idCustom)){
