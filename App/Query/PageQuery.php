@@ -20,6 +20,12 @@ class PageQuery
         return $query->getResult();
     }
 
+    public function getPageUrl(){
+        $query = $this->builder->select("url")->from("pages");
+
+        return $query->getResult();
+    }
+
     public function getIdByTitle(string $title){
         $query = $this->builder->select("id")->from("pages")->where("title = $title");
 
