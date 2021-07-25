@@ -38,7 +38,7 @@ if ($arr[1] == 'article') {
         $pageQuery = new \App\Query\PageQuery();
         $title = $pageQuery->getTitleByUrl("/".$url)['title'];
         $getDescriptionQuery = new \App\Query\PageQuery();
-        $description = $getDescriptionQuery->getDescriptionByUrl($url)['description'];
+        $description = $getDescriptionQuery->getDescriptionByUrl("/".$url)['description'];
     }
 }
 $title =  $title . ' | ' . $siteName;
