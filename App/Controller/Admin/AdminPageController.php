@@ -51,7 +51,7 @@ class AdminPageController extends Controller {
         }
         else{
             $request = new \Core\Http\Request();
-            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour accéder à cette section du back office.');
+            $request->redirect('/admin/dashboard/index', ['flashMessage','Vous n\'avez pas les droits nécessaires pour accéder à cette section du back office.']);
         }
     }
 
@@ -70,7 +70,7 @@ class AdminPageController extends Controller {
         }
         else{
             $request = new \Core\Http\Request();
-            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour accéder à cette section du back office.');
+            $request->redirect('/admin/dashboard/index', ['flashMessage','Vous n\'avez pas les droits nécessaires pour accéder à cette section du back office.']);
         }
     }
 
@@ -86,9 +86,9 @@ class AdminPageController extends Controller {
             if (empty($errors)){
                 if($this->pageQuery->create($data))
                 {
-                    $this->request->redirect('/admin/page/list')->with('success', 'La page a bien été publiée');
+                    $this->request->redirect('/admin/page/list', ['flashMessage', 'La page a bien été créée']);
                 }else{
-                    $this->request->redirect('/admin/page/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/page/list', ['flashMessage', 'Une erreur c\'est produite veuillez réessayer']);
                 }
             }
             else{
@@ -113,7 +113,7 @@ class AdminPageController extends Controller {
 
                 $this->render("admin/page/editPage.phtml", ['pageEdit'=>$pageEditForm]);
             } else {
-                $this->request->redirect('/admin/page/list')->with('error', 'Vous n\'avez pas les droits nécessaire pour modifier cette page.');
+                $this->request->redirect('/admin/page/list', ['flashMessage', 'Vous n\'avez pas les droits nécessaire pour modifier cette page.']);
             }
         }
     }
@@ -128,13 +128,13 @@ class AdminPageController extends Controller {
 
                 if ($this->pageQuery->updatePage($data, $id)) {
 
-                    $this->request->redirect('/admin/page/list')->with('success', 'La page a bien été édité');
+                    $this->request->redirect('/admin/page/list', ['flashMessage', 'La page a bien été édité']);
                 } else {
-                    $this->request->redirect('/admin/page/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/page/list', ['flashMessage', 'Une erreur c\'est produite veuillez réessayer']);
                 }
             }
             else{
-                $this->request->redirect('/admin/page/edit?id='.$id)->with('errors', $errors);
+                $this->request->redirect('/admin/page/edit?id='.$id, ['flashMessage', $errors]);
             }
         }
     }
@@ -151,11 +151,11 @@ class AdminPageController extends Controller {
 
                 if ($deleteQuery->delete($id)) {
 
-                    $this->request->redirect('/admin/page/list')->with('success', 'La page a bien été supprimé');
+                    $this->request->redirect('/admin/page/list', ['flashMessage', 'La page a bien été supprimé']);
                 }
             }
             else {
-                $this->request->redirect('/admin/page/list')->with('error', 'Vous n\'avez pas les droits nécessaire pour supprimer cette page.');
+                $this->request->redirect('/admin/page/list', ['flashMessage', 'Vous n\'avez pas les droits nécessaire pour supprimer cette page.']);
             }
         }
     }

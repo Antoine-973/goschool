@@ -95,7 +95,7 @@ class PageQuery
      */
     public function getPagesByUser($userId)
     {
-        $query = $this->builder->select('pages.id, title, users.email, status, pages.created_at')->from("pages")->join('INNER', 'pages', 'user_id', 'users', 'id')->where("user_id = $userId");
+        $query = $this->builder->select('pages.id, title, users.fullname, status, pages.created_at')->from("pages")->join('INNER', 'pages', 'user_id', 'users', 'id')->where("user_id = $userId");
         return $query->getResult();
     }
 
