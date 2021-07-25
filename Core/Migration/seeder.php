@@ -164,7 +164,8 @@ class seeder
                 ('Alois', 'Marcellin', 'Alois Marcellin', 'alois.marcellin@myges.fr', '".password_hash('#ViveSorcierTechnologie1234', PASSWORD_BCRYPT)."', '7','1');
 
                 INSERT INTO pages (title, url, description, content, status, user_id)
-                VALUE('Sample Page', '/sample-page', 'Une page d\'exemple créer par GoSchool.', '<h1>Page d\'exemple</h1><p>Ceci est une page d\'exemple. C\'est différent d\'un article car elle restera au même endroit et apparaîtra dans la navigation de votre site. La plupart des gens commencent par une page À propos qui les présente aux visiteurs potentiels du site.</p>', 'Publié', '1');
+                VALUES('Accueil', '/', 'La page d\'accueil du site !', '<div class=\'container\'><h1>Bienvenue à l\'école de la reussite !</h1>Pour commencer <a href=\'/admin/page/add\'>créer une page !</a> Une page À propos par exemple avec l\'url /about !<br><br>Puis <a href=\'/admin/menu/add\'>créer un menu</a> par exemple Navbar, et ajouter-y votre page À propos !<br><br>Le thème de base de goSchool a un emplacement de menu en haut (navbar) et en bas (footer).<br><br> Pour afficher notre menu Navbar sur le site vous devez justement <a href=\'/admin/menu/position\'> modifier l\'emplacement de menu Navbar !</a><br><br>Maintenant cliquer sur le lien Accueil dans le menu, le lien devrait être le suivant : <a href=\'/about\'>À propos</a><h6>Et voilà votre première page ! À vous la gloire !</h6>Vous pouvez maintenant changer les paramètres de GoSchool pour changer notre page d\'accueil par défaut par votre magnifique nouvelle page À propos !<br><ul>Bonne découverte de GoSchool vous pouvez essayez :<li>De créer un article qui va s\'afficher dans vos derniers articles !</li><li>De créer des utilisateurs pour votre équipe !</li><li>De créer des catégories pour vos prochains articles !</li></ul>Et surtout faites nous part de votre expérience à cette adresse email <a href=\'mailto:\'>contact.goschool@gmail.com</a><h4>Amusez vous bien !</h4></div>', 'Publié', '1'),
+                ('Sample Page', '/sample-page', 'Une page d\'exemple créer par GoSchool.', '<h1>Page d\'exemple</h1><p>Ceci est une page d\'exemple. C\'est différent d\'un article car elle restera au même endroit et apparaîtra dans la navigation de votre site. La plupart des gens commencent par une page À propos qui les présente aux visiteurs potentiels du site.</p>', 'Publié', '1');
                 
                 INSERT INTO articles (title, slug, description, content, status, user_id)
                 VALUE('Hello World', 'hello-world', 'Hello World ! Ceci est le premier article du site !', '<h1>Hello World !</h1><p>Bienvenue sur GoSchool. Ceci est ton premier article. Edite le ou supprime le, puis commence à créer !</p>','Publié', '1');
@@ -183,7 +184,9 @@ class seeder
                        ('Je suis désolé de vous le dire mais le SEO de votre site est à chier, voici le lien de google Ads : https://ads.google.com/intl/fr_fr/home/', 'Approuvé', '8', '1'),
                        ('N\'hésitez pas à cliquer sur ce lien pour optimiser votre SEO gratuitement et automatiquement d\'un simple clic : https://amzn.to/3ivi4lE', 'Approuvé', '8', '1'),
                        ('Bonjour Gael, je suis élève à l\'ESGI et je suis intéréssé par votre offre, n\'hésitez pas à me contacter à cette adresse email : alois.marcellin@myges.fr', 'Approuvé', '10', '1'),
-                       ('L\'easter egg de goschool est impossible à trouver sans indice o_o, j\'ai tout essayé !', 'Approuvé', '5', '1');";
+                       ('L\'easter egg de goschool est impossible à trouver sans indice o_o, j\'ai tout essayé !', 'Approuvé', '5', '1');
+                       
+              ";
 
         $conn->exec($sql);
     }

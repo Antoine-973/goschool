@@ -10,7 +10,6 @@ use App\Model\PageModel;
 use App\Query\PageQuery;
 use Core\Component\Validator;
 use Core\Http\Session;
-use Core\Util\PhpFileGenerator;
 use Core\Util\RolePermission;
 
 class AdminPageController extends Controller {
@@ -87,19 +86,7 @@ class AdminPageController extends Controller {
             if (empty($errors)){
                 if($this->pageQuery->create($data))
                 {
-                    if ($data['status']=='Publié'){
-                        $page = new PhpFileGenerator();
-
-                        if ($page->generateViewFile($data['url'],$data['content'],'pages')){
-                            $this->request->redirect('/admin/page/list')->with('success', 'La page a bien été publiée');
-                        }
-                        else{
-                            $this->request->redirect('/admin/page/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
-                        }
-                    }
-                    else{
-                        $this->request->redirect('/admin/page/list')->with('success', 'La page a bien été créee');
-                    }
+                    $this->request->redirect('/admin/page/list')->with('success', 'La page a bien été publiée');
                 }else{
                     $this->request->redirect('/admin/page/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                 }
@@ -138,42 +125,12 @@ class AdminPageController extends Controller {
             $errors = $this->validator->validate($this->pageModel, $data);
 
             if (empty($errors)) {
-
-
-
-                $deleteOldView = new PhpFileGenerator();
-                $page = new PhpFileGenerator();
-                $urlInDb = $this->pageQuery->getUrlById($id);
-
+                
                 if ($this->pageQuery->updatePage($data, $id)) {
 
-                    if ($data['status']=='Publié'){
-                        if ($urlInDb['url'] != $data['url']) {
-
-                            if ($deleteOldView->deleteViewFile($urlInDb['url'], 'pages')) {
-
-
-                                if ($page->generateViewFile($data['url'], $data['content'], 'pages')) {
-                                    $this->request->redirect('/admin/page/list')->with('success', 'La page a bien été édité');
-                                } else {
-                                    $this->request->redirect('/admin/page/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
-                                }
-                            }
-                        }
-                        else {
-                            if ($page->generateViewFile($data['url'], $data['content'], 'pages')) {
-                                $this->request->redirect('/admin/page/list')->with('success', 'La page a bien été édité');
-                            } else {
-                                $this->request->redirect('/admin/page/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
-                            }
-                        }
-                    }
-                    else {
-                        if ($deleteOldView->deleteViewFile($urlInDb['url'], 'pages')){
-
-                        }
-                        $this->request->redirect('/admin/page/list')->with('success', 'La page a bien été édité');
-                    }
+                    $this->request->redirect('/admin/page/list')->with('success', 'La page a bien été édité');
+                } else {
+                    $this->request->redirect('/admin/page/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                 }
             }
             else{
@@ -192,22 +149,14 @@ class AdminPageController extends Controller {
                 $url = $this->pageQuery->getUrlById($id)['url'];
                 $deleteQuery = new PageQuery();
 
-                if($deleteQuery->delete($id)) {
+                if ($deleteQuery->delete($id)) {
 
-                    $deleteView = new PhpFileGenerator();
-
-                    if ($deleteView->deleteViewFile($url,'pages')){
-                        $this->request->redirect('/admin/page/list')->with('success', 'La page a bien été supprimé');
-                    }else {
-                        $this->request->redirect('/admin/page/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
-                    }
-                } else {
-                    $this->request->redirect('/admin/page/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/page/list')->with('success', 'La page a bien été supprimé');
                 }
-            } else {
+            }
+            else {
                 $this->request->redirect('/admin/page/list')->with('error', 'Vous n\'avez pas les droits nécessaire pour supprimer cette page.');
             }
         }
     }
-
 }

@@ -1,0 +1,15 @@
+<?php
+$request = new Core\Http\Request();
+$arr = explode('/', $request->getPath());
+
+$getContentQuery = new \App\Query\PageQuery();
+$content = $getContentQuery->getContentByUrl('/' . $arr[1]);
+?>
+
+<div class="container--fluid">
+    <div class="row">
+        <div class="col-12">
+            <?= !empty($content) ? $content['content'] : die(); ?>
+        </div>
+    </div>
+</div>

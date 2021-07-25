@@ -2,7 +2,6 @@
 namespace App\Controller\Admin;
 
 use Core\Controller;
-use Core\Database\QueryBuilder;
 use Core\Http\Request;
 use Core\Http\Response;
 use App\Model\ArticleModel;
@@ -13,7 +12,6 @@ use App\Query\UserQuery;
 use App\Query\CommentQuery;
 use Core\Component\Validator;
 use Core\Http\Session;
-use Core\Util\PhpFileGenerator;
 use Core\Util\RolePermission;
 
 class AdminArticleController extends Controller {
@@ -101,19 +99,7 @@ class AdminArticleController extends Controller {
             if(empty($errors)){
                 if($this->articleQuery->create($data))
                 {
-                    if ($data['status']=='Publié'){
-                        $article = new PhpFileGenerator();
-
-                        if ($article->generateViewFile($data['title'],$data['content'],'articles')) {
-                            $this->request->redirect('/admin/article/list')->with('success', 'L\'article a bien été publié');
-                        }
-                        else{
-                            $this->request->redirect('/admin/article/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
-                        }
-                    }
-                    else{
-                        $this->request->redirect('/admin/article/list')->with('success', 'L\'article a bien été crée');
-                    }
+                    $this->request->redirect('/admin/article/list')->with('success', 'L\'article a bien été publié');
                 }
                 else{
                     $this->request->redirect('/admin/article/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
@@ -154,51 +140,14 @@ class AdminArticleController extends Controller {
             if(empty($errors)) {
 
                 $updateArticleQuery = new ArticleQuery();
-                $slugQuery = new ArticleQuery();
-
-                $slugInDb = $slugQuery->getSlugById($id);
-                $deleteOldView = new PhpFileGenerator();
 
                 if($updateArticleQuery->updateArticle($data, $id)) {
-
-                    if ($data['status']=='Publié'){
-
-                        if ($slugInDb['slug'] != $data['slug']) {
-
-                            if ($deleteOldView->deleteViewFile($slugInDb['slug'], 'articles')) {
-                                $article = new PhpFileGenerator();
-
-                                if ($article->generateViewFile($data['slug'],$data['content'],'articles')) {
-                                    $this->request->redirect('/admin/article/list')->with('success', 'L\'article a bien été édité');
-                                }
-                                else{
-                                    $this->request->redirect('/admin/article/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
-                                }
-                            }
-                        }
-                        else{
-                            $article = new PhpFileGenerator();
-
-                            if ($article->generateViewFile($data['slug'],$data['content'],'articles')) {
-                                $this->request->redirect('/admin/article/list')->with('success', 'L\'article a bien été édité');
-                            }
-                            else{
-                                $this->request->redirect('/admin/article/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
-                            }
-                        }
-                    }
-                    else {
-                        if ($deleteOldView->deleteViewFile($slugInDb['slug'], 'articles')){
-
-                        }
-                        $this->request->redirect('/admin/article/list')->with('success', 'L\'article a bien été édité');
-                    }
+                    $this->request->redirect('/admin/article/list')->with('success', 'L\'article a bien été édité');
                 }
                 else{
                     $this->request->redirect('/admin/article/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
                 }
-            }
-            else{
+            }else{
                 $form = new ArticleEditForm();
                 $articleEditForm = $form->getForm();
 
@@ -219,22 +168,14 @@ class AdminArticleController extends Controller {
 
                 if($deleteQuery->deleteArticle($id)) {
 
-                    $deleteView = new PhpFileGenerator();
-
-                    if ($deleteView->deleteViewFile($slug,'articles')){
-                        $this->request->redirect('/admin/article/list')->with('success', 'L\'article a bien été supprimé');
-                    }else {
-                        $this->request->redirect('/admin/article/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
-                    }
-                } else {
+                    $this->request->redirect('/admin/article/list')->with('success', 'L\'article a bien été supprimé');
+                }else {
                     $this->request->redirect('/admin/article/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
-                }
+                    }
             }
             else{
                 $this->request->redirect('/admin/article/list')->with('error', 'Vous n\'avez pas les droits nécessaire pour supprimer cet article.');
             }
-        } else {
-            $this->request->redirect('/admin/article/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
         }
     }
 }
