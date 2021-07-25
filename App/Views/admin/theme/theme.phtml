@@ -1,6 +1,9 @@
 <div class="content admin-theme--list">
     <div class="col-gutter-12">
         <h1>Thèmes</h1>
+        <?php if(($message = $helper->getFlashMessage('flashMessage'))):?>
+            <p><?php echo $message;?></p>
+        <?php endif;?>
         <div class="col-12">
             <div class="container--fluid">
                 <div class="col-gutter-10">
