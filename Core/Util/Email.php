@@ -3,6 +3,7 @@ namespace Core\Util;
 
 //Import PHPMailer classes into the global namespace
 //These must be at the top of your script, not inside a function
+use Core\Http\Request;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
@@ -30,7 +31,7 @@ class Email
 		$mail = new PHPMailer(true);                              // Passing `true` enables exceptions
         try {
             //Server settings
-            $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+            //$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
             $mail->isSMTP();                                            //Send using SMTP
             $mail->Host       = $this->host;                     //Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
@@ -57,7 +58,9 @@ class Email
             $mail->Body = $body;
         
             $mail->send();
-            echo 'Réussi';
+
+            $request = new Request();
+            $request->redirectToLast(['flashMessage', 'Votre compte a bien été créer, avant de vous connecter vous devez le vérifier en cliquant sur le lien reçu par email. ']);
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
