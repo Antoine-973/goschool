@@ -128,7 +128,7 @@ class ArticleQuery
      */
     public function getArticlesByUser($userId)
     {
-        $query = $this->builder->select('articles.id, title, categories.name, users.email, status, articles.created_at')->from("articles")->join('INNER', 'articles', 'categorie_id', 'categories', 'id')->join('INNER', 'articles', 'user_id', 'users', 'id')->where("user_id = $userId");
+        $query = $this->builder->select('articles.id, title, categories.name, users.fullname, status, articles.created_at')->from("articles")->join('INNER', 'articles', 'categorie_id', 'categories', 'id')->join('INNER', 'articles', 'user_id', 'users', 'id')->where("user_id = $userId");
         return $query->getResult();
     }
 

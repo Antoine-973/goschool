@@ -18,6 +18,9 @@
 ?>
 
 <h1>Paramètres</h1>
+<?php if(($message = $helper->getFlashMessage('flashMessage'))):?>
+    <p><?php echo $message;?></p>
+<?php endif;?>
 <div class="content admin-parameters">
             <div class="row">
                 <div class="col-gutter-12">

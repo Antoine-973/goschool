@@ -31,7 +31,7 @@ class AdminNewsletterController extends Controller
             $this->render("admin/newsletter/newsletter.phtml");
         } else {
             $request = new \Core\Http\Request();
-            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits necessaires pour accéder à cette section du back office.');
+            $request->redirect('/admin/dashboard/index', ['flashMessage','Vous n\'avez pas les droits necessaires pour accéder à cette section du back office.']);
         }
     }
 }

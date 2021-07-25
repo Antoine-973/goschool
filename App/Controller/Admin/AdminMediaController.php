@@ -51,7 +51,7 @@ class AdminMediaController extends Controller{
         }
         else{
             $request = new \Core\Http\Request();
-            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour accéder à cette section du back office.');
+            $request->redirect('/admin/dashboard/index', ['flashMessage','Vous n\'avez pas les droits nécessaires pour accéder à cette section du back office.']);
         }
     }
 
@@ -69,7 +69,7 @@ class AdminMediaController extends Controller{
             $this->render("admin/media/addMedia.phtml", ['mediaAddForm'=>$mediaAddForm]);
         }else{
             $request = new \Core\Http\Request();
-            $request->redirect('/admin/media/list')->with('error','Vous n\'avez pas les droits nécessaires pour ajouter des médias.');
+            $request->redirect('/admin/media/list', ['flashMessage','Vous n\'avez pas les droits nécessaires pour ajouter des médias.']);
         }
     }
 
@@ -84,15 +84,13 @@ class AdminMediaController extends Controller{
                 $extensionsOk = ['jpg', 'jpeg', 'svg', 'png', 'gif'];
                 if(in_array($fileExtension, $extensionsOk)) {
                     move_uploaded_file($_FILES['image']['tmp_name'], '../images/'.basename($_FILES['image']['name']));
-                    $this->request->redirect('/admin/media/list');
+                    $this->request->redirect('/admin/media/list', ['flashMessage','Le média a été ajouté avec succès !']);
                 } else {
-                    $this->request->redirect('/admin/media/add');
+                    $this->request->redirect('/admin/media/add', ['flashMessage','Cette extension de fichiers n\'est pas pris en compte.'] );
                 }
             } else {
-                $this->request->redirect('/admin/media/add');
+                $this->request->redirect('/admin/media/add', ['flashMessage','Le fichier est trop volumineux.']);
             }
-        } else {
-            $this->request->redirect('/admin/media/add');
         }
     }
 
@@ -118,7 +116,7 @@ class AdminMediaController extends Controller{
             }
             else{
                 $request = new \Core\Http\Request();
-                $request->redirect('/admin/media/list')->with('error','Vous n\'avez pas les droits nécessaires pour supprimer des médias.');
+                $request->redirect('/admin/media/list', ['flashMessage','Vous n\'avez pas les droits nécessaires pour supprimer des médias.']);
             }
         }
     }

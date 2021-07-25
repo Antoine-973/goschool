@@ -44,7 +44,7 @@ class AdminMenuController extends Controller
             $this->render("admin/menu/menu.phtml", ['selectMenu' => $selectMenuForm]);
         } else {
             $request = new \Core\Http\Request();
-            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour accéder à cette section du back office.');
+            $request->redirect('/admin/dashboard/index', ['error','Vous n\'avez pas les droits nécessaires pour accéder à cette section du back office.']);
         }
     }
 
@@ -72,7 +72,7 @@ class AdminMenuController extends Controller
             $this->render("admin/menu/addMenu.phtml", ['pages'=>$pages]);
         }else {
             $request = new \Core\Http\Request();
-            $request->redirect('/admin/menu/index')->with('error','Vous n\'avez pas les droits nécessaires pour ajouter des menus.');
+            $request->redirect('/admin/dashboard/index', ['error','Vous n\'avez pas les droits nécessaires pour ajouter des menus.']);
         }
     }
 
@@ -101,9 +101,9 @@ class AdminMenuController extends Controller
                         $havePageQuery->create($pageToUpdate, $page_id);
                     }
                 }
-                $this->request->redirect('/admin/menu/index')->with('success', 'Le menu a bien été créer, vous pouvez maintenant choisir son emplacement dans le site.');
+                $this->request->redirect('/admin/menu/index', ['flashMessage', 'Le menu a bien été créer, vous pouvez maintenant choisir son emplacement dans le site.']);
             }else{
-                $this->request->redirect('/admin/menu/index')->with('error', 'Une erreur c\'est produite. Veuillez réessayer.');
+                $this->request->redirect('/admin/menu/index', ['flashMessage', 'Une erreur c\'est produite. Veuillez réessayer.']);
             }
         }
     }
@@ -120,7 +120,7 @@ class AdminMenuController extends Controller
             $this->render("admin/menu/editMenu.phtml", ['pages'=>$pages]);
         }else {
             $request = new \Core\Http\Request();
-            $request->redirect('/admin/menu/index')->with('error','Vous n\'avez pas les droits nécessaires pour ajouter des menus.');
+            $request->redirect('/admin/dashboard/index', ['flashMessage','Vous n\'avez pas les droits nécessaires pour ajouter des menus.']);
         }
     }
 
@@ -167,10 +167,10 @@ class AdminMenuController extends Controller
                         }
                     }
                 }
-                $this->request->redirect('/admin/menu/index')->with('success', 'Le menu a bien été créer, vous pouvez maintenant choisir son emplacement dans le site.');
+                $this->request->redirect('/admin/menu/index', ['flashMessage', 'Le menu a bien été créer, vous pouvez maintenant choisir son emplacement dans le site.']);
             }
             else{
-                $this->request->redirect('/admin/menu/index')->with('error', 'Une erreur c\'est produite. Veuillez réessayer.');
+                $this->request->redirect('/admin/menu/index', ['flashMessage', 'Une erreur c\'est produite. Veuillez réessayer.']);
             }
         }
     }
@@ -187,13 +187,13 @@ class AdminMenuController extends Controller
                 $deleteQuery = new MenuQuery();
 
                 if($deleteQuery->delete($id)) {
-                    $this->request->redirect('/admin/menu/index')->with('success', 'Le menu a bien été supprimé');
+                    $this->request->redirect('/admin/menu/index', ['flashMessage', 'Le menu a bien été supprimé']);
                 } else {
-                    $this->request->redirect('/admin/menu/index')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/menu/index', ['flashMessage', 'Une erreur c\'est produite veuillez réessayer']);
                 }
             }else {
                 $request = new \Core\Http\Request();
-                $request->redirect('/admin/menu/index')->with('error','Vous n\'avez pas les droits nécessaires pour supprimer des menus.');
+                $request->redirect('/admin/dashboard/index', ['flashMessage','Vous n\'avez pas les droits nécessaires pour supprimer des menus.']);
             }
         }
     }
@@ -211,7 +211,7 @@ class AdminMenuController extends Controller
             $this->render("admin/menu/menuPositon.phtml", ['positionMenu' => $positionMenu]);
         }else {
             $request = new \Core\Http\Request();
-            $request->redirect('/admin/menu/index')->with('error','Vous n\'avez pas les droits nécessaires pour supprimer des menus.');
+            $request->redirect('/admin/dashboard/index', ['flashMessage','Vous n\'avez pas les droits nécessaires pour supprimer des menus.']);
         }
     }
 
@@ -263,7 +263,7 @@ class AdminMenuController extends Controller
                 }
             }
         }
-        $this->request->redirect('/admin/menu/index')->with('success', 'Les positions des menus ont été modifié.');
+        $this->request->redirect('/admin/menu/index', ['flashMessage', 'Les positions des menus ont été modifié.']);
     }
 
 

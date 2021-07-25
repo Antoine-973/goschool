@@ -63,4 +63,10 @@ class ParamQuery{
         return $query->getResult();
     }
 
+    public function getDefaultRole()
+    {
+        $query = $this->builder->select('default_role')->from("parameters");
+        return $query->getResult();
+    }
+
 }

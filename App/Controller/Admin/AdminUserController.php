@@ -61,10 +61,10 @@ class AdminUserController extends Controller {
             if(empty($errors)){
                 if($this->userQuery->update($data, $id))
                 {
-                    $this->request->redirect('/admin/user/list')->with('success', 'Votre profil a bien été modifié');
+                    $this->request->redirect('/admin/user/profil', ['flashMessage', 'Votre profil a bien été modifié']);
                 }
                 else{
-                    $this->request->redirect('/admin/user/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/user/profil', ['flashMessage', 'Une erreur c\'est produite veuillez réessayer']);
                 }
             }
             else{
@@ -90,7 +90,7 @@ class AdminUserController extends Controller {
             $this->render("admin/user/listUser.phtml", ['users'=>$users]);
         } else {
             $request = new \Core\Http\Request();
-            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour accéder à cette section du back office.');
+            $request->redirect('/admin/dashboard/index', ['flashMessage','Vous n\'avez pas les droits nécessaires pour accéder à cette section du back office.']);
         }
     }
 
@@ -108,7 +108,7 @@ class AdminUserController extends Controller {
             $this->render("admin/user/addUser.phtml", ['userAdd'=>$userAddForm]);
         } else {
             $request = new \Core\Http\Request();
-            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour ajouter des utilisateurs.');
+            $request->redirect('/admin/dashboard/index', ['flashMessage','Vous n\'avez pas les droits nécessaires pour ajouter des utilisateurs.']);
         }
     }
 
@@ -127,7 +127,7 @@ class AdminUserController extends Controller {
                     $this->request->redirect('/admin/user/list')->with('success', 'L\'utilisateur a bien été crée');
                 }
                 else{
-                    $this->request->redirect('/admin/user/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/user/list', ['flashMessage', 'Une erreur c\'est produite veuillez réessayer']);
                 }
             }else{
                 $form = new UserAddForm();
@@ -152,7 +152,7 @@ class AdminUserController extends Controller {
             $this->render("admin/user/editUser.phtml", ['editUser'=>$editUser]);
         } else {
             $request = new \Core\Http\Request();
-            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour éditer cet utilisateur.');
+            $request->redirect('/admin/dashboard/index', ['flashMessage', 'Vous n\'avez pas les droits nécessaires pour éditer cet utilisateur.'] );
         }
     }
 
@@ -166,10 +166,10 @@ class AdminUserController extends Controller {
             if(empty($errors)){
                 if($this->userQuery->update($data, $id))
                 {
-                    $this->request->redirect('/admin/user/list')->with('success', 'L\'utilisateur a bien été édité');
+                    $this->request->redirect('/admin/user/list', ['flashMessage', 'L\'utilisateur a bien été édité']);
                 }
                 else{
-                    $this->request->redirect('/admin/user/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/user/list', ['flashMessage', 'Une erreur c\'est produite veuillez réessayer']);
                 }
             }
             else{
@@ -192,16 +192,16 @@ class AdminUserController extends Controller {
             if ($user_id && $testPermission->has_permission($user_id, 'crud_user')) {
                 if($this->session->getSession('id') != $id){
                     if($this->userQuery->delete($id)) {
-                        $this->request->redirect('/admin/user/list')->with('success', 'L\'utilisateur a bien été supprimé');
+                        $this->request->redirect('/admin/user/list', ['flashMessage', 'L\'utilisateur a bien été supprimé']);
                     } else {
-                        $this->request->redirect('/admin/user/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                        $this->request->redirect('/admin/user/list', ['flashMessage', 'Une erreur c\'est produite veuillez réessayer']);
                     }
                 }else {
-                    $this->request->redirect('/admin/user/list')->with('error', 'Impossible de supprimer votre propre compte.');
+                    $this->request->redirect('/admin/user/list', ['flashMessage', 'Impossible de supprimer votre propre compte.']);
                 }
             } else {
                 $request = new \Core\Http\Request();
-                $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour supprimer cet utilisateur.');
+                $request->redirect('/admin/dashboard/index', ['flashMessage', 'Vous n\'avez pas les droits nécessaires pour supprimer cet utilisateur.']);
             }
         }
     }

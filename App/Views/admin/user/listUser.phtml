@@ -4,12 +4,10 @@
     <a class="btn" href="/admin/user/add" class="btn btn--infos btn--sm"><i class="fas fa-plus-circle"></i>Ajouter un utilisateur</a>
     <?php $keys = array_keys($users);?>
     <?php use Core\Util\Table; ?>
-    <?php $verifTable = new Table() ?>
+    <?php $verifTable = new Table();?>
 
-    <?php if(($message = $helper->getFlashMessage('success'))):?>
+    <?php if(($message = $helper->getFlashMessage('flashMessage'))):?>
         <p><?php echo $message;?></p>
-    <?php elseif(($message = $helper->getFlashMessage('errors'))):?>
-        <p> <?php echo $message;?></p>
     <?php endif;?>
 
     <table id="users_table" class="display dataTable">

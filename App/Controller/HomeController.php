@@ -70,10 +70,10 @@ class HomeController extends Controller{
             if(empty($errors)){
                 if($this->commentQuery->create($data))
                 {
-                    $this->request->redirect('/article/' . $slug)->with('success', 'Le commentaire a bien été publié');
+                    $this->request->redirect('/article/' . $slug, ['flashMessage', 'Le commentaire a bien été publié']);
                 }
                 else{
-                    $this->request->redirect('/article/' . $slug)->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/article/' . $slug, ['flashMessage', 'Une erreur c\'est produite veuillez réessayer']);
                 }
             }
         }

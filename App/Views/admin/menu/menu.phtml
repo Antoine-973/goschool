@@ -6,6 +6,10 @@
         <div class="row">
             <?php
 
+            if(($message = $helper->getFlashMessage('flashMessage'))):?>
+            <p><?php echo $message;?></p>
+            <?php endif;?>
+
             $menuQuery = new \App\Query\MenuQuery();
 
             if (!empty($menuQuery->getMenusName()))

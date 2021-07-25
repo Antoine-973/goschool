@@ -78,17 +78,23 @@ class Request{
         return $this->getMethod() === 'post';
     }
 
-    public function redirect($route, $statusCode = 303)
+    public function redirect($route, array $flashMessage = ['key' => '', 'message' => ''], $statusCode = 303)
     {
-       if(!headers_sent()){
-        header('Location: ' . $route, true, $statusCode);exit;
+        if(!headers_sent()){
+           $session = new Session();
+           $session->setMessage($flashMessage[0], $flashMessage[1]);
+
+            header('Location: ' . $route, true, $statusCode);exit;
        }
 
         return $this;
     }
 
-    public function redirectToLast()
+    public function redirectToLast(array $flashMessage = ['key' => '', 'message' => ''])
     {
+        $session = new Session();
+        $session->setMessage($flashMessage[0], $flashMessage[1]);
+
         header('Location: ' . $_SERVER['HTTP_REFERER']);exit;
         return $this;
     }
