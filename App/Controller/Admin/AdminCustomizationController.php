@@ -38,7 +38,7 @@ class AdminCustomizationController extends Controller
         }
         else{
             $request = new \Core\Http\Request();
-            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits necessaires pour accéder à cette section du back office.');
+            $request->redirect('/admin/dashboard/index', ['flashMessage','Vous n\'avez pas les droits necessaires pour accéder à cette section du back office.']);
         }
     }
 
@@ -60,10 +60,10 @@ class AdminCustomizationController extends Controller
             $idCustom = $data['id'];
             $customQuery = new CustomQuery();
             if($customQuery->update($data,$idCustom)){
-                $this->request->redirect('/admin/customization/index')->with('success', 'La customisation a bien été ajoutée.');
+                $this->request->redirect('/admin/customization/index', ['flashMessage', 'La personnalisation du site a bien été modifié.']);
             }
             else{
-                $this->request->redirect('/admin/customization/index')->with('error', 'Une erreur c\'est produite. Veuillez réessayer.');
+                $this->request->redirect('/admin/customization/index', ['flashMessage', 'Une erreur c\'est produite. Veuillez réessayer.']);
             }
         }
     }

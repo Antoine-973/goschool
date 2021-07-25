@@ -1,6 +1,9 @@
 <div class="content admin-newsletter--list">
     <div class="col-gutter-12">
         <h1>Personnalisation</h1>
+        <?php if(($message = $helper->getFlashMessage('flashMessage'))):?>
+            <p><?php echo $message;?></p>
+        <?php endif;?>
         <form class="container-fluid" action="update">
         <input type="hidden" name="id" value="<?= $customs['id'] ?>">
         <h3>Taille et couleur du content</h3>
