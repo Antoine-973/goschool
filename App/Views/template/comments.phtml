@@ -25,10 +25,11 @@ if ($arr[1] == 'article'){
             <div class="row">
                 <div class="<?php if ($id && $testPermission->has_permission($id, 'crud_self_comment') || $id && $testPermission->has_permission($id, 'crud_comment') ) { ?>
                 col-gutter-6  <?php } else{ ?> col-gutter-12 <?php } ?> ">
-                    <h2>Commentaires</h2>
+
                     <?php if(!empty($comments)) {
                         $verifTable = new \Core\Util\Table();
                         if ($verifTable->is_multi($comments)){ ?>
+                            <h2>Commentaires</h2>
                             <h4><?= count($comments) ?> commentaires</h4>
                             <div id="comment-list-box">
                             <?php foreach($comments as $k=>$v) { ?>
@@ -44,6 +45,7 @@ if ($arr[1] == 'article'){
                                 </div>
                             <?php } ?>
                         <?php } else{ ?>
+                            <h2>Commentaire</h2>
                             <h4>1 commentaires</h4>
                             <div id="comment-list-box">
                                 <div class="message-box" id="message_<?php echo $comments["id"];?>">
@@ -71,13 +73,13 @@ if ($arr[1] == 'article'){
                             <div class="col-12">
                                 <h4>Laissez un commentaire</h4>
                                 <input type="hidden" name="slug" value="<?= $slug ?>">
-                                <label for="message">Message</label> <textarea name="message" id="message" cols="80" rows="10"></textarea>
+                                <textarea name="message" id="message" cols="80" rows="10"></textarea>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-12">
-                                <input type="submit" value="Poster votre commentaire">
+                                <input class="btn btn-info" type="submit" value="Poster votre commentaire">
                             </div>
                         </div>
                     </form>
