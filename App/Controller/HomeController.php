@@ -41,7 +41,6 @@ class HomeController extends Controller{
     }
 
     public function index(){
-
         return $this->render("site/pages/sample_page.phtml");
     }
 
@@ -70,7 +69,7 @@ class HomeController extends Controller{
             if(empty($errors)){
                 if($this->commentQuery->create($data))
                 {
-                    $this->request->redirect('/article/' . $slug, ['flashMessage', 'Le commentaire a bien été publié']);
+                    $this->request->redirect('/article/' . $slug, ['flashMessage', 'Le commentaire a bien été créé mais vous devez attendre qu\'il soit valider par l\'administration du site pour qu\'il soit affiché en public']);
                 }
                 else{
                     $this->request->redirect('/article/' . $slug, ['flashMessage', 'Une erreur c\'est produite veuillez réessayer']);

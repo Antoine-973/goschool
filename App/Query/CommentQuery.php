@@ -30,7 +30,7 @@ class CommentQuery{
 
     public function getCommentsBySlug($slug)
     {
-        $query = $this->builder->select('comments.id, message, comments.created_at, users.fullname')->from("comments")->join('INNER', 'comments', 'article_id', 'articles', 'id')->join('INNER', 'comments', 'user_id', 'users', 'id')->where("articles.slug = $slug")->orderBy('comments.created_at','ASC');
+        $query = $this->builder->select('comments.id, message, comments.created_at, users.fullname')->from("comments")->join('INNER', 'comments', 'article_id', 'articles', 'id')->join('INNER', 'comments', 'user_id', 'users', 'id')->where("comments.status = Approuvé ", "articles.slug = $slug")->orderBy('comments.created_at','ASC');
         return $query->getResult();
     }
 

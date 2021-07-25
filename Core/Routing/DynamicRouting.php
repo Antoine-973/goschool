@@ -52,7 +52,6 @@ class DynamicRouting {
     public function getAction($path)
     {
         $arr = explode('/', $path);
-
         if ($arr[0] == 'admin'){
             if(count($arr) >= 3) {
                 $action =  $arr[2];
@@ -60,12 +59,19 @@ class DynamicRouting {
             else{
                 $action = '';
             }
-        }elseif($arr[0] == 'article'){
+        }
+        elseif($arr[0] == 'article' && count($arr) > 2){
+            if ($arr[2] == 'storeComment'){
+                $action =  $arr[2];
+            }
+        }
+        elseif($arr[0] == 'article'){
             $action =  $arr[0];
         }
         else{
             $action =  'index';
         }
+
         return $action;
     }
 
@@ -138,13 +144,24 @@ class DynamicRouting {
             $request = new Request();
             $path = trim($request->getPath(), '/');
             $arr = explode('/', $path);
-            $action = 'index';
+            if (count($arr) >= 2 && $arr[1] == 'storeComment'){
+                $action = 'storeComment';
+            }
 
             $articleQuery = new ArticleQuery();
             $pageQuery = new PageQuery();
 
+            if ($request->isPost()){
+                $data = $request->getBody();
+                $slug = $data['slug'];
+            }else{
+                if ($arr[0] == 'article' && count($arr) > 1){
+                    $slug = $arr[1];
+                }
+            }
+
             if ($arr[0] == 'article' && count($arr) > 1){
-                if ($articleQuery->getArticleBySlug($arr[1])){
+                if ($articleQuery->getArticleBySlug($slug)){
                     $class =  "App\\Controller\\" . $controller;
                     $controller = new $class();
                     if($params){
