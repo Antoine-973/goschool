@@ -14,6 +14,9 @@ if($id){
 
 
 <h1><?= $connectedUser['role'] . ' ' . $connectedUser['fullname'] ?></h1>
+<?php if(($message = $helper->getFlashMessage('flashMessage'))):?>
+    <p><?php echo $message;?></p>
+<?php endif;?>
 <div class="col-gutter-12">
     <?php if(isset($errors) && !empty($errors)): ?>
         <ul>

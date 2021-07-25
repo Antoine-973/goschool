@@ -210,13 +210,18 @@ class UserQuery
 
                 $data['role_id'] = $role_id;
                 unset($data['role']);
+            }else{
+                $roleQuery = new ParamQuery();
+                $role = $roleQuery->getDefaultRole()['default_role'];
+                $data['role_id'] = $role;
             }
 
             $data['fullname'] = $data['firstname'] . ' ' . $data['lastname'];
-            $token_verified = [ 'token_verified' => md5( rand(0,1000) )];
-            $finalData = $data + $token_verified;
+            $data['token_verified'] = md5( rand(0,1000) );
 
-            $query = $this->builder->insertInto("users")->columns($finalData)->values($finalData)->save();
+            //die(var_dump($data));
+
+            $query = $this->builder->insertInto("users")->columns($data)->values($data)->save();
             return $query;
         }
         
@@ -235,6 +240,15 @@ class UserQuery
 
             unset($data["password"]);
             unset($data["passwordConfirm"]);
+
+            if (array_key_exists('role', $data)){
+                $roleQuery = new RoleQuery();
+                $role_id = $roleQuery->getIdbyName($data['role'])['id'];
+
+                $data['role_id'] = $role_id;
+                unset($data['role']);
+            }
+
             $data['fullname'] = $data['firstname'] . ' ' . $data['lastname'];
 
 

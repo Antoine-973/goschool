@@ -68,15 +68,6 @@ class AdminAuthController extends Controller{
 
         $this->render("admin/registration/login.phtml", ['userLogin'=>$userLogin]);
     }
-
-    public function register()
-    {
-
-        $form = new UserRegisterForm();
-        $userRegister = $form->getForm();
-
-        $this->render("admin/registration/register.phtml", ['userRegister'=>$userRegister]);
-    }
     
     public function postLogin()
     {
@@ -96,7 +87,7 @@ class AdminAuthController extends Controller{
                         
                         if ($user['verified'] == '1'){
                             $this->session->setSession('user_id',$user['id']);
-                            $this->request->redirect('/admin/dashboard/index')->with('success', 'Connecté avec succès');
+                            $this->request->redirect('/admin/dashboard/index', ['flashMessage', "Vous êtes désormais connecté ! Bienvenue " . $user['fullname'] .  " !"]);
                         }
                     }
           
@@ -113,7 +104,16 @@ class AdminAuthController extends Controller{
     {
         session_destroy();
 
-        $this->request->redirect('/admin/auth/login')->with('success', 'Vous avez été déconnectez avec succès.');
+        $this->request->redirect('/admin/auth/login', ['flashMessage', 'Vous avez été déconnectez avec succès.']);
+    }
+
+    public function register()
+    {
+
+        $form = new UserRegisterForm();
+        $userRegister = $form->getForm();
+
+        $this->render("admin/registration/register.phtml", ['userRegister'=>$userRegister]);
     }
 
     public function store()
@@ -121,15 +121,14 @@ class AdminAuthController extends Controller{
         if($this->request->isPost()){
 
             $data = $this->request->getBody();
-            
-            //['db_user' => $db_user, 'db_password' => $db_password, 'db_name' => $db_name, 'db_host' => $db_host] = $this->request->getBody();
-           
+
             $errors = $this->validator->validate($this->userModel, $data);
 
             if(empty($errors)){
                 if (empty($this->userQuery->getByEmail($data['email'])))
                 {
-                    if($this->userQuery->create($data))
+                    $createQuery = new UserQuery();
+                    if($createQuery->create($data))
                     {
                         $verifiedQuery = new UserQuery();
                         $token_verified = $verifiedQuery->getTokenVerified($data['email']);
@@ -145,16 +144,19 @@ class AdminAuthController extends Controller{
                         $email = new UserRegisterValidationEmail();
 
                         if ($email->sendEmail($data['email'], $generateUrl)){
-                           $this->request->redirect('/')->with('success', 'Votre compte a bien été créer, avant de vous connecter vous devez le vérifier en cliquant sur le lien reçu par email. ');
+                           $this->request->redirect('/admin/auth/login');
                         }
                     }
                 }
                 else{
-                    $this->request->redirectToLast()->with('error', 'Un compte goSchool utilisant cette adresse email existe déjà.');
+                    $this->request->redirect('/admin/auth/register', ['flashMessage', 'Un compte goSchool utilisant cette adresse email existe déjà.']);
                 }
             }
             else{
-                $this->request->redirectToLast()->with('errors', $errors);
+                $form = new UserRegisterForm();
+                $userRegister = $form->getForm();
+
+                $this->render("admin/registration/register.phtml", ['userRegister'=>$userRegister, 'errors'=>$errors]);
             }
         }
     }
@@ -164,12 +166,14 @@ class AdminAuthController extends Controller{
         $dataFromRequest = $this->request->getBody();
 
         $dataToUpdate = [
-            'verified' => 1
+            'verified' => '1'
         ];
 
         if(!empty($this->userQuery->getByEmailTokenVerified($dataFromRequest['email'], $dataFromRequest['token_verified']))){
 
-            if ($this->userQuery->updateVerified($dataToUpdate, $dataFromRequest['email'], $dataFromRequest['token_verified'])){
+            $updateQuery = new UserQuery();
+
+            if ($updateQuery->updateVerified($dataToUpdate, $dataFromRequest['email'], $dataFromRequest['token_verified'])){
 
                 $this->render("admin/registration/verifyRegister.phtml");
 
@@ -181,7 +185,7 @@ class AdminAuthController extends Controller{
             $verifiedValue = $verifiedQuery->getByEmailAndToken($dataFromRequest['email'], $dataFromRequest['token_verified']);
 
             if ($verifiedValue['verified'] == 1){
-             $this->request->redirect('/')->with('error', 'Votre compte goSchool est déjà vérifié.');
+             $this->request->redirect('/admin/auth/login', ['flashMessage', 'Votre compte goSchool est déjà vérifié.']);
             }
             else{
                 die('403 FORBIDDEN');
@@ -231,15 +235,15 @@ class AdminAuthController extends Controller{
                         $email = new UserResetPasswordEmail();
 
                         if ($email->sendEmail($emailTo, $generateUrl)){
-                            $this->request->redirect('/admin/auth/lostpassword')->with('success', 'Succès ! Un email de réinitialisation vous a été envoyé !');
+                            $this->request->redirect('/admin/auth/lostpassword', ['flashMessage', 'Succès ! Un email de réinitialisation vous a été envoyé !']);
                         }
                         else{
-                            $this->request->redirect('/admin/auth/lostpassword')->with('error', 'Impossible de vous envoyez un mail');
+                            $this->request->redirect('/admin/auth/lostpassword', ['flashMessage', 'Impossible de vous envoyez un mail']);
                         }
                     }
                 }
                 else {
-                    $this->request->redirect('/admin/auth/lostpassword')->with('error', 'Erreur, aucun compte goSchool est relié à l\'email fourni.');
+                    $this->request->redirect('/admin/auth/lostpassword', ['flashMessage', 'Erreur, aucun compte goSchool est relié à l\'email fourni.']);
                 }
             }
             else{
@@ -250,7 +254,7 @@ class AdminAuthController extends Controller{
             }
         }
         else {
-            $this->request->redirect('/admin/auth/lostpassword')->with('error', 'Il y a eu une erreur.');
+            $this->request->redirect('/admin/auth/lostpassword', ['flashMessage', 'Il y a eu une erreur.']);
         }
     }
 
@@ -263,7 +267,7 @@ class AdminAuthController extends Controller{
 
             if (empty($selector) || empty($validator))
             {
-               // $this->request->redirect('/')->with('error', 'Impossible de valider votre requête. ');
+                $this->request->redirect('/admin/auth/lostpassword', ['flashMessage', 'Impossible de valider votre requête.']);
             }
             else {
                 if (ctype_xdigit($selector) !== false && ctype_xdigit($validator) != false)
@@ -273,7 +277,7 @@ class AdminAuthController extends Controller{
                     $this->render("admin/registration/resetpassword.phtml", ['userResetPassword' => $userResetPassword]);
                 }
                 else{
-                    die('Impossible de valider votre requête');
+                    $this->request->redirect('/admin/auth/lostpassword', ['flashMessage', 'Impossible de valider votre requête.']);
                 }
             }
         }
@@ -295,20 +299,21 @@ class AdminAuthController extends Controller{
                 $currentDate = date('U');
                 $result = $this->lostPasswordQuery->getBySelectorAndExpires($selector, $currentDate);
 
-                if (!$this->lostPasswordQuery->getBySelectorAndExpires($selector, $currentDate)) {
-                    $this->request->redirect('/admin/auth/lostpassword')->with('error', 'Il y a eu une erreur, ce lien de renouvellement de mot de passe a expiré.');
+                $lostPasswordQuery = new LostPasswordQuery();
+                if (!$lostPasswordQuery->getBySelectorAndExpires($selector, $currentDate)) {
+                    $this->request->redirect('/admin/auth/lostpassword', ['flashMessage', 'Il y a eu une erreur, ce lien de renouvellement de mot de passe a expiré.']);
                 } else {
                     $tokenbin = $this->token->hex2bin($validator);
                     $tokenCheck = $this->hashToken->compareHash($tokenbin, $result['token']);
 
                     if ($tokenCheck === false) {
-                        $this->request->redirect('/admin/auth/lostpassword')->with('error', 'Il y a eu une erreur, vous devez refaire une demande de réinitialisation de mot de passe.');
+                        $this->request->redirect('/admin/auth/lostpassword', ['flashMessage', 'Il y a eu une erreur, vous devez refaire une demande de réinitialisation de mot de passe.']);
                     } elseif ($tokenCheck === true) {
 
                         $tokenEmail = $result['email'];
 
                         if (!$this->userQuery->getByEmail($tokenEmail)) {
-                            $this->request->redirect('/admin/auth/lostpassword')->with('error', 'Il y a eu une erreur, vous devez refaire une demande de réinitialisation de mot de passe.');
+                            $this->request->redirect('/admin/auth/lostpassword', ['flashMessage', 'Il y a eu une erreur, vous devez refaire une demande de réinitialisation de mot de passe.']);
                         } else {
                             $newPasswordHash = $this->hashToken->passwordHash($password);
                             $value = array(
@@ -318,9 +323,9 @@ class AdminAuthController extends Controller{
                             $userUpdateQuery = new UserQuery();
 
                             if (!$userUpdateQuery->updatePassword($value, $tokenEmail)) {
-                                $this->request->redirect('/admin/auth/lostpassword')->with('error', 'Il y a eu une erreur, vous devez refaire une demande de réinitialisation de mot de passe.');
+                                $this->request->redirect('/admin/auth/lostpassword', ['flashMessage', 'Il y a eu une erreur, vous devez refaire une demande de réinitialisation de mot de passe.']);
                             } else {
-                                //$this->request->redirect('/')->with('changePasswordSuccess', 'Votre demande de réinitialisation de mot de passe a bien été prise en compte. Veuillez vous connecter.');
+                                $this->request->redirect('/admin/auth/login', ['flashMessage', 'Votre demande de réinitialisation de mot de passe a bien été prise en compte. Veuillez vous connecter.']);
                             }
                         }
                     }
