@@ -13,7 +13,7 @@ class create_parameters_table_migration
             `site_name` VARCHAR(55) NOT NULL DEFAULT 'Mon site',
             `url` VARCHAR(255) NULL,
             `visible` VARCHAR(25) DEFAULT 'Publique',
-            `default_role` BIGINT(20) DEFAULT '7',
+            `default_role` BIGINT(20) DEFAULT '9',
             `default_article_category` BIGINT(20) DEFAULT '1',
             `mail_host` VARCHAR(30) NULL,
             `mail_port` VARCHAR(30) NULL,
