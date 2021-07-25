@@ -43,20 +43,18 @@ class Session{
 
     public function getMessage($key)
     {
-        return $_SESSION[self::FLASH_KEY][$key]['value'] ?? [];
-    }
+        $message = $_SESSION[self::FLASH_KEY][$key]['value'] ?? [];
+        $this->delete($key);
 
-    public function __destruct()
-    {
-        
-        $messages = $_SESSION[self::FLASH_KEY] ?? [];
-
-        foreach($messages as $key => $message){
-            if(array_key_exists('remove', $messages)){
-                unset($messages[$key]);
-            }
+        if (!is_null($message)){
+            return $message;
         }
 
-        $_SESSION[self::FLASH_KEY] = $messages;
+        return null;
+    }
+
+    public function delete(string $key) :void
+    {
+        unset($_SESSION[self::FLASH_KEY][$key]);
     }
 }
