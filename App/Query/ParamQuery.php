@@ -19,7 +19,7 @@ class ParamQuery{
      */
     public function getParam()
     {
-        $query = $this->builder->select('site_name, url, visible, default_role, default_article_category, mail_host, mail_port, mail_login, mail_pass, default_home_page, post_show_count, description, lang')->from("parameters");
+        $query = $this->builder->select('site_name, url, visible, default_role, default_article_category, mail_host, mail_port, mail_login, mail_pass, default_home_page, post_show_count, description, lang, twitter, instagram, facebook, linkedin')->from("parameters");
         return $query->getResult();
     }
 
