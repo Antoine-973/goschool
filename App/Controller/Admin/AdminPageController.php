@@ -125,7 +125,7 @@ class AdminPageController extends Controller {
             $errors = $this->validator->validate($this->pageModel, $data);
 
             if (empty($errors)) {
-                
+
                 if ($this->pageQuery->updatePage($data, $id)) {
 
                     $this->request->redirect('/admin/page/list')->with('success', 'La page a bien été édité');

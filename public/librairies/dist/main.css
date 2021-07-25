@@ -1379,6 +1379,67 @@ select::-ms-expand {
   color: #00A2AC;
 }
 
+.error-body {
+  background-color: 363740;
+  background: radial-gradient(at 50% -20%, #363740, #0d060e) fixed;
+  /*************swing************/
+  /*************swing hair************/
+}
+.error-body #handboy {
+  -webkit-animation: swing ease-in-out 1.3s infinite alternate;
+          animation: swing ease-in-out 1.3s infinite alternate;
+  transform-origin: 98% 98%;
+  transform-box: fill-box;
+}
+.error-body #girllight {
+  -webkit-animation: swing ease-in-out 1.3s infinite alternate;
+          animation: swing ease-in-out 1.3s infinite alternate;
+  transform-origin: 0% 97%;
+  transform-box: fill-box;
+}
+.error-body #hairgirl {
+  -webkit-animation: swinghair ease-in-out 1.3s infinite alternate;
+          animation: swinghair ease-in-out 1.3s infinite alternate;
+  transform-origin: 60% 0%;
+  transform-box: fill-box;
+}
+.error-body #zero {
+  transform-origin: bottom;
+  transform-box: fill-box;
+}
+@-webkit-keyframes swing {
+  0% {
+    transform: rotate(10deg);
+  }
+  100% {
+    transform: rotate(-10deg);
+  }
+}
+@keyframes swing {
+  0% {
+    transform: rotate(10deg);
+  }
+  100% {
+    transform: rotate(-10deg);
+  }
+}
+@-webkit-keyframes swinghair {
+  0% {
+    transform: rotate(6deg);
+  }
+  100% {
+    transform: rotate(-6deg);
+  }
+}
+@keyframes swinghair {
+  0% {
+    transform: rotate(6deg);
+  }
+  100% {
+    transform: rotate(-6deg);
+  }
+}
+
 body {
   font-family: "PT Sans", sans-serif;
   background-color: #f3f3f3;
@@ -1676,7 +1737,8 @@ body.admin-login .col-6.connexion-form .container-form .form-input input[type=su
 }
 .site-main--nav ul li {
   float: left;
-  margin-left: 25px;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
   font-size: 1.3em;
 }
 .site-main--nav ul li a {
@@ -1745,9 +1807,7 @@ body.admin-login .col-6.connexion-form .container-form .form-input input[type=su
 .site-main--content--articles {
   color: #363740;
   display: flex;
-  border: 0.75em solid #F9F9F9;
   padding: 2em;
-  align-items: center;
   justify-content: center;
 }
 .site-main--content--articles .data-card {
@@ -1755,8 +1815,6 @@ body.admin-login .col-6.connexion-form .container-form .form-input input[type=su
   flex-direction: column;
   max-width: 20.75em;
   min-height: 20.75em;
-  overflow: hidden;
-  border-radius: 0.5em;
   text-decoration: none;
   background: #F9F9F9;
   margin: 1em;

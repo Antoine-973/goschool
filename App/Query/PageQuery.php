@@ -105,6 +105,11 @@ class PageQuery
         return $query->getResult();
     }
 
+    public function getPageByUrl($url){
+        $query = $this->builder->select("id")->from("pages")->where("url = $url", "status = Publié");
+        return $query->getResult();
+    }
+
     /**
      * @return array $data
      */

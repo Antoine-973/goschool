@@ -18,6 +18,15 @@ class Template
         include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR. "App" . DIRECTORY_SEPARATOR . "Views" . DIRECTORY_SEPARATOR . "layouts" .  DIRECTORY_SEPARATOR . "siteLayout.phtml";
         return \ob_get_clean();
     }
+
+    public function getErrorLayout()
+    {
+        $data['helper'] = $this->helper;
+        \ob_start();
+        extract($data, EXTR_SKIP);
+        include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR. "App" . DIRECTORY_SEPARATOR . "Views" . DIRECTORY_SEPARATOR . "layouts" .  DIRECTORY_SEPARATOR . "errorLayout.phtml";
+        return \ob_get_clean();
+    }
     
     public function getAdminLayout()
     {

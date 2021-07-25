@@ -78,12 +78,4 @@ class HomeController extends Controller{
             }
         }
     }
-
-    public function updateComment(){
-
-    }
-
-    public function deleteComment(){
-
-    }
 }

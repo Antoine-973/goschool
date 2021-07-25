@@ -32,6 +32,11 @@ class Controller{
             $adminLayout = $template->getAdminLayout();
             echo \str_replace('{{content}}', $viewContent, $adminLayout);
         }
+        elseif(strpos($namespace[count($namespace)-1], 'Error') !== false){
+
+            $adminLayout = $template->getErrorLayout();
+            echo \str_replace('{{content}}', $viewContent, $adminLayout);
+        }
         else{
             $siteLayout = $template->getSiteLayout();
             echo \str_replace('{{content}}', $viewContent, $siteLayout);
