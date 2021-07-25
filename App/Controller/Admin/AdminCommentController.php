@@ -54,7 +54,7 @@ class AdminCommentController extends Controller
             $this->render("admin/comment/listComment.phtml", ['comments'=>$comments]);
         } else {
             $request = new \Core\Http\Request();
-            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits necessaires pour accéder à cette section du back office.');
+            $request->redirect('/admin/dashboard/index', ['flashMessage','Vous n\'avez pas les droits necessaires pour accéder à cette section du back office.']);
         }
 
     }
@@ -83,10 +83,10 @@ class AdminCommentController extends Controller
 
             if(empty($errors)) {
                 if($this->commentQuery->updateComment($data, $id)) {
-                    $this->request->redirect('/admin/comment/list')->with('success', 'Le commentaire a bien été éditée');
+                    $this->request->redirect('/admin/comment/list', ['flashMessage', 'Le commentaire a bien été éditée']);
                 }
                 else{
-                    $this->request->redirect('/admin/comment/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/comment/list', ['flashMessage', 'Une erreur c\'est produite veuillez réessayer']);
                 }
             }
             else{
@@ -109,9 +109,9 @@ class AdminCommentController extends Controller
 
             if ($user_id && $testPermission->has_permission($user_id, 'crud_comment')) {
                 if($this->commentQuery->deleteComment($id)) {
-                    $this->request->redirect('/admin/comment/list')->with('success', 'Le commentaires a bien été supprimé');
+                    $this->request->redirect('/admin/comment/list', ['flashMessage', 'Le commentaires a bien été supprimé']);
                 } else {
-                    $this->request->redirect('/admin/comment/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/comment/list', ['flashMessage', 'Une erreur c\'est produite veuillez réessayer']);
                 }
             }
         }
