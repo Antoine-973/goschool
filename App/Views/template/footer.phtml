@@ -11,14 +11,15 @@ $paramQuery = new App\Query\ParamQuery();
 $haveSocial = $paramQuery->getSocials();
 $paramQuery = new App\Query\ParamQuery();
 $description = $paramQuery->getDescription()['description'];
-
+$paramQuery = new App\Query\ParamQuery();
+$siteName = $paramQuery->getSiteName();
 ?>
 
 <footer class="site-main--footer">
     <div class="container">
         <div class="row">
             <div class="col-6">
-                    <h6>About</h6>
+                    <h6>À propos</h6>
                     <p>
                         <?= !is_null($description) ? $description : "Un site crée et propulsé par GoSchool" ; ?>
                     </p>
@@ -72,7 +73,7 @@ $description = $paramQuery->getDescription()['description'];
         <div class="row">
             <div class="col-8">
                 <p>
-                    Copyright &copy; 2021 - Tous droits réservés par <a href="#">GoSchool</a>.
+                    Copyright &copy; 2021 - Tous droits réservés par <a href="/"><?php echo $siteName['site_name'] ?></a>.
                 </p>
             </div>
             <div class="col-4">
