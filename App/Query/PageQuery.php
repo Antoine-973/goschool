@@ -75,7 +75,7 @@ class PageQuery
      */
     public function getPages()
     {
-        $query = $this->builder->select("pages.id, title, users.email, status, pages.created_at")->from("pages")->join('INNER', 'pages', 'user_id', 'users', 'id');
+        $query = $this->builder->select("pages.id, title, users.fullname, status, pages.created_at")->from("pages")->join('INNER', 'pages', 'user_id', 'users', 'id');
 
         return $query->getResult();
     }

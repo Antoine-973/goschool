@@ -105,7 +105,7 @@ class ArticleQuery
      */
     public function getArticles()
     {
-        $query = $this->builder->select('articles.id, title, categories.name, users.email, status, articles.created_at')->from("articles")->join('INNER', 'articles', 'categorie_id', 'categories', 'id')->join('INNER', 'articles', 'user_id', 'users', 'id');
+        $query = $this->builder->select('articles.id, title, categories.name, users.fullname, status, articles.created_at')->from("articles")->join('INNER', 'articles', 'categorie_id', 'categories', 'id')->join('INNER', 'articles', 'user_id', 'users', 'id');
         return $query->getResult();
     }
 
