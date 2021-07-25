@@ -52,7 +52,7 @@ class AdminCategoryController extends Controller {
             $this->render("admin/category/listCategory.phtml", ['categories'=>$categories]);
         } else {
             $request = new \Core\Http\Request();
-            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour accéder à cette section du back office.');
+            $request->redirect('/admin/dashboard/index', ['flashMessage','Vous n\'avez pas les droits nécessaires pour accéder à cette section du back office.']);
         }
     }
 
@@ -69,7 +69,7 @@ class AdminCategoryController extends Controller {
             $this->render("admin/category/addCategory.phtml", ['categoryAdd'=>$categoryAddForm]);
         } else {
             $request = new \Core\Http\Request();
-            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour ajouter des catégories.');
+            $request->redirect('/admin/dashboard/index', ['flashMessage','Vous n\'avez pas les droits nécessaires pour ajouter des catégories.']);
         }
     }
 
@@ -82,10 +82,10 @@ class AdminCategoryController extends Controller {
             if(empty($errors)){
                 if($this->categoryQuery->create($data))
                 {
-                    $this->request->redirect('/admin/category/list')->with('success', 'La catégorie a bien été créee');
+                    $this->request->redirect('/admin/category/list', ['flashMessage', 'La catégorie a bien été créee']);
                 }
                 else{
-                    $this->request->redirect('/admin/category/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/category/list', ['flashMessage', 'Une erreur c\'est produite veuillez réessayer']);
                 }
             }
             else {
@@ -109,7 +109,7 @@ class AdminCategoryController extends Controller {
             $this->render("admin/category/editCategory.phtml", ['categoryEdit'=>$categoryEditForm]);
         } else {
             $request = new \Core\Http\Request();
-            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour éditer cette catégorie.');
+            $request->redirect('/admin/dashboard/index', ['flashMessage','Vous n\'avez pas les droits nécessaires pour éditer cette catégorie.']);
         }
     }
 
@@ -121,10 +121,10 @@ class AdminCategoryController extends Controller {
 
             if(empty($errors)) {
                 if($this->categoryQuery->updateCategory($data, $id)) {
-                    $this->request->redirect('/admin/category/list')->with('success', 'La catégorie a bien été éditée');
+                    $this->request->redirect('/admin/category/list', ['flashMessage', 'La catégorie a bien été éditée']);
                 }
                 else{
-                    $this->request->redirect('/admin/category/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/category/list', ['flashMessage', 'Une erreur c\'est produite veuillez réessayer']);
                 }
             }
             else{
@@ -146,13 +146,13 @@ class AdminCategoryController extends Controller {
 
             if ($user_id && $testPermission->has_permission($user_id, 'crud_categorie')) {
                 if($this->categoryQuery->deleteCategory($id)) {
-                    $this->request->redirect('/admin/category/list')->with('success', 'La catégorie a bien été supprimé');
+                    $this->request->redirect('/admin/category/list', ['flashMessage', 'La catégorie a bien été supprimé']);
                 } else {
-                    $this->request->redirect('/admin/category/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/category/list', ['flashMessage', 'Une erreur c\'est produite veuillez réessayer']);
                 }
             } else {
                 $request = new \Core\Http\Request();
-                $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour supprimer cette catégorie.');
+                $request->redirect('/admin/dashboard/index', ['flashMessage','Vous n\'avez pas les droits nécessaires pour supprimer cette catégorie.']);
             }
         }
     }
