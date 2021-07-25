@@ -1,5 +1,7 @@
 <?php
 namespace Core\Routing;
+use App\Query\ArticleQuery;
+use App\Query\PageQuery;
 use Core\Http\Request;
 use Core\Middleware\AuthMiddleware;
 use App\Controller\Admin\AdminAuthController;
@@ -11,6 +13,7 @@ class DynamicRouting {
         
         $request = new Request();
         $path = trim($request->getPath(), '/');
+        $arr = explode('/', $path);
 
         $controller = $this->getController($path);
         $action = $this->getAction($path);
@@ -20,13 +23,25 @@ class DynamicRouting {
 
         $dir = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'App' . DIRECTORY_SEPARATOR . 'Controller' . DIRECTORY_SEPARATOR;
 
+        $adminfile = $admin_dir. $controller . '.php';
+        $sitefile = $dir. $controller . '.php';
+
+
+        if (\file_exists($adminfile)){
+            if (method_exists("App\\Controller\\Admin\\" . $controller, $action)) {
+
+            }
+            else{
+                $this->resolve404();
+            }
+        }
+        elseif ($controller != 'HomeController'){
+            $this->resolve404();
+        }
 
         if(AuthMiddleware::adminRoute($path)){
           AuthMiddleware::isAuth();
         }
-
-        $adminfile = $admin_dir. $controller . '.php';
-        $sitefile = $dir. $controller . '.php';
 
         $this->resolveAdmin($adminfile, $controller, $action, $params);
         $this->resolveSite($sitefile, $controller, $action, $params);
@@ -37,17 +52,19 @@ class DynamicRouting {
     public function getAction($path)
     {
         $arr = explode('/', $path);
-        $action = 'index';
 
-        if(count($arr) >= 2){
-            if($arr[0] == 'admin'){
+        if ($arr[0] == 'admin'){
+            if(count($arr) >= 3) {
                 $action =  $arr[2];
-            }elseif($arr[0] == 'article'){
-                $action =  $arr[0];
             }
             else{
-                $action =  $arr[1];
+                $action = '';
             }
+        }elseif($arr[0] == 'article'){
+            $action =  $arr[0];
+        }
+        else{
+            $action =  'index';
         }
         return $action;
     }
@@ -93,14 +110,24 @@ class DynamicRouting {
             include_once($file);
             $class = "App\\Controller\\Admin\\" . $controller;
             $controller = new $class();
-            
-            if($params){
-          
-                $controller->$action(implode(',', $params));
+
+            if (method_exists($controller,$action)){
+                if($params){
+                    $controller->$action(implode(',', $params));
                 }else{
                     $controller->$action();
                 }
             }
+            else{
+                $this->resolve404();
+            }
+        }
+        elseif ($controller == 'HomeController'){
+
+        }
+        else{
+            $this->resolve404();
+        }
     }
 
     public function resolveSite($file, $controller, $action, $params)
@@ -108,14 +135,49 @@ class DynamicRouting {
         if(\file_exists($file)){
             include_once($file);
 
-            $class =  "App\\Controller\\" . $controller;
-            $controller = new $class();
-            if($params){
-                $controller->$action(implode(',', $params));
-            }else{
-                $controller->$action();
+            $request = new Request();
+            $path = trim($request->getPath(), '/');
+            $arr = explode('/', $path);
+            $action = 'index';
+
+            $articleQuery = new ArticleQuery();
+            $pageQuery = new PageQuery();
+
+            if ($arr[0] == 'article' && count($arr) > 1){
+                if ($articleQuery->getArticleBySlug($arr[1])){
+                    $class =  "App\\Controller\\" . $controller;
+                    $controller = new $class();
+                    if($params){
+                        $controller->$action(implode(',', $params));
+                    }else{
+                        $controller->$action();
+                    }
+                }
+                else{
+                    $this->resolve404();
+                }
+            }
+            elseif ($pageQuery->getPageByUrl('/' . $arr[0])){
+                $class =  "App\\Controller\\" . $controller;
+                $controller = new $class();
+                if($params){
+                    $controller->$action(implode(',', $params));
+                }else{
+                    $controller->$action();
+                }
+            }
+            else{
+                $this->resolve404();
             }
         }
+    }
+
+    public function resolve404(){
+        $class =  "App\\Controller\\ErrorController";
+        $controller = new $class();
+        $action ='error404';
+
+        $controller->$action();
     }
     
 }

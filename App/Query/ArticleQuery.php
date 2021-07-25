@@ -109,6 +109,11 @@ class ArticleQuery
         return $query->getResult();
     }
 
+    public function getArticleBySlug($slug){
+        $query = $this->builder->select("id")->from("articles")->where("slug = $slug", "status = Publié");
+        return $query->getResult();
+    }
+
     /**
      * @return array $data
      */
