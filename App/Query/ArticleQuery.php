@@ -146,7 +146,7 @@ class ArticleQuery
      */
     public function getArticlesSlug()
     {
-        $query = $this->builder->select('slug')->from("articles");
+        $query = $this->builder->select('slug')->from("articles")->orderBy('id','ASC');
         return $query->getResult();
     }
 
