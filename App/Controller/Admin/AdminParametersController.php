@@ -38,7 +38,7 @@ class AdminParametersController extends Controller{
             $this->render("admin/parameters/param.phtml");
         } else {
             $request = new \Core\Http\Request();
-            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour accéder au paramètre de GoSchool.');
+            $request->redirect('/admin/dashboard/index', ['flashMessage','Vous n\'avez pas les droits nécessaires pour accéder au paramètre de GoSchool.']);
         }
     }
 
@@ -47,11 +47,11 @@ class AdminParametersController extends Controller{
             $data = $this->request->getBody();
             if ($this->paramQuery->updateParam($data, '1')){
                 $request = new \Core\Http\Request();
-                $request->redirect('/admin/parameters/index')->with('success','Les paramètres de GoSchool ont été mis à jour.');
+                $request->redirect('/admin/parameters/index', ['flashMessage','Les paramètres de GoSchool ont été mis à jour.']);
             }
             else{
                 $request = new \Core\Http\Request();
-                $request->redirect('/admin/parameters/index')->with('error','Une erreur c\'est produite.');
+                $request->redirect('/admin/parameters/index', ['flashMessage','Une erreur c\'est produite.']);
             }
         }
     }
