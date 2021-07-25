@@ -45,7 +45,9 @@ class AdminParametersController extends Controller{
     public function update(){
         if ($this->request->isPost()){
             $data = $this->request->getBody();
-            if ($this->paramQuery->updateParam($data, '1')){
+            //var_dump($data);die;
+            $paramQuery = new ParamQuery();
+            if ($paramQuery->updateParam($data, '1')){
                 $request = new \Core\Http\Request();
                 $request->redirect('/admin/parameters/index')->with('success','Les paramètres de GoSchool ont été mis à jour.');
             }

@@ -29,7 +29,7 @@
 
                         <div class="row">
                             <label for="name">Nom du site </label>
-                            <input type="text" value="<?= $parameters['site_name'] ?>" name="name">
+                            <input type="text" value="<?= $parameters['site_name'] ?>" name="site_name">
                         </div>
                         <br>
                         <div class="row">
@@ -108,15 +108,15 @@
                         </div>
                         <br>
                         <div class="row">
-                            <label for="mail_password">Mot de passe </label>
-                            <input type="password" id="mail_password"  name="mail_password">
+                            <label for="mail_pass">Mot de passe </label>
+                            <input type="pass" id="mail_pass"  name="mail_pass">
                         </div>
                         <br>
                         <h2>Affichage</h2>
                         <div class="row">
                             <label for="default_home_page">Page d'accueil du site</label>
                             <select name="default_home_page" id="default_home_page">
-                                <option value="Page d'accueil GoSchool par défaut">Page d'accueil GoSchool par défaut</option>
+                                <option value="Accueil">Page d'accueil GoSchool par défaut</option>
                                 <?php foreach ($pages as $page){ ?>
                                     <?php if ($parameters['default_home_page'] == $page){ ?>
                                         <option value="<?= $page ?>" selected><?= $page ?></option>

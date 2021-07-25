@@ -65,7 +65,7 @@ class PageQuery
      */
     public function getPageIdByTitle(string $title)
     {
-        $query = $this->builder->select('id')->from("categories")->where("title = $title");
+        $query = $this->builder->select('id')->from("pages")->where("title = $title");
         return $query->getResult();
     }
 

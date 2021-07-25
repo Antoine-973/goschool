@@ -19,7 +19,7 @@ class ParamQuery{
      */
     public function getParam()
     {
-        $query = $this->builder->select('site_name, url, visible, default_role, default_article_category, mail_host, mail_port, mail_login, mail_password, default_home_page, post_show_count, description, lang')->from("parameters");
+        $query = $this->builder->select('site_name, url, visible, default_role, default_article_category, mail_host, mail_port, mail_login, mail_pass, default_home_page, post_show_count, description, lang')->from("parameters");
         return $query->getResult();
     }
 
@@ -48,7 +48,7 @@ class ParamQuery{
         $data['default_role'] = $roleQuery->getIdbyName($data['default_role'])['id'];
         $data['default_article_category'] = $categoryQuery->getCategoriesIdByName($data['default_article_category'])['id'];
         $data['default_home_page'] = $pageQuery->getPageIdByTitle($data['default_home_page'])['id'];
-        $data['mail_password'] = $hash->passwordHash($data['mail_password']);
+        $data['mail_pass'] = $hash->passwordHash($data['mail_pass']);
 
         $query = $this->builder->update("parameters")->set($data)->where("id = $id")->save();
         return $query;
