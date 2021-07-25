@@ -6,10 +6,8 @@
             <?php use Core\Util\Table; ?>
             <?php $verifTable = new Table() ?>
 
-            <?php if(($message = $helper->getFlashMessage('success'))):?>
+            <?php if(($message = $helper->getFlashMessage('flashMessage'))):?>
                 <p><?php echo $message;?></p>
-            <?php elseif(($message = $helper->getFlashMessage('error'))):?>
-                <p> <?php echo $message;?></p>
             <?php endif;?>
 
             <table id="articles_table" class="display dataTable">

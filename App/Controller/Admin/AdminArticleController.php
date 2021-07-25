@@ -64,7 +64,7 @@ class AdminArticleController extends Controller {
         }
         else{
             $request = new \Core\Http\Request();
-            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour accéder à cette section du back office.');
+            $request->redirect('/admin/dashboard/index', ['flashMessage','Vous n\'avez pas les droits nécessaires pour accéder à cette section du back office.']);
         }
     }
 
@@ -83,7 +83,7 @@ class AdminArticleController extends Controller {
         }
         else{
             $request = new \Core\Http\Request();
-            $request->redirect('/admin/dashboard/index')->with('error','Vous n\'avez pas les droits nécessaires pour accéder à cette section du back office.');
+            $request->redirect('/admin/dashboard/index', ['flashMessage','Vous n\'avez pas les droits nécessaires pour accéder à cette section du back office.']);
         }
     }
 
@@ -99,10 +99,10 @@ class AdminArticleController extends Controller {
             if(empty($errors)){
                 if($this->articleQuery->create($data))
                 {
-                    $this->request->redirect('/admin/article/list')->with('success', 'L\'article a bien été publié');
+                    $this->request->redirect('/admin/article/list', ['flashMessage', 'L\'article a bien été créé']);
                 }
                 else{
-                    $this->request->redirect('/admin/article/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/article/list', ['flashMessage', 'Une erreur c\'est produite veuillez réessayer']);
                 }
             }
             else {
@@ -126,7 +126,7 @@ class AdminArticleController extends Controller {
                 $editArticle = $form->getForm();
                 $this->render("admin/article/editArticle.phtml", ['editArticle' => $editArticle]);
             } else {
-                $this->request->redirect('/admin/article/list')->with('error', 'Vous n\'avez pas les droits nécessaire pour modifier cet article.');
+                $this->request->redirect('/admin/article/list', ['flashMessage', 'Vous n\'avez pas les droits nécessaire pour modifier cet article.']);
             }
         }
     }
@@ -142,10 +142,10 @@ class AdminArticleController extends Controller {
                 $updateArticleQuery = new ArticleQuery();
 
                 if($updateArticleQuery->updateArticle($data, $id)) {
-                    $this->request->redirect('/admin/article/list')->with('success', 'L\'article a bien été édité');
+                    $this->request->redirect('/admin/article/list', ['flashMessage', 'L\'article a bien été édité']);
                 }
                 else{
-                    $this->request->redirect('/admin/article/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/article/list', ['flashMessage', 'Une erreur c\'est produite veuillez réessayer']);
                 }
             }else{
                 $form = new ArticleEditForm();
@@ -168,13 +168,13 @@ class AdminArticleController extends Controller {
 
                 if($deleteQuery->deleteArticle($id)) {
 
-                    $this->request->redirect('/admin/article/list')->with('success', 'L\'article a bien été supprimé');
+                    $this->request->redirect('/admin/article/list', ['flashMessage', 'L\'article a bien été supprimé']);
                 }else {
-                    $this->request->redirect('/admin/article/list')->with('error', 'Une erreur c\'est produite veuillez réessayer');
+                    $this->request->redirect('/admin/article/list', ['flashMessage', 'Une erreur c\'est produite veuillez réessayer']);
                     }
             }
             else{
-                $this->request->redirect('/admin/article/list')->with('error', 'Vous n\'avez pas les droits nécessaire pour supprimer cet article.');
+                $this->request->redirect('/admin/article/list', ['flashMessage', 'Vous n\'avez pas les droits nécessaire pour supprimer cet article.']);
             }
         }
     }
