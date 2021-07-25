@@ -99,6 +99,12 @@ class PageQuery
         return $query->getResult();
     }
 
+    public function getContentByUrl($url){
+        $query = $this->builder->select("content")->from("pages")->where("url = $url", "status = Publié");
+
+        return $query->getResult();
+    }
+
     /**
      * @return array $data
      */

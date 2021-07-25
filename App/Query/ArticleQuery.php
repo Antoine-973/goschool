@@ -65,6 +65,12 @@ class ArticleQuery
 
         return $query->getResult();
     }
+
+    public function getContentBySlug($slug){
+        $query = $this->builder->select("content")->from("articles")->where("slug = $slug", "status = Publié");
+
+        return $query->getResult();
+    }
     
     /**
      * @param string $tag
