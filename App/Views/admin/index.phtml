@@ -92,45 +92,51 @@
                 <div class="shadow shadow--none">
                     <h4>Les 3 derniers inscrit.</h4>
                     <?php $verifTable = new \Core\Util\Table() ?>
-                    <ul>
-                        <?php if ($users && $verifTable->is_multi($users)) { ?>
-                            <?php foreach($users as $user) { ?>
-                                <li>
+                    <?php if (!empty($users)){ ?>
+                        <ul>
+                            <?php if ($users && $verifTable->is_multi($users)) { ?>
+                                <?php foreach($users as $user) { ?>
+                                    <li>
                                         <?php echo $user['lastname'] ?> <?php echo $user['firstname'] ?> <?php echo $user['role'] ?><br>
                                         <?php echo $user['created_at'] ?><br><br>
+                                    </li>
+                                <?php } ?>
+                            <?php }
+                            elseif (!$verifTable->is_multi($users)) { ?>
+                                <li>
+                                    <?php echo $users['lastname'] ?> <?php echo $users['firstname'] ?> <?php echo $users['role'] ?><br>
+                                    <?php echo $users['created_at'] ?><br><br>
                                 </li>
                             <?php } ?>
-                        <?php }
-                        elseif (!$verifTable->is_multi($users)) { ?>
-                                <li>
-                                        <?php echo $users['lastname'] ?> <?php echo $users['firstname'] ?> <?php echo $users['role'] ?><br>
-                                        <?php echo $users['created_at'] ?><br><br>
-                                </li>
-                        <?php } else { ?>
-                            <li>Il n'y a pas encore d'utilisateur.<br>
+                        </ul>
+                    <?php } else { ?>
+                        <li>Il n'y a pas encore d'utilisateur.<br>
                             <a href="/admin/user/add" class="btn btn--sm"><i class="fas fa-plus-circle"></i> Ajouter </a>
-                            </li>
-                        <?php } ?>
-                    </ul>
+                        </li>
+                    <?php } ?>
                 </div>
             </div>
             <div class="col-gutter-2">
                 <div class="shadow shadow--none">
                     <h4>Les 3 derniers articles.</h4>
                     <ul>
-                        <?php if ($articles && $verifTable->is_multi($articles)) { ?>
-                            <?php foreach($articles as $article) { ?>
-                                <li>
-                                    <?php echo $article['title'] ?><br>
-                                    <?php echo $article['created_at'] ?><br><br>
-                                </li>
-                            <?php } ?>
-                        <?php } 
-                        elseif (!$verifTable->is_multi($articles)) { ?>
+                        <?php if (!empty($articles)){ ?>
+
+                            <?php if ($articles && $verifTable->is_multi($articles)) { ?>
+                                <?php foreach($articles as $article) { ?>
+                                    <li>
+                                        <?php echo $article['title'] ?><br>
+                                        <?php echo $article['created_at'] ?><br><br>
+                                    </li>
+                                <?php } ?>
+                            <?php }
+                            elseif (!$verifTable->is_multi($articles)) { ?>
                                 <li>
                                     <?php echo $articles['title'] ?><br>
                                     <?php echo $articles['created_at'] ?><br><br>
                                 </li>
+                            <?php } ?>
+
                         <?php } else { ?>
                             <li>Il n'y a pas encore d'article.<br>
                                 <a href="/admin/article/add" class="btn btn--sm"><i class="fas fa-plus-circle"></i> Ajouter </a>
