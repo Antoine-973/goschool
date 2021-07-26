@@ -43,10 +43,10 @@ class AdminThemeController extends Controller
     public function darkTheme()
     {
         $idCustom = '1';
-        $data['nav_bg_color'] = '2B2B2B';
-        $data['foot_bg_color'] = '2B2B2B';
-        $data['side_bg_color'] = '2B2B2B';
-        $data['back_color'] = '423F3E';
+        $data['nav_bg_color'] = '212121';
+        $data['foot_bg_color'] = '212121';
+        $data['side_bg_color'] = '212121';
+        $data['back_color'] = '303030';
         $data['menu_color'] = 'ced4da';
         $data['h1_color'] = 'ced4da';
         $data['h2_color'] = 'ced4da';
