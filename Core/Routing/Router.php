@@ -1,14 +1,7 @@
 <?php
+/*
 namespace Core\Routing;
 use Core\Controller;
-
-/**
- * class Router
- * 
- * @auhtor Christian Mohindo
- * @package Core
- */
-
  use Core\Http\Request;
  use Core\Http\Response;
 
@@ -20,9 +13,8 @@ use Core\Controller;
 
     private Response $response;
 
-    /**
-     * @param array $routes
-     */
+    private static $instance = null;
+
     public function __construct($routes){
 
         $this->request = new Request();
@@ -30,11 +22,7 @@ use Core\Controller;
         $this->routes = $routes;
     }
 
-
-     /**
-      * @return void
-      */
-     public function resolve()
+     public  function resolve(string $url = null)
      {
         $path = $this->request->getPath();
         $method = $this->request->getMethod();
@@ -73,4 +61,5 @@ use Core\Controller;
         return !empty($params) ? true : false;
 
     }
- }
+ } 
+*/

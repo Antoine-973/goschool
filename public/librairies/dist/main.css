@@ -1710,12 +1710,51 @@ body.admin-login .col-6.connexion-form .container-form .form-input input[type=su
   background-color: #00d2df;
 }
 
-.install .col-12 {
-  padding: 26px 0;
-  text-align: right;
+body.installation {
+  background-color: #01122c;
+  /* Style the form */
 }
-.install .col-6 .container {
+body.installation #regForm {
+  background-color: #ffffff;
+  margin: 100px auto;
+  padding: 40px;
+  width: 70%;
+  min-width: 300px;
+  /* Style the input fields */
+  /* Mark input boxes that gets an error on validation: */
+  /* Hide all steps by default: */
+  /* Make circles that indicate the steps of the form: */
+  /* Mark the active step: */
+  /* Mark the steps that are finished and valid: */
+}
+body.installation #regForm input {
   padding: 10px;
+  width: 100%;
+  font-size: 17px;
+  font-family: Raleway;
+  border: 1px solid #aaaaaa;
+}
+body.installation #regForm input.invalid {
+  background-color: #ffdddd;
+}
+body.installation #regForm .tab {
+  display: none;
+}
+body.installation #regForm .step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none;
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+body.installation #regForm .step.active {
+  opacity: 1;
+}
+body.installation #regForm .step.finish {
+  background-color: #04AA6D;
 }
 
 .site-body {

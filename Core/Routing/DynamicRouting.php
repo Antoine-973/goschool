@@ -15,13 +15,14 @@ class DynamicRouting {
         $path = trim($request->getPath(), '/');
         $arr = explode('/', $path);
 
-        $controller = $this->getController($path);
-        $action = $this->getAction($path);
-        $params = $this->getParams($path);
+            $request = new Request();
+            $path = trim($request->getPath(), '/');
 
-        $admin_dir = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'App' . DIRECTORY_SEPARATOR . 'Controller' . DIRECTORY_SEPARATOR . 'Admin' .DIRECTORY_SEPARATOR; 
+            $controller = $this->getController($path);
+            $action = $this->getAction($path);
+            $params = $this->getParams($path);
 
-        $dir = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'App' . DIRECTORY_SEPARATOR . 'Controller' . DIRECTORY_SEPARATOR;
+            $admin_dir = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'App' . DIRECTORY_SEPARATOR . 'Controller' . DIRECTORY_SEPARATOR . 'Admin' .DIRECTORY_SEPARATOR; 
 
         $adminfile = $admin_dir. $controller . '.php';
         $sitefile = $dir. $controller . '.php';
@@ -45,6 +46,9 @@ class DynamicRouting {
 
         $this->resolveAdmin($adminfile, $controller, $action, $params);
         $this->resolveSite($sitefile, $controller, $action, $params);
+        
+            $this->resolveAdmin($adminfile, $controller, $action, $params);
+            $this->resolveSite($sitefile, $controller, $action, $params);
         
     }
 
