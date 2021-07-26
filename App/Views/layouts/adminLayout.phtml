@@ -138,6 +138,11 @@
                                 <li class="sidebar-section"><a href="/admin/newsletter/index"><i class="far fa-newspaper"></i>  Newsletters</a></li>
                                 <?php } ?>
 
+                                <?php if ($testPermission->has_permission($id,'destruct')){ ?>
+                                <li class="sidebar-section"><a class="btn btn--danger btn--sm"href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><i class="fas fa-skull-crossbones"></i>Supprimer GoSchool <i class="fas fa-skull-crossbones"></i></a></li>
+                                <?php } ?>
+                                
+
                                 <?php if ($testPermission->has_permission($id,'change_parameters')){ ?>
                                 <ul class="parameters sidebar-menu">
                                     <li class="sidebar-section"><a href="/admin/parameters/index"><i class="fas fa-cog"></i> Paramètres</a></li>

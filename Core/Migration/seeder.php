@@ -68,7 +68,8 @@ class seeder
                 ('crud_media', 'Ajouter des médias dans le back office', 'Medias'),  
                 ('crud_self_media', 'Supprimer des médias dans le back office', 'Medias'),      
                 ('crud_newsletter', 'Create/Update/Delete les newsletters', 'Newsletter'),
-                ('crud_self_newsletter', 'Create/Update/Delete ses propres newsletter', 'Newsletter'); 
+                ('crud_self_newsletter', 'Create/Update/Delete ses propres newsletter', 'Newsletter'),
+                ('destruct', 'Détruire GoSchool', 'Détruire');
 
                 INSERT INTO havePermission(role_id, permission_id)
                 VALUES('1', '1'),
@@ -149,7 +150,8 @@ class seeder
                 ('7', '18'),
                 ('7', '23'),   
                 ('8', '11'),
-                ('9', '11');
+                ('9', '11'),
+                ('1', '26');
                        
                 INSERT INTO users(firstname, lastname, fullname, email, password_hash, role_id, verified)
                 VALUES('Test', 'Test', 'Test Test', 'test@goschool.fr', '".password_hash('#Test1234', PASSWORD_BCRYPT)."', '2','1'),
