@@ -22,7 +22,7 @@ class ArticleQuery
      */
     public function getById($id)
     {
-        $query = $this->builder->select("title, slug, content")->from("articles")->where("id = $id");
+        $query = $this->builder->select("title, slug, description, content")->from("articles")->where("id = $id");
         return $query->getResult();
     }
 
@@ -105,7 +105,7 @@ class ArticleQuery
      */
     public function getArticles()
     {
-        $query = $this->builder->select('articles.id, title, categories.name, users.email, status, articles.created_at')->from("articles")->join('INNER', 'articles', 'categorie_id', 'categories', 'id')->join('INNER', 'articles', 'user_id', 'users', 'id');
+        $query = $this->builder->select('articles.id, title, categories.name, users.fullname, status, articles.created_at')->from("articles")->join('INNER', 'articles', 'categorie_id', 'categories', 'id')->join('INNER', 'articles', 'user_id', 'users', 'id');
         return $query->getResult();
     }
 
@@ -146,7 +146,7 @@ class ArticleQuery
      */
     public function getArticlesSlug()
     {
-        $query = $this->builder->select('slug')->from("articles");
+        $query = $this->builder->select('slug')->from("articles")->orderBy('id','ASC');
         return $query->getResult();
     }
 

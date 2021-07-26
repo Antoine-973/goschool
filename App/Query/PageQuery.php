@@ -20,6 +20,12 @@ class PageQuery
         return $query->getResult();
     }
 
+    public function getPageUrl(){
+        $query = $this->builder->select("url")->from("pages");
+
+        return $query->getResult();
+    }
+
     public function getIdByTitle(string $title){
         $query = $this->builder->select("id")->from("pages")->where("title = $title");
 
@@ -75,7 +81,7 @@ class PageQuery
      */
     public function getPages()
     {
-        $query = $this->builder->select("pages.id, title, users.email, status, pages.created_at")->from("pages")->join('INNER', 'pages', 'user_id', 'users', 'id');
+        $query = $this->builder->select("pages.id, title, users.fullname, status, pages.created_at")->from("pages")->join('INNER', 'pages', 'user_id', 'users', 'id');
 
         return $query->getResult();
     }
@@ -125,7 +131,7 @@ class PageQuery
      */
     public function getById($id)
     {
-        $query = $this->builder->select("title, content, url")->from("pages")->where("id = $id");
+        $query = $this->builder->select("title, description, content, url")->from("pages")->where("id = $id");
         return $query->getResult();
     }
 

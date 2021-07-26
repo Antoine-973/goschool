@@ -14,11 +14,13 @@ class Controller{
         $viewContent = $template->getView($view, $data);
         $namespace = explode('\\', get_called_class());
 
-        if (strpos($namespace[count($namespace)-1], 'Article') !== false && stripos(debug_backtrace()[1]['function'], 'Add' ) !== false || strpos($namespace[count($namespace)-1], 'Article') !== false && (stripos(debug_backtrace()[1]['function'], 'Edit' ) ) !== false ){
+        //die(var_dump($namespace));
+
+        if (strpos($namespace[count($namespace)-1], 'Article') !== false && stripos(debug_backtrace()[1]['function'], 'Add' ) !== false || strpos($namespace[count($namespace)-1], 'Article') !== false && (stripos(debug_backtrace()[1]['function'], 'Edit' ) ) !== false || strpos($namespace[count($namespace)-1], 'Article') !== false && stripos(debug_backtrace()[1]['function'], 'Store' ) !== false || strpos($namespace[count($namespace)-1], 'Article') !== false && stripos(debug_backtrace()[1]['function'], 'Update' ) !== false){
             $contentEditorLayout = $template->getContentEditorLayout();
             echo \str_replace('{{content}}', $viewContent, $contentEditorLayout);
         }
-        elseif(strpos($namespace[count($namespace)-1], 'Page') !== false && stripos(debug_backtrace()[1]['function'], 'Add' ) !== false || strpos($namespace[count($namespace)-1], 'Page') !== false && stripos(debug_backtrace()[1]['function'], 'Edit' ) !== false){
+        elseif(strpos($namespace[count($namespace)-1], 'Page') !== false && stripos(debug_backtrace()[1]['function'], 'Add' ) !== false || strpos($namespace[count($namespace)-1], 'Page') !== false && stripos(debug_backtrace()[1]['function'], 'Store' ) !== false || strpos($namespace[count($namespace)-1], 'Page') !== false && stripos(debug_backtrace()[1]['function'], 'Update' ) !== false || strpos($namespace[count($namespace)-1], 'Page') !== false && stripos(debug_backtrace()[1]['function'], 'Edit' ) !== false){
             $contentEditorLayout = $template->getContentEditorLayout();
             echo \str_replace('{{content}}', $viewContent, $contentEditorLayout);
         }

@@ -7,7 +7,7 @@ class TextareaField{
 
         $placeholder = $params['placeholder'] ?? '...';
         $min = $params['min'] ?? 3;
-        $max = $params['max'] ?? 25;
+        $max = $params['max'] ?? 160;
         $cols = $params['cols'] ?? 33;
         $rows = $params['rows'] ?? 5;
         $required = $params['required'] ?? '';

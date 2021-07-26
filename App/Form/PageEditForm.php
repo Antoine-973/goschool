@@ -38,7 +38,8 @@ class PageEditForm
                 ->input('title', 'text', ['value' => 'title', 'min' => 4, 'max' => 55, 'text' => $data['title'], 'required' => 'required'])
                 ->input('url', 'text', ['value' => 'Url de la page', 'min' => 4, 'max' => 55, 'text' => $data['url'], 'required' => 'required', 'placeholder' => 'ex: /accueil'])
                 ->select('status','Statut',['id' => 'status', 'name' => 'status', 'options' => $options])
-                ->textarea('content', 'textarea', ['value' => $data['content'], 'max' => 400])
+                ->textarea('description', 'Description (Référencement)', ['value' => $data['description']])
+                ->textarea('content', 'Contenu de la page', ['value' => $data['content']])
                 ->input('submit', 'submit', ['value' => 'Modifier']);
         return $form->getForm();
     }

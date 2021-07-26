@@ -2,9 +2,12 @@
         <div class="col-gutter-12">
             <h1>Articles</h1>
         <a href="/admin/article/add" class="btn btn--infos btn--sm"><i class="fas fa-plus-circle"></i> Ajouter un article</a>
-            <?php $keys = array_keys($articles);?>
-            <?php use Core\Util\Table; ?>
-            <?php $verifTable = new Table() ?>
+            <?php $keys = array_keys($articles);
+             $verifTable = new \Core\Util\Table();
+
+            $articleQuery = new \App\Query\ArticleQuery();
+            $slugs = $articleQuery->getArticlesSlug();
+             ?>
 
             <?php if(($message = $helper->getFlashMessage('flashMessage'))):?>
                 <p><?php echo $message;?></p>
@@ -30,7 +33,7 @@
                             <?php for($i = 0; $i < count($articles); $i++) { ?>
                                 <tr>
                                     <?php foreach($articles[$keys[$i]] as $key => $value) { ?>
-                                        <td><?php echo $value ?></td>
+                                        <td><a href="/article/<?= $slugs[$i]['slug'] ?>"><?php echo $value ?></a></td>
                                     <?php } ?>
                                     <td><a href="/admin/article/edit?id=<?php echo $articles[$i]['id'] ?>" class="btn btn--warning btn--sm"><i class="fas fa-edit"></i></a></td>
                                     <td><a href="javascript:confirmDelete('/admin/article/delete/<?php echo $articles[$i]['id'] ?>')" class="btn btn--danger btn--sm"><i class="fas fa-trash-alt"></i></a></td>
@@ -40,7 +43,7 @@
                         else{ ?>
                             <tr>
                                 <?php foreach($articles as $value) { ?>
-                                    <td><?php echo $value ?></td>
+                                    <td><a href="/article/<?= $slugs['slug'] ?>"><?php echo $value ?></a></td>
                                 <?php } ?>
                                 <td><a href="/admin/article/edit?id=<?php echo $articles['id'] ?>" class="btn btn--warning btn--sm"><i class="fas fa-edit"></i></a></td>
                                 <td><a href="javascript:confirmDelete('/admin/article/delete/<?php echo $articles['id'] ?>')" class="btn btn--danger btn--sm"><i class="fas fa-trash-alt"></i></a></td>

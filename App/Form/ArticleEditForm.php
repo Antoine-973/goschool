@@ -43,12 +43,13 @@ class ArticleEditForm
         $categories = $convertTable->multi_to_single($categoriesName);
 
         $form = Form::create('/admin/article/update/'.$articleId['id'])
-                ->input('title', 'text', ['value' => 'Titre', 'min' => 4, 'max' => 55, 'text' => $data['title'], 'required' => 'required'])
-                ->input('slug', 'text', ['value' => 'Slug', 'min' => 4, 'max' => 55, 'text' => $data['slug'], 'required' => 'required'])
+                ->input('title', 'text', ['value' => 'Titre', 'min' => 4, 'max' => 150, 'text' => $data['title'], 'required' => 'required'])
+                ->input('slug', 'text', ['value' => 'Slug', 'min' => 4, 'max' => 170, 'text' => $data['slug'], 'required' => 'required'])
                 ->select('status','Statut',['id' => 'status', 'name' => 'status', 'options' => $options])
                 ->select('categorie','Catégorie',['id' => 'categorie', 'name' => 'categorie', 'options' => $categories])
                 ->input('active_comment', 'checkbox', ['value' => 'Commentaire activé'])
-                ->textarea('content', 'textarea', ['value' => $data['content']])
+                ->textarea('description', 'Description (Référencement)', ['value' => $data['description']])
+                ->textarea('content', 'Contenu de l\'article', ['value' => $data['content']])
                 ->input('submit', 'submit', ['value' => 'Modifier']);
         return $form->getForm();
     }

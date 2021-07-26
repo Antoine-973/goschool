@@ -30,7 +30,8 @@ class AdminMediaController extends Controller{
         $testPermission = new \Core\Util\RolePermission();
 
         if ($id && $testPermission->has_permission($id,'crud_media') || $id && $testPermission->has_permission($id,'crud_self_media') ){
-            $repertoire='../images/';/* chemin du repertoire */
+
+            $repertoire='medias/';/* chemin du repertoire */
             /* ouverture du dossier */
             $chemin_fichiers = opendir($repertoire);
             /* initialisation tableau des noms */
