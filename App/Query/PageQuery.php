@@ -131,7 +131,7 @@ class PageQuery
      */
     public function getById($id)
     {
-        $query = $this->builder->select("title, content, url")->from("pages")->where("id = $id");
+        $query = $this->builder->select("title, description, content, url")->from("pages")->where("id = $id");
         return $query->getResult();
     }
 

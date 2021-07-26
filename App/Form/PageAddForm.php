@@ -27,7 +27,8 @@ class PageAddForm
                 ->input('title', 'text', ['value' => 'Titre de la page', 'min' => 4, 'max' => 55, 'required' => 'required', 'placeholder' => 'ex: accueil'])
                 ->input('url', 'text', ['value' => 'Url de la page', 'min' => 4, 'max' => 55, 'required' => 'required', 'placeholder' => 'ex: /accueil'])
                 ->select('status','Statut',['id' => 'status', 'name' => 'status', 'options' => $options])
-                ->textarea('content', 'textarea', ['max' => 400])
+                ->textarea('description', 'Description (Référencement)')
+                ->textarea('content', 'Contenu de la page')
                 ->input('submit', 'submit', ['value' => 'Ajouter']);
         return $form->getForm();
     }
