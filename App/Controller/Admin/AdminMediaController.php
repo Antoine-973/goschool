@@ -84,7 +84,7 @@ class AdminMediaController extends Controller{
                 $fileExtension = $fileInfos['extension'];
                 $extensionsOk = ['jpg', 'jpeg', 'svg', 'png', 'gif'];
                 if(in_array($fileExtension, $extensionsOk)) {
-                    move_uploaded_file($_FILES['image']['tmp_name'], '../images/'.basename($_FILES['image']['name']));
+                    move_uploaded_file($_FILES['image']['tmp_name'], 'medias/'.basename($_FILES['image']['name']));
                     $this->request->redirect('/admin/media/list', ['flashMessage','Le média a été ajouté avec succès !']);
                 } else {
                     $this->request->redirect('/admin/media/add', ['flashMessage','Cette extension de fichiers n\'est pas pris en compte.'] );
@@ -105,9 +105,9 @@ class AdminMediaController extends Controller{
 
             if ($id && $testPermission->has_permission($id,'crud_media')){
                 $image = $_GET['name'];
-                $open = opendir("../images");
+                $open = opendir("medias/");
                 if($this->request->isGet()) {
-                    unlink("../images/".$image);
+                    unlink("medias/".$image);
                     closedir($open);
                     $this->request->redirect('/admin/media/list');
                 } else {

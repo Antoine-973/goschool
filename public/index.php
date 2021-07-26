@@ -5,9 +5,12 @@ require_once "../Core/Vendor/PHPMailer-master/src/Exception.php";
 require_once "../Core/Vendor/PHPMailer-master/src/SMTP.php";
 
 use Core\Application;
-use Core\Database\DB;
 use Core\Util\Email;
 
 
 $app = new Application();
 $app->run();
+
+
+
+

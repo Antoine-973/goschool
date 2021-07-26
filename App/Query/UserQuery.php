@@ -224,7 +224,28 @@ class UserQuery
             $query = $this->builder->insertInto("users")->columns($data)->values($data)->save();
             return $query;
         }
-        
+    }
+
+    public function createFirstAdmin(array $data)
+    {
+
+        $hash = new Hash();
+
+        if(array_key_exists('password', $data) && array_key_exists('passwordConfirm', $data)){
+
+            $data['password_hash'] = $hash->passwordHash($data['password']);
+
+            unset($data["password"]);
+            unset($data["passwordConfirm"]);
+
+            $data['role_id'] = '2';
+            $data['verified'] = '1';
+            $data['fullname'] = $data['firstname'] . ' ' . $data['lastname'];
+
+            $query = $this->builder->insertInto("users")->columns($data)->values($data)->save();
+            return $query;
+        }
+
     }
 
     /**
