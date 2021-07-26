@@ -113,13 +113,13 @@ class Validator
 
     public function validatePassword($value, $name)
     {
-        $pattern = "/^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[\]:;<>,.?\/~_+\-=|]).*$/";
+        $pattern = "/^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!#@$%^&(){}[\]:;<>,.?\/~_+\-=|]).*$/";
 
         if(preg_match($pattern, $value)){
             return true;
         }
 
-        $this->errors[] = "Champs $name invalide : doit contenir au moins 8 caractères, avec au moins 1 chiffre, 1 cractère spécial, une lettre en majuscule et une lettre minuscule";
+        $this->errors[] = "Champs $name invalide : doit contenir au moins 8 caractères, avec au moins 1 chiffre, 1 caractère spécial, une lettre en majuscule et une lettre minuscule";
     }
 
     public function validateUrl($value, $name)
