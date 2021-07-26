@@ -122,7 +122,9 @@ class AdminPageController extends Controller {
 
             if (empty($errors)) {
 
-                if ($this->pageQuery->updatePage($data, $id)) {
+                $updateQuery = new PageQuery();
+
+                if ($updateQuery->updatePage($data, $id)) {
 
                     $this->request->redirect('/admin/page/list', ['flashMessage', 'La page a bien été édité']);
                 } else {

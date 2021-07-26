@@ -187,7 +187,7 @@ class PageQuery
     public function create(array $data)
     {
         $data['title']= ucfirst(strtolower($data['title']));
-        $data['content']= str_replace('&#39;', '\'', str_replace( '&nbsp', '', html_entity_decode($data['content'])));
+        $data['content'] = str_replace(';</p><p>', '<br>', str_replace( '&nbsp', '', html_entity_decode($data['content'])));
 
         $query = $this->builder->insertInto('pages')->columns($data)->values($data)->save();
         return $query;
@@ -203,7 +203,7 @@ class PageQuery
         }
 
         if (array_key_exists('content',$data)){
-            $data['content']= str_replace( '&nbsp', '', html_entity_decode($data['content']));
+            $data['content'] = str_replace(';</p><p>', '<br>', str_replace( '&nbsp', '', html_entity_decode($data['content'])));
         }
 
         $query = $this->builder->update('pages')->set($data)->where("id = $id")->save();

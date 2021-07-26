@@ -161,7 +161,7 @@ class ArticleQuery
     public function create(array $data)
     {
         $data['slug']= $this->helper->slugify($data['title']);
-        $data['content']= str_replace('&#39;', '\'', str_replace( '&nbsp', '', html_entity_decode($data['content'])));
+        $data['content'] = str_replace(';</p><p>', '<br>', str_replace( '&nbsp', '', html_entity_decode($data['content'])));
         $data['slug']= strtolower(str_replace(" ", "-", $data['title']));
         $data['title']= ucfirst(strtolower($data['title']));
 
@@ -183,7 +183,7 @@ class ArticleQuery
     public function updateArticle(array $data, $id)
     {
         $data['slug']= $this->helper->slugify($data['slug']);
-        $data['content']= str_replace( '&nbsp', '', html_entity_decode($data['content']));
+        $data['content'] = str_replace(';</p><p>', '<br>', str_replace( '&nbsp', '', html_entity_decode($data['content'])));
         $categorieQuery = new CategoryQuery();
 
         if (!$data['categorie']=='Non-classé'){

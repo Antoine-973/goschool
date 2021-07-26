@@ -36,7 +36,7 @@ class PageEditForm
 
         $form = Form::create('/admin/page/update/'. $stringId)
                 ->input('title', 'text', ['value' => 'title', 'min' => 4, 'max' => 55, 'text' => $data['title'], 'required' => 'required'])
-                ->input('url', 'text', ['value' => 'Url de la page', 'min' => 4, 'max' => 55, 'text' => $data['url'], 'required' => 'required', 'placeholder' => 'ex: /accueil'])
+                ->input('url', 'text', ['value' => 'Url de la page', 'min' => 1, 'max' => 55, 'text' => $data['url'], 'required' => 'required', 'placeholder' => 'ex: /accueil'])
                 ->select('status','Statut',['id' => 'status', 'name' => 'status', 'options' => $options])
                 ->textarea('description', 'Description (Référencement)', ['value' => $data['description']])
                 ->textarea('content', 'Contenu de la page', ['value' => $data['content']])
