@@ -6,7 +6,6 @@ namespace App\Controller\Admin;
 
 use Core\Controller;
 use Core\Http\Request;
-use Core\Http\Response;
 use Core\Http\Session;
 use App\Query\CustomQuery;
 
@@ -14,14 +13,11 @@ class AdminThemeController extends Controller
 {
     private $request;
 
-    private $response;
-
     private $customQuery;
 
     public function __construct()
     {
         $this->request = new Request();
-        $this->response = new Response();
         $this->customQuery = new CustomQuery();
     }
 
