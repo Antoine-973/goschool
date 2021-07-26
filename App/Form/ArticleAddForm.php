@@ -27,7 +27,8 @@ class ArticleAddForm
                 ->input('title', 'text', ['value' => 'Titre', 'min' => 4, 'max' => 55, 'required' => 'required'])
                 ->select('status','Statut',['id' => 'status', 'name' => 'status', 'options' => $options])
                 ->input('active_comment', 'checkbox', ['value' => 'Commentaire activé'])
-                ->textarea('content', 'textarea')
+                ->textarea('description', 'Description (Référencement)')
+                ->textarea('content', 'Contenu de l\'article')
                 ->input('submit', 'submit', ['value' => 'Ajouter']);
         return $form->getForm();
     }

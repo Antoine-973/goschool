@@ -22,7 +22,7 @@ class ArticleQuery
      */
     public function getById($id)
     {
-        $query = $this->builder->select("title, slug, content")->from("articles")->where("id = $id");
+        $query = $this->builder->select("title, slug, description, content")->from("articles")->where("id = $id");
         return $query->getResult();
     }
 

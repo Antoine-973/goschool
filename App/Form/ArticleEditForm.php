@@ -48,7 +48,8 @@ class ArticleEditForm
                 ->select('status','Statut',['id' => 'status', 'name' => 'status', 'options' => $options])
                 ->select('categorie','Catégorie',['id' => 'categorie', 'name' => 'categorie', 'options' => $categories])
                 ->input('active_comment', 'checkbox', ['value' => 'Commentaire activé'])
-                ->textarea('content', 'textarea', ['value' => $data['content']])
+                ->textarea('description', 'Description (Référencement)', ['value' => $data['description']])
+                ->textarea('content', 'Contenu de l\'article', ['value' => $data['content']])
                 ->input('submit', 'submit', ['value' => 'Modifier']);
         return $form->getForm();
     }
