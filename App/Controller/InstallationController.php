@@ -67,7 +67,6 @@ class InstallationController extends Controller
                         }
                     }
                     else{
-                        die('non');
                         exit;
                     }
                 }else{
