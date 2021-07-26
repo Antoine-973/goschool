@@ -8,15 +8,12 @@ use App\Query\MenuQuery;
 use App\Query\PageQuery;
 use Core\Controller;
 use Core\Http\Request;
-use Core\Http\Response;
 use App\Query\HavePageQuery;
 use Core\Http\Session;
 
 class AdminMenuController extends Controller
 {
     private $request;
-
-    private $response;
 
     private $menuQuery;
 
@@ -25,7 +22,6 @@ class AdminMenuController extends Controller
     public function __construct()
     {
         $this->request = new Request();
-        $this->response = new Response();
         $this->menuQuery = new MenuQuery();
         $this->pageQuery = new PageQuery();
     }

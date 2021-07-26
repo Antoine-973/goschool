@@ -9,7 +9,6 @@ use App\Query\LostPasswordQuery;
 use Core\Controller;
 use Core\Http\Request;
 use Core\Http\Session;
-use Core\Http\Response;
 use App\Form\UserLoginForm;
 use App\Form\UserRegisterForm;
 use App\Model\UserModel;
@@ -23,8 +22,6 @@ use Core\Util\Url;
 class AdminAuthController extends Controller{
 
     private $request;
-
-    private $response;
 
     private $userRegisterForm;
 
@@ -47,7 +44,6 @@ class AdminAuthController extends Controller{
     public function __construct()
     {
         $this->request = new Request();
-        $this->response = new Response();
         $this->userRegisterForm = new UserRegisterForm();
         $this->userModel = new UserModel();
         $this->validator = new Validator();

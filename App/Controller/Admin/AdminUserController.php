@@ -17,8 +17,6 @@ class AdminUserController extends Controller {
 
     private $request;
 
-    private $response;
-
     private $userModel;
 
     private $userAddForm;
@@ -32,7 +30,6 @@ class AdminUserController extends Controller {
     public function __construct()
     {
         $this->request = new Request();
-        $this->response = new Response();
         $this->userModel = new UserModel();
         $this->userAddForm = new UserAddForm();
         $this->userEditForm = new UserEditForm();

@@ -3,7 +3,6 @@ namespace App\Controller\Admin;
 
 use Core\Controller;
 use Core\Http\Request;
-use Core\Http\Response;
 use App\Model\ArticleModel;
 use App\Form\ArticleAddForm;
 use App\Form\ArticleEditForm;
@@ -20,8 +19,6 @@ class AdminArticleController extends Controller {
 
     private $validator;
 
-    private $response;
-
     private $articleModel;
 
     private $articleAddForm;
@@ -35,7 +32,6 @@ class AdminArticleController extends Controller {
     public function __construct()
     {
         $this->request = new Request();
-        $this->response = new Response();
         $this->articleModel = new ArticleModel();
         $this->articleAddForm = new ArticleAddForm();
         $this->articleEditForm = new ArticleEditForm();
