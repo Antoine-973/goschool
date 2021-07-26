@@ -5,14 +5,11 @@ use App\Query\ParamQuery;
 use Core\Controller;
 use Core\Http\Request;
 use Core\Http\Session;
-use Core\Http\Response;
 use Core\Component\Validator;
 
 class AdminParametersController extends Controller{
 
     private $request;
-
-    private $response;
 
     private $validator;
 
@@ -23,7 +20,6 @@ class AdminParametersController extends Controller{
     public function __construct()
     {
         $this->request = new Request();
-        $this->response = new Response();
         $this->paramQuery = new ParamQuery();
     }
 
