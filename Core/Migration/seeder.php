@@ -154,7 +154,7 @@ class seeder
                 ('1', '26');
                        
                 INSERT INTO users(firstname, lastname, fullname, email, password_hash, role_id, verified)
-                VALUES('Test', 'Test', 'Test Test', 'test@goschool.fr', '".password_hash('#Test1234', PASSWORD_BCRYPT)."', '2','1'),
+                VALUES('Test', 'Test', 'Test Test', 'test@goschool.fr', '".password_hash('#Testo1234', PASSWORD_BCRYPT)."', '2','1'),
                 ('Antoine', 'Saunier', 'Antoine Saunier', 'asaunier@goschool.fr', '".password_hash('#Test1234', PASSWORD_BCRYPT)."', '2','1'),
                 ('Christian', 'Mohindo', 'Christian Mohindo', 'cmohindo@goschool.fr', '".password_hash('#Test1234', PASSWORD_BCRYPT)."', '2','1'),
                 ('Calvin', 'Inthasakubol', 'Calvin Inthasakubol', 'cinthasakubol@goschool.fr', '".password_hash('#Test1234', PASSWORD_BCRYPT)."', '2','1'),
