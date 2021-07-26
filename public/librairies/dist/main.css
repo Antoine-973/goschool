@@ -1813,7 +1813,6 @@ body.admin-login .col-6.connexion-form .container-form .form-input input[type=su
 .site-main--content--articles .data-card {
   display: flex;
   flex-direction: column;
-  max-width: 20.75em;
   min-height: 20.75em;
   text-decoration: none;
   background: #F9F9F9;
