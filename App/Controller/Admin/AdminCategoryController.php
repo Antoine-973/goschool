@@ -91,7 +91,7 @@ class AdminCategoryController extends Controller {
             else {
                 $form = new CategoryAddForm();
                 $categoryAddForm = $form->getForm();
-                $this->render("admin/article/addCategory.phtml", ['errors' => $errors, 'categoryAdd'=>$categoryAddForm]);
+                $this->render("admin/category/addCategory.phtml", ['errors' => $errors, 'categoryAdd'=>$categoryAddForm]);
             }
         }
     }
