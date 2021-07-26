@@ -45,6 +45,7 @@ class AdminThemeController extends Controller
         $idCustom = '1';
         $data['nav_bg_color'] = '212121';
         $data['foot_bg_color'] = '212121';
+        $data['foot_color'] = '6c757d';
         $data['side_bg_color'] = '212121';
         $data['back_color'] = '303030';
         $data['menu_color'] = 'ced4da';
@@ -66,6 +67,7 @@ class AdminThemeController extends Controller
         $idCustom = '1';
         $data['nav_bg_color'] = '363740';
         $data['foot_bg_color'] = '363740';
+        $data['foot_color'] = '6c757d';
         $data['side_bg_color'] = '363740';
         $data['back_color'] = 'f3f3f3';
         $data['menu_color'] = 'ced4da';
@@ -87,6 +89,7 @@ class AdminThemeController extends Controller
         $idCustom = '1';
         $data['nav_bg_color'] = '2a9d8f';
         $data['foot_bg_color'] = '2a9d8f';
+        $data['foot_color'] = '6c757d';
         $data['side_bg_color'] = '2a9d8f';
         $data['back_color'] = 'fdfcdc';
         $data['menu_color'] = 'e9c46a';
@@ -108,6 +111,7 @@ class AdminThemeController extends Controller
         $idCustom = '1';
         $data['nav_bg_color'] = '334257';
         $data['foot_bg_color'] = '334257';
+        $data['foot_color'] = '6c757d';
         $data['side_bg_color'] = '334257';
         $data['back_color'] = 'EEEEEE';
         $data['menu_color'] = '548CA8';
