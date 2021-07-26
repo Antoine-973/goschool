@@ -63,7 +63,7 @@ class AdminCustomizationController extends Controller
                 $this->request->redirect('/admin/customization/index', ['flashMessage', 'La personnalisation du site a bien été modifié.']);
             }
             else{
-                $this->request->redirect('/admin/customization/index', ['flashMessage', 'Une erreur c\'est produite. Veuillez réessayer.']);
+                $this->request->redirect('/admin/customization/index', ['flashMessage', 'Une erreur s\'est produite. Veuillez réessayer.']);
             }
         }
     }
