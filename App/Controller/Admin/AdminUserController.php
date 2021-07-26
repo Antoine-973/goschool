@@ -4,7 +4,6 @@ namespace App\Controller\Admin;
 use App\Form\UserProfileForm;
 use Core\Controller;
 use Core\Http\Request;
-use Core\Http\Response;
 use App\Model\UserModel;
 use App\Form\UserAddForm;
 use App\Form\UserEditForm;

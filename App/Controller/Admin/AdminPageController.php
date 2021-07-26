@@ -5,7 +5,6 @@ use App\Form\PageAddForm;
 use App\Form\PageEditForm;
 use Core\Controller;
 use Core\Http\Request;
-use Core\Http\Response;
 use App\Model\PageModel;
 use App\Query\PageQuery;
 use Core\Component\Validator;
@@ -18,8 +17,6 @@ class AdminPageController extends Controller {
 
     private $request;
 
-    private $response;
-
     private $pageModel;
 
     private $pageQuery;
@@ -28,7 +25,6 @@ class AdminPageController extends Controller {
     public function __construct()
     {
         $this->request = new Request();
-        $this->response = new Response();
         $this->pageModel = new PageModel();
         $this->pageQuery = new PageQuery();
         $this->validator = new Validator();
