@@ -15,27 +15,32 @@
         <div class="container install">
             <form id="regForm" action="/installation/store" method="post">
                 <div class="container database tab">
-                     <h3>Information de la base des données</h3>
+                     <h3>Information de la base de données</h3>
                     <div class="row">
                         <div class="col-12">
                             <div class="container">
-                           
-                            <div class="input-group"
-                                <label>Nom de la base</label>
-                                <input type="text" name="db_name" oninput="this.className = ''"/>
-                            </div>
-                            <div class="input-group"
-                                <label>Utilisateur</label>
-                                <input type="text" name="db_user" oninput="this.className = ''"/>
-                            </div>
-                            <div class="input-group"
-                                <label>Mot de passe</label>
-                                <input type="password" name="db_password" oninput="this.className = ''"/>
-                            </div>
-                            <div class="input-group"
-                                <label>Host</label>
-                                <input type="text" name="db_host" oninput="this.className = ''"/>
-                            </div>
+                                <div class="input-group"
+                                    <label>Driver de la base</label>
+                                    <select name="db_driver" id="db_driver">
+                                        <option value="mysql" selected>Mysql</option>
+                                    </select>
+                                </div>
+                                <div class="input-group"
+                                    <label>Nom de la base</label>
+                                    <input type="text" name="db_name" oninput="this.className = ''"/>
+                                </div>
+                                <div class="input-group"
+                                    <label>Utilisateur</label>
+                                    <input type="text" name="db_user" oninput="this.className = ''"/>
+                                </div>
+                                <div class="input-group"
+                                    <label>Mot de passe</label>
+                                    <input type="password" name="db_password" oninput="this.className = ''"/>
+                                </div>
+                                <div class="input-group"
+                                    <label>Host (host:port)</label>
+                                    <input type="text" name="db_host" oninput="this.className = ''"/>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -63,8 +68,8 @@
                                 <input type="password" name="password" oninput="this.className = ''"/>
                             </div>
                             <div class="input-group"
-                                <label>Mot de passe</label>
-                                <input type="password" name="confirmPassword" oninput="this.className = ''"/>
+                                <label>Confirmation du Mot de passe</label>
+                                <input type="password" name="passwordConfirm" oninput="this.className = ''"/>
                             </div>
                             </div>
                         </div>

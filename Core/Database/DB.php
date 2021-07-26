@@ -70,20 +70,18 @@ class DB extends \PDO
      
 
       if(\class_exists($className)){
-        echo "here";
         $instance = new  $className();
         $instance->up();
         $newMigrations[] = $migration;
-        
       }
 
     }
 
     if(!empty($newMigrations)){
       $this->saveMigrations($newMigrations);
-
+      return true;
     }
-
+    return false;
   }
 
   public function getAppliedMigrations()

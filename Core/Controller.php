@@ -10,41 +10,34 @@ class Controller{
 
     public function render($view, $data = [])
     {
-        if (strpos($namespace[count($namespace)-1], 'Article') !== false && stripos(debug_backtrace()[1]['function'], 'Add' ) !== false || strpos($namespace[count($namespace)-1], 'Article') !== false && (stripos(debug_backtrace()[1]['function'], 'Edit' ) ) !== false || strpos($namespace[count($namespace)-1], 'Article') !== false && stripos(debug_backtrace()[1]['function'], 'Store' ) !== false || strpos($namespace[count($namespace)-1], 'Article') !== false && stripos(debug_backtrace()[1]['function'], 'Update' ) !== false){
-        if(InstallMiddleware::check()){
-            $this->view('install.phtml');
-        }
-        else{
-            $template = new Template();
-            $viewContent = $template->getView($view, $data);
-            $namespace = explode('\\', get_called_class());
+        if (InstallMiddleware::check()) {
+                $this->view('install.phtml');
+            } else {
+                $template = new Template();
+                $viewContent = $template->getView($view, $data);
+                $namespace = explode('\\', get_called_class());
 
-            if (strpos($namespace[count($namespace)-1], 'Article') !== false && stripos(debug_backtrace()[1]['function'], 'Add' ) !== false || strpos($namespace[count($namespace)-1], 'Article') !== false && (stripos(debug_backtrace()[1]['function'], 'Edit' ) ) !== false || strpos($namespace[count($namespace)-1], 'Article') !== false && stripos(debug_backtrace()[1]['function'], 'Store' ) !== false || strpos($namespace[count($namespace)-1], 'Article') !== false && stripos(debug_backtrace()[1]['function'], 'Update' ) !== false){
-                $contentEditorLayout = $template->getContentEditorLayout();
-                echo \str_replace('{{content}}', $viewContent, $contentEditorLayout);
-            }
-            elseif(strpos($namespace[count($namespace)-1], 'Page') !== false && stripos(debug_backtrace()[1]['function'], 'Add' ) !== false || strpos($namespace[count($namespace)-1], 'Page') !== false && stripos(debug_backtrace()[1]['function'], 'Store' ) !== false || strpos($namespace[count($namespace)-1], 'Page') !== false && stripos(debug_backtrace()[1]['function'], 'Update' ) !== false || strpos($namespace[count($namespace)-1], 'Page') !== false && stripos(debug_backtrace()[1]['function'], 'Edit' ) !== false){
-                $contentEditorLayout = $template->getContentEditorLayout();
-                echo \str_replace('{{content}}', $viewContent, $contentEditorLayout);
-            }
-            elseif (strpos($namespace[count($namespace)-1], 'AdminAuthController') !== false){
-                $registrationLayout = $template->getRegistrationLayout();
-                echo \str_replace('{{content}}', $viewContent, $registrationLayout);
-            }
-            elseif(strpos($namespace[count($namespace)-1], 'Admin') !== false){
-                $adminLayout = $template->getAdminLayout();
-                echo \str_replace('{{content}}', $viewContent, $adminLayout);
-            }
-            elseif(strpos($namespace[count($namespace)-1], 'Error') !== false){
-                $adminLayout = $template->getErrorLayout();
-                echo \str_replace('{{content}}', $viewContent, $adminLayout);
-            }
-            else{
-                $siteLayout = $template->getSiteLayout();
-                echo \str_replace('{{content}}', $viewContent, $siteLayout);
+                if (strpos($namespace[count($namespace) - 1], 'Article') !== false && stripos(debug_backtrace()[1]['function'], 'Add') !== false || strpos($namespace[count($namespace) - 1], 'Article') !== false && (stripos(debug_backtrace()[1]['function'], 'Edit')) !== false || strpos($namespace[count($namespace) - 1], 'Article') !== false && stripos(debug_backtrace()[1]['function'], 'Store') !== false || strpos($namespace[count($namespace) - 1], 'Article') !== false && stripos(debug_backtrace()[1]['function'], 'Update') !== false) {
+                    $contentEditorLayout = $template->getContentEditorLayout();
+                    echo \str_replace('{{content}}', $viewContent, $contentEditorLayout);
+                } elseif (strpos($namespace[count($namespace) - 1], 'Page') !== false && stripos(debug_backtrace()[1]['function'], 'Add') !== false || strpos($namespace[count($namespace) - 1], 'Page') !== false && stripos(debug_backtrace()[1]['function'], 'Store') !== false || strpos($namespace[count($namespace) - 1], 'Page') !== false && stripos(debug_backtrace()[1]['function'], 'Update') !== false || strpos($namespace[count($namespace) - 1], 'Page') !== false && stripos(debug_backtrace()[1]['function'], 'Edit') !== false) {
+                    $contentEditorLayout = $template->getContentEditorLayout();
+                    echo \str_replace('{{content}}', $viewContent, $contentEditorLayout);
+                } elseif (strpos($namespace[count($namespace) - 1], 'AdminAuthController') !== false) {
+                    $registrationLayout = $template->getRegistrationLayout();
+                    echo \str_replace('{{content}}', $viewContent, $registrationLayout);
+                } elseif (strpos($namespace[count($namespace) - 1], 'Admin') !== false) {
+                    $adminLayout = $template->getAdminLayout();
+                    echo \str_replace('{{content}}', $viewContent, $adminLayout);
+                } elseif (strpos($namespace[count($namespace) - 1], 'Error') !== false) {
+                    $adminLayout = $template->getErrorLayout();
+                    echo \str_replace('{{content}}', $viewContent, $adminLayout);
+                } else {
+                    $siteLayout = $template->getSiteLayout();
+                    echo \str_replace('{{content}}', $viewContent, $siteLayout);
+                }
             }
         }
-    }
 
     public function model($model)
     {

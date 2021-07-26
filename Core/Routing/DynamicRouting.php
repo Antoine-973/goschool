@@ -5,6 +5,7 @@ use App\Query\PageQuery;
 use Core\Http\Request;
 use Core\Middleware\AuthMiddleware;
 use App\Controller\Admin\AdminAuthController;
+use Core\Middleware\InstallMiddleware;
 
 class DynamicRouting {
 
@@ -13,20 +14,17 @@ class DynamicRouting {
         
         $request = new Request();
         $path = trim($request->getPath(), '/');
-        $arr = explode('/', $path);
 
-            $request = new Request();
-            $path = trim($request->getPath(), '/');
+        $controller = $this->getController($path);
+        $action = $this->getAction($path);
+        $params = $this->getParams($path);
 
-            $controller = $this->getController($path);
-            $action = $this->getAction($path);
-            $params = $this->getParams($path);
+        $dir = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'App' . DIRECTORY_SEPARATOR . 'Controller' . DIRECTORY_SEPARATOR;
 
-            $admin_dir = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'App' . DIRECTORY_SEPARATOR . 'Controller' . DIRECTORY_SEPARATOR . 'Admin' .DIRECTORY_SEPARATOR; 
+        $admin_dir = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'App' . DIRECTORY_SEPARATOR . 'Controller' . DIRECTORY_SEPARATOR . 'Admin' .DIRECTORY_SEPARATOR;
 
         $adminfile = $admin_dir. $controller . '.php';
         $sitefile = $dir. $controller . '.php';
-
 
         if (\file_exists($adminfile)){
             if (method_exists("App\\Controller\\Admin\\" . $controller, $action)) {
@@ -36,7 +34,7 @@ class DynamicRouting {
                 $this->resolve404();
             }
         }
-        elseif ($controller != 'HomeController'){
+        elseif (!$controller == 'HomeController' || !$controller == 'InstallController'){
             $this->resolve404();
         }
 
@@ -47,16 +45,22 @@ class DynamicRouting {
         $this->resolveAdmin($adminfile, $controller, $action, $params);
         $this->resolveSite($sitefile, $controller, $action, $params);
         
-            $this->resolveAdmin($adminfile, $controller, $action, $params);
-            $this->resolveSite($sitefile, $controller, $action, $params);
-        
     }
 
 
     public function getAction($path)
     {
         $arr = explode('/', $path);
-        if ($arr[0] == 'admin'){
+        if (InstallMiddleware::check()){
+            $request = new Request();
+            if ($request->isPost()){
+                $action = 'store';
+            }
+            else {
+                $action = 'index';
+            }
+        }
+        elseif ($arr[0] == 'admin'){
             if(count($arr) >= 3) {
                 $action =  $arr[2];
             }
@@ -82,15 +86,14 @@ class DynamicRouting {
     public function getController($path)
     {
         $arr = explode('/', $path);
-        $controller = 'HomeController';
 
-        if(count($arr) >= 2){
-
-            if($arr[0] == 'admin'){
-                $controller =  'Admin' . ucfirst($arr[1]) . 'Controller';
-            }else{
-                $controller = 'HomeController';
-            }
+        if(InstallMiddleware::check()){
+            $controller = 'InstallationController';
+        }elseif ($arr[0] == 'admin'){
+            $controller =  'Admin' . ucfirst($arr[1]) . 'Controller';
+        }
+        else{
+            $controller = 'HomeController';
         }
 
         return $controller;
@@ -99,8 +102,6 @@ class DynamicRouting {
     public function getParams($path)
     {   
         $arr = explode('/', $path);
-
-
 
         if(count($arr) >= 3){
             $params = [];
@@ -132,7 +133,7 @@ class DynamicRouting {
                 $this->resolve404();
             }
         }
-        elseif ($controller == 'HomeController'){
+        elseif ($controller == 'HomeController' || $controller == 'InstallationController'){
 
         }
         else{
@@ -143,6 +144,7 @@ class DynamicRouting {
     public function resolveSite($file, $controller, $action, $params)
     {
         if(\file_exists($file)){
+
             include_once($file);
 
             $request = new Request();
@@ -155,16 +157,25 @@ class DynamicRouting {
             $articleQuery = new ArticleQuery();
             $pageQuery = new PageQuery();
 
-            if ($request->isPost()){
+            if ($arr[0] == 'article' && count($arr) > 1 && $request->isPost()){
                 $data = $request->getBody();
                 $slug = $data['slug'];
-            }else{
-                if ($arr[0] == 'article' && count($arr) > 1){
+            }elseif ($arr[0] == 'article' && count($arr)) {
+                if ($arr[0] == 'article' && count($arr) > 1) {
                     $slug = $arr[1];
                 }
             }
 
-            if ($arr[0] == 'article' && count($arr) > 1){
+            if ($controller == 'InstallationController'){
+                $class =  "App\\Controller\\" . $controller;
+                $controller = new $class();
+                if($params){
+                    $controller->$action(implode(',', $params));
+                }else{
+                    $controller->$action();
+                }
+            }
+            elseif($arr[0] == 'article' && count($arr) > 1){
                 if ($articleQuery->getArticleBySlug($slug)){
                     $class =  "App\\Controller\\" . $controller;
                     $controller = new $class();
