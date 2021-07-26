@@ -10,10 +10,9 @@
             <p><?php echo $message;?></p>
             <?php endif;
 
-            $menuQuery = new \App\Query\MenuQuery();
+            <?php $menuQuery = new \App\Query\MenuQuery(); ?>
 
-            if (!empty($menuQuery->getMenusName()))
-            {?>
+            <?php if (!empty($menuQuery->getMenusName())) { ?>
                 <div>
                     <h2>Choisissez un menu à éditer</h2>
                     <?= $selectMenu; ?>

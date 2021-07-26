@@ -36,11 +36,9 @@ class AdminMenuController extends Controller
         $id = $session->getSession('user_id');
 
         $testPermission = new \Core\Util\RolePermission();
-
         if ($id && $testPermission->has_permission($id, 'crud_menu')) {
             $form = new SelectMenuForm();
             $selectMenuForm = $form->getForm();
-
             $this->render("admin/menu/menu.phtml", ['selectMenu' => $selectMenuForm]);
         } else {
             $request = new \Core\Http\Request();

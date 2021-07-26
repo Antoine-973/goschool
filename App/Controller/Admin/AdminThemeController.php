@@ -47,6 +47,7 @@ class AdminThemeController extends Controller
         $data['foot_bg_color'] = '2B2B2B';
         $data['side_bg_color'] = '2B2B2B';
         $data['back_color'] = '423F3E';
+        $data['menu_color'] = 'ced4da';
         $data['h1_color'] = 'ced4da';
         $data['h2_color'] = 'ced4da';
         $data['h3_color'] = 'ced4da';
@@ -67,6 +68,7 @@ class AdminThemeController extends Controller
         $data['foot_bg_color'] = '363740';
         $data['side_bg_color'] = '363740';
         $data['back_color'] = 'f3f3f3';
+        $data['menu_color'] = 'ced4da';
         $data['h1_color'] = '363740';
         $data['h2_color'] = '363740';
         $data['h3_color'] = '363740';
@@ -83,16 +85,16 @@ class AdminThemeController extends Controller
     public function primaryTheme()
     {
         $idCustom = '1';
-        $data['nav_bg_color'] = '31326F';
-        $data['foot_bg_color'] = '31326F';
-        $data['side_bg_color'] = '31326F';
-        $data['back_color'] = 'DBF6E9';
-        $data['menu_color'] = '9DDFD3';
-        $data['h1_color'] = '9DDFD3';
-        $data['h2_color'] = '9DDFD3';
-        $data['h3_color'] = '9DDFD3';
-        $data['h4_color'] = '9DDFD3';
-        $data['p_color'] = '9DDFD3';
+        $data['nav_bg_color'] = '2a9d8f';
+        $data['foot_bg_color'] = '2a9d8f';
+        $data['side_bg_color'] = '2a9d8f';
+        $data['back_color'] = 'fdfcdc';
+        $data['menu_color'] = 'e9c46a';
+        $data['h1_color'] = 'e76f51';
+        $data['h2_color'] = 'e76f51';
+        $data['h3_color'] = 'e76f51';
+        $data['h4_color'] = 'e76f51';
+        $data['p_color'] = 'f4a261';
         $customQuery = new CustomQuery();
         if($customQuery->update($data,$idCustom)){
             $this->request->redirect('/admin/theme/index')->with('success', 'La customisation a bien été ajoutée.');
