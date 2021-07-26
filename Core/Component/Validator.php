@@ -33,6 +33,11 @@ class Validator
                 $this->validatePassword($data, $name);
             }
 
+            if($key == 'id' && $value == 'title'){
+                $this->url = $data;
+                $this->validateTitle($data, $name);
+            }
+
             if($key == 'id' && $value == 'url'){
                 $this->url = $data;
                 $this->validateUrl($data, $name);
@@ -68,7 +73,7 @@ class Validator
         if(is_string($value)){
             return true;
         }
-        $this->errors[] = "Invalid $name: must be a string";
+        $this->errors[] = "Champs $name invalide: doit être une chaine de caractère";
     }
 
     protected function validateEmail($value, $name)
@@ -77,7 +82,7 @@ class Validator
              return true;
          }
 
-         $this->errors[] = "Invalid $name: must be an email address";
+         $this->errors[] = "Champs $name invalide: doit être une adresse email";
     }
 
     protected function validateRequired($value, $name)
@@ -86,13 +91,13 @@ class Validator
             return true;
         }
 
-        $this->errors[] = "Invalid $name: field is required";
+        $this->errors[] = "Champs $name: ce champs est obligatoire";
     }
 
     protected function validateMin($value, $min, $name)
     {
         if(strlen($value) < $min){
-            $this->errors[] = "Invalid $name: $min minimum characters";
+            $this->errors[] = "Champs $name invalide: Le nombre de caractère minimum est : $min";
         }
         return true;
     }
@@ -100,7 +105,7 @@ class Validator
     protected function validateMax($value, $max, $name)
     {
         if(strlen($value) > $max){
-            $this->errors[] = "Invalid $name: $max minimum characters";
+            $this->errors[] = "Champs $name invalide: Le nombre de caractère minimum est : $max";
         }
 
         return true;
@@ -114,7 +119,7 @@ class Validator
             return true;
         }
 
-        $this->errors[] = "Invalid $name must contains at least 8 characters, and with at least 1 number, 1 uppercase and 1 letter";
+        $this->errors[] = "Champs $name invalide : doit contenir au moins 8 caractères, avec au moins 1 chiffre, 1 cractère spécial, une lettre en majuscule et une lettre minuscule";
     }
 
     public function validateUrl($value, $name)
@@ -125,7 +130,17 @@ class Validator
             return true;
         }
 
-        $this->errors[] = "Invalid $name must contains at least 4 characters, with only slash and alpha-numeric characters";
+        $this->errors[] = "Champs $name invalide : doit contenir au moins 4 caractères, comprenant seulement des chiffres et des lettres ainsi que des tirets";
+    }
+
+    public function validateTitle($value, $name)
+    {
+
+        if(ctype_alnum((str_replace(' ','', $value)))){
+            return true;
+        }
+
+        $this->errors[] = "Champs $name invalide : doit contenir au moins 4 caractères, avec seulement des chiffres, des lettres et des espaces";
     }
 
     protected function validateMatch($value, $name)
@@ -134,6 +149,6 @@ class Validator
             return true;
         }
 
-        $this->errors[] = "Invalid $name: must match password";
+        $this->errors[] = "Champs $name invalide: la valeur doit matcher avec celle du mot de passe";
     }
 }
