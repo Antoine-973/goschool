@@ -9,6 +9,8 @@ use Core\Util\DotEnv;
 use Core\Http\Redirect;
 use Core\Http\Request;
 use App\Form\UserRegisterForm;
+use mysqli;
+use PHPMailer\PHPMailer\Exception;
 use function Composer\Autoload\includeFile;
 
 class InstallationController extends Controller
@@ -30,7 +32,7 @@ class InstallationController extends Controller
 
             if ($data){
                 $db_params = [
-                    'DB_DRIVER' => 'mysql',
+                    'DB_DRIVER' => $data['db_driver'],
                     'DB_HOST' => $data['db_host'],
                     'DB_NAME' => $data['db_name'],
                     'DB_USER' => $data['db_user'],
@@ -44,6 +46,13 @@ class InstallationController extends Controller
                     'password' => $data['password'],
                     'passwordConfirm' => $data['passwordConfirm']
                 ];
+
+                if ($this->testDbConnexion($data['db_host'], $data['db_user'], $data['db_password'], $data['db_name'], '3306')){
+
+                }
+                else{
+                    exit;
+                }
 
                 $envFile = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . '.env';
 
@@ -122,6 +131,17 @@ class InstallationController extends Controller
         if(file_exists($file)){
             unlink($file);
             return true;
+        }
+    }
+
+    public function testDbConnexion($host, $username, $password, $name, $port)
+    {
+        $mysqli = new mysqli($host, $username, $password, $name, $port);
+
+        if ($mysqli->ping()) {
+            return true;
+        } else {
+            return false;
         }
     }
 }
