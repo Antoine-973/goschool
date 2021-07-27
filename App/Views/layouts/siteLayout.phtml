@@ -38,6 +38,8 @@ if ($arr[1] == 'article') {
         $url = $arr[1];
         if (empty($url)){
             $title = 'Accueil';
+            $getDescriptionQuery = new \App\Query\PageQuery();
+            $pageDescription = $getDescriptionQuery->getDescriptionByUrl("/")['description'];
         }
         else{
             $pageQuery = new \App\Query\PageQuery();
