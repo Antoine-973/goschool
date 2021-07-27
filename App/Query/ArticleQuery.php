@@ -185,7 +185,7 @@ class ArticleQuery
         $data['content'] = str_replace(';</p><p>', '<br>', str_replace( '&nbsp', '', html_entity_decode($data['content'])));
         $categorieQuery = new CategoryQuery();
 
-        if (!$data['categorie']=='Non-classé'){
+        if ($data['categorie'] !='Non-classé'){
             $data['categorie_id'] = $categorieQuery->getCategoriesIdByName($data['categorie'])['id'];
         }
 

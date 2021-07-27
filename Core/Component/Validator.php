@@ -40,7 +40,7 @@ class Validator
 
             if($key == 'id' && $value == 'name'){
                 $this->url = $data;
-                $this->validateTitle($data, $name);
+                $this->validateName($data, $name);
             }
 
             if($key == 'id' && $value == 'url'){
