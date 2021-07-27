@@ -17,6 +17,8 @@ $font = $customs['police'];$back_color = $customs['back_color'];
 
 $paramQuery = new \App\Query\ParamQuery();
 $siteName = $paramQuery->getSiteName()['site_name'];
+$paramQuery = new \App\Query\ParamQuery();
+$theme = $paramQuery->getTheme()['theme'];
 
 $request = new \Core\Http\Request();
 $path = $request->getPath();
@@ -103,7 +105,11 @@ $title =  $title . ' | ' . $siteName;
             </div>
         <?php } ?>
 
-        <?php echo $layout->getMenu();?>
+        <?php if($theme != 'Primary') { ?>
+            <?php echo $layout->getMenu();?>
+        <?php } else { ?>
+            <?php echo $layout->getSide();?>
+        <?php } ?>
         <div class="site-main--content">
             <div class="row">
                 <div class="col-12">
@@ -122,7 +128,9 @@ $title =  $title . ' | ' . $siteName;
             </div>
         </div>
 
-        <?php echo $layout->getFooter();?>
+        <?php if($theme != 'Primary') { ?>
+            <?php echo $layout->getFooter();?>
+        <?php }?>
     </div>
 
     <script>

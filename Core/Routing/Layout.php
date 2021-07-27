@@ -12,12 +12,12 @@ class Layout {
         return \ob_get_clean();
     }
 
-    public function getAside()
+    public function getSide()
     {
-        $asideFile = $this->getTemplateFolder() . "aside.phtml";
+        $asideFile = $this->getTemplateFolder() . "side.phtml";
 
         \ob_start();
-        include $this->getTemplateFolder() . "aside.phtml";
+        include $this->getTemplateFolder() . "side.phtml";
         return \ob_get_clean();
     }
 

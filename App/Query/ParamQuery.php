@@ -29,6 +29,12 @@ class ParamQuery{
         return $query->getResult();
     }
 
+    public function getTheme()
+    {
+        $query = $this->builder->select('theme')->from("parameters");
+        return $query->getResult();
+    }
+
     public function getDescription()
     {
         $query = $this->builder->select('description')->from("parameters");
@@ -50,6 +56,15 @@ class ParamQuery{
         $data['default_home_page'] = $pageQuery->getPageIdByTitle($data['default_home_page'])['id'];
         $data['mail_pass'] = $hash->passwordHash($data['mail_pass']);
 
+        $query = $this->builder->update("parameters")->set($data)->where("id = $id")->save();
+        return $query;
+    }
+
+        /**
+     * @param array $data
+     */
+    public function updateTheme(array $data, int $id)
+    {
         $query = $this->builder->update("parameters")->set($data)->where("id = $id")->save();
         return $query;
     }
