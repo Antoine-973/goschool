@@ -1,0 +1,103 @@
+<?php
+$verifTable = new \Core\Util\Table();
+$articleQuery = new App\Query\ArticleQuery();
+$articles = $articleQuery->orderByDate();
+$commentQuery = new App\Query\CommentQuery();
+$comments = $commentQuery->orderByDate();
+$paramQuery = new App\Query\ParamQuery();
+$siteName = $paramQuery->getSiteName();
+$menuQuery = new App\Query\MenuQuery();
+$menuId = $menuQuery->getIdByPosition('sidebar');
+$id = implode($menuId);
+$havepageQuery = new App\Query\HavePageQuery();
+$pagesId = $havepageQuery->getPagesIdByMenuId($id);
+?>
+
+<aside id="aside" class="site-main--aside">
+    <div class="container" style="top: 0;position:relative;">
+        <hr>
+        <h5>Menu :</h6>
+        <hr>
+        <ul style="list-style-type: none;">
+            <?php if($pagesId != null) {
+                if ($verifTable->is_multi($pagesId)){
+                    $pagesId = $verifTable->multi_to_single($pagesId);
+                }?>
+                <?php foreach($pagesId as $page) {
+                    $pageQuery = new App\Query\PageQuery();
+                    $pageTitle = $pageQuery->getTitleById($page);
+                    $title = implode($pageTitle);
+                    $pageQuery = new App\Query\PageQuery();
+                    $pageUrl = $pageQuery->getUrlById($page);
+                    $url = implode($pageUrl);
+                    ?>
+                    <li>
+                        <a href='<?php echo $url ?>'><?php echo $title ?></a>
+                    </li>
+                <?php } ?>
+            <?php }else{ ?>
+                <li>
+                    <a href='/'>Welcome</a>
+                </li>
+            <?php } ?>
+        </ul>
+    </div>
+    <div class="container">
+        <hr>
+        <h5>Dernières actualités :</h6>
+        <hr>
+    </div>
+    <div class="container">
+        <h6>Articles :</h6>
+        <ul>
+            <?php if (!empty($articles)){ ?>
+                <?php if ($articles && $verifTable->is_multi($articles)) { ?>
+                    <?php foreach($articles as $article) { ?>
+                        <li>
+                            <?php echo $article['title'] ?><br>
+                            <?php echo $article['created_at'] ?><br><br>
+                        </li>
+                    <?php } ?>
+                <?php } elseif (!$verifTable->is_multi($articles)) { ?>
+                    <li>
+                        <?php echo $articles['title'] ?><br>
+                        <?php echo $articles['created_at'] ?><br><br>
+                    </li>
+                <?php } ?>
+            <?php } else { ?>
+                <li>Il n'y a pas encore d'article.<br>
+                </li>
+            <?php } ?>
+        </ul>
+    </div>
+    <div class="container">
+        <h6>Commentaires :</h6>
+        <ul>
+            <?php if (!empty($comments)){ ?>
+                    <?php if ($comments && $verifTable->is_multi($comments)) { ?>
+                        <?php foreach($comments as $comment) { ?>
+                            <li>
+                                <?php echo substr($comment['message'],0,45).'...'?><br>
+                                <?php echo $comment['created_at'] ?><br><br>
+                            </li>
+                        <?php } ?>
+                    <?php } elseif (!$verifTable->is_multi($articles)) { ?>
+                        <li>
+                            <?php echo substr($comments['message'],0,45).'...'?>
+                            <?php echo $comments['created_at'] ?><br><br>
+                        </li>
+                    <?php } ?>
+                <?php } else { ?>
+                    <li>Il n'y a pas encore de commentaire.<br>
+                    </li>
+                <?php } ?>
+        </ul>
+    </div>
+    <div class="container">
+        <div class="col-12">
+            <p style="bottom: 0;position: absolute;">
+                Copyright &copy; 2021 - Tous droits réservés par <a href="/"><?php echo $siteName['site_name'] ?></a>.
+            </p>
+        </div>
+    </div>
+</aside>

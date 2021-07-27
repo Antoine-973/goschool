@@ -17,6 +17,8 @@ $font = $customs['police'];$back_color = $customs['back_color'];
 
 $paramQuery = new \App\Query\ParamQuery();
 $siteName = $paramQuery->getSiteName()['site_name'];
+$paramQuery = new \App\Query\ParamQuery();
+$theme = $paramQuery->getTheme()['theme'];
 
 $request = new \Core\Http\Request();
 $path = $request->getPath();
@@ -114,7 +116,11 @@ if (!is_null($title) && !is_null($siteName)){
             </div>
         <?php } ?>
 
-        <?php echo $layout->getMenu();?>
+        <?php if($theme != 'Primary') { ?>
+            <?php echo $layout->getMenu();?>
+        <?php } else { ?>
+            <?php echo $layout->getSide();?>
+        <?php } ?>
         <div class="site-main--content">
             <div class="row">
                 <div class="col-12">
@@ -143,7 +149,9 @@ if (!is_null($title) && !is_null($siteName)){
             </div>
         </div>
 
-        <?php echo $layout->getFooter();?>
+        <?php if($theme != 'Primary') { ?>
+            <?php echo $layout->getFooter();?>
+        <?php }?>
     </div>
 
     <script>
@@ -196,6 +204,8 @@ if (!is_null($title) && !is_null($siteName)){
         // Sidebar config
         $('.site-main--aside').css({ 'background' : side_bg_color, });
         $('.site-main--aside a').css({ 'color' : side_color, });
+        $('.site-main--aside li').css({ 'color' : p_color, });
+        $('.site-main--aside p').css({ 'color' : menu_color, });
         // Article config
         $('.site-main--content--articles .data-card h5').css({ 'color' : nav_bg_color, });
         $('.site-main--content--articles .data-card h6').css({ 'color' : nav_bg_color, });

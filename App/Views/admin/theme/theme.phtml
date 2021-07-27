@@ -1,3 +1,7 @@
+<?php
+$paramQuery = new \App\Query\ParamQuery();
+$theme = $paramQuery->getTheme()['theme'];
+?>
 <div class="content admin-theme--list">
     <div class="col-gutter-12">
         <h1>Thèmes</h1>
@@ -12,25 +16,41 @@
                             <img src='/images/logo.png' alt=''>
                             <h3><a href="">Thème de base</a></h3>
                             <p>Votre site sera de la même couleur que l'application GoSchool</p>
-                            <a href="/admin/theme/goschoolTheme" class="btn btn--info btn--md">Activé</a>
+                            <?php if($theme == 'GoSchool') { ?>
+                                <a href="/admin/theme/goschoolTheme" class="btn btn--info btn--md">Activé</a>
+                            <?php } else { ?>
+                                <a href="/admin/theme/goschoolTheme" class="btn btn--light btn--md">Activer</a>
+                            <?php } ?>
                         </li>
                         <li class="card">
                             <img src='https://images.unsplash.com/photo-1611083360739-bdad6e0eb1fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHw&ixlib=rb-1.2.1&q=80&w=400' alt=''>
                             <h3><a href="">Thème sombre</a></h3>
                             <p>Un thème pour un site plus sombre afin de réduire la consommation d'énergie et la fatigue des yeux.</p>
-                            <a href="/admin/theme/darkTheme" class="btn btn--light btn--md">Activer</a>
+                            <?php if($theme == 'Dark') { ?>
+                                <a href="/admin/theme/darkTheme" class="btn btn--info btn--md">Activé</a>
+                            <?php } else { ?>
+                                <a href="/admin/theme/darkTheme" class="btn btn--light btn--md">Activer</a>
+                            <?php } ?>
                         </li>
                         <li class="card">
                             <img src='https://media.istockphoto.com/photos/school-children-raising-their-hands-ready-to-answer-the-question-picture-id480507030?k=6&m=480507030&s=612x612&w=0&h=u8LSB5q7MunJ0D_-PjssnvbLPGcRYhwBZSMFxdJUiiw=' alt=''>
                             <h3><a href="">Thème école</a></h3>
                             <p>Thème aux couleurs plus captivante et joviale pour un cadre scolaire.</p>
-                            <a href="/admin/theme/primaryTheme" class="btn btn--light btn--md">Activer</a>
+                            <?php if($theme == 'Primary') { ?>
+                                <a href="/admin/theme/primaryTheme" class="btn btn--info btn--md">Activé</a>
+                            <?php } else { ?>
+                                <a href="/admin/theme/primaryTheme" class="btn btn--light btn--md">Activer</a>
+                            <?php } ?>
                         </li>
                         <li class="card">
                             <img src='/images/connexion.jpg' alt=''>
                             <h3><a href="">Thème école supérieure</a></h3>
                             <p>Thème polyvalent et pédagogique idéal pour les enseignants et les professeurs d'université.</p>
-                            <a href="/admin/theme/universityTheme" class="btn btn--light btn--md">Activer</a>
+                            <?php if($theme == 'University') { ?>
+                                <a href="/admin/theme/universityTheme" class="btn btn--info btn--md">Activé</a>
+                            <?php } else { ?>
+                                <a href="/admin/theme/universityTheme" class="btn btn--light btn--md">Activer</a>
+                            <?php } ?>
                         </li>
                     </ul>
                 </div>

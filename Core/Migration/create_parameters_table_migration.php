@@ -26,6 +26,7 @@ class create_parameters_table_migration
             `default_home_page` BIGINT(20) NULL,
             `post_show_count` INT DEFAULT '4',
             `description` TEXT NULL,
+            `theme` VARCHAR(25) DEFAULT 'GoSchool',
             `lang` VARCHAR(25) NOT NULL DEFAULT 'fr',
             `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
