@@ -212,4 +212,16 @@ class ArticleQuery
         $query = $this->builder->select('title, articles.slug, articles.description, categories.name, articles.created_at')->from("articles")->join('INNER', 'articles', 'categorie_id', 'categories', 'id')->where("status = Publié")->orderBy('created_at','DESC')->limit(3);
         return $query->getResult();
     }
+
+    public function getArticlesLimit($limit)
+    {
+        $query = $this->builder->select('title, articles.slug, articles.description, categories.name, articles.created_at')->from("articles")->join('INNER', 'articles', 'categorie_id', 'categories', 'id')->where("status = Publié")->orderBy('created_at','DESC')->limit($limit);
+        return $query->getResult();
+    }
+
+    public function getArticlesByCategory($categorySlug)
+    {
+        $query = $this->builder->select('articles.title, articles.slug, articles.description, categories.name, articles.created_at')->from("articles")->join('INNER', 'articles', 'categorie_id', 'categories', 'id')->where("articles.status = Publié", "categories.slug = $categorySlug")->orderBy('created_at','DESC')->limit(16);
+        return $query->getResult();
+    }
 }

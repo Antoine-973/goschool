@@ -30,19 +30,28 @@ if ($arr[1] == 'article') {
     $getDescriptionQuery = new \App\Query\ArticleQuery();
     $description = $getDescriptionQuery->getDescriptionBySlug($slug)['description'];
 }else{
-    $url = $arr[1];
-    if (empty($url)){
-        $title = 'Accueil';
+    if ($arr[1] == 'articles'){
+        $title = 'Articles';
+        $description = 'La liste des articles du site ' . $siteName;
     }
     else{
-        $pageQuery = new \App\Query\PageQuery();
-        $title = $pageQuery->getTitleByUrl("/".$url)['title'];
-        $getDescriptionQuery = new \App\Query\PageQuery();
-        $description = $getDescriptionQuery->getDescriptionByUrl("/".$url)['description'];
+        $url = $arr[1];
+        if (empty($url)){
+            $title = 'Accueil';
+        }
+        else{
+            $pageQuery = new \App\Query\PageQuery();
+            $title = $pageQuery->getTitleByUrl("/".$url)['title'];
+            $getDescriptionQuery = new \App\Query\PageQuery();
+            $description = $getDescriptionQuery->getDescriptionByUrl("/".$url)['description'];
+        }
     }
 }
-$title =  $title . ' | ' . $siteName;
 
+if (!is_null($title) && !is_null($siteName)){
+    $title =  $title . ' | ' . $siteName;
+
+}
 ?>
 
 <!DOCTYPE html>
@@ -110,11 +119,17 @@ $title =  $title . ' | ' . $siteName;
                     <?php echo $layout->getContent();?>
                 </div>
             </div>
+            <?php
+            if ($arr[1] == 'articles'){ ?>
+
+            <? }
+            else{ ?>
             <div class="row">
                 <div class="col-12">
                     <?php echo $layout->getArticles();?>
                 </div>
             </div>
+            <?php } ?>
             <div class="row">
                 <div class="col-12">
                     <?php echo $layout->getComments();?>

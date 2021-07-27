@@ -131,11 +131,11 @@ class Validator
     {
         $pattern = "/^\/[a-z]*$|^\/[a-z]*[-[a-z]*$/";
 
-        if(preg_match($pattern, $value)){
+        if(preg_match($pattern, $value) && $value != '/admin' && $value != '/articles' && $value != '/article'){
             return true;
         }
 
-        $this->errors[] = "Champs $name invalide : doit contenir au minimum un slash (accueil) et au maximum un slash suivi d'un mot. Doit seulement contenir des lettres minuscules.";
+        $this->errors[] = "Champs $name invalide : doit contenir au minimum un slash (accueil) et au maximum un slash suivi d'un mot. Doit seulement contenir des lettres minuscules et des tirets, Les urls suivant ne peuvent pas être utilisé : /admin /articles et /article.";
     }
 
     public function validateTitle($value, $name)

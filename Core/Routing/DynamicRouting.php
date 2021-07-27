@@ -76,6 +76,9 @@ class DynamicRouting {
         elseif($arr[0] == 'article'){
             $action =  $arr[0];
         }
+        elseif($arr[0] == 'articles'){
+            $action = $arr[0];
+        }
         else{
             $action =  'index';
         }
@@ -187,6 +190,15 @@ class DynamicRouting {
                 }
                 else{
                     $this->resolve404();
+                }
+            }
+            elseif($arr[0] == 'articles' && count($arr) == 1){
+                $class =  "App\\Controller\\" . $controller;
+                $controller = new $class();
+                if($params){
+                    $controller->$action(implode(',', $params));
+                }else{
+                    $controller->$action();
                 }
             }
             elseif ($pageQuery->getPageByUrl('/' . $arr[0])){
