@@ -54,7 +54,6 @@ class ParamQuery{
         $data['default_role'] = $roleQuery->getIdbyName($data['default_role'])['id'];
         $data['default_article_category'] = $categoryQuery->getCategoriesIdByName($data['default_article_category'])['id'];
         $data['default_home_page'] = $pageQuery->getPageIdByTitle($data['default_home_page'])['id'];
-        $data['mail_pass'] = $hash->passwordHash($data['mail_pass']);
 
         $query = $this->builder->update("parameters")->set($data)->where("id = $id")->save();
         return $query;
@@ -81,6 +80,30 @@ class ParamQuery{
     public function getDefaultRole()
     {
         $query = $this->builder->select('default_role')->from("parameters");
+        return $query->getResult();
+    }
+
+    public function getMailHost()
+    {
+        $query = $this->builder->select('mail_host')->from("parameters");
+        return $query->getResult();
+    }
+
+    public function getMailLogin()
+    {
+        $query = $this->builder->select('mail_login')->from("parameters");
+        return $query->getResult();
+    }
+
+    public function getMailPassword()
+    {
+        $query = $this->builder->select('mail_pass')->from("parameters");
+        return $query->getResult();
+    }
+
+    public function getMailPort()
+    {
+        $query = $this->builder->select('mail_port')->from("parameters");
         return $query->getResult();
     }
 

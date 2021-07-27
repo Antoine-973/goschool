@@ -37,14 +37,6 @@ class InstallationController extends Controller
                     'DB_PASSWORD' => $data['db_password'],
                 ];
 
-                $email_params = [
-                    'HOST' => 'tls://smtp.gmail.com:587',
-                    'USERNAME' => '',
-                    'PASSWORD' => '',
-                    'STMP_SECURE' => 'ssl',
-                    'PORT' => '587'
-                ];
-
                 $user_params = [
                     'firstname' => $data['firstname'],
                     'lastname' => $data['lastname'],
@@ -55,7 +47,7 @@ class InstallationController extends Controller
 
                 $envFile = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . '.env';
 
-                $this->writeFile($envFile, $db_params, $email_params);
+                $this->writeFile($envFile, $db_params);
 
                 if($conn = new DB()){
                     if($conn->applyMigrations()){
@@ -108,7 +100,7 @@ class InstallationController extends Controller
         }
     }
 
-    public function writeFile($file, $db_config, $email_config)
+    public function writeFile($file, $db_config)
     {
 
         if(!file_exists($file)){
@@ -116,13 +108,6 @@ class InstallationController extends Controller
             file_put_contents($file, "#Database Config" .PHP_EOL, FILE_APPEND);
 
             foreach($db_config as $key => $value ){
-                file_put_contents($file, $key . "=" . $value .PHP_EOL, FILE_APPEND);
-            }
-
-            file_put_contents($file, PHP_EOL, FILE_APPEND);
-            file_put_contents($file, "#Email Config" .PHP_EOL, FILE_APPEND);
-
-            foreach($email_config as $key => $value ){
                 file_put_contents($file, $key . "=" . $value .PHP_EOL, FILE_APPEND);
             }
 

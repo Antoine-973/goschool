@@ -3,6 +3,7 @@ namespace Core\Util;
 
 //Import PHPMailer classes into the global namespace
 //These must be at the top of your script, not inside a function
+use App\Query\ParamQuery;
 use Core\Http\Request;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -19,10 +20,6 @@ class Email
     public function __construct()
     {
         (new DotEnv(dirname(dirname(__DIR__)) . '/.env'))->load();
-        $this->host = getenv('HOST');
-        $this->username = getenv('USERNAME');
-        $this->password = getenv('PASSWORD');
-        $this->port = getenv('PORT');
     }
 
 	public function send($from, $to, $subject, $body)
@@ -33,10 +30,14 @@ class Email
             //Server settings
             //$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
             $mail->isSMTP();                                            //Send using SMTP
-            $mail->Host       = $this->host;                     //Set the SMTP server to send through
+            $paramQuery = new ParamQuery();
+            $portParamQuery = new ParamQuery();
+            $mail->Host       = $paramQuery->getMailHost()['mail_host'] . ':' . $portParamQuery->getMailPort()['mail_port'];             //Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-            $mail->Username   = $this->username;                     //SMTP username
-            $mail->Password   = $this->password;                               //SMTP password
+            $paramQuery = new ParamQuery();
+            $mail->Username   = $paramQuery->getMailLogin()['mail_login'];                     //SMTP username
+            $paramQuery = new ParamQuery();
+            $mail->Password   = $paramQuery->getMailPassword()['mail_pass'];                               //SMTP password
             $mail->SMTPSecure = 'tls';         //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
             //$mail->Port       = $this->port;                                    //TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
         

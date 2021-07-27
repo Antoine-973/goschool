@@ -41,7 +41,6 @@ class AdminParametersController extends Controller{
     public function update(){
         if ($this->request->isPost()){
             $data = $this->request->getBody();
-            //var_dump($data);die;
             $paramQuery = new ParamQuery();
             if ($paramQuery->updateParam($data, '1')){
                 $request = new \Core\Http\Request();
