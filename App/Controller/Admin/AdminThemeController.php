@@ -105,6 +105,7 @@ class AdminThemeController extends Controller
         $data['side_bg_color'] = '2a9d8f';
         $data['back_color'] = 'fdfcdc';
         $data['menu_color'] = 'e9c46a';
+        $data['side_color'] = 'f4a261';
         $data['h1_color'] = 'e76f51';
         $data['h2_color'] = 'e76f51';
         $data['h3_color'] = 'e76f51';
