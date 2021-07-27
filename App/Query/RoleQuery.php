@@ -27,4 +27,10 @@ class RoleQuery{
         return $query->getResult();
     }
 
+    public function getNameById($id)
+    {
+        $query = $this->builder->select('role')->from("roles")->where("id = $id");
+        return $query->getResult();
+    }
+
 }

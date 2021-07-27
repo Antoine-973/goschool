@@ -15,6 +15,20 @@
 
     $parametersQuery = new \App\Query\ParamQuery();
     $parameters = $parametersQuery->getParam('1');
+
+    $default_roleQuery = new \App\Query\ParamQuery();
+    $default_role_id = $default_roleQuery->getDefaultRole()['default_role'];
+    $roleQuery = new \App\Query\RoleQuery();
+    $nameRole = $roleQuery->getNameById($default_role_id)['role'];
+    $default_categorieQuery = new \App\Query\ParamQuery();
+    $default_categorie_id = $default_categorieQuery->getDefaultCategory()['default_article_category'];
+    $categoryQuery = new \App\Query\CategoryQuery();
+    $nameCategory = $categoryQuery->getCategorieName($default_categorie_id)['name'];
+
+    $default_pageQuery = new \App\Query\ParamQuery();
+    $default_page_id = $default_pageQuery->getDefaultPage()['default_home_page'];
+    $pageQuery = new \App\Query\PageQuery();
+    $namePage = $pageQuery->getTitleById($default_page_id)['title'];
 ?>
 
 <h1>Paramètres</h1>
@@ -56,9 +70,9 @@
                         <br>
                         <div class="row">
                             <label for="default_role">Role par défaut des nouveaux utilisateurs </label>
-                            <select name="default_role" id="default_role">
+                            <select name="default_role" id="default_role"">
                             <?php foreach ($roles as $role){ ?>
-                                <?php if ($parameters['default_role'] == $role){ ?>
+                                <?php if ($nameRole == $role){ ?>
                                     <option value="<?= $role ?>" selected><?= $role ?></option>
                                 <?php } else{ ?>
                                     <option value="<?= $role ?>"><?= $role ?></option>
@@ -86,7 +100,7 @@
                             <label for="default_article_category">Catégorie par défaut des nouveaux articles </label>
                             <select name="default_article_category" id="default_article_category">
                                 <?php foreach ($categories as $category){ ?>
-                                    <?php if ($parameters['default_article_category'] == $category){ ?>
+                                    <?php if ($nameCategory == $category){ ?>
                                         <option value="<?= $category ?>" selected><?= $category ?></option>
                                     <?php } else{ ?>
                                         <option value="<?= $category ?>"><?= $category ?></option>
@@ -112,7 +126,7 @@
                         <br>
                         <div class="row">
                             <label for="mail_pass">Mot de passe </label>
-                            <input type="pass" id="mail_pass"  name="mail_pass">
+                            <input type="password" id="mail_pass"  name="mail_pass">
                         </div>
                         <br>
                         <h2>Affichage</h2>
@@ -121,7 +135,7 @@
                             <select name="default_home_page" id="default_home_page">
                                 <option value="Accueil">Page d'accueil GoSchool par défaut</option>
                                 <?php foreach ($pages as $page){ ?>
-                                    <?php if ($parameters['default_home_page'] == $page){ ?>
+                                    <?php if ($namePage == $page){ ?>
                                         <option value="<?= $page ?>" selected><?= $page ?></option>
                                     <?php } else{ ?>
                                         <option value="<?= $page ?>"><?= $page ?></option>

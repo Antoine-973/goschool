@@ -107,4 +107,16 @@ class ParamQuery{
         return $query->getResult();
     }
 
+    public function getDefaultCategory()
+    {
+        $query = $this->builder->select('default_article_category')->from("parameters");
+        return $query->getResult();
+    }
+
+    public function getDefaultPage()
+    {
+        $query = $this->builder->select('default_home_page')->from("parameters");
+        return $query->getResult();
+    }
+
 }

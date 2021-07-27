@@ -109,4 +109,10 @@ class CategoryQuery{
         $query = $this->builder->select('slug')->from("categories")->where("name = $name");
         return $query->getResult();
     }
+
+    public function getCategorieName($id)
+    {
+        $query = $this->builder->select('name')->from("categories")->where("id = $id");
+        return $query->getResult();
+    }
 }
