@@ -1,7 +1,7 @@
 <?php
 $articleQuery = new App\Query\ArticleQuery();
 $articles = $articleQuery->orderByDate();
-$verifTable = new \Core\Util\Table()
+$verifTable = new \Core\Util\Table();
 ?>
 
 <div class="site-main--content--articles">
@@ -10,13 +10,13 @@ $verifTable = new \Core\Util\Table()
             <div class="col-gutter-3">
                 <a href="/article/<?php echo $article['slug'] ?>" class="data-card">
                     <h5><?php echo $article['title'] ?></h5>
-                    <?php if($article['name']) { ?>
+                    <?php if(is_null($article['name'])) { ?>
                         <h6>Pas de catégorie</h6>
                     <?php }else{ ?>
                         <h6><?php echo $article['name'] ?></h6>
                     <?php } ?>
                     <p>
-                        <?php if($article['description']) { ?>
+                        <?php if(is_null($article['description'])) { ?>
                             Pas de description
                         <?php }else{ ?>
                             <?php echo $article['description'] ?>
