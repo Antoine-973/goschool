@@ -50,6 +50,9 @@ class AdminDashboardController extends Controller{
         }
 
         $userQuery = new UserQuery();
+        $userSuperAdmin = $userQuery->getByRole('Super-Administrateur');
+        $superAdminCount = count($userSuperAdmin);
+        $userQuery = new UserQuery();
         $usersTeacher = $userQuery->getByRole('Professeur');
         $teacherCount = count($usersTeacher);
         $userQuery = new UserQuery();
@@ -89,6 +92,7 @@ class AdminDashboardController extends Controller{
             'studentEditorCount'=>$studentEditorCount,
             'studentCount'=>$studentCount,
             'subscribersCount'=>$subscribersCount,
+            'superAdminCount'=>$superAdminCount,
 
         ]);
     }

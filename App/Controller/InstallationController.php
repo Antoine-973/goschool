@@ -77,7 +77,7 @@ class InstallationController extends Controller
         }
     }
 
-    public function createAdmin($data){
+    public function createSuperAdmin($data){
 
         $userModel = new UserModel();
         $validator = new Validator();

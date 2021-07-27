@@ -74,4 +74,28 @@ class RolePermission{
             }
         }
     }
+
+
+    public function canEditOrDeleteUser($userId){
+
+        $session = new Session();
+        $myId = $session->getSession('user_id');
+
+        $roleQuery = new UserQuery();
+        $userRole = $roleQuery->getRoleId($userId)['role_id'];
+
+        $roleQuery = new UserQuery();
+        $myRole = $roleQuery->getRoleId($myId)['role_id'];
+
+        if ($this->has_permission($myId,'crud_user')){
+            if ($myRole < $userRole){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
 }

@@ -104,8 +104,10 @@ if (!is_null($title) && !is_null($siteName)){
                                     <?php }?>
                                     <?php if ($id && $testPermission->has_permission($id, 'approve_comment')) { ?> |
                                     <li><a href="/admin/comment/list"><i class="fas fa-comment"></i></a></li>
-                                    <?php }?>|
+                                    <?php }?>
+                                    <?php if ($id && $testPermission->has_permission($id, 'crud_article') || $id && $testPermission->has_permission($id, 'crud_self_article')) { ?>|
                                     <li><a href="/admin/article/add"><i class="fas fa-plus"></i>Ajouter</a></li>
+                                    <?php }?>
                                 </ul>
                             </div>
                             <div class="user-actions">

@@ -185,7 +185,7 @@ class AdminUserController extends Controller {
 
             $testPermission = new \Core\Util\RolePermission();
 
-            if ($user_id && $testPermission->has_permission($user_id, 'crud_user')) {
+            if ($user_id && $testPermission->canEditOrDeleteUser($id)) {
                 if($this->session->getSession('id') != $id){
                     if($this->userQuery->delete($id)) {
                         $this->request->redirect('/admin/user/list', ['flashMessage', 'L\'utilisateur a bien été supprimé']);
@@ -197,7 +197,7 @@ class AdminUserController extends Controller {
                 }
             } else {
                 $request = new \Core\Http\Request();
-                $request->redirect('/admin/dashboard/index', ['flashMessage', 'Vous n\'avez pas les droits nécessaires pour supprimer cet utilisateur.']);
+                $request->redirect('/admin/user/list', ['flashMessage', 'Vous n\'avez pas les droits nécessaires pour supprimer cet utilisateur.']);
             }
         }
     }

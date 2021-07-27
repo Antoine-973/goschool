@@ -66,9 +66,9 @@ class UserQuery
     /**
      * @param string $roles
      */
-    public function getRole()
+    public function getRoleId($id)
     {
-        $query = $this->builder->select("DISTINCT roles")->from("users");
+        $query = $this->builder->select("role_id")->from("users")->where("id = $id");
         return $query->getResult();
     }
 
