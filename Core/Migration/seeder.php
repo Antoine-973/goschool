@@ -179,6 +179,11 @@ class seeder
                 INSERT INTO customs (id)
                 VALUE ('1');
 
+                INSERT INTO events (title, slug, description, status, start_date, end_date, categorie_id, user_id)
+                VALUE ('Soutenance Projet Annuel', 'soutenance-projet-annuel', 'Le jour de notre décès', 'Validé', '2021-07-28', '2021-07-28', '11', '6'),
+                ('Speed meeting', 'speed-meeting', 'Aux jeux olympiques', 'Validé', '2021-07-30', '2021-07-30', '13', '6'),
+                ('Anniversaire de Mr SKRZYPCZYK', 'anniversaire-de-mr-skrzypczyk', 'Soirée détente', 'Validé', '2021-08-05', '2021-08-05', '4', '6');
+
                 INSERT INTO comments (message, status, user_id, article_id)
                 VALUES('Bonjour ceci est un commentaire de test. Pour commencer à modérer, éditer et supprimer des commentaires, veuillez visiter l\'écran Commentaires dans le tableau de bord. ', 'Approuvé', '1', '1'),
                        ('Bienvenue sur goschool !','Approuvé', '2', '1'),
