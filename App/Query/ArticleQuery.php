@@ -162,7 +162,6 @@ class ArticleQuery
     {
         $data['slug']= $this->helper->slugify($data['title']);
         $data['content'] = str_replace(';</p><p>', '<br>', str_replace( '&nbsp', '', html_entity_decode($data['content'])));
-        $data['slug']= strtolower(str_replace(" ", "-", $data['title']));
         $data['title']= ucfirst(strtolower($data['title']));
 
         if(array_key_exists('active_comment', $data)){
