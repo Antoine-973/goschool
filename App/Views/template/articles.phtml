@@ -8,12 +8,15 @@ $verifTable = new \Core\Util\Table();
     <?php if ($articles && $verifTable->is_multi($articles)) { ?>
         <?php foreach($articles as $article) { ?>
             <div class="col-gutter-3">
-                <a href="/article/<?php echo $article['slug'] ?>" class="data-card">
+                <div class="data-card">
                     <h5><?php echo $article['title'] ?></h5>
                     <?php if(is_null($article['name'])) { ?>
                         <h6>Pas de catégorie</h6>
-                    <?php }else{ ?>
-                        <h6><?php echo $article['name'] ?></h6>
+                    <?php }else{
+                        $categoryQuery = new \App\Query\CategoryQuery();
+                        $categorySlug = $categoryQuery->getSlugByName($article['name'])['slug'];
+                        ?>
+                        <a href="/articles?category=<?= $categorySlug ?>"><h6><?php echo $article['name'] ?></h6></a>
                     <?php } ?>
                     <p>
                         <?php if(is_null($article['description'])) { ?>
@@ -24,24 +27,29 @@ $verifTable = new \Core\Util\Table();
                         <br><br>
                         <?php echo $article['created_at'] ?>
                     </p>
-                    <span class="link-text">
-                        Voir l'article
-                        <i class="fas fa-arrow-right"></i>
-                    </span>
-                </a>
+                    <a href="/article/<?php echo $article['slug'] ?>">
+                        <span class="link-text">
+                            Voir l'article
+                            <i class="fas fa-arrow-right"></i>
+                        </span>
+                    </a>
+                </div>
             </div>
         <?php } ?>
     <?php } elseif ($articles && !$verifTable->is_multi($articles)) { ?>
             <div class="col-3">
-                <a href="/article/<?php echo $articles['slug'] ?>" class="data-card">
+                <div class="data-card">
                     <h5><?php echo $articles['title'] ?></h5>
                     <?php if(is_null($articles['name'])) { ?>
                         <h6>Pas de catégorie</h6>
-                    <?php }else{ ?>
-                        <h6><?php echo $articles['name'] ?></h6>
+                    <?php } else{
+                        $categoryQuery = new \App\Query\CategoryQuery();
+                        $categorySlug = $categoryQuery->getSlugByName($articles['name'])['slug'];
+                        ?>
+                        <a href="/articles?category=<?= $categorySlug ?>"><h6><?php echo $articles['name'] ?></h6></a>
                     <?php } ?>
                     <p>
-                        <?php if($articles['description']) { ?>
+                        <?php if(is_null($articles['description'])) { ?>
                             Pas de description
                         <?php }else{ ?>
                             <?php echo $articles['description'] ?>
@@ -49,11 +57,13 @@ $verifTable = new \Core\Util\Table();
                         <br><br>
                         <?php echo $articles['created_at'] ?>
                     </p>
-                    <span class="link-text">
-                    Voir l'article
-                    <i class="fas fa-arrow-right"></i>
-                    </span>
-                </a>
+                    <a href="/article/<?php echo $articles['slug'] ?>">
+                        <span class="link-text">
+                            Voir l'article
+                            <i class="fas fa-arrow-right"></i>
+                        </span>
+                    </a>
+                </div>
             </div>
         <?php } else { ?>
             <li>
@@ -63,3 +73,4 @@ $verifTable = new \Core\Util\Table();
                 </div>
          <?php } ?>
 </div>
+<a href="/articles" class="btn btn-info">Voir tous les articles</a>

@@ -103,4 +103,10 @@ class CategoryQuery{
         $query = $this->builder->select('name, slug, created_at')->from("categories")->orderBy('created_at','DESC');
         return $query->getResult();
     }
+
+    public function getSlugByName($name)
+    {
+        $query = $this->builder->select('slug')->from("categories")->where("name = $name");
+        return $query->getResult();
+    }
 }
