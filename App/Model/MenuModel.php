@@ -61,7 +61,7 @@ class MenuModel extends Model
     public function rules()
     {
         return [
-            'name' => ['id' => 'title', 'type' => 'string',  'min' => 4, 'required' => 'required', 'max' => 55],
+            'name' => ['id' => 'name', 'type' => 'string',  'min' => 4, 'required' => 'required', 'max' => 55],
             'description' => ['type' => 'string', 'max' => 200],
         ];
     }

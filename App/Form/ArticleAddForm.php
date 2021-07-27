@@ -24,7 +24,7 @@ class ArticleAddForm
 
 
         $form = Form::create('/admin/article/store')
-                ->input('title', 'text', ['value' => 'Titre', 'min' => 4, 'max' => 150, 'required' => 'required'])
+                ->input('title', 'text', ['value' => 'Titre', 'min' => 4, 'max' => 200, 'required' => 'required'])
                 ->select('status','Statut',['id' => 'status', 'name' => 'status', 'options' => $options])
                 ->input('active_comment', 'checkbox', ['value' => 'Commentaire activé'])
                 ->textarea('description', 'Description (Référencement)', ['max' => 160])

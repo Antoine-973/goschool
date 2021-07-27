@@ -40,7 +40,7 @@ class PageModel extends Model
     public function rules()
     {
         return [
-            'title' => ['id' => 'title', 'type' => 'string', 'min' => 4, 'required' => 'required', 'max' => 55],
+            'title' => ['id' => 'name', 'type' => 'string', 'min' => 4, 'required' => 'required', 'max' => 55],
             'content' => ['type' => 'string', 'required' => 'required', 'max' => 6000],
             'url' => ['id' => 'url', 'type' => 'string', 'required' => 'required', 'min' => 1, 'max' => 55],
         ];

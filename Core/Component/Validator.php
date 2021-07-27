@@ -38,6 +38,11 @@ class Validator
                 $this->validateTitle($data, $name);
             }
 
+            if($key == 'id' && $value == 'name'){
+                $this->url = $data;
+                $this->validateTitle($data, $name);
+            }
+
             if($key == 'id' && $value == 'url'){
                 $this->url = $data;
                 $this->validateUrl($data, $name);
@@ -124,16 +129,27 @@ class Validator
 
     public function validateUrl($value, $name)
     {
-        $pattern = "/[^-\/a-z0-9]/m";
+        $pattern = "/^\/[a-z]*$|^\/[a-z]*[-[a-z]*$/";
 
-        if(!preg_match($pattern, $value)){
+        if(preg_match($pattern, $value)){
             return true;
         }
 
-        $this->errors[] = "Champs $name invalide : doit contenir au moins 4 caractères, comprenant seulement des chiffres et des lettres ainsi que des tirets";
+        $this->errors[] = "Champs $name invalide : doit contenir au minimum un slash (accueil) et au maximum un slash suivi d'un mot. Doit seulement contenir des lettres minuscules.";
     }
 
     public function validateTitle($value, $name)
+    {
+        $pattern = "/^[\w\-\s:?,;.!()&'\"]*$/um";
+
+        if(preg_match($pattern, $value)){
+            return true;
+        }
+
+        $this->errors[] = "Champs $name invalide : doit contenir au moins 4 caractères, avec seulement des chiffres, des lettres et des espaces ainsi que les caractères spéciaux de ponctuation.";
+    }
+
+    public function validateName($value, $name)
     {
 
         if(ctype_alnum((str_replace(' ','', $value)))){
