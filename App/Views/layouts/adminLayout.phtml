@@ -131,7 +131,7 @@
                                 <?php } ?>
 
                                 <?php if ($testPermission->has_permission($id,'crud_event') || $id && $testPermission->has_permission($id,'crud_self_event')){ ?>
-                                <li class="sidebar-section"><a href="/admin/planning/index"><i class="far fa-calendar-alt"></i>  Planning</a></li>
+                                <li class="sidebar-section"><a href="/admin/event/list"><i class="far fa-calendar-alt"></i>  Événements</a></li>
                                 <?php } ?>
 
                                 <?php if ($testPermission->has_permission($id,'crud_newsletter') || $id && $testPermission->has_permission($id,'crud_self_newsletter')){ ?>

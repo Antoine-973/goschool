@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller\Admin;
 
+use App\Query\EventQuery;
 use Core\Controller;
 use Core\Http\Request;
 use App\Model\UserModel;
@@ -62,24 +63,27 @@ class AdminDashboardController extends Controller{
         $editCount = count($usersEdit);
         $userQuery = new UserQuery();
         $usersAutor = $userQuery->getByRole('Auteur');
-        $autorCount = count($usersAutor);
+        $authorCount = count($usersAutor);
         $userQuery = new UserQuery();
         $usersSchool = $userQuery->getByRole('Vie-Scolaire');
-        $studentEditorCount = count($usersSchool);
-        $userQuery = new UserQuery();
-        $usersSchool = $userQuery->getByRole('Élève-Rédacteur');
         $schoolCount = count($usersSchool);
         $userQuery = new UserQuery();
-        $getUserByRole = $userQuery->getByRole('Élève');
-        $studentCount = count($usersSchool);
+        $usersSchool = $userQuery->getByRole('Élève-Rédacteur');
+        $studentEditorCount = count($usersSchool);
         $userQuery = new UserQuery();
-        $usersSchool = $userQuery->getByRole('Vie-Scolaire');
+        $usersStudent = $userQuery->getByRole('Élève');
+        $studentCount = count($usersStudent);
+
+        $eventQuery = new EventQuery();
+        $events = $eventQuery->getEventsOrdered();
+
         $this->render('admin/index.phtml', [
             'articles'=>$articles, 
             'users'=>$users,
+            'events'=>$events,
             'editCount'=>$editCount,
             'adminCount'=>$adminCount,
-            'autorCount'=>$autorCount,
+            'authorCount'=>$authorCount,
             'schoolCount'=>$schoolCount,
             'teacherCount'=>$teacherCount,
             'studentEditorCount'=>$studentEditorCount,

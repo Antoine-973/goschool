@@ -24,7 +24,7 @@
                             <tr>
                                 <td><?php echo $adminCount; ?></td>
                                 <td><?php echo $editCount; ?></td>
-                                <td><?php echo $autorCount; ?></td>
+                                <td><?php echo $authorCount; ?></td>
                                 <td><?php echo $schoolCount; ?></td>
                                 <td><?php echo $teacherCount; ?></td>
                                 <td><?php echo $studentEditorCount; ?></td>
@@ -148,6 +148,37 @@
             <div class="col-gutter-8">
                 <div class="shadow shadow--none">
                     <h4>Les évènements à venir.</h4>
+                    <ul>
+                    <?php
+                    if (!empty($events)){
+                        if ($verifTable->is_multi($events)){
+                            foreach ($events as $event){ ?>
+                                <div>
+                                    <b><?= $event['title'] ?></b>
+                                    de catégorie <?= $event['name'] ?>
+                                    créer par <?= $event['fullname'] ?><br>
+                                    <?= $event['description'] ?><br>
+                                    <b>Du <?= $event['start_date'] ?> au</b>
+                                    <b><?= $event['end_date'] ?> inclus</b>
+                                    <hr>
+                                </div>
+                            <?php }
+                        }
+                        else{ ?>
+                            <div>
+                                <b><?= $events['title'] ?></b>
+                                de catégorie <?= $events['name'] ?>
+                                créer par <?= $events['fullname'] ?><br>
+                                <?= $events['description'] ?><br>
+                                <b>Du <?= $events['start_date'] ?> au</b>
+                                <b><?= $events['end_date'] ?> inclus</b>
+                                <hr>
+                            </div>
+                       <?php }
+                    } else{ ?>
+                        <b>Il n'y a pas encore d'événements.<b><br><br><a href="/admin/event/add" class="btn btn--sm"><i class="fas fa-plus-circle"></i> Ajouter </a>
+                    <?php } ?>
+                    </ul>
                 </div>
             </div>
         </div>

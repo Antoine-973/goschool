@@ -159,7 +159,6 @@ class AdminArticleController extends Controller {
             $checkPermission = new RolePermission();
 
             if ($checkPermission->canEditOrDelete($id,'article')){
-                $slug = $this->articleQuery->getSlugById($id)['slug'];
                 $deleteQuery = new ArticleQuery();
 
                 if($deleteQuery->deleteArticle($id)) {
