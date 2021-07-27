@@ -18,7 +18,7 @@ class CommentQuery{
      */
     public function getComments()
     {
-        $query = $this->builder->select('comments.id, message, comments.status, users.email, articles.title, comments.created_at')->from("comments")->join('INNER', 'comments', 'article_id', 'articles', 'id')->join('INNER', 'comments', 'user_id', 'users', 'id');
+        $query = $this->builder->select('comments.id, message, comments.status, users.fullname, articles.title, comments.created_at')->from("comments")->join('INNER', 'comments', 'article_id', 'articles', 'id')->join('INNER', 'comments', 'user_id', 'users', 'id');
         return $query->getResult();
     }
 
