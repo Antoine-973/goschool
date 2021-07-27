@@ -1,0 +1,59 @@
+<div class="content admin-newsletter--list">
+    <div class="col-gutter-12">
+        <h1>Ajout d'un événement</h1>
+        <?php if(($message = $helper->getFlashMessage('flashMessage'))):?>
+            <p><?php echo $message;?></p>
+        <?php endif;?>
+
+        <?php if(isset($errors) && !empty($errors)): ?>
+            <ul>
+                <?php foreach($errors as $error): ?>
+                    <li><?php echo $error;?></li>
+                <?php endforeach; ?>
+            </ul>
+        <?php endif; ?>
+
+        <form class="container--fluid" action="store">
+            <div class="row">
+                <label for="title">Titre de l'événement</label>
+                <input type="text" name="title">
+            </div>
+            <br>
+            <div class="row">
+                <label for="description">Description de l'événement</label>
+                <textarea id="description" name="description"></textarea>
+            </div>
+            <br>
+            <div class="row">
+                <label for="description">Statut de l'événement</label>
+                <select>
+                    <option>Brouillon</option>
+                    <option>En-Attente</option>
+                    <option>Validé</option>
+                </select>
+            </div>
+            <br>
+            <div class="row">
+                <label for="start_date">Début de l'événement</label>
+                <input type="date" id="start_date" name="start_date">
+            </div>
+            <br>
+            <div class="row">
+                <label for="end_date">Fin de l'événement</label>
+                <input type="date" id="end_date" name="end_date">
+            </div>
+            <br>
+            <div class="row">
+                <select>
+                    <?php $categoryQuery = new \App\Query\CategoryQuery();
+                    $categories = $categoryQuery->getCategoriesName();
+                    foreach ($categories as $category){ ?>
+                        <option><?= $category['name'] ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <br>
+            <input class="btn-success btn" formmethod="post" type="submit" value="Créer l'événement" />
+        </form>
+    </div>
+</div>
