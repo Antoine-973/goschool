@@ -43,7 +43,7 @@ class Layout {
             }
         }
         elseif(count($arr) == 2 && $arr[1] == 'articles'){
-            return$this->getListArticles();
+
         }
         else{
             return $this->getPageContent();
