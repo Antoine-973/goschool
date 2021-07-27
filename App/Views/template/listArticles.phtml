@@ -1,0 +1,93 @@
+<?php
+$request = new \Core\Http\Request();
+$category = $request->getBody();
+$articleQuery = new App\Query\ArticleQuery();
+$categoryQuery = new \App\Query\CategoryQuery();
+
+if (!empty($category)){
+    if (!is_null($category['category'])){
+        if ($categoryQuery->getCategoriesIdByName($category['category'])){
+            $articles = $articleQuery->getArticlesByCategory($category['category']);
+        }
+        else{
+            $notFound = new \Core\Routing\DynamicRouting();
+            $notFound->resolve404();
+        }
+    }
+}
+else{
+    $articles = $articleQuery->getArticlesLimit('16');
+}
+$verifTable = new \Core\Util\Table();
+?>
+
+<div class="site-main--content--articles">
+    <?php if (!empty($articles)){
+        if ($verifTable->is_multi($articles)) { ?>
+        <?php foreach($articles as $article) { ?>
+            <div class="col-gutter-3">
+                <div class="data-card">
+                    <h5><?php echo $article['title'] ?></h5>
+                    <?php if(is_null($article['name'])) { ?>
+                        <h6>Pas de catégorie</h6>
+                    <?php } else{
+                        $categoryQuery = new \App\Query\CategoryQuery();
+                        $categorySlug = $categoryQuery->getSlugByName($article['name'])['slug'];
+                        ?>
+                    <a href="/articles?category=<?= $categorySlug ?>"><h6><?php echo $article['name'] ?></h6></a>
+                    <?php } ?>
+                    <p>
+                        <?php if(is_null($article['description'])) { ?>
+                            Pas de description
+                        <?php }else{ ?>
+                            <?php echo $article['description'] ?>
+                        <?php } ?>
+                        <br><br>
+                        <?php echo $article['created_at'] ?>
+                    </p>
+                    <a href="/article/<?php echo $article['slug'] ?>">
+                        <span class="link-text">
+                            Voir l'article
+                            <i class="fas fa-arrow-right"></i>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        <?php } ?>
+    <?php } elseif (!$verifTable->is_multi($articles)) { ?>
+        <div class="col-3">
+            <div class="data-card">
+                <h5><?php echo $articles['title'] ?></h5>
+                <?php if(is_null($articles['name'])) { ?>
+                    <h6>Pas de catégorie</h6>
+                <?php } else{
+                    $categoryQuery = new \App\Query\CategoryQuery();
+                    $categorySlug = $categoryQuery->getSlugByName($articles['name'])['slug'];
+                    ?>
+                    <a href="/articles?category=<?= $categorySlug ?>"><h6><?php echo $articles['name'] ?></h6></a>
+                <?php } ?>
+                <p>
+                    <?php if(is_null($articles['description'])) { ?>
+                        Pas de description
+                    <?php }else{ ?>
+                        <?php echo $articles['description'] ?>
+                    <?php } ?>
+                    <br><br>
+                    <?php echo $articles['created_at'] ?>
+                </p>
+                <a href="/article/<?php echo $articles['slug'] ?>">
+                        <span class="link-text">
+                            Voir l'article
+                            <i class="fas fa-arrow-right"></i>
+                        </span>
+                </a>
+            </div>
+        </div>
+    <?php }
+    } else { ?>
+        <div class="col-3">
+            <h6>Il n'y a pas encore d'article dans cette catégorie</h6>
+            <a href="/admin/article/add" class="btn btn--sm"><i class="fas fa-plus-circle"></i> Ajouter </a>
+        </div>
+<?php } ?>
+</div>

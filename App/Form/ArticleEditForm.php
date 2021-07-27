@@ -43,8 +43,8 @@ class ArticleEditForm
         $categories = $convertTable->multi_to_single($categoriesName);
 
         $form = Form::create('/admin/article/update/'.$articleId['id'])
-                ->input('title', 'text', ['value' => 'Titre', 'min' => 4, 'max' => 150, 'text' => $data['title'], 'required' => 'required'])
-                ->input('slug', 'text', ['value' => 'Slug', 'min' => 4, 'max' => 170, 'text' => $data['slug'], 'required' => 'required'])
+                ->input('title', 'text', ['value' => 'Titre', 'min' => 4, 'max' => 200, 'text' => $data['title'], 'required' => 'required'])
+                ->input('slug', 'text', ['value' => 'Slug', 'min' => 4, 'max' => 220, 'text' => $data['slug'], 'required' => 'required'])
                 ->select('status','Statut',['id' => 'status', 'name' => 'status', 'options' => $options])
                 ->select('categorie','Catégorie',['id' => 'categorie', 'name' => 'categorie', 'options' => $categories])
                 ->input('active_comment', 'checkbox', ['value' => 'Commentaire activé'])

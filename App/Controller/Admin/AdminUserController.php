@@ -4,7 +4,6 @@ namespace App\Controller\Admin;
 use App\Form\UserProfileForm;
 use Core\Controller;
 use Core\Http\Request;
-use Core\Http\Response;
 use App\Model\UserModel;
 use App\Form\UserAddForm;
 use App\Form\UserEditForm;
@@ -17,8 +16,6 @@ class AdminUserController extends Controller {
     private $validator;
 
     private $request;
-
-    private $response;
 
     private $userModel;
 
@@ -33,7 +30,6 @@ class AdminUserController extends Controller {
     public function __construct()
     {
         $this->request = new Request();
-        $this->response = new Response();
         $this->userModel = new UserModel();
         $this->userAddForm = new UserAddForm();
         $this->userEditForm = new UserEditForm();

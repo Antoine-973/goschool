@@ -7,6 +7,14 @@
 
         if (!empty($pages)){ ?>
 
+            <?php if(isset($errors) && !empty($errors)): ?>
+                <ul>
+                    <?php foreach($errors as $error): ?>
+                        <li><?php echo $error;?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
+
             <form class="container--fluid" action="store">
                 <div class="row">
                     <label for="name">Nom du menu</label>

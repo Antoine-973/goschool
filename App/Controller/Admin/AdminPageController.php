@@ -5,7 +5,6 @@ use App\Form\PageAddForm;
 use App\Form\PageEditForm;
 use Core\Controller;
 use Core\Http\Request;
-use Core\Http\Response;
 use App\Model\PageModel;
 use App\Query\PageQuery;
 use Core\Component\Validator;
@@ -18,8 +17,6 @@ class AdminPageController extends Controller {
 
     private $request;
 
-    private $response;
-
     private $pageModel;
 
     private $pageQuery;
@@ -28,7 +25,6 @@ class AdminPageController extends Controller {
     public function __construct()
     {
         $this->request = new Request();
-        $this->response = new Response();
         $this->pageModel = new PageModel();
         $this->pageQuery = new PageQuery();
         $this->validator = new Validator();
@@ -126,7 +122,9 @@ class AdminPageController extends Controller {
 
             if (empty($errors)) {
 
-                if ($this->pageQuery->updatePage($data, $id)) {
+                $updateQuery = new PageQuery();
+
+                if ($updateQuery->updatePage($data, $id)) {
 
                     $this->request->redirect('/admin/page/list', ['flashMessage', 'La page a bien été édité']);
                 } else {

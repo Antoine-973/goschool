@@ -8,7 +8,6 @@ use App\Query\CategoryQuery;
 use Core\Component\Validator;
 use Core\Controller;
 use Core\Http\Request;
-use Core\Http\Response;
 use Core\Http\Session;
 
 class AdminCategoryController extends Controller {
@@ -16,8 +15,6 @@ class AdminCategoryController extends Controller {
     private $request;
 
     private $validator;
-
-    private $response;
 
     private $categoryModel;
 
@@ -30,7 +27,6 @@ class AdminCategoryController extends Controller {
     public function __construct()
     {
         $this->request = new Request();
-        $this->response = new Response();
         $this->categoryModel = new CategoryModel();
         $this->categoryAddForm = new CategoryAddForm();
         $this->categoryEditForm = new CategoryEditForm();

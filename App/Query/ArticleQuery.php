@@ -161,8 +161,7 @@ class ArticleQuery
     public function create(array $data)
     {
         $data['slug']= $this->helper->slugify($data['title']);
-        $data['content']= str_replace('&#39;', '\'', str_replace( '&nbsp', '', html_entity_decode($data['content'])));
-        $data['slug']= strtolower(str_replace(" ", "-", $data['title']));
+        $data['content'] = str_replace(';</p><p>', '<br>', str_replace( '&nbsp', '', html_entity_decode($data['content'])));
         $data['title']= ucfirst(strtolower($data['title']));
 
         if(array_key_exists('active_comment', $data)){
@@ -183,10 +182,10 @@ class ArticleQuery
     public function updateArticle(array $data, $id)
     {
         $data['slug']= $this->helper->slugify($data['slug']);
-        $data['content']= str_replace( '&nbsp', '', html_entity_decode($data['content']));
+        $data['content'] = str_replace(';</p><p>', '<br>', str_replace( '&nbsp', '', html_entity_decode($data['content'])));
         $categorieQuery = new CategoryQuery();
 
-        if (!$data['categorie']=='Non-classé'){
+        if ($data['categorie'] !='Non-classé'){
             $data['categorie_id'] = $categorieQuery->getCategoriesIdByName($data['categorie'])['id'];
         }
 
@@ -211,6 +210,18 @@ class ArticleQuery
     public function orderByDate()
     {
         $query = $this->builder->select('title, articles.slug, articles.description, categories.name, articles.created_at')->from("articles")->join('INNER', 'articles', 'categorie_id', 'categories', 'id')->where("status = Publié")->orderBy('created_at','DESC')->limit(3);
+        return $query->getResult();
+    }
+
+    public function getArticlesLimit($limit)
+    {
+        $query = $this->builder->select('title, articles.slug, articles.description, categories.name, articles.created_at')->from("articles")->join('INNER', 'articles', 'categorie_id', 'categories', 'id')->where("status = Publié")->orderBy('created_at','DESC')->limit($limit);
+        return $query->getResult();
+    }
+
+    public function getArticlesByCategory($categorySlug)
+    {
+        $query = $this->builder->select('articles.title, articles.slug, articles.description, categories.name, articles.created_at')->from("articles")->join('INNER', 'articles', 'categorie_id', 'categories', 'id')->where("articles.status = Publié", "categories.slug = $categorySlug")->orderBy('created_at','DESC')->limit(16);
         return $query->getResult();
     }
 }

@@ -54,6 +54,16 @@ class HomeController extends Controller{
         }
     }
 
+    public function articles(){
+        $request = new Request();
+        $path = $request->getPath();
+        $arr = explode('/', $path);
+
+        if (count($arr) == '2'){
+            return $this->render("site/pages/sample_page.phtml");
+        }
+    }
+
     public function storeComment(){
         if($this->request->isPost()) {
             $data = $this->request->getBody();

@@ -42,6 +42,9 @@ class Layout {
                 return$this->getArticleContent();
             }
         }
+        elseif(count($arr) == 2 && $arr[1] == 'articles'){
+
+        }
         else{
             return $this->getPageContent();
         }
@@ -63,10 +66,15 @@ class Layout {
 
     public function getArticles()
     {
-        $footerFile = $this->getTemplateFolder() . "articles.phtml";
-
         \ob_start();
         include $this->getTemplateFolder() . "articles.phtml";
+        return \ob_get_clean();
+    }
+
+    public function getListArticles()
+    {
+        \ob_start();
+        include $this->getTemplateFolder() . "listArticles.phtml";
         return \ob_get_clean();
     }
 

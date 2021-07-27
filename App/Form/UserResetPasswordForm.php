@@ -20,8 +20,8 @@ class UserResetPasswordForm
         $form = Form::create('/admin/auth/postResetPassword')
                 ->input('selector', 'hidden', ['value' => $data['selector']])
                 ->input('validator', 'hidden', ['value' => $data['validator']])
-                ->input('password', 'password', ['value' => 'Nouveau mot de passe'])
-                ->input('passwordConfirm', 'password', ['value' => 'Confirmer le mot de passe'])
+                ->input('password', 'password', ['value' => 'Nouveau mot de passe', 'max' => 55])
+                ->input('passwordConfirm', 'password', ['value' => 'Confirmer le mot de passe', 'max' => 55])
                 ->input('submit', 'submit', ['value' => 'Changer']);
         return $form->getForm();
     }

@@ -36,6 +36,8 @@ class Helper
 
     public  function slugify($text, string $divider = '-')
     {
+        $text = str_replace('.', '', $text);
+
         // replace non letter or digits by divider
         $text = preg_replace('~[^\pL\d]+~u', $divider, $text);
 
@@ -57,7 +59,6 @@ class Helper
         if (empty($text)) {
         return 'n-a';
     }
-
     return $text;
     }
     

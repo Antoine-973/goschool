@@ -56,7 +56,7 @@ $siteName = $paramQuery->getSiteName();
                     <?php if($categories != null) { ?>
                         <?php for($i = 0; $i < 5;$i++):?>
                             <li>
-                                <a href='/<?php echo $categories[$i]['slug']?>'><?php echo $categories[$i]['name']?></a>
+                                <a href='/articles?category=<?php echo $categories[$i]['slug']?>'><?php echo $categories[$i]['name']?></a>
                             </li>
                         <?php endfor;?>
                     <?php }else{ ?>

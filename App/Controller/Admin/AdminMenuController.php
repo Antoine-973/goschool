@@ -4,11 +4,12 @@ namespace App\Controller\Admin;
 
 use App\Form\SelectMenuForm;
 use App\Form\SelectMenuPositionForm;
+use App\Model\MenuModel;
 use App\Query\MenuQuery;
 use App\Query\PageQuery;
+use Core\Component\Validator;
 use Core\Controller;
 use Core\Http\Request;
-use Core\Http\Response;
 use App\Query\HavePageQuery;
 use Core\Http\Session;
 
@@ -16,18 +17,21 @@ class AdminMenuController extends Controller
 {
     private $request;
 
-    private $response;
-
     private $menuQuery;
 
     private $pageQuery;
 
+    private $menuModel;
+
+    private $validator;
+
     public function __construct()
     {
         $this->request = new Request();
-        $this->response = new Response();
         $this->menuQuery = new MenuQuery();
         $this->pageQuery = new PageQuery();
+        $this->menuModel = new MenuModel();
+        $this->validator = new Validator();
     }
 
     public function index()
@@ -77,31 +81,39 @@ class AdminMenuController extends Controller
     public function store(){
         if ($this->request->isPost()){
             $data =$this->request->getBody();
+            $errors = $this->validator->validate($this->menuModel, $data);
 
-            $menuData = array_slice($data,0, 2);
-            $pageToAddToMenu = array_slice($data, 2);
+            if(empty($errors)){
+                $menuData = array_slice($data,0, 2);
+                $pageToAddToMenu = array_slice($data, 2);
 
-            if($this->menuQuery->create($menuData)){
+                if($this->menuQuery->create($menuData)){
 
-                $menuQueryId = new MenuQuery();
-                $idMenu = $menuQueryId->getMenuIdByName($menuData['name']);
+                    $menuQueryId = new MenuQuery();
+                    $idMenu = $menuQueryId->getMenuIdByName($menuData['name']);
 
-                foreach ($pageToAddToMenu as $page_id){
+                    foreach ($pageToAddToMenu as $page_id){
 
-                    $pageToUpdate = [
-                        'menu_id' => $idMenu['id'],
-                        'page_id' => $page_id
-                    ];
+                        $pageToUpdate = [
+                            'menu_id' => $idMenu['id'],
+                            'page_id' => $page_id
+                        ];
 
-                    $havePageQuery = new HavePageQuery();
+                        $havePageQuery = new HavePageQuery();
 
-                    if (!$page_id == '0'){
-                        $havePageQuery->create($pageToUpdate, $page_id);
+                        if (!$page_id == '0'){
+                            $havePageQuery->create($pageToUpdate, $page_id);
+                        }
                     }
+                    $this->request->redirect('/admin/menu/index', ['flashMessage', 'Le menu a bien été créer, vous pouvez maintenant choisir son emplacement dans le site.']);
+                }else{
+                    $this->request->redirect('/admin/menu/index', ['flashMessage', 'Une erreur c\'est produite. Veuillez réessayer.']);
                 }
-                $this->request->redirect('/admin/menu/index', ['flashMessage', 'Le menu a bien été créer, vous pouvez maintenant choisir son emplacement dans le site.']);
-            }else{
-                $this->request->redirect('/admin/menu/index', ['flashMessage', 'Une erreur c\'est produite. Veuillez réessayer.']);
+            }
+            else{
+                $pages = $this->pageQuery->getTitleAndId();
+
+                $this->render("admin/menu/addMenu.phtml", ['errors'=>$errors, 'pages'=>$pages]);
             }
         }
     }
@@ -125,50 +137,58 @@ class AdminMenuController extends Controller
     public function update(){
         if ($this->request->isPost()){
             $data =$this->request->getBody();
+            $errors = $this->validator->validate($this->menuModel, $data);
 
-            $menuData = array_slice($data,1, 2);
-            $pageToAddToMenu = array_slice($data, 3);
+            if(empty($errors)){
+                $menuData = array_slice($data,1, 2);
+                $pageToAddToMenu = array_slice($data, 3);
 
-            $idMenu = $data['id'];
+                $idMenu = $data['id'];
 
-            $updateMenuQuery = new MenuQuery();
-            if($updateMenuQuery->update($menuData, $idMenu)){
-                foreach ($pageToAddToMenu as $titre => $page_id){
+                $updateMenuQuery = new MenuQuery();
+                if($updateMenuQuery->update($menuData, $idMenu)){
+                    foreach ($pageToAddToMenu as $titre => $page_id){
 
-                    $pageToUpdate = [
-                        'menu_id' => $idMenu,
-                        'page_id' => $page_id
-                    ];
+                        $pageToUpdate = [
+                            'menu_id' => $idMenu,
+                            'page_id' => $page_id
+                        ];
 
-                    $havePageQuery = new HavePageQuery();
-                    $pageQuery = new PageQuery();
+                        $havePageQuery = new HavePageQuery();
+                        $pageQuery = new PageQuery();
 
-                    if ($page_id == '0'){
+                        if ($page_id == '0'){
 
-                        if (strpos($titre, '_') !== false) {
-                            $titre = str_replace('_', ' ', $titre);
+                            if (strpos($titre, '_') !== false) {
+                                $titre = str_replace('_', ' ', $titre);
+                            }
+
+                            $pageId = $pageQuery->getIdByTitle($titre)['id'];
+                            $pageToUpdate['page_id'] = $pageId;
+
+                            if (!empty($havePageQuery->getById($pageToUpdate['menu_id'], $pageToUpdate['page_id']))){
+                                $deleteHavePage = new HavePageQuery();
+                                $deleteHavePage->delete($pageToUpdate['menu_id'], $pageToUpdate['page_id']);
+                            }
                         }
-
-                        $pageId = $pageQuery->getIdByTitle($titre)['id'];
-                        $pageToUpdate['page_id'] = $pageId;
-
-                        if (!empty($havePageQuery->getById($pageToUpdate['menu_id'], $pageToUpdate['page_id']))){
-                            $deleteHavePage = new HavePageQuery();
-                            $deleteHavePage->delete($pageToUpdate['menu_id'], $pageToUpdate['page_id']);
+                        else{
+                            $getIdQuery = new HavePageQuery();
+                            if (empty($getIdQuery->getById($pageToUpdate['menu_id'], $pageToUpdate['page_id']))){
+                                $createQuery = new HavePageQuery();
+                                $createQuery->create($pageToUpdate);
+                            }
                         }
                     }
-                    else{
-                        $getIdQuery = new HavePageQuery();
-                        if (empty($getIdQuery->getById($pageToUpdate['menu_id'], $pageToUpdate['page_id']))){
-                            $createQuery = new HavePageQuery();
-                            $createQuery->create($pageToUpdate);
-                        }
-                    }
+                    $this->request->redirect('/admin/menu/index', ['flashMessage', 'Le menu a bien été créer, vous pouvez maintenant choisir son emplacement dans le site.']);
                 }
-                $this->request->redirect('/admin/menu/index', ['flashMessage', 'Le menu a bien été créer, vous pouvez maintenant choisir son emplacement dans le site.']);
+                else{
+                    $this->request->redirect('/admin/menu/index', ['flashMessage', 'Une erreur c\'est produite. Veuillez réessayer.']);
+                }
             }
             else{
-                $this->request->redirect('/admin/menu/index', ['flashMessage', 'Une erreur c\'est produite. Veuillez réessayer.']);
+                $pages = $this->pageQuery->getTitleAndId();
+
+                $this->render("admin/menu/editMenu.phtml", ['errors'=>$errors, 'pages'=>$pages]);
             }
         }
     }

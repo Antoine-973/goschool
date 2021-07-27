@@ -3,7 +3,6 @@ namespace App\Controller\Admin;
 
 use Core\Controller;
 use Core\Http\Request;
-use Core\Http\Response;
 use App\Form\MediaAddForm;
 use Core\Http\Session;
 
@@ -11,14 +10,11 @@ class AdminMediaController extends Controller{
 
     private $request;
 
-    private $response;
-
     private $mediaAddForm;
 
     public function __construct()
     {
         $this->request = new Request();
-        $this->response = new Response();
         $this->mediaAddForm = new MediaAddForm();
     }
 

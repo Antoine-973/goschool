@@ -9,7 +9,6 @@ use App\Query\LostPasswordQuery;
 use Core\Controller;
 use Core\Http\Request;
 use Core\Http\Session;
-use Core\Http\Response;
 use App\Form\UserLoginForm;
 use App\Form\UserRegisterForm;
 use App\Model\UserModel;
@@ -23,8 +22,6 @@ use Core\Util\Url;
 class AdminAuthController extends Controller{
 
     private $request;
-
-    private $response;
 
     private $userRegisterForm;
 
@@ -47,7 +44,6 @@ class AdminAuthController extends Controller{
     public function __construct()
     {
         $this->request = new Request();
-        $this->response = new Response();
         $this->userRegisterForm = new UserRegisterForm();
         $this->userModel = new UserModel();
         $this->validator = new Validator();
@@ -80,24 +76,30 @@ class AdminAuthController extends Controller{
             $user = $this->userQuery->getByEmail($data['email']);
 
             if(!empty($data['email']) && !empty($data['password']) ){
-           
+
                 if(!empty($user)){
-                    
                     if($hash->compareHash($data['password'], $user['password_hash'])){
-                        
                         if ($user['verified'] == '1'){
                             $this->session->setSession('user_id',$user['id']);
                             $this->request->redirect('/admin/dashboard/index', ['flashMessage', "Vous êtes désormais connecté ! Bienvenue " . $user['fullname'] .  " !"]);
                         }
+                        else{
+                            $this->request->redirect('/admin/auth/login', ['flashMessage', 'Votre compte n\'est pas validé. Veuillez confirmer votre compte via \'email que nous vous avons envoyé lors de votre inscription.']);
+                        }
                     }
-          
-                }
-       
-            }
-           
-        }
+                    else{
+                        $this->request->redirect('/admin/auth/login', ['flashMessage', 'Vos identifiants ne correpondent pas veuillez réessayer']);
+                    }
 
-        $this->request->redirectToLast();
+                }
+                else{
+                    $this->request->redirect('/admin/auth/login', ['flashMessage', 'Il n\'existe aucun compte GoSchool utilisant cette adresse email.']);
+                }
+            }
+            else{
+                $this->request->redirect('/admin/auth/login', ['flashMessage', 'Vous devez fournir un email et un mot de passe']);
+            }
+        }
     }
 
     public function logout()
