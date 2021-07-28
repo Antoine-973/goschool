@@ -2,6 +2,7 @@
 namespace App\Controller\Admin;
 
 use App\Form\UserProfileForm;
+use App\Query\RoleQuery;
 use Core\Controller;
 use Core\Http\Request;
 use App\Model\UserModel;
@@ -10,6 +11,7 @@ use App\Form\UserEditForm;
 use App\Query\UserQuery;
 use Core\Component\Validator;
 use Core\Http\Session;
+use Core\Util\RolePermission;
 
 class AdminUserController extends Controller {
 
@@ -115,21 +117,30 @@ class AdminUserController extends Controller {
             $data = $this->request->getBody();
             $errors = $this->validator->validate($this->userModel, $data);
 
-            $data['verified'] ='1';
+            $roleQuery = new RoleQuery();
+            $roleId = $roleQuery->getIdbyName($data['role'])['id'];
 
-            if(empty($errors)){
-                if($this->userQuery->create($data))
-                {
-                    $this->request->redirect('/admin/user/list')->with('success', 'L\'utilisateur a bien été crée');
-                }
-                else{
-                    $this->request->redirect('/admin/user/list', ['flashMessage', 'Une erreur c\'est produite veuillez réessayer']);
+            $testPermission = new RolePermission();
+
+            if ($testPermission->canAddUser($roleId)){
+                $data['verified'] ='1';
+
+                if(empty($errors)){
+                    if($this->userQuery->create($data))
+                    {
+                        $this->request->redirect('/admin/user/list')->with('flashMessage', 'L\'utilisateur a bien été crée');
+                    }
+                    else{
+                        $this->request->redirect('/admin/user/list', ['flashMessage', 'Une erreur s\'est produite veuillez réessayer']);
+                    }
+                }else{
+                    $form = new UserAddForm();
+                    $userAddForm = $form->getForm();
+
+                    $this->render("admin/user/addUser.phtml", ['errors' => $errors, 'userAdd'=>$userAddForm]);
                 }
             }else{
-                $form = new UserAddForm();
-                $userAddForm = $form->getForm();
-
-                $this->render("admin/user/addUser.phtml", ['errors' => $errors, 'userAdd'=>$userAddForm]);
+                $this->request->redirect('/admin/user/list', ['flashMessage', 'Vous n\'avez pas les droits pour ajouter un utilisateur avec ce role.']);
             }
         }
     }

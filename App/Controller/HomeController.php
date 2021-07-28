@@ -85,6 +85,10 @@ class HomeController extends Controller{
                     $this->request->redirect('/article/' . $slug, ['flashMessage', 'Une erreur c\'est produite veuillez réessayer']);
                 }
             }
+            else{
+                $request = new Request();
+                $request->redirect('/article/' . $slug, ['flashMessage', 'Impossible d\'envoyer votre commentaire car il contient des caractères non autorisés.']);
+            }
         }
     }
 }

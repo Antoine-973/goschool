@@ -9,6 +9,42 @@ class ArticleModel extends Model
 
     private $content;
 
+    private $slug;
+
+    private $description;
+
+    /**
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param mixed $description
+     */
+    public function setDescription($description): void
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @param mixed $slug
+     */
+    public function setSlug($slug): void
+    {
+        $this->slug = $slug;
+    }
+
     public function setTitle($title)
     {
         $this->title = $title;
@@ -33,7 +69,9 @@ class ArticleModel extends Model
     {
         return [
             'title' => ['id' => 'title', 'type' => 'string',  'min' => 4, 'required' => 'required', 'max' => 200],
-            'content' => ['type' => 'string', 'required' => 'required', 'max' => 6000],
+            'slug' => ['id' => 'slug', 'type' => 'string',  'min' => 4, 'required' => 'required', 'max' => 220],
+            'description' => ['id' => 'description', 'type' => 'string', 'max' => 160],
+            'content' => ['type' => 'string', 'required' => 'required'],
         ];
 
     }

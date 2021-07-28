@@ -5,25 +5,8 @@ use Core\Database\Model;
 
 class CommentModel extends Model
 {
-    private $title;
     private $message;
     private $status;
-
-    /**
-     * @return mixed
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * @param mixed $title
-     */
-    public function setTitle($title): void
-    {
-        $this->title = $title;
-    }
 
     /**
      * @return mixed
@@ -60,8 +43,7 @@ class CommentModel extends Model
     public function rules()
     {
         return [
-            'title' => ['type' => 'string', 'required' => 'required', 'min' => 3, 'max' => 55],
-            'message' => ['type' => 'string', 'required' => 'required', 'min' => 3, 'max' => 280],
+            'message' => ['id' => 'description', 'type' => 'string', 'required' => 'required', 'min' => 3, 'max' => 280],
         ];
     }
 }

@@ -75,6 +75,20 @@ class RolePermission{
         }
     }
 
+    public function canAddUser($userRole){
+        $session = new Session();
+        $myId = $session->getSession('user_id');
+
+        $roleQuery = new UserQuery();
+        $myRole = $roleQuery->getRoleId($myId)['role_id'];
+
+        if ($myRole < $userRole){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 
     public function canEditOrDeleteUser($userId){
 

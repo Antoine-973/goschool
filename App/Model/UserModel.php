@@ -69,9 +69,8 @@ class UserModel extends Model
     public function rules()
     {
         return [
-            'firstname' => ['type' => 'string',  'min' => 3, 'required' => 'required', 'max' => 25],
-            'lastname' => ['type' => 'string',  'min' => 3, 'required' => 'required', 'max' => 25],
-            'username' => ['type' => 'string',  'min' => 3, 'required' => 'required', 'max' => 55],
+            'firstname' => ['id' => 'name', 'type' => 'string',  'min' => 3, 'required' => 'required', 'max' => 25],
+            'lastname' => ['id' => 'name', 'type' => 'string',  'min' => 3, 'required' => 'required', 'max' => 25],
             'email' => ['type' => 'email',  'min' => 8, 'required' => 'required', 'max' => 55],
             'password' => ['type' => 'password',  'min' => 8, 'required' => 'required', 'max' => 55],
             'passwordConfirm' => ['match' => 'password']

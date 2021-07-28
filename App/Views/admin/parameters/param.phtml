@@ -27,14 +27,25 @@
 
     $default_pageQuery = new \App\Query\ParamQuery();
     $default_page_id = $default_pageQuery->getDefaultPage()['default_home_page'];
-    $pageQuery = new \App\Query\PageQuery();
-    $namePage = $pageQuery->getTitleById($default_page_id)['title'];
+
+    if (!is_null($default_page_id)){
+        $pageQuery = new \App\Query\PageQuery();
+        $namePage = $pageQuery->getTitleById($default_page_id)['title'];
+    }
+
 ?>
 
 <h1>Paramètres</h1>
 <?php if(($message = $helper->getFlashMessage('flashMessage'))):?>
     <p><?php echo $message;?></p>
 <?php endif;?>
+<?php if(isset($errors) && !empty($errors)): ?>
+    <ul>
+        <?php foreach($errors as $error): ?>
+            <li><?php echo $error;?></li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
 <div class="content admin-parameters">
             <div class="row">
                 <div class="col-gutter-12">

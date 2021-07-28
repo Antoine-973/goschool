@@ -144,10 +144,7 @@ class AdminArticleController extends Controller {
                     $this->request->redirect('/admin/article/list', ['flashMessage', 'Une erreur c\'est produite veuillez réessayer']);
                 }
             }else{
-                $form = new ArticleEditForm();
-                $articleEditForm = $form->getForm();
-
-                $this->render("admin/user/editArticle.phtml", ['errors' => $errors, 'editArticle'=>$articleEditForm]);
+                $this->request->redirect('/admin/page/edit?id='.$id);
             }
         }
     }

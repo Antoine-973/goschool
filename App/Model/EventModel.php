@@ -81,7 +81,8 @@ class EventModel extends Model
     {
         return [
             'title' => ['id' => 'title', 'type' => 'string',  'min' => 4, 'required' => 'required', 'max' => 150],
-            'description' => ['type' => 'string', 'max' => 200],
+            'slug' => ['id' => 'slug', 'type' => 'string',  'min' => 4, 'required' => 'required', 'max' => 170],
+            'description' => ['id' => 'description', 'type' => 'string', 'max' => 200],
         ];
     }
 }

@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller\Admin;
 
+use App\Model\ParamModel;
 use App\Query\ParamQuery;
 use Core\Controller;
 use Core\Http\Request;
@@ -13,6 +14,8 @@ class AdminParametersController extends Controller{
 
     private $validator;
 
+    private $paramModel;
+
     private $session;
 
     private $paramQuery;
@@ -21,6 +24,8 @@ class AdminParametersController extends Controller{
     {
         $this->request = new Request();
         $this->paramQuery = new ParamQuery();
+        $this->validator = new Validator();
+        $this->paramModel = new ParamModel();
     }
 
     public function index()
@@ -41,14 +46,21 @@ class AdminParametersController extends Controller{
     public function update(){
         if ($this->request->isPost()){
             $data = $this->request->getBody();
-            $paramQuery = new ParamQuery();
-            if ($paramQuery->updateParam($data, '1')){
-                $request = new \Core\Http\Request();
-                $request->redirect('/admin/parameters/index', ['flashMessage','Les paramètres de GoSchool ont été mis à jour.']);
+            $errors = $this->validator->validate($this->paramModel,$data);
+
+            if (empty($errors)){
+                $paramQuery = new ParamQuery();
+                if ($paramQuery->updateParam($data, '1')){
+                    $request = new \Core\Http\Request();
+                    $request->redirect('/admin/parameters/index', ['flashMessage','Les paramètres de GoSchool ont été mis à jour.']);
+                }
+                else{
+                    $request = new \Core\Http\Request();
+                    $request->redirect('/admin/parameters/index', ['flashMessage','Une erreur c\'est produite.']);
+                }
             }
             else{
-                $request = new \Core\Http\Request();
-                $request->redirect('/admin/parameters/index', ['flashMessage','Une erreur c\'est produite.']);
+                $this->render("admin/parameters/param.phtml", ['errors'=>$errors]);
             }
         }
     }

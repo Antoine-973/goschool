@@ -62,7 +62,8 @@ class MenuModel extends Model
     {
         return [
             'name' => ['id' => 'name', 'type' => 'string',  'min' => 4, 'required' => 'required', 'max' => 30],
-            'description' => ['type' => 'string', 'max' => 200],
+            'description' => ['id' => 'description', 'type' => 'string', 'max' => 200],
+            'position' => ['id' => 'name', 'type' => 'string',  'min' => 4, 'max' => 30],
         ];
     }
 }

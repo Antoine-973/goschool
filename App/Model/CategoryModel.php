@@ -11,8 +11,6 @@ class CategoryModel extends Model
 
     private $description;
 
-    private $image;
-
     /**
      * @return mixed
      */
@@ -61,29 +59,12 @@ class CategoryModel extends Model
         $this->description = $description;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
-     * @param mixed $image
-     */
-    public function setImage($image): void
-    {
-        $this->image = $image;
-    }
-
     public function rules()
     {
         return [
             'name' => ['id' => 'name', 'type' => 'string',  'min' => 4, 'required' => 'required', 'max' => 55],
-            'slug' => ['type' => 'string',  'min' => 4, 'max' => 55],
-            'description' => ['type' => 'string', 'max' => 400],
-            'image' => ['type' => 'string', 'max' => 400],
+            'slug' => ['id' => 'slug', 'type' => 'string',  'min' => 4, 'max' => 70],
+            'description' => ['id' => 'description', 'type' => 'string', 'max' => 200],
         ];
     }
 }

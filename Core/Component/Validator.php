@@ -29,27 +29,39 @@ class Validator
         foreach($rules as $key => $value){
 
             if($key == 'type' && $value == 'password'){
-                $this->password = $data;
                 $this->validatePassword($data, $name);
             }
 
             if($key == 'id' && $value == 'title'){
-                $this->url = $data;
                 $this->validateTitle($data, $name);
             }
 
             if($key == 'id' && $value == 'name'){
-                $this->url = $data;
                 $this->validateName($data, $name);
             }
 
+            if($key == 'id' && $value == 'description'){
+                $this->validateDescription($data, $name);
+            }
+
             if($key == 'id' && $value == 'url'){
-                $this->url = $data;
                 $this->validateUrl($data, $name);
+            }
+
+            if($key == 'id' && $value == 'slug'){
+                $this->validateSlug($data, $name);
+            }
+
+            if($key == 'id' && $value == 'link'){
+                $this->validateLink($data, $name);
             }
 
             if($key == 'type' && $value == 'string'){
                 $this->validateString($data, $name);
+            }
+
+            if($key == 'type' && $value == 'number'){
+                $this->validateNumber($data, $name);
             }
 
             if($key == 'type' && $value == 'email'){
@@ -79,6 +91,14 @@ class Validator
             return true;
         }
         $this->errors[] = "Champs $name invalide: doit être une chaine de caractère";
+    }
+
+    protected function validateNumber($value, $name)
+    {
+        if(is_int($value)){
+            return true;
+        }
+        $this->errors[] = "Champs $name invalide: doit être composé seulement de numéro";
     }
 
     protected function validateEmail($value, $name)
@@ -138,9 +158,32 @@ class Validator
         $this->errors[] = "Champs $name invalide : doit contenir au minimum un slash (accueil) et au maximum un slash suivi d'un mot. Doit seulement contenir des lettres minuscules et des tirets, Les urls suivant ne peuvent pas être utilisé : /admin /articles et /article.";
     }
 
+    public function validateSlug($value, $name)
+    {
+        $pattern = "/^[a-z0-9]+(?:-[a-z0-9]+)*$/m";
+
+        if(preg_match($pattern, $value) && $value != '/admin' && $value != '/articles' && $value != '/article'){
+            return true;
+        }
+
+        $this->errors[] = "Champs $name invalide : Doit seulement contenir des lettres minuscules des chiffres et des tirets : slug ou slug1-slug ou slug1-slug3-slug9";
+    }
+
+    public function validateLink($value, $name)
+    {
+        $pattern = "/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&\/\/=]*)/m";
+
+        if(preg_match($pattern, $value)){
+            return true;
+        }
+
+        $this->errors[] = "Champs $name doit être un lien.";
+    }
+
+
     public function validateTitle($value, $name)
     {
-        $pattern = "/^[\w\-\s:?,;.!()&'\"]*$/um";
+        $pattern = "/^[\w\-\s:?,;.!()&]*$/um";
 
         if(preg_match($pattern, $value)){
             return true;
@@ -149,14 +192,26 @@ class Validator
         $this->errors[] = "Champs $name invalide : doit contenir au moins 4 caractères, avec seulement des chiffres, des lettres et des espaces ainsi que les caractères spéciaux de ponctuation.";
     }
 
-    public function validateName($value, $name)
+    public function validateDescription($value, $name)
     {
+        $pattern = "/^[\w\-\s#@'\":?,;.!()&]*$/um";
 
-        if(ctype_alnum((str_replace(' ','', $value)))){
+        if(preg_match($pattern, $value)){
             return true;
         }
 
-        $this->errors[] = "Champs $name invalide : doit contenir au moins 4 caractères, avec seulement des chiffres, des lettres et des espaces";
+        $this->errors[] = "Champs $name invalide : Il y a des caractères spéciaux non autorisé.";
+    }
+
+    public function validateName($value, $name)
+    {
+        $pattern = "/^[\w\-][^0-9_'\"!¡?÷?¿\/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/m";
+
+        if(preg_match($pattern, $value)){
+            return true;
+        }
+
+        $this->errors[] = "Champs $name invalide : doit contenir au moins 4 caractères, avec seulement des lettres, des tirets et des espaces";
     }
 
     protected function validateMatch($value, $name)

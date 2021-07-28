@@ -132,7 +132,7 @@ class AdminPageController extends Controller {
                 }
             }
             else{
-                $this->request->redirect('/admin/page/edit?id='.$id, ['flashMessage', $errors]);
+                $this->request->redirect('/admin/page/edit?id='.$id);
             }
         }
     }

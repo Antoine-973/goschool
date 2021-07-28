@@ -11,6 +11,32 @@ class PageModel extends Model
 
     private $url;
 
+    private $description;
+
+    /**
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param mixed $description
+     */
+    public function setDescription($description): void
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @param mixed $content
+     */
+    public function setContent($content): void
+    {
+        $this->content = $content;
+    }
+
 
     public function setTitle($title)
     {
@@ -41,7 +67,8 @@ class PageModel extends Model
     {
         return [
             'title' => ['id' => 'name', 'type' => 'string', 'min' => 4, 'required' => 'required', 'max' => 55],
-            'content' => ['type' => 'string', 'required' => 'required', 'max' => 6000],
+            'description' => ['id' => 'description', 'type' => 'string', 'max' => 160],
+            'content' => ['type' => 'string', 'required' => 'required'],
             'url' => ['id' => 'url', 'type' => 'string', 'required' => 'required', 'min' => 1, 'max' => 55],
         ];
 
