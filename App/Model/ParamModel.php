@@ -342,10 +342,6 @@ class ParamModel extends Model
             'mail_port' => ['required' => 'required', 'type' => 'number'],
             'mail_login' => ['required' => 'required'],
             'mail_pass' => ['required' => 'required'],
-            'twitter' => ['id' => 'link', 'type' => 'string'],
-            'facebook' => ['id' => 'link', 'type' => 'string'],
-            'linkedin' => ['id' => 'link', 'type' => 'string'],
-            'instagram' => ['id' => 'link', 'type' => 'string'],
             'description' => ['id' => 'description', 'type' => 'string', 'max' => 200],
         ];
 

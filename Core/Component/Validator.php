@@ -96,7 +96,7 @@ class Validator
 
     protected function validateNumber($value, $name)
     {
-        if(is_int($value)){
+        if(ctype_digit($value)){
             return true;
         }
         $this->errors[] = "Champs $name invalide: doit être composé seulement de numéro";
