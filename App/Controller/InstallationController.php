@@ -60,7 +60,7 @@ class InstallationController extends Controller
 
                 if($conn = new DB()){
                     if($conn->applyMigrations()){
-                        if ($this->createAdmin($user_params)){
+                        if ($this->createSuperAdmin($user_params)){
                             $request->redirect('/admin/auth/login');
                         }
                         else{

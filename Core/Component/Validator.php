@@ -29,6 +29,7 @@ class Validator
         foreach($rules as $key => $value){
 
             if($key == 'type' && $value == 'password'){
+                $this->password = $data;
                 $this->validatePassword($data, $name);
             }
 
